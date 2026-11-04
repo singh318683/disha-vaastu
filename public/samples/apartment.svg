@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+  <rect width="1000" height="1000" fill="#f4efe6"/>
+  <g fill="none" stroke="#3f3228" stroke-linecap="square">
+    <path stroke-width="10" d="M80 80 H450 M550 80 H920 V920 H80 V80"/>
+    <path stroke-width="5" d="M640 80 V640 M80 340 H920 M300 340 V640 M80 500 H300 M80 640 H920 M500 640 V920"/>
+  </g>
+  <path d="M450 80 L450 180" fill="none" stroke="#3f3228" stroke-width="4"/>
+  <path d="M550 80 A100 100 0 0 1 450 180" fill="none" stroke="#3f3228" stroke-width="1.5"/>
+  <g stroke="#8c7158" stroke-width="3" fill="none">
+    <path d="M160 80 v18 M200 80 v18 M700 80 v18 M740 80 v18"/>
+    <path d="M920 430 h-18 M920 470 h-18 M80 430 h18 M80 470 h18"/>
+    <path d="M200 920 v-18 M260 920 v-18 M680 920 v-18 M740 920 v-18"/>
+  </g>
+  <g fill="#efe4d4" stroke="#c8b39a" stroke-width="1.5">
+    <rect x="250" y="200" width="120" height="36" rx="4"/>
+    <rect x="700" y="150" width="28" height="28"/>
+    <rect x="700" y="460" width="70" height="36" rx="2"/>
+    <rect x="130" y="540" width="70" height="40" rx="3"/>
+    <rect x="620" y="760" width="90" height="50" rx="3"/>
+    <rect x="210" y="800" width="34" height="34"/>
+  </g>
+  <g fill="#6b5344" font-family="Georgia, serif" font-size="28" text-anchor="middle">
+    <text x="360" y="190">Living</text>
+    <text x="780" y="190">Pooja</text>
+    <text x="190" y="430">Toilet</text>
+    <text x="190" y="590">Bedroom</text>
+    <text x="780" y="500">Study</text>
+    <text x="290" y="760">Kitchen</text>
+    <text x="710" y="740">Master</text>
+  </g>
+  <g fill="#9a7b62" font-family="Outfit, sans-serif" font-size="16" text-anchor="middle">
+    <text x="470" y="470">Open hall</text>
+    <text x="470" y="492">keep the center clear</text>
+  </g>
+  <g fill="#c4622d" font-family="Outfit, sans-serif">
+    <polygon points="500,22 510,42 500,36 490,42"/>
+    <text x="500" y="62" text-anchor="middle" font-size="18" font-weight="600">N</text>
+  </g>
+</svg>

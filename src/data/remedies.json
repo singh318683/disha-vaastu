@@ -1,0 +1,478 @@
+{
+  "items": [
+    {
+      "id": "kitchen-keep",
+      "title": "Leave the kitchen where it is",
+      "detail": "Southeast is the traditional fire corner, and northwest is the usual second choice. Keep the stove clean and the northeast corner of the room uncluttered.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "kitchen-face-east",
+      "title": "Face east while cooking",
+      "detail": "Turn the cook's standing position so you look east. If the stove cannot move, shift the prep spot instead.",
+      "kinds": ["direction"]
+    },
+    {
+      "id": "kitchen-stove-corner",
+      "title": "Slide the stove toward the southeast corner of the room",
+      "detail": "Even when the kitchen itself sits in a poor zone, the stove belongs in the southeast part of that room, a little away from the wall so the flame has air.",
+      "kinds": ["direction", "furniture"]
+    },
+    {
+      "id": "kitchen-colors",
+      "title": "Use a warm, fire-leaning palette",
+      "detail": "Terracotta, saffron, and soft red on one wall or in textiles suit a kitchen. Let black and dark blue stay as small accents, not the whole room.",
+      "kinds": ["color"]
+    },
+    {
+      "id": "kitchen-sink",
+      "title": "Separate water from the flame",
+      "detail": "Keep the sink a step away from the stove. If you can choose a side, water toward the northeast of the kitchen is the traditional pairing.",
+      "kinds": ["element"]
+    },
+    {
+      "id": "kitchen-clutter",
+      "title": "Keep the northeast corner of the kitchen clear",
+      "detail": "No bin, no tall stack of pans. That corner stays light even when the rest of the kitchen is busy.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "kitchen-mirror",
+      "title": "Do not reflect the stove",
+      "detail": "Hang mirrors away from the cooktop. A mirror that doubles the flame is traditionally avoided.",
+      "kinds": ["mirror"]
+    },
+    {
+      "id": "master-keep",
+      "title": "The southwest is the traditional master suite",
+      "detail": "Sleep here with your head toward the south, or east if the bed will not fit that way. Keep the room quiet and a little heavier than the rest of the home.",
+      "kinds": ["direction"]
+    },
+    {
+      "id": "master-head-south",
+      "title": "Put the pillows to the south",
+      "detail": "Head toward the south is the most cited sleeping direction. East is the usual second choice. Avoid sleeping with your head to the north.",
+      "kinds": ["direction"]
+    },
+    {
+      "id": "master-colors",
+      "title": "Use calm earth colors",
+      "detail": "Cream, sand, soft brown, and a muted terracotta keep a bedroom settled. Skip loud red, which belongs with fire, not sleep.",
+      "kinds": ["color"]
+    },
+    {
+      "id": "master-furniture",
+      "title": "Weight the south and west walls",
+      "detail": "Place the wardrobe and the heavier chest on the south or west side. Leave the northeast corner of the room lighter.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "master-mirror",
+      "title": "Keep mirrors off the wall facing the bed",
+      "detail": "A mirror beside the bed is easier to live with than one you look into while lying down. Wardrobe mirrors can face a side wall.",
+      "kinds": ["mirror"]
+    },
+    {
+      "id": "master-elements",
+      "title": "Skip water features in the bedroom",
+      "detail": "No fountain and no large aquarium. A single plant is enough, and not jammed into the southwest corner.",
+      "kinds": ["element"]
+    },
+    {
+      "id": "bed-keep",
+      "title": "This head direction is traditionally preferred",
+      "detail": "South is the first choice and east the second. Keep a little clear space under the bed if you store anything there.",
+      "kinds": ["direction"]
+    },
+    {
+      "id": "bed-shift",
+      "title": "Turn the bed before you move the room",
+      "detail": "Rotate so the pillows point south. If the wall will not allow it, use east. North is the direction traditional guidance asks you to leave.",
+      "kinds": ["direction"]
+    },
+    {
+      "id": "bed-colors",
+      "title": "Soften the textiles",
+      "detail": "Cream, sand, and dusty rose on the bedcover do more than repainting. Avoid an all-black bedroom if the direction is already poor.",
+      "kinds": ["color"]
+    },
+    {
+      "id": "bed-mirror",
+      "title": "Move a mirror that faces the pillows",
+      "detail": "Shift it to a side wall, or drape it at night if it is fixed to a wardrobe door you cannot relocate.",
+      "kinds": ["mirror"]
+    },
+    {
+      "id": "bed-storage",
+      "title": "Keep under-bed storage light",
+      "detail": "Shoes, electronics, and heavy boxes under the mattress are traditionally discouraged. A low, empty space sleeps more quietly.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "pooja-keep",
+      "title": "The northeast is the traditional shrine",
+      "detail": "Keep it clean, lit, and free of storage. Face east while you pray, which usually means the images face west.",
+      "kinds": ["direction"]
+    },
+    {
+      "id": "pooja-corner",
+      "title": "Make a small northeast shrine inside the room",
+      "detail": "If the room cannot move, place the images in the northeast corner of that room, raised a little off the floor, with nothing stored above them.",
+      "kinds": ["direction", "furniture"]
+    },
+    {
+      "id": "pooja-face",
+      "title": "Face east when you pray",
+      "detail": "Stand or sit so you look east. North is the other traditional facing. The images themselves then look back toward you.",
+      "kinds": ["direction"]
+    },
+    {
+      "id": "pooja-colors",
+      "title": "Keep the shrine light in color",
+      "detail": "White, light yellow, and a pale sandal tone are the usual choices. Avoid black, and avoid a loud red wall behind the images.",
+      "kinds": ["color"]
+    },
+    {
+      "id": "pooja-mirror",
+      "title": "Do not face the shrine with a mirror",
+      "detail": "A mirror opposite the images is traditionally avoided. If one is already there, shift it to a side wall.",
+      "kinds": ["mirror"]
+    },
+    {
+      "id": "pooja-lamp",
+      "title": "Use a small lamp, not a fountain",
+      "detail": "A brass or copper lamp is the traditional fire element here. If you keep water, use a clean bowl rather than a running fountain beside the images.",
+      "kinds": ["element"]
+    },
+    {
+      "id": "pooja-toilet",
+      "title": "Break the line of sight to the toilet",
+      "detail": "Keep the toilet door closed. If the two rooms share a wall, a full-height cabinet on the shrine side is a common non-structural buffer. Do not place the images on that shared wall.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "toilet-keep",
+      "title": "West-northwest and south-southwest are the cited toilet zones",
+      "detail": "Keep the lid down, the door shut, and the fan in use. That is the maintenance side of a placement that is already acceptable.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "toilet-vent",
+      "title": "Ventilate, and prefer a west or northwest exhaust",
+      "detail": "Use the fan. If a duct can leave toward the west or northwest, that is the traditional preference. Any reliable exhaust is better than a sealed room.",
+      "kinds": ["direction"]
+    },
+    {
+      "id": "toilet-colors",
+      "title": "Choose a muted finish",
+      "detail": "Sand, warm grey, or a deeper stone tone suits a toilet that sits in a poor zone. Bright white-and-blue, which reads as a shrine palette, is the combination to avoid.",
+      "kinds": ["color"]
+    },
+    {
+      "id": "toilet-mirror",
+      "title": "Do not reflect the toilet",
+      "detail": "Place the mirror beside the basin so it does not face the seat. Skip a mirrored wall opposite it.",
+      "kinds": ["mirror"]
+    },
+    {
+      "id": "toilet-salt",
+      "title": "A bowl of rock salt is the usual household remedy",
+      "detail": "Leave a small open bowl of rock salt in the room and replace it every few weeks. It is a widely circulated traditional suggestion where the toilet cannot be moved.",
+      "kinds": ["element"]
+    },
+    {
+      "id": "toilet-closed",
+      "title": "Keep the door and lid closed",
+      "detail": "Especially if the door is visible from the pooja room, the living room, or the main entrance. A closed door is the simplest fix.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "center-severe",
+      "title": "The center wants to stay open",
+      "detail": "The Brahmasthan, the middle of the home, is traditionally left light and empty. A toilet, kitchen, or stair here is the placement texts most want changed. Until that is possible, keep the door shut, the middle as clear as the plan allows, and heavy storage out of the exact center.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "center-caution",
+      "title": "Lighten whatever covers the center",
+      "detail": "If this room sits on the Brahmasthan, keep that middle free of a heavy cupboard or a bed. A low table you can walk around is easier to live with than a solid block of furniture.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "living-keep",
+      "title": "North and east are the traditional living zones",
+      "detail": "Seat people so they look north or east, and leave those sides a little more open than the south and west.",
+      "kinds": ["direction"]
+    },
+    {
+      "id": "living-seat",
+      "title": "Turn the seating north or east",
+      "detail": "The main sofa can back onto the south or west wall so that people face north or east. That is the change to make before any paint.",
+      "kinds": ["direction", "furniture"]
+    },
+    {
+      "id": "living-weight",
+      "title": "Put weight on the south and west",
+      "detail": "Heavier storage and the long sofa belong on the south or west side. Keep the north and east lighter, with lower furniture.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "living-colors",
+      "title": "Stay with cream, soft green, or a quiet blue",
+      "detail": "Those are the usual living-room colors in this system. A saffron cushion is plenty of accent if the room already sits in a heavy zone.",
+      "kinds": ["color"]
+    },
+    {
+      "id": "living-mirror",
+      "title": "A mirror on the north or east wall opens the room",
+      "detail": "Use it to lengthen a cramped living room. Do not hang it directly opposite the main door.",
+      "kinds": ["mirror"]
+    },
+    {
+      "id": "living-plants",
+      "title": "One plant, north or east",
+      "detail": "A healthy plant on the north or east side is the living element traditionally added here. Do not fill the center with a cluster of pots.",
+      "kinds": ["element"]
+    },
+    {
+      "id": "study-keep",
+      "title": "Face east or north at the desk",
+      "detail": "North, northeast, and east are the traditional study zones. Sit with a solid wall behind the chair.",
+      "kinds": ["direction"]
+    },
+    {
+      "id": "study-face",
+      "title": "Turn the desk to face east or north",
+      "detail": "The direction you look matters as much as the room. East is the first choice, north the second. Avoid facing a wall a few inches from your nose if you can look across the room instead.",
+      "kinds": ["direction"]
+    },
+    {
+      "id": "study-seat",
+      "title": "Sit with a solid wall at your back",
+      "detail": "A window or an open door behind the chair is traditionally avoided. Shift the desk so the wall is behind you and, if you can, so you are not seated under a beam.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "study-colors",
+      "title": "Light green, pale yellow, or cream",
+      "detail": "Those are the usual study colors. A green desk blotter or a pale wall does the job without a full repaint.",
+      "kinds": ["color"]
+    },
+    {
+      "id": "study-mirror",
+      "title": "Do not face a mirror while working",
+      "detail": "Move it off the wall in front of the desk. A mirror behind you is less distracting than one in your line of sight.",
+      "kinds": ["mirror"]
+    },
+    {
+      "id": "study-shelf",
+      "title": "Put the bookshelf on the south or west",
+      "detail": "Books are weight. The south or west wall carries them more comfortably in this system than the northeast corner.",
+      "kinds": ["furniture", "element"]
+    },
+    {
+      "id": "desk-keep",
+      "title": "East and north are the traditional facing directions",
+      "detail": "Stay with this orientation. A clear desk and a wall behind the chair are the only upkeep.",
+      "kinds": ["direction"]
+    },
+    {
+      "id": "desk-turn",
+      "title": "Rotate the chair to face east",
+      "detail": "East is the first choice for a desk, north the second. South is the facing traditional notes most often ask you to leave. You do not need to move the room.",
+      "kinds": ["direction"]
+    },
+    {
+      "id": "desk-wall",
+      "title": "Back the chair with a wall",
+      "detail": "Leave a little open space in front of you, toward the north or east of the desk if the room allows.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "desk-colors",
+      "title": "A pale desktop",
+      "detail": "Cream, light wood, or pale green on the desktop and chair keep a study from feeling heavy. Avoid an all-black setup if the facing is already poor.",
+      "kinds": ["color"]
+    },
+    {
+      "id": "desk-mirror",
+      "title": "Keep the screen, not a mirror, in front of you",
+      "detail": "A mirror facing the seat competes with the work. Shift it to the side.",
+      "kinds": ["mirror"]
+    },
+    {
+      "id": "door-keep",
+      "title": "North, northeast, and east entrances are the preferred zones",
+      "detail": "Classical texts go further and judge each wall by pada, a finer slice than these 16 zones. At zone level, keep this entrance lit, clear, and unobstructed.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "door-light",
+      "title": "Light the threshold",
+      "detail": "A lamp on each side of a south or southwest door is the usual non-structural remedy. The approach should be bright in the evening.",
+      "kinds": ["element"]
+    },
+    {
+      "id": "door-clear",
+      "title": "Clear the swing of the door",
+      "detail": "Shoes, bins, and a shoe rack belong off to the side, not in the path. The door should open fully.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "door-color",
+      "title": "Choose a warm door color",
+      "detail": "Wood, deep red, saffron, or a sandy tone are the traditional door colors. Solid black is the one usually avoided.",
+      "kinds": ["color"]
+    },
+    {
+      "id": "door-mirror",
+      "title": "No mirror directly opposite the door",
+      "detail": "Move it to a side wall so the entrance is not reflected straight back out.",
+      "kinds": ["mirror"]
+    },
+    {
+      "id": "door-plant",
+      "title": "A plant beside the approach",
+      "detail": "A healthy plant just outside, traditionally to the right as you leave, softens an entrance that sits in a heavier zone. Replace it when it struggles.",
+      "kinds": ["element"]
+    },
+    {
+      "id": "door-threshold",
+      "title": "Keep a clean threshold",
+      "detail": "A slightly raised sill, a nameplate at eye level, and no broken fixture at the door. These are the small traditional corrections when the wall itself cannot change.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "child-keep",
+      "title": "West and northwest suit children in this system",
+      "detail": "The southwest is kept for the adults. Head toward the east or south, and keep the room lighter than the master bedroom.",
+      "kinds": ["direction"]
+    },
+    {
+      "id": "child-head",
+      "title": "Pillows to the east or south",
+      "detail": "Turn the bed before you try to swap rooms. East is a comfortable fit in many children's rooms; south is the other cited choice.",
+      "kinds": ["direction"]
+    },
+    {
+      "id": "child-colors",
+      "title": "Light green, soft blue, or cream",
+      "detail": "Keep the palette light. A very dark, heavy room is the look traditional notes discourage for children.",
+      "kinds": ["color"]
+    },
+    {
+      "id": "child-furniture",
+      "title": "Keep storage from piling into the southwest corner",
+      "detail": "Lighter furniture, and the heaviest piece against the west or south wall rather than blocking the middle.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "child-mirror",
+      "title": "Mirror on a side wall",
+      "detail": "Not facing the bed. A closet mirror can swing away from the pillows.",
+      "kinds": ["mirror"]
+    },
+    {
+      "id": "guest-keep",
+      "title": "Northwest is the traditional guest room",
+      "detail": "It is meant to be pleasant and not too heavy. Head toward the east or south, as in the other bedrooms.",
+      "kinds": ["direction"]
+    },
+    {
+      "id": "dining-keep",
+      "title": "West is the traditional dining side",
+      "detail": "Sit so you face east or north while you eat. The table can stay.",
+      "kinds": ["direction"]
+    },
+    {
+      "id": "dining-face",
+      "title": "Face east or north at the table",
+      "detail": "Turn the chairs so the main seats look east, or north if east is the wall. This is the change that does not require moving the room.",
+      "kinds": ["direction"]
+    },
+    {
+      "id": "dining-colors",
+      "title": "Warm, appetizing colors",
+      "detail": "Cream, soft orange, and light green are the usual dining colors. Avoid a cold, all-grey room if the zone is already weak.",
+      "kinds": ["color"]
+    },
+    {
+      "id": "dining-mirror",
+      "title": "A mirror may reflect the table",
+      "detail": "Unlike the bedroom, a mirror that shows the dining table is a traditional suggestion, read as a sense of plenty. Keep it on a side wall, not opposite the main door of the home.",
+      "kinds": ["mirror"]
+    },
+    {
+      "id": "dining-sideboard",
+      "title": "Heavier storage to the south or west",
+      "detail": "The sideboard and china cabinet belong on the south or west wall of the dining room.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "store-keep",
+      "title": "Heavy storage belongs south, southwest, or northwest",
+      "detail": "Keep the northeast of the home free of a junk room. Inside the storeroom, put the heaviest shelves on the south or west wall.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "store-weight",
+      "title": "Stack weight to the south or west of the room",
+      "detail": "If the storeroom itself is in a poor zone, still push the heavy shelves to the south or west side of that room and leave the northeast corner of the room emptier.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "store-colors",
+      "title": "Earth colors, and a shut door",
+      "detail": "Sand and brown suit a store. Keep the door closed so the clutter is not the first thing the entrance sees.",
+      "kinds": ["color"]
+    },
+    {
+      "id": "store-clear-ne",
+      "title": "Do not let the northeast become the dump",
+      "detail": "If the only store is in the northeast, keep it sparse, light, and clean. Move what you can to a cupboard on the south or west of some other room.",
+      "kinds": ["furniture", "element"]
+    },
+    {
+      "id": "stair-keep",
+      "title": "South, southwest, and west are the usual stair zones",
+      "detail": "Climbing toward the south or west is the traditional preference. The exact center of the home should not be the stair.",
+      "kinds": ["direction"]
+    },
+    {
+      "id": "stair-turn",
+      "title": "Use the flight that climbs south or west",
+      "detail": "Where a stair has a turn, the main climb toward the south or west is the one traditional notes prefer. You cannot always rebuild it. Keep the center of the home clear of the first step if you can.",
+      "kinds": ["direction"]
+    },
+    {
+      "id": "stair-under",
+      "title": "Storage under the stair, not a shrine",
+      "detail": "The space beneath a stair can hold shoes or boxes. It is traditionally a poor place for the pooja.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "balcony-keep",
+      "title": "North, east, and northeast balconies are preferred",
+      "detail": "Keep them open. Plants do well here. Avoid closing a north or east balcony into a heavy store.",
+      "kinds": ["element"]
+    },
+    {
+      "id": "balcony-plants",
+      "title": "Plants on the north or east railing",
+      "detail": "A few healthy plants are the traditional addition. Do not line the whole balcony with tall stored junk.",
+      "kinds": ["element"]
+    },
+    {
+      "id": "balcony-screen",
+      "title": "Screen a southwest balcony rather than opening it further",
+      "detail": "A balcony in the southwest is traditionally kept smaller in feel: a bit more screening, fewer extra openings, and no heavy water tank if you can place that elsewhere.",
+      "kinds": ["furniture"]
+    },
+    {
+      "id": "balcony-color",
+      "title": "Light colors on an open balcony",
+      "detail": "Cream and soft green keep a north or east balcony in character. A dark enclosed finish fights the openness these zones are meant to have.",
+      "kinds": ["color"]
+    }
+  ]
+}
