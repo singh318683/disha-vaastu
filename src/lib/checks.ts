@@ -1,10 +1,8 @@
 import file from "../data/checks.json" with { type: "json" };
 import { normalizeDegrees } from "./angles.ts";
 import {
-  DIR8_LABEL,
   directionFromHeading,
   expectedSlotIds,
-  isDir8,
   padaSide,
   slotFromHeading,
   type Dir8,
@@ -12,39 +10,39 @@ import {
   type PadaSide,
 } from "./bearings.ts";
 import { isCheckIcon } from "./checkIcons.ts";
-import { zoneById, type ZoneId } from "./zones.ts";
+import { directionName, facingName, isL10n, lt, type L10n, type Locale } from "./l10n.ts";
 
 export type Rating = "auspicious" | "neutral" | "inauspicious";
 export type CheckReference = "facing-out" | "pointing-from-center";
 
 export interface CheckZone {
   id: string;
-  name: string;
+  name: L10n;
   rating: Rating;
-  meaning: string;
-  remedies: string[];
+  meaning: L10n;
+  remedies: L10n[];
 }
 
 export interface VaastuCheck {
   id: string;
-  title: string;
-  blurb: string;
+  title: L10n;
+  blurb: L10n;
   icon: string;
-  group: string;
+  group: L10n;
   reference: CheckReference;
   granularity: Granularity;
-  instructions: string;
-  bestNote: string;
-  facingNotes?: Partial<Record<PadaSide, string>>;
-  resultNoun?: string;
-  detailNote?: string;
+  instructions: L10n;
+  bestNote: L10n;
+  facingNotes?: Partial<Record<PadaSide, L10n>>;
+  resultNoun?: L10n;
+  detailNote?: L10n;
   zones: CheckZone[];
 }
 
 export interface CheckCatalog {
   version: number;
-  framing: string;
-  convention: string;
+  framing: L10n;
+  convention: L10n;
   checks: VaastuCheck[];
 }
 
@@ -64,22 +62,22 @@ function requiredString(source: Record<string, unknown>, key: string, label: str
   return value.trim();
 }
 
+function loadL10n(value: unknown, label: string): L10n {
+  if (!isL10n(value)) throw new Error(`${label} needs en and hi`);
+  return { en: value.en.trim(), hi: value.hi.trim() };
+}
+
 function loadZone(raw: unknown, checkId: string, index: number): CheckZone {
   const zone = asRecord(raw, `${checkId} zone ${index}`);
   const id = requiredString(zone, "id", checkId);
-  const name = requiredString(zone, "name", checkId);
+  const name = loadL10n(zone.name, `${checkId} ${id} name`);
   const rating = zone.rating;
   if (typeof rating !== "string" || !RATINGS.has(rating as Rating)) {
     throw new Error(`${checkId} zone ${id} has an unknown rating`);
   }
-  const meaning = requiredString(zone, "meaning", `${checkId} ${id}`);
+  const meaning = loadL10n(zone.meaning, `${checkId} ${id} meaning`);
   if (!Array.isArray(zone.remedies)) throw new Error(`${checkId} ${id} remedies must be a list`);
-  const remedies = zone.remedies.map((item, remedyIndex) => {
-    if (typeof item !== "string" || !item.trim()) {
-      throw new Error(`${checkId} ${id} remedy ${remedyIndex} is empty`);
-    }
-    return item.trim();
-  });
+  const remedies = zone.remedies.map((item, remedyIndex) => loadL10n(item, `${checkId} ${id} remedy ${remedyIndex}`));
   if (rating === "auspicious" && remedies.length > 1) {
     throw new Error(`${checkId} ${id} should keep an ideal placement, not a list of fixes`);
   }
@@ -122,25 +120,23 @@ function loadCheck(raw: unknown, index: number): VaastuCheck {
     const notes = asRecord(source.facingNotes, `${id} facingNotes`);
     facingNotes = {};
     for (const side of ["N", "E", "S", "W"] as const) {
-      facingNotes[side] = requiredString(notes, side, `${id} facingNotes`);
+      facingNotes[side] = loadL10n(notes[side], `${id} facingNotes ${side}`);
     }
   }
 
-  const detail = source.detailNote;
-  const noun = source.resultNoun;
   return {
     id,
-    title: requiredString(source, "title", id),
-    blurb: requiredString(source, "blurb", id),
+    title: loadL10n(source.title, `${id} title`),
+    blurb: loadL10n(source.blurb, `${id} blurb`),
     icon,
-    group: requiredString(source, "group", id),
+    group: loadL10n(source.group, `${id} group`),
     reference: reference as CheckReference,
     granularity,
-    instructions: requiredString(source, "instructions", id),
-    bestNote: requiredString(source, "bestNote", id),
+    instructions: loadL10n(source.instructions, `${id} instructions`),
+    bestNote: loadL10n(source.bestNote, `${id} bestNote`),
     ...(facingNotes ? { facingNotes } : {}),
-    ...(typeof noun === "string" && noun.trim() ? { resultNoun: noun.trim() } : {}),
-    ...(typeof detail === "string" && detail.trim() ? { detailNote: detail.trim() } : {}),
+    ...(source.resultNoun ? { resultNoun: loadL10n(source.resultNoun, `${id} resultNoun`) } : {}),
+    ...(source.detailNote ? { detailNote: loadL10n(source.detailNote, `${id} detailNote`) } : {}),
     zones,
   };
 }
@@ -154,8 +150,8 @@ function loadCatalog(raw: unknown): CheckCatalog {
   if (new Set(ids).size !== ids.length) throw new Error("duplicate check id");
   return {
     version: source.version,
-    framing: requiredString(source, "framing", "checks file"),
-    convention: requiredString(source, "convention", "checks file"),
+    framing: loadL10n(source.framing, "checks file framing"),
+    convention: loadL10n(source.convention, "checks file convention"),
     checks,
   };
 }
@@ -176,22 +172,23 @@ export function requireCheck(id: string): VaastuCheck {
 }
 
 export interface CheckGroup {
-  group: string;
+  group: L10n;
   checks: VaastuCheck[];
 }
 
 export function checkGroups(checks: readonly VaastuCheck[] = CHECKS): CheckGroup[] {
   const order: string[] = [];
-  const map = new Map<string, VaastuCheck[]>();
+  const map = new Map<string, { group: L10n; checks: VaastuCheck[] }>();
   for (const check of checks) {
-    const list = map.get(check.group);
-    if (list) list.push(check);
+    const key = check.group.en;
+    const list = map.get(key);
+    if (list) list.checks.push(check);
     else {
-      map.set(check.group, [check]);
-      order.push(check.group);
+      map.set(key, { group: check.group, checks: [check] });
+      order.push(key);
     }
   }
-  return order.map((group) => ({ group, checks: map.get(group)! }));
+  return order.map((key) => map.get(key)!);
 }
 
 export interface QuizVerdict {
@@ -219,36 +216,38 @@ function zoneOf(check: VaastuCheck, slotId: string): CheckZone {
   return zone;
 }
 
-function friendlyName(check: VaastuCheck, slotId: string, fallback: string): string {
-  if (check.granularity === 16) return zoneById(slotId as ZoneId).label;
-  if (check.granularity === 8 && isDir8(slotId)) return DIR8_LABEL[slotId];
-  return fallback;
-}
-
-export function verdictForHeading(check: VaastuCheck, heading: number): QuizVerdict {
+export function verdictForHeading(check: VaastuCheck, heading: number, locale: Locale = "en"): QuizVerdict {
   const normalized = normalizeDegrees(heading);
   const slotId = slotFromHeading(normalized, check.granularity);
   const zone = zoneOf(check, slotId);
   const direction = directionFromHeading(heading);
-  const directionLabel = DIR8_LABEL[direction];
-  const slotName = zone.name || friendlyName(check, slotId, zone.name);
+  const directionLabel = directionName(direction, locale);
+  const slotName = lt(zone.name, locale);
 
   let facingLabel = slotName;
   let placementLine = "";
   let slotLine = slotName;
-  let bestNote = check.bestNote;
+  let bestNote = lt(check.bestNote, locale);
   let toward: string | null = null;
 
   if (check.granularity === 32) {
     const side = padaSide(slotId);
-    facingLabel = `${DIR8_LABEL[side]}-facing`;
+    facingLabel = facingName(side, locale);
     placementLine = facingLabel;
-    const noun = check.resultNoun;
-    slotLine = noun ? `Your ${noun} is in ${slotId} · ${slotName}` : `${slotId} · ${slotName}`;
-    bestNote = check.facingNotes?.[side] ?? check.bestNote;
+    const noun = check.resultNoun ? lt(check.resultNoun, locale) : "";
+    slotLine = noun
+      ? locale === "hi"
+        ? `आपका ${noun} ${slotId} · ${slotName} में है`
+        : `Your ${noun} is in ${slotId} · ${slotName}`
+      : `${slotId} · ${slotName}`;
+    bestNote = lt(check.facingNotes?.[side] ?? check.bestNote, locale);
     if (direction === "NE" || direction === "SE" || direction === "SW" || direction === "NW") {
-      toward = `Toward the ${directionLabel.toLowerCase()}.`;
+      toward = locale === "hi" ? `${directionLabel} की तरफ़।` : `Toward the ${directionLabel.toLowerCase()}.`;
     }
+  } else if (locale === "hi") {
+    placementLine = check.reference === "facing-out" ? `${slotName} की ओर मुख` : `${slotName} की ओर`;
+    facingLabel = placementLine;
+    slotLine = slotName;
   } else if (check.reference === "facing-out") {
     placementLine = `Facing ${slotName.toLowerCase()}`;
     facingLabel = placementLine;
@@ -265,8 +264,8 @@ export function verdictForHeading(check: VaastuCheck, heading: number): QuizVerd
     slotId,
     slotName,
     rating: zone.rating,
-    meaning: zone.meaning,
-    remedies: zone.remedies,
+    meaning: lt(zone.meaning, locale),
+    remedies: zone.remedies.map((item) => lt(item, locale)),
     direction,
     directionLabel,
     facingLabel,
@@ -286,44 +285,25 @@ export interface Harmony {
   total: number;
 }
 
-export function harmonyOf(ratings: readonly Rating[]): Harmony {
+export function harmonyOf(ratings: readonly Rating[], locale: Locale = "en"): Harmony {
   const auspicious = ratings.filter((rating) => rating === "auspicious").length;
   const neutral = ratings.filter((rating) => rating === "neutral").length;
   const inauspicious = ratings.filter((rating) => rating === "inauspicious").length;
   const total = ratings.length;
-  if (total === 0) {
-    return {
-      title: "Home harmony",
-      line: "Check a place to begin.",
-      auspicious,
-      neutral,
-      inauspicious,
-      total,
-    };
-  }
-  if (inauspicious === 0 && auspicious >= neutral) {
-    return {
-      title: "A calm home",
-      line: "What you checked already sits gently.",
-      auspicious,
-      neutral,
-      inauspicious,
-      total,
-    };
-  }
-  if (inauspicious <= Math.max(1, Math.floor(total / 4))) {
-    return {
-      title: "Nearly there",
-      line: "A few gentle fixes cover what is left.",
-      auspicious,
-      neutral,
-      inauspicious,
-      total,
-    };
-  }
+  const copy =
+    total === 0
+      ? { title: { en: "Home harmony", hi: "घर का संतुलन" }, line: { en: "Check a place to begin.", hi: "शुरू करने के लिए एक जगह देखें।" } }
+      : inauspicious === 0 && auspicious >= neutral
+        ? { title: { en: "A calm home", hi: "शांत घर" }, line: { en: "What you checked already sits gently.", hi: "जो आपने देखा, वह पहले से सहज बैठा है।" } }
+        : inauspicious <= Math.max(1, Math.floor(total / 4))
+          ? { title: { en: "Nearly there", hi: "लगभग ठीक" }, line: { en: "A few gentle fixes cover what is left.", hi: "बाकी के लिए कुछ हल्के उपाय काफी हैं।" } }
+          : {
+              title: { en: "Some care will help", hi: "थोड़ी देखभाल से बेहतर होगा" },
+              line: { en: "Nothing here asks you to rebuild. Small changes are enough.", hi: "यहाँ कुछ तोड़ने को नहीं कहता। छोटे बदलाव काफी हैं।" },
+            };
   return {
-    title: "Some care will help",
-    line: "Nothing here asks you to rebuild. Small changes are enough.",
+    title: lt(copy.title, locale),
+    line: lt(copy.line, locale),
     auspicious,
     neutral,
     inauspicious,

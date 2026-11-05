@@ -8,12 +8,14 @@ const CLASSICAL_GOOD = ["E3", "E4", "S4", "W4", "W5", "N3", "N4", "N5"];
 
 describe("check catalog", () => {
   it("documents the 32-pada compass convention", () => {
-    expect(CHECK_CATALOG.framing.toLowerCase()).toContain("traditional vaastu");
-    expect(CHECK_CATALOG.convention).toContain("11.25");
-    expect(CHECK_CATALOG.convention).toContain("N5");
-    expect(CHECK_CATALOG.convention).toContain("0°");
-    expect(CHECK_CATALOG.convention).toContain("360°");
-    expect(CHECK_CATALOG.convention.toLowerCase()).toContain("clockwise");
+    expect(CHECK_CATALOG.framing.en.toLowerCase()).toContain("traditional vaastu");
+    expect(CHECK_CATALOG.framing.hi).toMatch(/[\u0900-\u097F]/);
+    expect(CHECK_CATALOG.convention.en).toContain("11.25");
+    expect(CHECK_CATALOG.convention.en).toContain("N5");
+    expect(CHECK_CATALOG.convention.en).toContain("0°");
+    expect(CHECK_CATALOG.convention.en).toContain("360°");
+    expect(CHECK_CATALOG.convention.en.toLowerCase()).toContain("clockwise");
+    expect(CHECK_CATALOG.convention.hi).toMatch(/[\u0900-\u097F]/);
   });
 
   it("gives every check a complete, unique zone list and usable remedies", () => {
@@ -23,15 +25,19 @@ describe("check catalog", () => {
       expect(ids.has(check.id)).toBe(false);
       ids.add(check.id);
       expect(isCheckIcon(check.icon)).toBe(true);
-      expect(check.instructions.length).toBeGreaterThan(20);
-      expect(check.bestNote.length).toBeGreaterThan(8);
+      expect(check.instructions.en.length).toBeGreaterThan(20);
+      expect(check.instructions.hi).toMatch(/[\u0900-\u097F]/);
+      expect(check.bestNote.en.length).toBeGreaterThan(8);
+      expect(check.bestNote.hi).toMatch(/[\u0900-\u097F]/);
       expect(check.reference === "facing-out" || check.reference === "pointing-from-center").toBe(true);
       const expected = expectedSlotIds(check.granularity);
       expect(check.zones.map((zone) => zone.id).sort()).toEqual([...expected].sort());
       expect(check.zones.some((zone) => zone.rating === "auspicious")).toBe(true);
       for (const zone of check.zones) {
-        expect(zone.name.length).toBeGreaterThan(0);
-        expect(zone.meaning.length).toBeGreaterThan(0);
+        expect(zone.name.en.length).toBeGreaterThan(0);
+        expect(zone.name.hi).toMatch(/[\u0900-\u097F]/);
+        expect(zone.meaning.en.length).toBeGreaterThan(0);
+        expect(zone.meaning.hi).toMatch(/[\u0900-\u097F]/);
         expect(["auspicious", "neutral", "inauspicious"]).toContain(zone.rating);
         if (zone.rating === "auspicious") expect(zone.remedies.length).toBeLessThanOrEqual(1);
         else expect(zone.remedies.length).toBeGreaterThanOrEqual(2);
@@ -39,7 +45,8 @@ describe("check catalog", () => {
         expect(new Set(zone.remedies).size).toBe(zone.remedies.length);
       }
       if (check.granularity === 32) {
-        expect(check.facingNotes?.N).toBeTruthy();
+        expect(check.facingNotes?.N?.en).toBeTruthy();
+        expect(check.facingNotes?.N?.hi).toMatch(/[\u0900-\u097F]/);
         expect(check.facingNotes?.E).toBeTruthy();
         expect(check.facingNotes?.S).toBeTruthy();
         expect(check.facingNotes?.W).toBeTruthy();
@@ -57,8 +64,10 @@ describe("check catalog", () => {
     expect(door.zones.find((zone) => zone.id === "S3")?.rating).toBe("neutral");
     expect(door.zones.find((zone) => zone.id === "W3")?.rating).toBe("neutral");
     for (const zone of door.zones) {
-      expect(zone.meaning.toLowerCase()).not.toMatch(/daughter|women/);
+      expect(zone.meaning.en.toLowerCase()).not.toMatch(/daughter|women/);
+      expect(zone.name.hi).toMatch(/[\u0900-\u097F]/);
     }
+    expect(door.zones.find((zone) => zone.id === "N5")?.name.hi).toBe("सोम");
   });
 });
 
@@ -74,6 +83,12 @@ describe("verdict lookup", () => {
     expect(verdict.bestNote.toLowerCase()).toContain("wealth");
     expect(verdict.toward).toBeNull();
     expect(verdictForHeading(requireCheck("main_door"), 360)).toEqual(verdict);
+    const hindi = verdictForHeading(requireCheck("main_door"), 0, "hi");
+    expect(hindi.slotName).toBe("सोम");
+    expect(hindi.placementLine).toBe("उत्तरमुखी");
+    expect(hindi.slotLine).toContain("N5");
+    expect(hindi.meaning).toMatch(/[\u0900-\u097F]/);
+    expect(hindi.bestNote).toContain("N3");
   });
 
   it("wraps the northwest corner onto N1 and offers remedies", () => {

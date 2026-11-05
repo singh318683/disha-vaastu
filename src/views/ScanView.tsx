@@ -1,5 +1,6 @@
 import { ImagePlus, Trash2 } from "lucide-react";
 import { useRef, useState } from "react";
+import { useI18n } from "@/i18n/I18nProvider.tsx";
 import { FloorPlanCanvas, alignmentLabel } from "@/components/FloorPlanEditor.tsx";
 import { RoomChips } from "@/components/RoomChips.tsx";
 import { Disclaimer, TierMark } from "@/components/VerdictCard.tsx";
@@ -17,12 +18,15 @@ import { compressImage } from "@/lib/images.ts";
 import { ROOM_RULES } from "@/lib/rules.ts";
 import { scoreColor, scoreProperty } from "@/lib/scoring.ts";
 import type { FloorPlan, Point, TaggedRoom } from "@/lib/types.ts";
+import { directionName, getLocale } from "@/lib/l10n.ts";
+import { UI } from "@/i18n/messages.ts";
 import { zoneById } from "@/lib/zones.ts";
 import { useProperties } from "@/state/properties.tsx";
 import { useSensors } from "@/state/sensors.tsx";
 
 export function ScanView() {
   const homes = useProperties();
+  const { t, u } = useI18n();
   const sensors = useSensors();
   const fileRef = useRef<HTMLInputElement>(null);
   const active = homes.active;
@@ -192,7 +196,7 @@ export function ScanView() {
                   className="mt-3 max-w-sm"
                 />
                 <Button className="mt-3" onClick={tagPoint}>
-                  Tag {ROOM_RULES.find((rule) => rule.id === roomType)?.label} · {effective.zone.label}
+                  {u("tagPointing")} {t(ROOM_RULES.find((rule) => rule.id === roomType)?.label)} · {directionName(effective.zone.id)}
                 </Button>
               </div>
             ) : (
@@ -351,7 +355,7 @@ export function ScanView() {
             className="mt-3"
           />
           <Button className="mt-4 w-full" onClick={addPlanRoom}>
-            Add {ROOM_RULES.find((rule) => rule.id === planType)?.label}
+            {u("add")} {t(ROOM_RULES.find((rule) => rule.id === planType)?.label)}
           </Button>
         </DialogContent>
       </Dialog>
@@ -387,9 +391,9 @@ export function ScanView() {
 function describeTap(plan: FloorPlan, point: Point): string {
   const placed = zoneFromPlanPoint(plan, point);
   if (placed.isCenter || placed.zoneId === "center") {
-    return "This tap is on the Brahmasthan, the center. Traditional guidance keeps it open.";
+    return UI.centerTap[getLocale()];
   }
-  return `This spot falls in ${zoneById(placed.zoneId).label}.`;
+  return `${UI.spotFalls[getLocale()]} ${directionName(zoneById(placed.zoneId).id)}.`;
 }
 
 function HomeNameForm({ onCreate, onSample }: { onCreate: (name: string) => void; onSample: () => void }) {

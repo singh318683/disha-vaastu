@@ -1,3 +1,4 @@
+import { directionName, getLocale, L, lt, type L10n } from "./l10n.ts";
 import { remediesByIds, requireRule, ruleById } from "./rules.ts";
 import type {
   Band,
@@ -10,7 +11,7 @@ import type {
   Verdict,
   VerdictId,
 } from "./types.ts";
-import { elementForZone, ELEMENTS, zonesAreNear, zoneById, type ElementId, type ZoneId } from "./zones.ts";
+import { elementForZone, ELEMENTS, zonesAreNear, type ElementId, type ZoneId } from "./zones.ts";
 
 export const BAND_SCORE: Record<Band, number> = {
   best: 100,
@@ -22,28 +23,28 @@ export const BAND_SCORE: Record<Band, number> = {
 const VERDICTS: Record<VerdictId, Verdict> = {
   excellent: {
     id: "excellent",
-    label: "Excellent",
-    summary: "A traditional first choice.",
+    label: L("Excellent", "उत्तम"),
+    summary: L("A traditional first choice.", "पारंपरिक पहली पसंद।"),
   },
   good: {
     id: "good",
-    label: "Good",
-    summary: "A favorable placement in the traditional system.",
+    label: L("Good", "अच्छा"),
+    summary: L("A favorable placement in the traditional system.", "पारंपरिक पद्धति में अनुकूल स्थान।"),
   },
   acceptable: {
     id: "acceptable",
-    label: "Acceptable",
-    summary: "Workable, with a few adjustments.",
+    label: L("Acceptable", "स्वीकार्य"),
+    summary: L("Workable, with a few adjustments.", "चलने लायक, कुछ छोटे बदलावों के साथ।"),
   },
   attention: {
     id: "attention",
-    label: "Needs attention",
-    summary: "Traditional texts would want this softened.",
+    label: L("Needs attention", "ध्यान दें"),
+    summary: L("Traditional texts would want this softened.", "पारंपरिक ग्रंथ इसे हल्का करना चाहेंगे।"),
   },
   unfavorable: {
     id: "unfavorable",
-    label: "Unfavorable",
-    summary: "Traditionally avoided. The remedies stay non-structural.",
+    label: L("Unfavorable", "प्रतिकूल"),
+    summary: L("Traditionally avoided. The remedies stay non-structural.", "पारंपरिक रूप से टाला गया। उपाय बिना तोड़े-फोड़े हैं।"),
   },
 };
 
@@ -82,7 +83,7 @@ export interface ScoreInput {
 export interface ScoreCore {
   band: Band;
   score: number;
-  notes: string[];
+  notes: L10n[];
   remedyIds: string[];
 }
 
@@ -92,19 +93,25 @@ export function scoreAgainstRule(input: ScoreInput): ScoreCore {
   const zone = input.zoneId === "center" ? null : input.zoneId;
   let band: Band = zone ? bandForZone(rule, zone) : "neutral";
   let score = zone ? BAND_SCORE[band] : 55;
-  const notes: string[] = [];
+  const notes: L10n[] = [];
 
   if (isCenter && rule.centerPolicy === "severe") {
     score = 12;
     band = "avoid";
     notes.push(
-      "The Brahmasthan, the center of the home, is traditionally kept open. A toilet, kitchen, or staircase here is avoided.",
+      L(
+        "The Brahmasthan, the center of the home, is traditionally kept open. A toilet, kitchen, or staircase here is avoided.",
+        "ब्रह्मस्थान, घर का बीच, पारंपरिक रूप से खुला रखा जाता है। यहाँ शौचालय, रसोई या सीढ़ी टाली जाती है।",
+      ),
     );
   } else if (isCenter && rule.centerPolicy === "caution") {
     score = Math.min(score, 46);
     if (band === "best" || band === "favorable") band = "neutral";
     notes.push(
-      "This sits on the center of the plan. Traditional guidance leaves that middle light — keep heavy furniture out of the middle of the room.",
+      L(
+        "This sits on the center of the plan. Traditional guidance leaves that middle light — keep heavy furniture out of the middle of the room.",
+        "यह नक्शे के बीच में है। पारंपरिक सलाह उस बीच को हल्का छोड़ती है — भारी फ़र्नीचर कमरे के बीच से बाहर रखें।",
+      ),
     );
   }
 
@@ -112,7 +119,10 @@ export function scoreAgainstRule(input: ScoreInput): ScoreCore {
     score = Math.min(score, 42);
     band = "avoid";
     notes.push(
-      "A prayer room is traditionally kept away from a toilet, including the neighboring zone or a shared wall.",
+      L(
+        "A prayer room is traditionally kept away from a toilet, including the neighboring zone or a shared wall.",
+        "पूजा घर पारंपरिक रूप से शौचालय से दूर रखा जाता है, पड़ोसी क्षेत्र या साझी दीवार सहित।",
+      ),
     );
   }
 
@@ -141,8 +151,8 @@ export function roomIsNearToilet(room: TaggedRoom, rooms: TaggedRoom[]): boolean
 }
 
 function zoneLabel(zoneId: ZoneId | "center"): string {
-  if (zoneId === "center") return "Brahmasthan";
-  return zoneById(zoneId).label;
+  if (zoneId === "center") return lt(L("Brahmasthan", "ब्रह्मस्थान"));
+  return directionName(zoneId, getLocale());
 }
 
 function elementOf(zoneId: ZoneId | "center"): ElementId {
@@ -158,7 +168,7 @@ export function displayName(
 ): string {
   if (customLabel?.trim()) return customLabel.trim();
   const rule = ruleById(typeId);
-  const label = rule?.label ?? typeId;
+  const label = rule ? lt(rule.label) : typeId;
   const same = siblings.filter((item) => item.typeId === typeId);
   if (same.length < 2) return label;
   const index = same.findIndex((item) => item.id === selfId) + 1;

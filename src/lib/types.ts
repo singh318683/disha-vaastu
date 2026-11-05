@@ -1,3 +1,4 @@
+import type { L10n } from "./l10n.ts";
 import type { ElementId, ZoneId } from "./zones.ts";
 
 export type Band = "best" | "favorable" | "neutral" | "avoid";
@@ -8,8 +9,8 @@ export type RemedyKind = "direction" | "color" | "furniture" | "mirror" | "eleme
 
 export interface Remedy {
   id: string;
-  title: string;
-  detail: string;
+  title: L10n;
+  detail: L10n;
   kinds: RemedyKind[];
 }
 
@@ -24,16 +25,16 @@ export interface RemedyMap {
 
 export interface Rule {
   id: string;
-  label: string;
+  label: L10n;
   weight: number;
   centerPolicy: CenterPolicy;
   kind: "room" | "orientation";
-  prompt?: string;
+  prompt?: L10n;
   best: ZoneId[];
   favorable: ZoneId[];
   neutral: ZoneId[];
   avoid: ZoneId[];
-  reasoning: string;
+  reasoning: L10n;
   remedies: RemedyMap;
 }
 
@@ -92,8 +93,8 @@ export type VerdictId = "excellent" | "good" | "acceptable" | "attention" | "unf
 
 export interface Verdict {
   id: VerdictId;
-  label: string;
-  summary: string;
+  label: L10n;
+  summary: L10n;
 }
 
 export interface ScoredItem {
@@ -108,8 +109,8 @@ export interface ScoredItem {
   band: Band;
   score: number;
   verdict: Verdict;
-  reasoning: string;
-  notes: string[];
+  reasoning: L10n;
+  notes: L10n[];
   remedies: Remedy[];
   weight: number;
   isCenter: boolean;

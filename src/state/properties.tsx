@@ -38,7 +38,7 @@ export function PropertiesProvider({ children }: { children: ReactNode }) {
       saveProperties(properties, activeId);
       setStorageError(null);
     } catch {
-      setStorageError("This device could not store more data. Remove a floor plan or a home and try again.");
+      setStorageError("full");
     }
   }, [activeId, properties]);
 

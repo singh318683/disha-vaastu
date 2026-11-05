@@ -59,8 +59,15 @@ export function renderHarmonyCanvas(input: HarmonyCardInput): HTMLCanvasElement 
   canvas.width = width;
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("Could not draw the card.");
+  const hindi = /[\u0900-\u097F]/.test(`${input.title}${input.line}${input.framing}`);
+  const face = hindi ? '"Noto Sans Devanagari", sans-serif' : "Outfit, sans-serif";
+  const display = hindi ? '"Noto Sans Devanagari", Georgia, serif' : "Fraunces, Georgia, serif";
+  const countLabels = hindi ? ["शुभ", "सामान्य", "संभालें"] : ["Auspicious", "Neutral", "To soften"];
+  const ratingWord = hindi
+    ? { auspicious: "शुभ", neutral: "सामान्य", inauspicious: "अशुभ" }
+    : RATING_WORD;
 
-  ctx.font = "28px Outfit, sans-serif";
+  ctx.font = `28px ${face}`;
   const bodyLines = input.rows.reduce((sum, row) => {
     return sum + wrap(ctx, `${row.title}  ·  ${row.placement}`, width - pad * 2 - 28).length;
   }, 0);
@@ -74,28 +81,28 @@ export function renderHarmonyCanvas(input: HarmonyCardInput): HTMLCanvasElement 
   ctx.fill();
 
   ctx.fillStyle = SAFFRON;
-  ctx.font = "600 18px Outfit, sans-serif";
+  ctx.font = `600 18px ${face}`;
   ctx.fillText("DISHA", pad, 96);
 
   ctx.fillStyle = INK;
-  ctx.font = "560 54px Fraunces, Georgia, serif";
+  ctx.font = `560 54px ${display}`;
   ctx.fillText(input.title, pad, 168);
 
   ctx.fillStyle = CLAY;
-  ctx.font = "28px Outfit, sans-serif";
+  ctx.font = `28px ${face}`;
   const intro = wrap(ctx, input.line, width - pad * 2);
   intro.forEach((line, index) => ctx.fillText(line, pad, 214 + index * 36));
 
   const countsY = 214 + intro.length * 36 + 28;
-  drawCount(ctx, pad, countsY, String(input.auspicious), "Auspicious", RATING_COLOR.auspicious);
-  drawCount(ctx, pad + 220, countsY, String(input.neutral), "Neutral", RATING_COLOR.neutral);
-  drawCount(ctx, pad + 440, countsY, String(input.inauspicious), "To soften", RATING_COLOR.inauspicious);
+  drawCount(ctx, pad, countsY, String(input.auspicious), countLabels[0]!, RATING_COLOR.auspicious, display, face);
+  drawCount(ctx, pad + 220, countsY, String(input.neutral), countLabels[1]!, RATING_COLOR.neutral, display, face);
+  drawCount(ctx, pad + 440, countsY, String(input.inauspicious), countLabels[2]!, RATING_COLOR.inauspicious, display, face);
 
   let y = countsY + 96;
-  ctx.font = "28px Outfit, sans-serif";
+  ctx.font = `28px ${face}`;
   if (input.rows.length === 0) {
     ctx.fillStyle = CLAY;
-    ctx.fillText("No places checked yet.", pad, y);
+    ctx.fillText(hindi ? "अभी कुछ नहीं देखा।" : "No places checked yet.", pad, y);
     y += 40;
   }
   for (const row of input.rows) {
@@ -110,14 +117,14 @@ export function renderHarmonyCanvas(input: HarmonyCardInput): HTMLCanvasElement 
       y += 36;
     }
     ctx.fillStyle = CLAY;
-    ctx.font = "22px Outfit, sans-serif";
-    ctx.fillText(RATING_WORD[row.rating], pad + 28, y);
-    ctx.font = "28px Outfit, sans-serif";
+    ctx.font = `22px ${face}`;
+    ctx.fillText(ratingWord[row.rating], pad + 28, y);
+    ctx.font = `28px ${face}`;
     y += 42;
   }
 
   ctx.fillStyle = CLAY;
-  ctx.font = "22px Outfit, sans-serif";
+  ctx.font = `22px ${face}`;
   ctx.fillText(input.framing, pad, canvas.height - 72);
   return canvas;
 }
@@ -129,11 +136,13 @@ function drawCount(
   value: string,
   label: string,
   color: string,
+  display: string,
+  face: string,
 ) {
   ctx.fillStyle = color;
-  ctx.font = "560 42px Fraunces, Georgia, serif";
+  ctx.font = `560 42px ${display}`;
   ctx.fillText(value, x, y);
-  ctx.font = "20px Outfit, sans-serif";
+  ctx.font = `20px ${face}`;
   ctx.fillText(label, x, y + 28);
 }
 
@@ -164,6 +173,10 @@ export function canvasToPng(canvas: HTMLCanvasElement): Promise<Blob> {
 }
 
 export async function shareHarmonyCard(input: HarmonyCardInput): Promise<"shared" | "downloaded" | "aborted"> {
+  if (typeof document !== "undefined" && document.fonts?.load) {
+    await document.fonts.load('28px "Noto Sans Devanagari"');
+    await document.fonts.load('54px "Noto Sans Devanagari"');
+  }
   const blob = await canvasToPng(renderHarmonyCanvas(input));
   const file = new File([blob], "disha-home-harmony.png", { type: "image/png" });
   const text = `${input.title}. ${input.line} ${input.framing}`;
@@ -195,46 +208,99 @@ export function downloadHarmonyFile(blob: Blob, filename: string) {
   URL.revokeObjectURL(url);
 }
 
+export async function embedDevanagari(doc: jsPDF) {
+  if (typeof fetch === "undefined") return;
+  const response = await fetch("/fonts/NotoSansDevanagari-Regular.ttf");
+  if (!response.ok) return;
+  const bytes = new Uint8Array(await response.arrayBuffer());
+  let binary = "";
+  for (let index = 0; index < bytes.length; index += 0x8000) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + 0x8000));
+  }
+  doc.addFileToVFS("NotoSansDevanagari-Regular.ttf", btoa(binary));
+  doc.addFont("NotoSansDevanagari-Regular.ttf", "NotoSansDevanagari", "normal");
+  doc.setFont("NotoSansDevanagari", "normal");
+}
+
+function paintPdf(doc: jsPDF, text: string, x: number, y: number) {
+  if (!/[\u0900-\u097F]/.test(text) || typeof document === "undefined") {
+    doc.text(text, x, y);
+    return;
+  }
+  const size = doc.getFontSize();
+  const canvas = document.createElement("canvas");
+  const measure = canvas.getContext("2d");
+  if (!measure) {
+    doc.text(text, x, y);
+    return;
+  }
+  const font = `${size}px "Noto Sans Devanagari", sans-serif`;
+  measure.font = font;
+  const lines = text.split("\n");
+  const width = Math.ceil(Math.max(...lines.map((line) => measure.measureText(line).width))) + 8;
+  const height = Math.ceil(size * 1.4 * lines.length) + 6;
+  const scale = 2;
+  canvas.width = Math.max(2, width * scale);
+  canvas.height = Math.max(2, height * scale);
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+  ctx.scale(scale, scale);
+  ctx.font = font;
+  ctx.fillStyle = "#2a2118";
+  ctx.textBaseline = "top";
+  lines.forEach((line, index) => ctx.fillText(line, 0, index * size * 1.35));
+  doc.addImage(canvas.toDataURL("image/png"), "PNG", x, y - size * 0.8, width, height);
+}
+
 export async function buildQuizPdf(input: HarmonyCardInput): Promise<Blob> {
+  if (typeof document !== "undefined" && document.fonts?.load) {
+    await document.fonts.load('16px "Noto Sans Devanagari"');
+    await document.fonts.load('28px "Noto Sans Devanagari"');
+  }
   const doc = new jsPDF({ unit: "pt", format: "a4" });
+  await embedDevanagari(doc);
+  const hindi = /[\u0900-\u097F]/.test(input.title);
   const ink: [number, number, number] = [42, 33, 24];
   const clay: [number, number, number] = [111, 91, 72];
   const pageWidth = doc.internal.pageSize.getWidth();
   let y = 64;
   doc.setTextColor(...ink);
-  doc.setFont("times", "bold");
   doc.setFontSize(28);
-  doc.text(input.title, 48, y);
-  y += 28;
-  doc.setFont("helvetica", "normal");
+  paintPdf(doc, input.title, 48, y);
+  y += 36;
   doc.setFontSize(12);
   doc.setTextColor(...clay);
-  const intro = doc.splitTextToSize(input.line, pageWidth - 96) as string[];
-  doc.text(intro, 48, y);
-  y += intro.length * 16 + 18;
+  paintPdf(doc, input.line, 48, y);
+  y += 28;
   doc.setTextColor(...ink);
-  doc.text(
-    `${input.auspicious} auspicious   ·   ${input.neutral} neutral   ·   ${input.inauspicious} to soften`,
+  doc.setFontSize(12);
+  paintPdf(
+    doc,
+    hindi
+      ? `${input.auspicious} शुभ   ·   ${input.neutral} सामान्य   ·   ${input.inauspicious} संभालें`
+      : `${input.auspicious} auspicious   ·   ${input.neutral} neutral   ·   ${input.inauspicious} to soften`,
     48,
     y,
   );
   y += 28;
+  const ratingWord = hindi
+    ? { auspicious: "शुभ", neutral: "सामान्य", inauspicious: "अशुभ" }
+    : RATING_WORD;
   for (const row of input.rows) {
     if (y > 760) {
       doc.addPage();
       y = 56;
     }
-    doc.setFont("times", "bold");
     doc.setFontSize(14);
     doc.setTextColor(...ink);
-    doc.text(row.title, 48, y);
-    y += 16;
-    doc.setFont("helvetica", "normal");
+    paintPdf(doc, row.title, 48, y);
+    y += 20;
     doc.setFontSize(11);
     doc.setTextColor(...clay);
-    const detail = doc.splitTextToSize(`${row.placement} — ${RATING_WORD[row.rating]}`, pageWidth - 96) as string[];
-    doc.text(detail, 48, y);
-    y += detail.length * 14 + 14;
+    const detail = `${row.placement} — ${ratingWord[row.rating]}`;
+    const wrapped = doc.splitTextToSize(detail, pageWidth - 96) as string[];
+    paintPdf(doc, wrapped.join("\n"), 48, y);
+    y += wrapped.length * 16 + 12;
   }
   if (y > 780) {
     doc.addPage();
@@ -242,6 +308,6 @@ export async function buildQuizPdf(input: HarmonyCardInput): Promise<Blob> {
   }
   doc.setFontSize(10);
   doc.setTextColor(...clay);
-  doc.text(input.framing, 48, y + 8);
+  paintPdf(doc, input.framing, 48, y + 8);
   return doc.output("blob");
 }

@@ -1,4 +1,6 @@
 import { normalizeDegrees } from "./angles.ts";
+import { getLocale, lt } from "./l10n.ts";
+import { UI } from "@/i18n/messages.ts";
 import type { HomeScore, Property } from "./types.ts";
 
 export function formatHeading(value: number): string {
@@ -84,13 +86,13 @@ export function summaryText(property: Property, scored: HomeScore | null): strin
     lines.push("No rooms tagged yet.");
   } else {
     lines.push(
-      `Overall ${scored.score}/100 — ${scored.verdict.label}, per traditional Vaastu guidelines.`,
+      `${UI.overall[getLocale()]} ${scored.score}/100 — ${lt(scored.verdict.label)}, ${UI.perGuidelines[getLocale()]}.`,
     );
     for (const room of scored.rooms) {
       const bearing = room.bearing == null ? "" : ` · ${formatHeading(room.bearing)}`;
       lines.push(`${room.name} · ${room.zoneLabel}${bearing} · ${room.score}`);
     }
   }
-  lines.push("These notes follow traditional guidelines and are not a guarantee.");
+  lines.push(UI.notGuarantee[getLocale()]);
   return lines.join("\n");
 }

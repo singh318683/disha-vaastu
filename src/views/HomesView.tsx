@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useI18n } from "@/i18n/I18nProvider.tsx";
 import { ScoreRing } from "@/components/ScoreRing.tsx";
 import { TierMark } from "@/components/VerdictCard.tsx";
 import { Button } from "@/components/ui/button.tsx";
@@ -11,6 +12,7 @@ import { useProperties } from "@/state/properties.tsx";
 
 export function HomesView({ onOpen }: { onOpen: (view: "scan" | "report") => void }) {
   const homes = useProperties();
+  const { u } = useI18n();
   const [compare, setCompare] = useState(false);
   const [name, setName] = useState("");
   const [pendingDelete, setPendingDelete] = useState<string | null>(null);
@@ -40,7 +42,7 @@ export function HomesView({ onOpen }: { onOpen: (view: "scan" | "report") => voi
         <Switch checked={compare} onCheckedChange={setCompare} aria-label="House-hunting mode" />
       </div>
 
-      {homes.storageError && <p className="mt-3 text-sm text-destructive">{homes.storageError}</p>}
+      {homes.storageError && <p className="mt-3 text-sm text-destructive">{u("storageFull")}</p>}
 
       <form
         className="mt-4 flex gap-2"

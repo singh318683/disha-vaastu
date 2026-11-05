@@ -1,5 +1,6 @@
 import remediesFile from "../data/remedies.json" with { type: "json" };
 import rulesFile from "../data/rules.json" with { type: "json" };
+import { isL10n, type L10n } from "./l10n.ts";
 import type { Band, CenterPolicy, Remedy, RemedyKind, RemedyMap, Rule } from "./types.ts";
 import { isZoneId, ZONES, type ZoneId } from "./zones.ts";
 
@@ -26,6 +27,11 @@ function remedyMap(id: string, raw: RemedyMap): RemedyMap {
   return map;
 }
 
+function loadL10n(value: unknown, label: string): L10n {
+  if (!isL10n(value)) throw new Error(`${label} needs en and hi`);
+  return { en: value.en.trim(), hi: value.hi.trim() };
+}
+
 function normalize(
   raw: (typeof rulesFile.rooms)[number],
   kind: Rule["kind"],
@@ -35,16 +41,16 @@ function normalize(
   }
   const rule: Rule = {
     id: raw.id,
-    label: raw.label,
+    label: loadL10n(raw.label, `${raw.id} label`),
     weight: raw.weight,
     centerPolicy: raw.centerPolicy as CenterPolicy,
     kind,
-    prompt: "prompt" in raw && typeof raw.prompt === "string" ? raw.prompt : undefined,
+    prompt: "prompt" in raw && raw.prompt ? loadL10n(raw.prompt, `${raw.id} prompt`) : undefined,
     best: zoneList(raw.id, raw.best, "best"),
     favorable: zoneList(raw.id, raw.favorable, "favorable"),
     neutral: zoneList(raw.id, raw.neutral, "neutral"),
     avoid: zoneList(raw.id, raw.avoid, "avoid"),
-    reasoning: raw.reasoning,
+    reasoning: loadL10n(raw.reasoning, `${raw.id} reasoning`),
     remedies: remedyMap(raw.id, raw.remedies as RemedyMap),
   };
   assertPartition(rule);
@@ -69,10 +75,9 @@ function loadRemedies(): Map<string, Remedy> {
     if (kinds.length !== item.kinds.length || kinds.length === 0) {
       throw new Error(`Remedy ${item.id} has an unknown kind`);
     }
-    if (!item.title.trim() || !item.detail.trim()) {
-      throw new Error(`Remedy ${item.id} needs a title and a detail`);
-    }
-    map.set(item.id, { id: item.id, title: item.title, detail: item.detail, kinds });
+    const title = loadL10n(item.title, `Remedy ${item.id} title`);
+    const detail = loadL10n(item.detail, `Remedy ${item.id} detail`);
+    map.set(item.id, { id: item.id, title, detail, kinds });
   }
   return map;
 }
@@ -108,9 +113,11 @@ export function remediesByIds(ids: string[]): Remedy[] {
   return result;
 }
 
-export const DEFAULT_ROOM_PROMPT =
-  "Stand near the center of the home and point the top of the phone toward this room.";
+export const DEFAULT_ROOM_PROMPT: L10n = {
+  en: "Stand near the center of the home and point the top of the phone toward this room.",
+  hi: "घर के बीच के पास खड़े हों और फ़ोन का ऊपरी सिरा इस कमरे की ओर करें।",
+};
 
-export function promptFor(rule: Rule): string {
+export function promptFor(rule: Rule): L10n {
   return rule.prompt ?? DEFAULT_ROOM_PROMPT;
 }

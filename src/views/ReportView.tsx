@@ -1,4 +1,5 @@
 import { Download, Share2 } from "lucide-react";
+import { useI18n } from "@/i18n/I18nProvider.tsx";
 import { useMemo, useState } from "react";
 import { FloorPlanCanvas } from "@/components/FloorPlanEditor.tsx";
 import { ScoreRing } from "@/components/ScoreRing.tsx";
@@ -11,10 +12,11 @@ import { useProperties } from "@/state/properties.tsx";
 
 export function ReportView({ onScan }: { onScan: () => void }) {
   const homes = useProperties();
+  const { locale, t, u } = useI18n();
   const [message, setMessage] = useState<string | null>(null);
   const [busy, setBusy] = useState<"pdf" | "share" | null>(null);
   const active = homes.active;
-  const scored = useMemo(() => (active ? scoreProperty(active) : null), [active]);
+  const scored = useMemo(() => (active ? scoreProperty(active) : null), [active, locale]);
   const issues = scored?.rooms.filter((room) => room.score < 55) ?? [];
 
   async function exportPdf() {
@@ -25,9 +27,9 @@ export function ReportView({ onScan }: { onScan: () => void }) {
       const { buildReportPdf, downloadBlob, slugify } = await import("@/lib/pdf.ts");
       const blob = await buildReportPdf(active, scored);
       downloadBlob(blob, `disha-${slugify(active.name)}.pdf`);
-      setMessage("PDF downloaded.");
+      setMessage(u("pdfDownloaded"));
     } catch {
-      setMessage("Could not build the PDF in this browser.");
+      setMessage(u("pdfBuildFailed"));
     } finally {
       setBusy(null);
     }
@@ -117,8 +119,8 @@ export function ReportView({ onScan }: { onScan: () => void }) {
           <div className="flex items-center gap-3">
             <ScoreRing score={scored.score} />
             <div>
-              <h2 className="font-serif text-3xl leading-none">{scored.verdict.label}</h2>
-              <p className="mt-1 text-sm text-muted-foreground">{scored.verdict.summary}</p>
+              <h2 className="font-serif text-3xl leading-snug">{t(scored.verdict.label)}</h2>
+              <p className="mt-1 text-sm text-muted-foreground">{t(scored.verdict.summary)}</p>
             </div>
           </div>
           {issues.length > 0 && (

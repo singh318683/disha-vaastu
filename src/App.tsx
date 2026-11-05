@@ -1,6 +1,8 @@
 import { Compass, FileText, House, LampDesk, ScanLine } from "lucide-react";
 import { useState } from "react";
+import { LanguageToggle } from "@/components/LanguageToggle.tsx";
 import { QuizFlow } from "@/components/quiz/QuizFlow.tsx";
+import { useI18n } from "@/i18n/I18nProvider.tsx";
 import { cn } from "@/lib/utils.ts";
 import { PropertiesProvider } from "@/state/properties.tsx";
 import { SensorsProvider } from "@/state/sensors.tsx";
@@ -44,15 +46,24 @@ function Shell() {
 
 function AdvancedShell({ onBack }: { onBack: () => void }) {
   const [view, setView] = useState<ViewId>("compass");
+  const { u } = useI18n();
+  const labels: Record<ViewId, string> = {
+    compass: u("north"),
+    check: u("check"),
+    scan: u("scan"),
+    homes: u("homes"),
+    report: u("report"),
+  };
   return (
     <div className="min-h-dvh">
       <a href="#content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-full focus:bg-card focus:px-3 focus:py-2">
-        Skip to content
+        {u("skip")}
       </a>
-      <div className="sticky top-0 z-30 border-b border-border bg-[#f7f1e6]/95 px-4 py-3 backdrop-blur">
+      <div className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-border bg-[#f7f1e6]/95 px-4 py-3 backdrop-blur">
         <button type="button" onClick={onBack} className="text-base font-medium text-primary">
-          ← Simple quiz
+          {u("simpleQuiz")}
         </button>
+        <LanguageToggle />
       </div>
       <main id="content" className="px-4 pt-5 pb-36 sm:px-6">
         {view === "compass" && <CompassView />}
@@ -78,7 +89,7 @@ function AdvancedShell({ onBack }: { onBack: () => void }) {
                 )}
               >
                 <Icon className="h-4 w-4" aria-hidden="true" />
-                {item.label}
+                {labels[item.id]}
               </button>
             );
           })}

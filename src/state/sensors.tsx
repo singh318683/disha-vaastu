@@ -331,7 +331,7 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
   const requestLocation = useCallback(() => {
     if (!navigator.geolocation) {
       setLocationStatus("error");
-      setLocationError("This browser has no location API. Enter a latitude and longitude instead.");
+      setLocationError("no-api");
       return;
     }
     setLocationStatus("locating");
@@ -349,11 +349,7 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
       (error) => {
         const denied = error.code === error.PERMISSION_DENIED;
         setLocationStatus(denied ? "denied" : "error");
-        setLocationError(
-          denied
-            ? "Location was denied. Type a latitude and longitude, or use the New Jersey sample."
-            : "No location fix. Type one in, or use the New Jersey sample.",
-        );
+        setLocationError(denied ? "denied" : "no-fix");
       },
       { enableHighAccuracy: true, timeout: 12000, maximumAge: 5 * 60 * 1000 },
     );
@@ -376,7 +372,7 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
       setModelError(null);
     } catch (error) {
       setModel(null);
-      setModelError(error instanceof Error ? error.message : "Could not compute declination.");
+      setModelError("failed");
     }
   }, [location]);
 

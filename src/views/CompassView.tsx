@@ -1,4 +1,5 @@
 import { Info, LocateFixed } from "lucide-react";
+import { useI18n } from "@/i18n/I18nProvider.tsx";
 import { useState } from "react";
 import { BubbleLevel } from "@/components/BubbleLevel.tsx";
 import { CompassAccess } from "@/components/CompassAccess.tsx";
@@ -14,6 +15,7 @@ import { useSensors } from "@/state/sensors.tsx";
 
 export function CompassView() {
   const sensors = useSensors();
+  const { u } = useI18n();
   const [tipsOpen, setTipsOpen] = useState(false);
   const [welcomed, setWelcomed] = useState(() => localStorage.getItem("disha.welcomed") === "1");
   const [latText, setLatText] = useState("40.06");
@@ -35,7 +37,7 @@ export function CompassView() {
       <header className="mb-4 flex items-start justify-between gap-3">
         <div>
           <p className="eyebrow">Disha</p>
-          <h1 className="mt-1 text-[2rem] leading-none">True north</h1>
+          <h1 className="mt-1 text-[2rem] leading-snug">{u("trueNorth")}</h1>
         </div>
         <div className="flex items-center gap-2">
           <TierMark tier="free" />
@@ -124,8 +126,12 @@ export function CompassView() {
             model’s figure only.
           </p>
         )}
-        {sensors.modelError && <p className="mt-2 text-sm text-destructive">{sensors.modelError}</p>}
-        {sensors.locationError && <p className="mt-2 text-sm text-[#8a4e22]">{sensors.locationError}</p>}
+        {sensors.modelError && <p className="mt-2 text-sm text-destructive">{u("declinationFailed")}</p>}
+        {sensors.locationError && (
+          <p className="mt-2 text-sm text-[#8a4e22]">
+            {sensors.locationError === "no-api" ? u("noLocationApi") : sensors.locationError === "denied" ? u("locationDenied") : u("noFix")}
+          </p>
+        )}
         <div className="mt-3 flex flex-wrap gap-2">
           <Button size="sm" onClick={sensors.requestLocation} disabled={sensors.locationStatus === "locating"}>
             {sensors.locationStatus === "locating" ? "Finding you…" : "Use my location"}

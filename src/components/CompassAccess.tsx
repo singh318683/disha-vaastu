@@ -1,5 +1,6 @@
 import { Compass } from "lucide-react";
 import { Button } from "@/components/ui/button.tsx";
+import { useI18n } from "@/i18n/I18nProvider.tsx";
 import { useSensors } from "@/state/sensors.tsx";
 
 /**
@@ -9,6 +10,7 @@ import { useSensors } from "@/state/sensors.tsx";
  */
 export function CompassAccess() {
   const sensors = useSensors();
+  const { u } = useI18n();
   const { permission, needsGesture, ios, motionSeen, promptStalled, magneticHeading, useManual, source } = sensors;
 
   const enable = () => {
@@ -18,22 +20,20 @@ export function CompassAccess() {
   if (useManual && magneticHeading != null) {
     return (
       <div className="mb-4 rounded-3xl border-2 border-primary bg-[#fff8ef] p-4" role="status">
-        <p className="font-serif text-xl leading-none">Dial is set by hand</p>
-        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          It will stay still until you follow the live compass again.
-        </p>
+        <p className="font-serif text-xl leading-none">{u("dialHand")}</p>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{u("dialStay")}</p>
         <Button className="mt-3 h-12 w-full text-base" size="lg" onClick={sensors.followLive}>
-          Follow the live compass
+          {u("followLive")}
         </Button>
       </div>
     );
   }
 
   if (permission === "granted" && magneticHeading != null) {
-    const via = source === "ios" ? "iPhone compass" : source === "sensor" ? "orientation sensor" : "absolute heading";
+    const via = source === "ios" ? u("iphoneCompass") : source === "sensor" ? u("orientationSensor") : u("absoluteHeading");
     return (
       <p className="mb-3 text-center text-sm font-medium text-primary" role="status" aria-live="polite">
-        Live · {via}
+        {u("live")} · {via}
       </p>
     );
   }
@@ -41,9 +41,9 @@ export function CompassAccess() {
   if (permission === "unsupported") {
     return (
       <div className="mb-4 rounded-3xl border border-border bg-card px-4 py-3 text-sm leading-relaxed" role="status">
-        This browser isn’t providing a compass heading. Drag the dial to set one.
+        {u("noCompassDrag")}
         <Button className="mt-3 w-full" variant="secondary" onClick={enable}>
-          Try again
+          {u("tryAgain")}
         </Button>
       </div>
     );
@@ -51,7 +51,7 @@ export function CompassAccess() {
 
   if (permission === "unknown" && !needsGesture) return null;
 
-  const copy = messageFor(permission, { ios, motionSeen, promptStalled });
+  const copy = messageFor(permission, { ios, motionSeen, promptStalled }, u);
   const waitingOnPrompt = permission === "requesting";
 
   return (
@@ -75,54 +75,39 @@ export function CompassAccess() {
 function messageFor(
   permission: string,
   flags: { ios: boolean; motionSeen: boolean; promptStalled: boolean },
+  u: (key: "allowCompass" | "allowIphone" | "allowBrowser" | "waitingIphone" | "waitingPermission" | "compassOff" | "deniedIos" | "deniedOther" | "tryAgain" | "calibrate" | "noHeadingYet" | "noEvents" | "noEventsIos" | "noEventsOther" | "listening" | "listeningBody" | "enableCompass" | "stallIos" | "stallOther" | "enableIos" | "enableOther") => string,
 ): { title: string; body: string; action: string } {
   if (permission === "requesting") {
     return {
-      title: "Allow compass access",
-      body: flags.ios
-        ? "Tap Allow on the iPhone prompt. The dial stays still until motion access is allowed."
-        : "Tap Allow on the browser prompt. The dial stays still until motion access is allowed.",
-      action: flags.ios ? "Waiting for iPhone…" : "Waiting for permission…",
+      title: u("allowCompass"),
+      body: flags.ios ? u("allowIphone") : u("allowBrowser"),
+      action: flags.ios ? u("waitingIphone") : u("waitingPermission"),
     };
   }
   if (permission === "denied") {
     return {
-      title: "Compass access is off",
-      body: flags.ios
-        ? "iPhone blocked motion for this site. Open Settings → Safari → Motion & Orientation Access and set it to Allow. iPhone will not ask again while that switch is off. Then come back and tap Try again."
-        : "Compass access was denied. Allow motion and orientation for this site in the browser settings, then tap Try again.",
-      action: "Try again",
+      title: u("compassOff"),
+      body: flags.ios ? u("deniedIos") : u("deniedOther"),
+      action: u("tryAgain"),
     };
   }
   if (permission === "no-events") {
-    const calibrate =
-      "The phone is sending tilt, but no compass heading arrived within 3 seconds. Lay it flat, step away from metal, and trace a slow figure-8 to calibrate. Then tap Try again.";
     return {
-      title: flags.motionSeen ? "No compass heading yet" : "No compass events",
-      body: flags.motionSeen
-        ? calibrate
-        : flags.ios
-          ? "No compass events arrived within 3 seconds. On iPhone, set Settings → Safari → Motion & Orientation Access to Allow, then tap Try again. A normal Safari tab is more reliable than Private."
-          : "No compass events arrived within 3 seconds. Tap Try again and allow motion if the browser asks. Android Chrome needs a device with a compass.",
-      action: "Try again",
+      title: flags.motionSeen ? u("noHeadingYet") : u("noEvents"),
+      body: flags.motionSeen ? u("calibrate") : flags.ios ? u("noEventsIos") : u("noEventsOther"),
+      action: u("tryAgain"),
     };
   }
   if (permission === "granted") {
     return {
-      title: "Listening for the compass",
-      body: "Access is on. Point the top of the phone the way you are facing. The dial and the zone wheel follow that heading.",
-      action: "Try again",
+      title: u("listening"),
+      body: u("listeningBody"),
+      action: u("tryAgain"),
     };
   }
   return {
-    title: "Enable compass",
-    body: flags.promptStalled
-      ? flags.ios
-        ? "The iPhone prompt didn’t finish. Open Settings → Safari → Motion & Orientation Access, set it to Allow, then tap Enable compass again."
-        : "The permission prompt didn’t finish. Allow motion and orientation for this site, then tap Enable compass again."
-      : flags.ios
-        ? "iPhone only shares a heading after a tap. Tap Enable compass, then allow Motion & Orientation. The dial turns with the top of the phone."
-        : "The browser shares the compass heading after a tap. Tap Enable compass, then allow motion. The dial turns with the top of the phone.",
-    action: "Enable compass",
+    title: u("enableCompass"),
+    body: flags.promptStalled ? (flags.ios ? u("stallIos") : u("stallOther")) : flags.ios ? u("enableIos") : u("enableOther"),
+    action: u("enableCompass"),
   };
 }

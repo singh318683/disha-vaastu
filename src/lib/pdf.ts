@@ -1,5 +1,8 @@
 import { jsPDF } from "jspdf";
 import { formatDeclination, formatHeading, summaryText } from "./format.ts";
+import { elementName, getLocale, hasDevanagari, lt, type L10n } from "./l10n.ts";
+import { UI } from "@/i18n/messages.ts";
+import { embedDevanagari } from "./harmonyExport.ts";
 import { scoreColor } from "./scoring.ts";
 import type { HomeScore, Property, ScoredItem } from "./types.ts";
 import { ELEMENTS, ZONES } from "./zones.ts";
@@ -8,6 +11,54 @@ const INK: [number, number, number] = [42, 33, 24];
 const CLAY: [number, number, number] = [111, 91, 72];
 const CREAM: [number, number, number] = [255, 252, 247];
 const SAFFRON: [number, number, number] = [196, 98, 45];
+
+function plain(value: string | L10n): string {
+  return typeof value === "string" ? value : lt(value, getLocale());
+}
+
+function say(
+  doc: jsPDF,
+  value: string | L10n | Array<string | L10n>,
+  x: number,
+  y: number,
+  options?: { align?: "left" | "center" | "right" },
+) {
+  const lines = (Array.isArray(value) ? value : [value]).map(plain);
+  const text = lines.join("\n");
+  if (!hasDevanagari(text) || typeof document === "undefined") {
+    doc.text(lines.length === 1 ? lines[0]! : lines, x, y, options);
+    return;
+  }
+  const size = doc.getFontSize();
+  const canvas = document.createElement("canvas");
+  const measure = canvas.getContext("2d");
+  if (!measure) {
+    doc.text(text, x, y, options);
+    return;
+  }
+  const font = `${size}px "Noto Sans Devanagari", sans-serif`;
+  measure.font = font;
+  const width = Math.ceil(measure.measureText(text).width) + 8;
+  const height = Math.ceil(size * 1.45 * lines.length) + 4;
+  const scale = 2;
+  canvas.width = Math.max(2, width * scale);
+  canvas.height = Math.max(2, height * scale);
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+  ctx.scale(scale, scale);
+  ctx.font = font;
+  ctx.fillStyle = "#2a2118";
+  ctx.textBaseline = "top";
+  lines.forEach((line, index) => ctx.fillText(line, 0, index * size * 1.35));
+  let drawX = x;
+  if (options?.align === "right") drawX = x - width;
+  if (options?.align === "center") drawX = x - width / 2;
+  doc.addImage(canvas.toDataURL("image/png"), "PNG", drawX, y - size * 0.85, width, height);
+}
+
+function splitPlain(doc: jsPDF, value: string | L10n, width: number): string[] {
+  return doc.splitTextToSize(plain(value), width) as string[];
+}
 
 function hexToRgb(hex: string): [number, number, number] {
   const value = hex.replace("#", "");
@@ -153,7 +204,11 @@ function loadImage(src: string): Promise<HTMLImageElement> {
 }
 
 export async function buildReportPdf(property: Property, scored: HomeScore): Promise<Blob> {
+  if (typeof document !== "undefined" && document.fonts?.load) {
+    await document.fonts.load('16px "Noto Sans Devanagari"');
+  }
   const doc = new jsPDF({ unit: "pt", format: "a4" });
+  await embedDevanagari(doc);
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
   const margin = 40;
@@ -167,12 +222,8 @@ export async function buildReportPdf(property: Property, scored: HomeScore): Pro
       doc.setFont("times", "italic");
       doc.setFontSize(8);
       doc.setTextColor(...CLAY);
-      doc.text(
-        "Per traditional Vaastu guidelines — not a structural, medical, or financial guarantee.",
-        margin,
-        pageHeight - 24,
-      );
-      doc.text(`${page} / ${pages}`, pageWidth - margin, pageHeight - 24, { align: "right" });
+      say(doc, UI.pdfFooter[getLocale()], margin, pageHeight - 24);
+      say(doc, `${page} / ${pages}`, pageWidth - margin, pageHeight - 24, { align: "right" });
     }
   };
 
@@ -190,26 +241,26 @@ export async function buildReportPdf(property: Property, scored: HomeScore): Pro
   doc.setTextColor(...CREAM);
   doc.setFont("times", "bold");
   doc.setFontSize(26);
-  doc.text("Disha", margin, 36);
+  say(doc, "Disha", margin, 36);
   doc.setFont("times", "italic");
   doc.setFontSize(12);
-  doc.text("Vaastu notes, per traditional guidelines", margin, 56);
+  say(doc, UI.perGuidelines[getLocale()], margin, 56);
   y = 102;
 
   doc.setTextColor(...INK);
   doc.setFont("times", "bold");
   doc.setFontSize(20);
   const title = doc.splitTextToSize(property.name, width) as string[];
-  doc.text(title, margin, y);
+  say(doc, title, margin, y);
   y += title.length * 22 + 4;
 
   doc.setFont("times", "italic");
   doc.setFontSize(12);
   doc.setTextColor(...SAFFRON);
-  doc.text(`${scored.score} / 100 · ${scored.verdict.label}`, margin, y);
+  say(doc, `${scored.score} / 100 · ${plain(scored.verdict.label)}`, margin, y);
   y += 16;
   doc.setTextColor(...CLAY);
-  doc.text(scored.verdict.summary, margin, y);
+  say(doc, scored.verdict.summary, margin, y);
   y += 18;
 
   const meta: string[] = [];
@@ -224,7 +275,7 @@ export async function buildReportPdf(property: Property, scored: HomeScore): Pro
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9);
   const metaLines = doc.splitTextToSize(meta.join("  ·  "), width) as string[];
-  doc.text(metaLines, margin, y);
+  say(doc, metaLines, margin, y);
   y += metaLines.length * 12 + 10;
 
   const image = await diagramDataUrl(property, scored);
@@ -238,14 +289,14 @@ export async function buildReportPdf(property: Property, scored: HomeScore): Pro
       ? "Floor plan with the 16 zones. Color on each dot follows that room’s score."
       : "True north is up. Each dot is a room you tagged from the center.";
     const captionLines = doc.splitTextToSize(caption, width - 224) as string[];
-    doc.text(captionLines, margin + 224, y + 18);
+    say(doc, captionLines, margin + 224, y + 18);
     let legendY = y + 18 + captionLines.length * 12 + 8;
     for (const element of [ELEMENTS.water, ELEMENTS.fire, ELEMENTS.earth, ELEMENTS.air, ELEMENTS.space]) {
       const rgb = hexToRgb(element.color);
       doc.setFillColor(...rgb);
       doc.circle(margin + 228, legendY - 3, 4, "F");
       doc.setTextColor(...INK);
-      doc.text(`${element.label} · ${element.zones}`, margin + 238, legendY);
+      say(doc, `${elementName(element.id)} · ${element.zones}`, margin + 238, legendY);
       legendY += 14;
     }
     y += 224;
@@ -254,12 +305,12 @@ export async function buildReportPdf(property: Property, scored: HomeScore): Pro
   const writeItem = (item: ScoredItem) => {
     doc.setFont("times", "italic");
     doc.setFontSize(10);
-    const reasoning = doc.splitTextToSize(item.reasoning, width) as string[];
+    const reasoning = splitPlain(doc, item.reasoning, width);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
-    const notes = item.notes.flatMap((note) => doc.splitTextToSize(note, width) as string[]);
+    const notes = item.notes.flatMap((note) => splitPlain(doc, note, width));
     const remedyHeight = item.remedies.reduce((sum, remedy) => {
-      const lines = doc.splitTextToSize(`${remedy.title}. ${remedy.detail}`, width - 12) as string[];
+      const lines = splitPlain(doc, `${plain(remedy.title)}. ${plain(remedy.detail)}`, width - 12);
       return sum + lines.length * 11 + 8;
     }, 0);
     ensure(36 + reasoning.length * 12 + notes.length * 12 + remedyHeight);
@@ -269,22 +320,22 @@ export async function buildReportPdf(property: Property, scored: HomeScore): Pro
     doc.setFontSize(13);
     doc.setTextColor(...INK);
     const bearing = item.bearing == null ? "" : ` · ${formatHeading(item.bearing)}`;
-    doc.text(`${item.name}`, margin + 12, y);
+    say(doc, `${item.name}`, margin + 12, y);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
     doc.setTextColor(...CLAY);
-    doc.text(`${item.zoneLabel}${bearing} · ${item.score}/100 · ${item.verdict.label}`, margin + 12, y + 14);
+    say(doc, `${item.zoneLabel}${bearing} · ${item.score}/100 · ${plain(item.verdict.label)}`, margin + 12, y + 14);
     y += 28;
     doc.setFont("times", "italic");
     doc.setFontSize(10);
     doc.setTextColor(...INK);
-    doc.text(reasoning, margin, y);
+    say(doc, reasoning, margin, y);
     y += reasoning.length * 12 + 4;
     if (notes.length) {
       doc.setFont("helvetica", "normal");
       doc.setFontSize(9);
       doc.setTextColor(...SAFFRON);
-      doc.text(notes, margin, y);
+      say(doc, notes, margin, y);
       y += notes.length * 12 + 4;
     }
     for (const remedy of item.remedies) {
@@ -292,19 +343,19 @@ export async function buildReportPdf(property: Property, scored: HomeScore): Pro
       doc.setFont("helvetica", "bold");
       doc.setFontSize(9);
       doc.setTextColor(...SAFFRON);
-      doc.text(kind, margin, y);
+      say(doc, kind, margin, y);
       y += 11;
       doc.setFont("helvetica", "normal");
       doc.setTextColor(...INK);
-      const lines = doc.splitTextToSize(`${remedy.title}. ${remedy.detail}`, width) as string[];
-      doc.text(lines, margin, y);
+      const lines = splitPlain(doc, `${plain(remedy.title)}. ${plain(remedy.detail)}`, width);
+      say(doc, lines, margin, y);
       y += lines.length * 11 + 6;
     }
     if (!item.declinationApplied) {
       doc.setFont("helvetica", "italic");
       doc.setFontSize(8);
       doc.setTextColor(...CLAY);
-      doc.text("Tagged before declination was applied, so this zone is magnetic rather than true.", margin, y);
+      say(doc, "Tagged before declination was applied, so this zone is magnetic rather than true.", margin, y);
       y += 12;
     }
     y += 8;
@@ -314,7 +365,7 @@ export async function buildReportPdf(property: Property, scored: HomeScore): Pro
   doc.setFontSize(16);
   doc.setTextColor(...INK);
   ensure(30);
-  doc.text("Rooms", margin, y);
+  say(doc, UI.rooms[getLocale()], margin, y);
   y += 20;
   for (const item of scored.rooms) writeItem(item);
 
@@ -323,12 +374,12 @@ export async function buildReportPdf(property: Property, scored: HomeScore): Pro
     doc.setFont("times", "bold");
     doc.setFontSize(16);
     doc.setTextColor(...INK);
-    doc.text("Desk and bed", margin, y);
+    say(doc, UI.deskAndBed[getLocale()], margin, y);
     y += 8;
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
     doc.setTextColor(...CLAY);
-    doc.text("These directions are notes. They are not part of the home score.", margin, y + 10);
+    say(doc, UI.directionNotes[getLocale()], margin, y + 10);
     y += 24;
     for (const item of scored.placements) writeItem(item);
   }
@@ -341,7 +392,7 @@ export async function buildReportPdf(property: Property, scored: HomeScore): Pro
     "Hold the phone flat, away from steel and speakers. In a steel-frame building, take a reading near a window and align the plan to it. Results follow traditional Vaastu guidelines.",
     width,
   ) as string[];
-  doc.text(closing, margin, y);
+  say(doc, closing, margin, y);
 
   footer();
   return doc.output("blob");

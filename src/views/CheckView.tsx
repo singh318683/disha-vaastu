@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useI18n } from "@/i18n/I18nProvider.tsx";
 import { RoomChips } from "@/components/RoomChips.tsx";
 import { Disclaimer, TierMark } from "@/components/VerdictCard.tsx";
 import { VerdictCard } from "@/components/VerdictCard.tsx";
@@ -18,6 +19,7 @@ type CheckTab = "desk" | "bed" | "room";
 
 export function CheckView() {
   const sensors = useSensors();
+  const { t, u } = useI18n();
   const homes = useProperties();
   const [tab, setTab] = useState<CheckTab>("desk");
   const [roomType, setRoomType] = useState("kitchen");
@@ -86,26 +88,26 @@ export function CheckView() {
         label: sensors.location.label,
       });
     }
-    setSaved(`Saved to ${home.name}.`);
+    setSaved(`${u("savedTo")} ${home.name}.`);
   }
 
   return (
     <div className="mx-auto max-w-lg">
       <header className="mb-4 flex items-start justify-between gap-3">
         <div>
-          <p className="eyebrow">Instant check</p>
-          <h1 className="mt-1 text-[2rem] leading-none">Point and read</h1>
+          <p className="eyebrow">{u("instant")}</p>
+          <h1 className="mt-1 text-[2rem] leading-snug">{u("pointRead")}</h1>
         </div>
         <TierMark tier="free" />
       </header>
       <Tabs value={tab} onValueChange={(value) => { setTab(value as CheckTab); setSaved(null); }}>
         <TabsList>
-          <TabsTrigger value="desk">Desk</TabsTrigger>
-          <TabsTrigger value="bed">Bed</TabsTrigger>
-          <TabsTrigger value="room">Room</TabsTrigger>
+          <TabsTrigger value="desk">{u("desk")}</TabsTrigger>
+          <TabsTrigger value="bed">{u("bed")}</TabsTrigger>
+          <TabsTrigger value="room">{u("room")}</TabsTrigger>
         </TabsList>
         <TabsContent value={tab}>
-          <p className="text-sm leading-relaxed text-muted-foreground">{prompt}</p>
+          <p className="text-sm leading-relaxed text-muted-foreground">{t(prompt)}</p>
           <div className="mt-3">
             <CompassAccess />
           </div>
@@ -118,12 +120,12 @@ export function CheckView() {
           />
           {tab === "room" && (
             <div className="mt-4">
-              <p className="eyebrow mb-2">Room</p>
+              <p className="eyebrow mb-2">{u("room")}</p>
               <RoomChips value={roomType} onChange={setRoomType} />
             </div>
           )}
           <label className="mt-4 block">
-            <span className="eyebrow">Optional name</span>
+            <span className="eyebrow">{u("optionalName")}</span>
             <Input value={label} onChange={(event) => setLabel(event.target.value)} placeholder="Street-side desk" className="mt-1" />
           </label>
           <div className="mt-4">

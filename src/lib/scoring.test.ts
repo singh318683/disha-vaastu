@@ -76,7 +76,7 @@ describe("scoreAgainstRule", () => {
   it("lowers a well-placed pooja room that sits next to a toilet", () => {
     const result = scoreAgainstRule({ rule: pooja, zoneId: "NE", nearToilet: true });
     expect(result.score).toBeLessThanOrEqual(42);
-    expect(result.notes.join(" ")).toMatch(/toilet/i);
+    expect(result.notes.map((note) => note.en).join(" ")).toMatch(/toilet/i);
     expect(result.remedyIds).toContain("pooja-toilet");
   });
 
