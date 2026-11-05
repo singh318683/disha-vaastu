@@ -1,7 +1,7 @@
 {
   "name": "Disha — Vaastu Scanner",
   "short_name": "Disha",
-  "description": "True-north Vaastu scanner for renters and house hunting. Directions, zones, and non-structural remedies.",
+  "description": "A gentle true-north Vaastu quiz. Lock a direction and read traditional, non-structural guidance.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

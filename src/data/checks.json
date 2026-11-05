@@ -1,0 +1,4718 @@
+{
+  "version": 1,
+  "framing": "Per traditional Vaastu guidelines.",
+  "convention": "Entrance padas use the traditional 32-pada door list, commonly traced to the Brihat Samhita, projected onto the compass. Each pada is 11.25°. Eight padas make one wall of 90°. Numbering runs clockwise and meets at the corners: East E1–E8 from 45° (northeast) to 135°, South S1–S8 from 135° to 225°, West W1–W8 from 225° to 315°, North N1–N8 from 315° (northwest) to 45°. Intervals are half-open. The start angle belongs to that pada, and the clockwise edge belongs to the next. 0° and 360° are the same heading and fall in N5 (Soma). 90° is E5 (Surya), 180° is S5 (Yama), 270° is W5 (Varuna). 45° is E1, 135° is S1, 225° is W1, 315° is N1. The eight classically favored padas are E3 Jayanta, E4 Indra, S4 Grihakshata, W4 Pushpadanta, W5 Varuna, N3 Mukhya, N4 Bhallata, and N5 Soma. S3 Vitatha and W3 Sugriva are marked neutral: many modern guides allow them, and the classical list does not praise them. A phone measures the direction you face, not a tape along the wall, so a pada here is the compass sector of that facing. Eight-point directions are 45° sectors with North centered on 0°, so North owns [337.5°, 22.5°). Sixteen zones are the app's existing 22.5° zones, also with North centered on 0° ([348.75°, 11.25°)). All of this is per traditional Vaastu guidelines, not a building instruction.",
+  "checks": [
+    {
+      "id": "main_door",
+      "title": "Main door",
+      "blurb": "Which way the door faces",
+      "icon": "door",
+      "group": "Entrance",
+      "reference": "facing-out",
+      "granularity": 32,
+      "instructions": "Stand inside at the main door, facing out. Hold the phone flat, with the top pointing out the door.",
+      "bestNote": "North-facing: Best in N3, N4, or N5 (associated with wealth and children).",
+      "facingNotes": {
+        "N": "North-facing: Best in N3, N4, or N5 (associated with wealth and children).",
+        "E": "East-facing: Best in E3 or E4 (associated with wealth and recognition).",
+        "S": "South-facing: Best in S4 (associated with food and family).",
+        "W": "West-facing: Best in W4 or W5 (associated with prosperity)."
+      },
+      "resultNoun": "door",
+      "detailNote": "Each pada is 11.25°. Numbering runs clockwise: north from the northwest corner (N1 Roga) to the northeast (N8 Diti). Due north is N5 Soma. East starts at the northeast corner.",
+      "zones": [
+        {
+          "id": "N1",
+          "name": "Roga",
+          "rating": "inauspicious",
+          "meaning": "Roga, the northwest corner. Classical texts do not favor a door here.",
+          "remedies": [
+            "Keep the threshold clear and the door easy to open.",
+            "Hang a simple nameplate at chest height, and light the entrance at dusk.",
+            "Choose a warm wood or cream door, and a small auspicious symbol beside it."
+          ]
+        },
+        {
+          "id": "N2",
+          "name": "Ahi",
+          "rating": "inauspicious",
+          "meaning": "Ahi (Naga). Classical texts associate this pada with conflict.",
+          "remedies": [
+            "A clean threshold and an unblocked path matter more than a new door.",
+            "Add a steady light outside, and keep shoes and clutter off the entrance.",
+            "A healthy plant to the side, not in the doorway, is a gentle traditional touch."
+          ]
+        },
+        {
+          "id": "N3",
+          "name": "Mukhya",
+          "rating": "auspicious",
+          "meaning": "Mukhya. Wealth and children, per the classical entrance list.",
+          "remedies": []
+        },
+        {
+          "id": "N4",
+          "name": "Bhallata",
+          "rating": "auspicious",
+          "meaning": "Bhallata. Wellbeing and good qualities, per the classical entrance list.",
+          "remedies": []
+        },
+        {
+          "id": "N5",
+          "name": "Soma",
+          "rating": "auspicious",
+          "meaning": "Soma. Wealth and children, per the classical entrance list.",
+          "remedies": []
+        },
+        {
+          "id": "N6",
+          "name": "Bhujaga",
+          "rating": "inauspicious",
+          "meaning": "Bhujaga. Classical texts do not favor a main door on this pada.",
+          "remedies": [
+            "Keep the threshold clear and the door easy to open.",
+            "Hang a simple nameplate at chest height, and light the entrance at dusk.",
+            "Choose a warm wood or cream door, and a small auspicious symbol beside it."
+          ]
+        },
+        {
+          "id": "N7",
+          "name": "Aditi",
+          "rating": "inauspicious",
+          "meaning": "Aditi. Classical door lists do not count this among the favored north entrances.",
+          "remedies": [
+            "A clean threshold and an unblocked path matter more than a new door.",
+            "Add a steady light outside, and keep shoes and clutter off the entrance.",
+            "A healthy plant to the side, not in the doorway, is a gentle traditional touch."
+          ]
+        },
+        {
+          "id": "N8",
+          "name": "Diti",
+          "rating": "inauspicious",
+          "meaning": "Diti, the northeast corner. Classical texts associate a door here with loss.",
+          "remedies": [
+            "Keep the threshold clear and the door easy to open.",
+            "Hang a simple nameplate at chest height, and light the entrance at dusk.",
+            "Choose a warm wood or cream door, and a small auspicious symbol beside it."
+          ]
+        },
+        {
+          "id": "E1",
+          "name": "Shikhi",
+          "rating": "inauspicious",
+          "meaning": "Shikhi, the fire pada. Classical texts associate a door here with unrest from fire.",
+          "remedies": [
+            "A clean threshold and an unblocked path matter more than a new door.",
+            "Add a steady light outside, and keep shoes and clutter off the entrance.",
+            "A healthy plant to the side, not in the doorway, is a gentle traditional touch."
+          ]
+        },
+        {
+          "id": "E2",
+          "name": "Parjanya",
+          "rating": "inauspicious",
+          "meaning": "Parjanya, the rain pada. Classical door lists do not count this among the favored entrances.",
+          "remedies": [
+            "Keep the threshold clear and the door easy to open.",
+            "Hang a simple nameplate at chest height, and light the entrance at dusk.",
+            "Choose a warm wood or cream door, and a small auspicious symbol beside it."
+          ]
+        },
+        {
+          "id": "E3",
+          "name": "Jayanta",
+          "rating": "auspicious",
+          "meaning": "Jayanta. Great wealth, per the classical entrance list.",
+          "remedies": []
+        },
+        {
+          "id": "E4",
+          "name": "Indra",
+          "rating": "auspicious",
+          "meaning": "Indra (Mahendra). Recognition and support, per the classical entrance list.",
+          "remedies": []
+        },
+        {
+          "id": "E5",
+          "name": "Surya",
+          "rating": "inauspicious",
+          "meaning": "Surya, the sun. A door on this exact-east pada is not among the eight favored entrances.",
+          "remedies": [
+            "A clean threshold and an unblocked path matter more than a new door.",
+            "Add a steady light outside, and keep shoes and clutter off the entrance.",
+            "A healthy plant to the side, not in the doorway, is a gentle traditional touch."
+          ]
+        },
+        {
+          "id": "E6",
+          "name": "Satya",
+          "rating": "inauspicious",
+          "meaning": "Satya. Classical texts do not favor a main door on this pada.",
+          "remedies": [
+            "Keep the threshold clear and the door easy to open.",
+            "Hang a simple nameplate at chest height, and light the entrance at dusk.",
+            "Choose a warm wood or cream door, and a small auspicious symbol beside it."
+          ]
+        },
+        {
+          "id": "E7",
+          "name": "Bhrisha",
+          "rating": "inauspicious",
+          "meaning": "Bhrisha. Classical texts associate this pada with harshness, and do not favor a door here.",
+          "remedies": [
+            "A clean threshold and an unblocked path matter more than a new door.",
+            "Add a steady light outside, and keep shoes and clutter off the entrance.",
+            "A healthy plant to the side, not in the doorway, is a gentle traditional touch."
+          ]
+        },
+        {
+          "id": "E8",
+          "name": "Antariksha",
+          "rating": "inauspicious",
+          "meaning": "Antariksha, near the southeast corner. Classical texts associate a door here with loss.",
+          "remedies": [
+            "Keep the threshold clear and the door easy to open.",
+            "Hang a simple nameplate at chest height, and light the entrance at dusk.",
+            "Choose a warm wood or cream door, and a small auspicious symbol beside it."
+          ]
+        },
+        {
+          "id": "S1",
+          "name": "Anila",
+          "rating": "inauspicious",
+          "meaning": "Anila, the wind pada at the southeast corner. Not a favored door in the classical list.",
+          "remedies": [
+            "A clean threshold and an unblocked path matter more than a new door.",
+            "Add a steady light outside, and keep shoes and clutter off the entrance.",
+            "A healthy plant to the side, not in the doorway, is a gentle traditional touch."
+          ]
+        },
+        {
+          "id": "S2",
+          "name": "Pusha",
+          "rating": "inauspicious",
+          "meaning": "Pusha. Classical texts do not favor a main door here.",
+          "remedies": [
+            "Keep the threshold clear and the door easy to open.",
+            "Hang a simple nameplate at chest height, and light the entrance at dusk.",
+            "Choose a warm wood or cream door, and a small auspicious symbol beside it."
+          ]
+        },
+        {
+          "id": "S3",
+          "name": "Vitatha",
+          "rating": "neutral",
+          "meaning": "Vitatha. Some modern guides allow a south door here; the classical list does not praise it.",
+          "remedies": [
+            "Keep the threshold clean and the nameplate straight and readable.",
+            "Light the entrance well, and choose a calm, light color for the door."
+          ]
+        },
+        {
+          "id": "S4",
+          "name": "Grihakshata",
+          "rating": "auspicious",
+          "meaning": "Grihakshata. Food and family, per the classical entrance list.",
+          "remedies": []
+        },
+        {
+          "id": "S5",
+          "name": "Yama",
+          "rating": "inauspicious",
+          "meaning": "Yama, lord of the south. A door on this exact-south pada is traditionally avoided.",
+          "remedies": [
+            "Keep the threshold clear and the door easy to open.",
+            "Hang a simple nameplate at chest height, and light the entrance at dusk.",
+            "Choose a warm wood or cream door, and a small auspicious symbol beside it."
+          ]
+        },
+        {
+          "id": "S6",
+          "name": "Gandharva",
+          "rating": "inauspicious",
+          "meaning": "Gandharva. Classical texts do not favor a main door here.",
+          "remedies": [
+            "A clean threshold and an unblocked path matter more than a new door.",
+            "Add a steady light outside, and keep shoes and clutter off the entrance.",
+            "A healthy plant to the side, not in the doorway, is a gentle traditional touch."
+          ]
+        },
+        {
+          "id": "S7",
+          "name": "Bhringaraja",
+          "rating": "inauspicious",
+          "meaning": "Bhringaraja. Classical texts associate this pada with loss of wealth.",
+          "remedies": [
+            "Keep the threshold clear and the door easy to open.",
+            "Hang a simple nameplate at chest height, and light the entrance at dusk.",
+            "Choose a warm wood or cream door, and a small auspicious symbol beside it."
+          ]
+        },
+        {
+          "id": "S8",
+          "name": "Mriga",
+          "rating": "inauspicious",
+          "meaning": "Mriga, the southwest corner. Classical texts do not favor a door here.",
+          "remedies": [
+            "A clean threshold and an unblocked path matter more than a new door.",
+            "Add a steady light outside, and keep shoes and clutter off the entrance.",
+            "A healthy plant to the side, not in the doorway, is a gentle traditional touch."
+          ]
+        },
+        {
+          "id": "W1",
+          "name": "Pitri",
+          "rating": "inauspicious",
+          "meaning": "Pitri, at the southwest corner. Classical texts do not favor a door here.",
+          "remedies": [
+            "Keep the threshold clear and the door easy to open.",
+            "Hang a simple nameplate at chest height, and light the entrance at dusk.",
+            "Choose a warm wood or cream door, and a small auspicious symbol beside it."
+          ]
+        },
+        {
+          "id": "W2",
+          "name": "Dauvarika",
+          "rating": "inauspicious",
+          "meaning": "Dauvarika, the gatekeeper. Classical texts associate this pada with conflict.",
+          "remedies": [
+            "A clean threshold and an unblocked path matter more than a new door.",
+            "Add a steady light outside, and keep shoes and clutter off the entrance.",
+            "A healthy plant to the side, not in the doorway, is a gentle traditional touch."
+          ]
+        },
+        {
+          "id": "W3",
+          "name": "Sugriva",
+          "rating": "neutral",
+          "meaning": "Sugriva. Some modern guides allow a west door here; the classical list does not praise it.",
+          "remedies": [
+            "Keep the threshold clean and the nameplate straight and readable.",
+            "Light the entrance well, and choose a calm, light color for the door."
+          ]
+        },
+        {
+          "id": "W4",
+          "name": "Pushpadanta",
+          "rating": "auspicious",
+          "meaning": "Pushpadanta. Children and prosperity, per the classical entrance list.",
+          "remedies": []
+        },
+        {
+          "id": "W5",
+          "name": "Varuna",
+          "rating": "auspicious",
+          "meaning": "Varuna, lord of the west. Wealth, per the classical entrance list.",
+          "remedies": []
+        },
+        {
+          "id": "W6",
+          "name": "Asura",
+          "rating": "inauspicious",
+          "meaning": "Asura. Classical texts associate this pada with trouble from authority.",
+          "remedies": [
+            "Keep the threshold clear and the door easy to open.",
+            "Hang a simple nameplate at chest height, and light the entrance at dusk.",
+            "Choose a warm wood or cream door, and a small auspicious symbol beside it."
+          ]
+        },
+        {
+          "id": "W7",
+          "name": "Shosha",
+          "rating": "inauspicious",
+          "meaning": "Shosha. Classical texts associate this pada with loss of wealth.",
+          "remedies": [
+            "A clean threshold and an unblocked path matter more than a new door.",
+            "Add a steady light outside, and keep shoes and clutter off the entrance.",
+            "A healthy plant to the side, not in the doorway, is a gentle traditional touch."
+          ]
+        },
+        {
+          "id": "W8",
+          "name": "Papayakshma",
+          "rating": "inauspicious",
+          "meaning": "Papayakshma, the northwest corner. Classical texts associate a door here with illness.",
+          "remedies": [
+            "Keep the threshold clear and the door easy to open.",
+            "Hang a simple nameplate at chest height, and light the entrance at dusk.",
+            "Choose a warm wood or cream door, and a small auspicious symbol beside it."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "house_facing",
+      "title": "House facing",
+      "blurb": "The front of the home",
+      "icon": "house",
+      "group": "Entrance",
+      "reference": "facing-out",
+      "granularity": 8,
+      "instructions": "Stand inside at the front of the home, facing out. Hold the phone flat, top pointing out.",
+      "bestNote": "Best facing north, northeast, or east. The main-door pada is the finer check.",
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "North is associated with wealth and an easy flow of opportunity.",
+          "remedies": []
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "auspicious",
+          "meaning": "Northeast is the light, water corner, a favored facing for a home.",
+          "remedies": []
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "East is associated with recognition and a bright start to the day.",
+          "remedies": []
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Southeast is not the usual facing. The entrance pada and a bright front matter more than rebuilding.",
+          "remedies": [
+            "Check the main-door pada next. A good pada softens a difficult facing.",
+            "Keep the threshold clear, with a readable nameplate and a lamp at dusk.",
+            "Use a light, warm color on the front rather than black or deep red."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "South is not the usual facing. The entrance pada and a bright front matter more than rebuilding.",
+          "remedies": [
+            "Check the main-door pada next. A good pada softens a difficult facing.",
+            "Keep the threshold clear, with a readable nameplate and a lamp at dusk.",
+            "Use a light, warm color on the front rather than black or deep red."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Southwest is not the usual facing. The entrance pada and a bright front matter more than rebuilding.",
+          "remedies": [
+            "Check the main-door pada next. A good pada softens a difficult facing.",
+            "Keep the threshold clear, with a readable nameplate and a lamp at dusk.",
+            "Use a light, warm color on the front rather than black or deep red."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "neutral",
+          "meaning": "West can work. Brighten the front, then check the main-door pada.",
+          "remedies": [
+            "Keep the front bright, with a clear path to the door.",
+            "The main-door pada is the finer check for this facing."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "neutral",
+          "meaning": "Northwest can work. Brighten the front, then check the main-door pada.",
+          "remedies": [
+            "Keep the front bright, with a clear path to the door.",
+            "The main-door pada is the finer check for this facing."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kitchen",
+      "title": "Kitchen",
+      "blurb": "Where the kitchen sits",
+      "icon": "pot",
+      "group": "Kitchen",
+      "reference": "pointing-from-center",
+      "granularity": 16,
+      "instructions": "Stand at the center of the home and point the top of the phone at the kitchen.",
+      "bestNote": "Best in the southeast, the fire corner. Northwest is the usual second place.",
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "inauspicious",
+          "meaning": "North is not where traditional Vaastu puts the cooking fire.",
+          "remedies": [
+            "Cook facing east if the stove can turn.",
+            "Keep the flame area bright, clean, and free of clutter.",
+            "Use warm colors beside the stove, and no mirror facing the flame."
+          ]
+        },
+        {
+          "id": "NNE",
+          "name": "North-northeast",
+          "rating": "inauspicious",
+          "meaning": "North-northeast is not where traditional Vaastu puts the cooking fire.",
+          "remedies": [
+            "Cook facing east if the stove can turn.",
+            "Keep the flame area bright, clean, and free of clutter.",
+            "Use warm colors beside the stove, and no mirror facing the flame."
+          ]
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "inauspicious",
+          "meaning": "Northeast is not where traditional Vaastu puts the cooking fire.",
+          "remedies": [
+            "Cook facing east if the stove can turn.",
+            "Keep the flame area bright, clean, and free of clutter.",
+            "Use warm colors beside the stove, and no mirror facing the flame."
+          ]
+        },
+        {
+          "id": "ENE",
+          "name": "East-northeast",
+          "rating": "inauspicious",
+          "meaning": "East-northeast is not where traditional Vaastu puts the cooking fire.",
+          "remedies": [
+            "Cook facing east if the stove can turn.",
+            "Keep the flame area bright, clean, and free of clutter.",
+            "Use warm colors beside the stove, and no mirror facing the flame."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "neutral",
+          "meaning": "East can hold a kitchen if you cook facing east.",
+          "remedies": [
+            "Face east while you cook.",
+            "Keep the stove off the exact middle of the room."
+          ]
+        },
+        {
+          "id": "ESE",
+          "name": "East-southeast",
+          "rating": "auspicious",
+          "meaning": "East-southeast is a good second place for the kitchen fire.",
+          "remedies": []
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "auspicious",
+          "meaning": "The fire corner. Traditional Vaastu puts the kitchen here.",
+          "remedies": []
+        },
+        {
+          "id": "SSE",
+          "name": "South-southeast",
+          "rating": "auspicious",
+          "meaning": "South-southeast is a good second place for the kitchen fire.",
+          "remedies": []
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "South is not where traditional Vaastu puts the cooking fire.",
+          "remedies": [
+            "Cook facing east if the stove can turn.",
+            "Keep the flame area bright, clean, and free of clutter.",
+            "Use warm colors beside the stove, and no mirror facing the flame."
+          ]
+        },
+        {
+          "id": "SSW",
+          "name": "South-southwest",
+          "rating": "inauspicious",
+          "meaning": "South-southwest is not where traditional Vaastu puts the cooking fire.",
+          "remedies": [
+            "Cook facing east if the stove can turn.",
+            "Keep the flame area bright, clean, and free of clutter.",
+            "Use warm colors beside the stove, and no mirror facing the flame."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Southwest is not where traditional Vaastu puts the cooking fire.",
+          "remedies": [
+            "Cook facing east if the stove can turn.",
+            "Keep the flame area bright, clean, and free of clutter.",
+            "Use warm colors beside the stove, and no mirror facing the flame."
+          ]
+        },
+        {
+          "id": "WSW",
+          "name": "West-southwest",
+          "rating": "inauspicious",
+          "meaning": "West-southwest is not where traditional Vaastu puts the cooking fire.",
+          "remedies": [
+            "Cook facing east if the stove can turn.",
+            "Keep the flame area bright, clean, and free of clutter.",
+            "Use warm colors beside the stove, and no mirror facing the flame."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "neutral",
+          "meaning": "West can hold a kitchen if you cook facing east.",
+          "remedies": [
+            "Face east while you cook.",
+            "Keep the stove off the exact middle of the room."
+          ]
+        },
+        {
+          "id": "WNW",
+          "name": "West-northwest",
+          "rating": "neutral",
+          "meaning": "West-northwest can hold a kitchen if you cook facing east.",
+          "remedies": [
+            "Face east while you cook.",
+            "Keep the stove off the exact middle of the room."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "auspicious",
+          "meaning": "Northwest is the usual second place when the southeast is taken.",
+          "remedies": []
+        },
+        {
+          "id": "NNW",
+          "name": "North-northwest",
+          "rating": "neutral",
+          "meaning": "North-northwest can hold a kitchen if you cook facing east.",
+          "remedies": [
+            "Face east while you cook.",
+            "Keep the stove off the exact middle of the room."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cooking_facing",
+      "title": "Cooking direction",
+      "blurb": "Which way you face to cook",
+      "icon": "flame",
+      "group": "Kitchen",
+      "reference": "facing-out",
+      "instructions": "Stand as you do when you cook, and point the top of the phone the way you are facing.",
+      "bestNote": "Best facing east. North is a good second.",
+      "granularity": 8,
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "Facing north is the usual second choice for the cook.",
+          "remedies": []
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "neutral",
+          "meaning": "Facing northeast is workable. East is still the first choice.",
+          "remedies": [
+            "Turn a little toward east if the stove allows.",
+            "Keep the cook's place clear and well lit."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "Facing east while cooking is the traditional first choice.",
+          "remedies": []
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Facing southeast while cooking is not the usual choice.",
+          "remedies": [
+            "Turn so you face east, or north if east is blocked.",
+            "The stove can stay. The direction you face is the gentle fix.",
+            "Keep a lamp or a bright corner to your east while you cook."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "Facing south while cooking is not the usual choice.",
+          "remedies": [
+            "Turn so you face east, or north if east is blocked.",
+            "The stove can stay. The direction you face is the gentle fix.",
+            "Keep a lamp or a bright corner to your east while you cook."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Facing southwest while cooking is not the usual choice.",
+          "remedies": [
+            "Turn so you face east, or north if east is blocked.",
+            "The stove can stay. The direction you face is the gentle fix.",
+            "Keep a lamp or a bright corner to your east while you cook."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "inauspicious",
+          "meaning": "Facing west while cooking is not the usual choice.",
+          "remedies": [
+            "Turn so you face east, or north if east is blocked.",
+            "The stove can stay. The direction you face is the gentle fix.",
+            "Keep a lamp or a bright corner to your east while you cook."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "inauspicious",
+          "meaning": "Facing northwest while cooking is not the usual choice.",
+          "remedies": [
+            "Turn so you face east, or north if east is blocked.",
+            "The stove can stay. The direction you face is the gentle fix.",
+            "Keep a lamp or a bright corner to your east while you cook."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stove",
+      "title": "Stove",
+      "blurb": "Where the stove sits",
+      "icon": "flame",
+      "group": "Kitchen",
+      "reference": "pointing-from-center",
+      "granularity": 16,
+      "instructions": "Stand in the middle of the kitchen and point the top of the phone at the stove.",
+      "bestNote": "Best in the southeast of the kitchen. East and south of the stove's corner are the next choices.",
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "inauspicious",
+          "meaning": "North is not the usual corner for the flame.",
+          "remedies": [
+            "Slide the stove toward the southeast of the kitchen if it can move.",
+            "Face east while you cook, even if the corner stays.",
+            "Keep the burners clean, and do not hang a mirror facing them."
+          ]
+        },
+        {
+          "id": "NNE",
+          "name": "North-northeast",
+          "rating": "inauspicious",
+          "meaning": "North-northeast is not the usual corner for the flame.",
+          "remedies": [
+            "Slide the stove toward the southeast of the kitchen if it can move.",
+            "Face east while you cook, even if the corner stays.",
+            "Keep the burners clean, and do not hang a mirror facing them."
+          ]
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "inauspicious",
+          "meaning": "Northeast is not the usual corner for the flame.",
+          "remedies": [
+            "Slide the stove toward the southeast of the kitchen if it can move.",
+            "Face east while you cook, even if the corner stays.",
+            "Keep the burners clean, and do not hang a mirror facing them."
+          ]
+        },
+        {
+          "id": "ENE",
+          "name": "East-northeast",
+          "rating": "neutral",
+          "meaning": "East-northeast can hold the stove if you still face east to cook.",
+          "remedies": [
+            "Face east while the flame is on.",
+            "Keep the stove a little off the exact middle."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "East is a workable side for the stove.",
+          "remedies": []
+        },
+        {
+          "id": "ESE",
+          "name": "East-southeast",
+          "rating": "auspicious",
+          "meaning": "East-southeast is a workable side for the stove.",
+          "remedies": []
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "auspicious",
+          "meaning": "Southeast of where you stand is the fire corner of the kitchen.",
+          "remedies": []
+        },
+        {
+          "id": "SSE",
+          "name": "South-southeast",
+          "rating": "auspicious",
+          "meaning": "South-southeast is a workable side for the stove.",
+          "remedies": []
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "neutral",
+          "meaning": "South can hold the stove if you still face east to cook.",
+          "remedies": [
+            "Face east while the flame is on.",
+            "Keep the stove a little off the exact middle."
+          ]
+        },
+        {
+          "id": "SSW",
+          "name": "South-southwest",
+          "rating": "inauspicious",
+          "meaning": "South-southwest is not the usual corner for the flame.",
+          "remedies": [
+            "Slide the stove toward the southeast of the kitchen if it can move.",
+            "Face east while you cook, even if the corner stays.",
+            "Keep the burners clean, and do not hang a mirror facing them."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "neutral",
+          "meaning": "Southwest can hold the stove if you still face east to cook.",
+          "remedies": [
+            "Face east while the flame is on.",
+            "Keep the stove a little off the exact middle."
+          ]
+        },
+        {
+          "id": "WSW",
+          "name": "West-southwest",
+          "rating": "inauspicious",
+          "meaning": "West-southwest is not the usual corner for the flame.",
+          "remedies": [
+            "Slide the stove toward the southeast of the kitchen if it can move.",
+            "Face east while you cook, even if the corner stays.",
+            "Keep the burners clean, and do not hang a mirror facing them."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "neutral",
+          "meaning": "West can hold the stove if you still face east to cook.",
+          "remedies": [
+            "Face east while the flame is on.",
+            "Keep the stove a little off the exact middle."
+          ]
+        },
+        {
+          "id": "WNW",
+          "name": "West-northwest",
+          "rating": "inauspicious",
+          "meaning": "West-northwest is not the usual corner for the flame.",
+          "remedies": [
+            "Slide the stove toward the southeast of the kitchen if it can move.",
+            "Face east while you cook, even if the corner stays.",
+            "Keep the burners clean, and do not hang a mirror facing them."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "inauspicious",
+          "meaning": "Northwest is not the usual corner for the flame.",
+          "remedies": [
+            "Slide the stove toward the southeast of the kitchen if it can move.",
+            "Face east while you cook, even if the corner stays.",
+            "Keep the burners clean, and do not hang a mirror facing them."
+          ]
+        },
+        {
+          "id": "NNW",
+          "name": "North-northwest",
+          "rating": "inauspicious",
+          "meaning": "North-northwest is not the usual corner for the flame.",
+          "remedies": [
+            "Slide the stove toward the southeast of the kitchen if it can move.",
+            "Face east while you cook, even if the corner stays.",
+            "Keep the burners clean, and do not hang a mirror facing them."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "master_bedroom",
+      "title": "Master bedroom",
+      "blurb": "Where the main bedroom sits",
+      "icon": "bed",
+      "group": "Sleep",
+      "reference": "pointing-from-center",
+      "granularity": 16,
+      "instructions": "Stand at the center of the home and point the top of the phone at the master bedroom.",
+      "bestNote": "Best in the southwest, the quiet heavy corner. South and west are the next choices.",
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "inauspicious",
+          "meaning": "North is not the usual place for the master bedroom.",
+          "remedies": [
+            "Sleep with your head to the south, or to the east if the bed will not fit that way.",
+            "Keep the southwest corner of the room heavier: a cupboard, not a pile of clutter.",
+            "Use calm earth colors, and keep the room quiet."
+          ]
+        },
+        {
+          "id": "NNE",
+          "name": "North-northeast",
+          "rating": "inauspicious",
+          "meaning": "North-northeast is not the usual place for the master bedroom.",
+          "remedies": [
+            "Sleep with your head to the south, or to the east if the bed will not fit that way.",
+            "Keep the southwest corner of the room heavier: a cupboard, not a pile of clutter.",
+            "Use calm earth colors, and keep the room quiet."
+          ]
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "inauspicious",
+          "meaning": "Northeast is not the usual place for the master bedroom.",
+          "remedies": [
+            "Sleep with your head to the south, or to the east if the bed will not fit that way.",
+            "Keep the southwest corner of the room heavier: a cupboard, not a pile of clutter.",
+            "Use calm earth colors, and keep the room quiet."
+          ]
+        },
+        {
+          "id": "ENE",
+          "name": "East-northeast",
+          "rating": "inauspicious",
+          "meaning": "East-northeast is not the usual place for the master bedroom.",
+          "remedies": [
+            "Sleep with your head to the south, or to the east if the bed will not fit that way.",
+            "Keep the southwest corner of the room heavier: a cupboard, not a pile of clutter.",
+            "Use calm earth colors, and keep the room quiet."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "inauspicious",
+          "meaning": "East is not the usual place for the master bedroom.",
+          "remedies": [
+            "Sleep with your head to the south, or to the east if the bed will not fit that way.",
+            "Keep the southwest corner of the room heavier: a cupboard, not a pile of clutter.",
+            "Use calm earth colors, and keep the room quiet."
+          ]
+        },
+        {
+          "id": "ESE",
+          "name": "East-southeast",
+          "rating": "inauspicious",
+          "meaning": "East-southeast is not the usual place for the master bedroom.",
+          "remedies": [
+            "Sleep with your head to the south, or to the east if the bed will not fit that way.",
+            "Keep the southwest corner of the room heavier: a cupboard, not a pile of clutter.",
+            "Use calm earth colors, and keep the room quiet."
+          ]
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Southeast is not the usual place for the master bedroom.",
+          "remedies": [
+            "Sleep with your head to the south, or to the east if the bed will not fit that way.",
+            "Keep the southwest corner of the room heavier: a cupboard, not a pile of clutter.",
+            "Use calm earth colors, and keep the room quiet."
+          ]
+        },
+        {
+          "id": "SSE",
+          "name": "South-southeast",
+          "rating": "neutral",
+          "meaning": "South-southeast can work if the room stays quiet and the head points south.",
+          "remedies": [
+            "Sleep with your head to the south.",
+            "Keep the heavier furniture on the south or west side of the room."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "auspicious",
+          "meaning": "South is a comfortable second place for the main bedroom.",
+          "remedies": []
+        },
+        {
+          "id": "SSW",
+          "name": "South-southwest",
+          "rating": "auspicious",
+          "meaning": "South-southwest is a comfortable second place for the main bedroom.",
+          "remedies": []
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "auspicious",
+          "meaning": "Southwest is the quiet, heavy corner kept for the people who live here.",
+          "remedies": []
+        },
+        {
+          "id": "WSW",
+          "name": "West-southwest",
+          "rating": "auspicious",
+          "meaning": "West-southwest is a comfortable second place for the main bedroom.",
+          "remedies": []
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "auspicious",
+          "meaning": "West is a comfortable second place for the main bedroom.",
+          "remedies": []
+        },
+        {
+          "id": "WNW",
+          "name": "West-northwest",
+          "rating": "neutral",
+          "meaning": "West-northwest can work if the room stays quiet and the head points south.",
+          "remedies": [
+            "Sleep with your head to the south.",
+            "Keep the heavier furniture on the south or west side of the room."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "neutral",
+          "meaning": "Northwest can work if the room stays quiet and the head points south.",
+          "remedies": [
+            "Sleep with your head to the south.",
+            "Keep the heavier furniture on the south or west side of the room."
+          ]
+        },
+        {
+          "id": "NNW",
+          "name": "North-northwest",
+          "rating": "inauspicious",
+          "meaning": "North-northwest is not the usual place for the master bedroom.",
+          "remedies": [
+            "Sleep with your head to the south, or to the east if the bed will not fit that way.",
+            "Keep the southwest corner of the room heavier: a cupboard, not a pile of clutter.",
+            "Use calm earth colors, and keep the room quiet."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bed_head",
+      "title": "Bed head",
+      "blurb": "Which way your head points",
+      "icon": "pillow",
+      "group": "Sleep",
+      "reference": "facing-out",
+      "granularity": 16,
+      "instructions": "Stand at the foot of the bed and point the top of the phone toward the pillows.",
+      "bestNote": "Best with your head to the south. East is the usual second choice.",
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "inauspicious",
+          "meaning": "Head toward the north is the direction traditional Vaastu avoids for sleep.",
+          "remedies": [
+            "Turn the bed so your head points south, or east.",
+            "If the bed cannot turn, keep the north side of the room light and clear.",
+            "A solid headboard helps more than a new bed."
+          ]
+        },
+        {
+          "id": "NNE",
+          "name": "North-northeast",
+          "rating": "inauspicious",
+          "meaning": "Head toward the north-northeast is the direction traditional Vaastu avoids for sleep.",
+          "remedies": [
+            "Turn the bed so your head points south, or east.",
+            "If the bed cannot turn, keep the north side of the room light and clear.",
+            "A solid headboard helps more than a new bed."
+          ]
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "inauspicious",
+          "meaning": "Head toward the northeast is the direction traditional Vaastu avoids for sleep.",
+          "remedies": [
+            "Turn the bed so your head points south, or east.",
+            "If the bed cannot turn, keep the north side of the room light and clear.",
+            "A solid headboard helps more than a new bed."
+          ]
+        },
+        {
+          "id": "ENE",
+          "name": "East-northeast",
+          "rating": "auspicious",
+          "meaning": "Head toward the east-northeast is a good second choice.",
+          "remedies": []
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "Head to the east is the usual second choice when south will not fit.",
+          "remedies": []
+        },
+        {
+          "id": "ESE",
+          "name": "East-southeast",
+          "rating": "auspicious",
+          "meaning": "Head toward the east-southeast is a good second choice.",
+          "remedies": []
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "neutral",
+          "meaning": "Head toward the southeast is workable. South is still the first choice.",
+          "remedies": [
+            "Shift the pillows toward the south if the room allows.",
+            "Keep a mirror from facing the bed."
+          ]
+        },
+        {
+          "id": "SSE",
+          "name": "South-southeast",
+          "rating": "auspicious",
+          "meaning": "Head toward the south-southeast is the traditional preference for sleep.",
+          "remedies": []
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "auspicious",
+          "meaning": "Head to the south is the most cited traditional preference for sleep.",
+          "remedies": []
+        },
+        {
+          "id": "SSW",
+          "name": "South-southwest",
+          "rating": "auspicious",
+          "meaning": "Head toward the south-southwest is the traditional preference for sleep.",
+          "remedies": []
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "neutral",
+          "meaning": "Head toward the southwest is workable. South is still the first choice.",
+          "remedies": [
+            "Shift the pillows toward the south if the room allows.",
+            "Keep a mirror from facing the bed."
+          ]
+        },
+        {
+          "id": "WSW",
+          "name": "West-southwest",
+          "rating": "neutral",
+          "meaning": "Head toward the west-southwest is workable. South is still the first choice.",
+          "remedies": [
+            "Shift the pillows toward the south if the room allows.",
+            "Keep a mirror from facing the bed."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "neutral",
+          "meaning": "Head toward the west is workable. South is still the first choice.",
+          "remedies": [
+            "Shift the pillows toward the south if the room allows.",
+            "Keep a mirror from facing the bed."
+          ]
+        },
+        {
+          "id": "WNW",
+          "name": "West-northwest",
+          "rating": "neutral",
+          "meaning": "Head toward the west-northwest is workable. South is still the first choice.",
+          "remedies": [
+            "Shift the pillows toward the south if the room allows.",
+            "Keep a mirror from facing the bed."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "inauspicious",
+          "meaning": "Head toward the northwest is the direction traditional Vaastu avoids for sleep.",
+          "remedies": [
+            "Turn the bed so your head points south, or east.",
+            "If the bed cannot turn, keep the north side of the room light and clear.",
+            "A solid headboard helps more than a new bed."
+          ]
+        },
+        {
+          "id": "NNW",
+          "name": "North-northwest",
+          "rating": "inauspicious",
+          "meaning": "Head toward the north-northwest is the direction traditional Vaastu avoids for sleep.",
+          "remedies": [
+            "Turn the bed so your head points south, or east.",
+            "If the bed cannot turn, keep the north side of the room light and clear.",
+            "A solid headboard helps more than a new bed."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "children_bedroom",
+      "title": "Children's room",
+      "blurb": "Where the children sleep",
+      "icon": "child",
+      "group": "Sleep",
+      "reference": "pointing-from-center",
+      "granularity": 16,
+      "instructions": "Stand at the center of the home and point the top of the phone at the children's room.",
+      "bestNote": "Best in the west or northwest. The southwest is kept for the adults.",
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "North is a comfortable second place for children.",
+          "remedies": []
+        },
+        {
+          "id": "NNE",
+          "name": "North-northeast",
+          "rating": "neutral",
+          "meaning": "North-northeast can work for children if the room stays light.",
+          "remedies": [
+            "Let them sleep with the head to the east or south.",
+            "Keep the desk facing east or north."
+          ]
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "neutral",
+          "meaning": "Northeast can work for children if the room stays light.",
+          "remedies": [
+            "Let them sleep with the head to the east or south.",
+            "Keep the desk facing east or north."
+          ]
+        },
+        {
+          "id": "ENE",
+          "name": "East-northeast",
+          "rating": "inauspicious",
+          "meaning": "East-northeast is not the usual place for a child's room.",
+          "remedies": [
+            "Sleep with the head to the east or south.",
+            "Keep study toward the east or north of the room.",
+            "Use soft colors, and leave the southwest for the adults."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "inauspicious",
+          "meaning": "East is not the usual place for a child's room.",
+          "remedies": [
+            "Sleep with the head to the east or south.",
+            "Keep study toward the east or north of the room.",
+            "Use soft colors, and leave the southwest for the adults."
+          ]
+        },
+        {
+          "id": "ESE",
+          "name": "East-southeast",
+          "rating": "inauspicious",
+          "meaning": "East-southeast is not the usual place for a child's room.",
+          "remedies": [
+            "Sleep with the head to the east or south.",
+            "Keep study toward the east or north of the room.",
+            "Use soft colors, and leave the southwest for the adults."
+          ]
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Southeast is not the usual place for a child's room.",
+          "remedies": [
+            "Sleep with the head to the east or south.",
+            "Keep study toward the east or north of the room.",
+            "Use soft colors, and leave the southwest for the adults."
+          ]
+        },
+        {
+          "id": "SSE",
+          "name": "South-southeast",
+          "rating": "inauspicious",
+          "meaning": "South-southeast is not the usual place for a child's room.",
+          "remedies": [
+            "Sleep with the head to the east or south.",
+            "Keep study toward the east or north of the room.",
+            "Use soft colors, and leave the southwest for the adults."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "South is not the usual place for a child's room.",
+          "remedies": [
+            "Sleep with the head to the east or south.",
+            "Keep study toward the east or north of the room.",
+            "Use soft colors, and leave the southwest for the adults."
+          ]
+        },
+        {
+          "id": "SSW",
+          "name": "South-southwest",
+          "rating": "inauspicious",
+          "meaning": "South-southwest is not the usual place for a child's room.",
+          "remedies": [
+            "Sleep with the head to the east or south.",
+            "Keep study toward the east or north of the room.",
+            "Use soft colors, and leave the southwest for the adults."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Southwest is not the usual place for a child's room.",
+          "remedies": [
+            "Sleep with the head to the east or south.",
+            "Keep study toward the east or north of the room.",
+            "Use soft colors, and leave the southwest for the adults."
+          ]
+        },
+        {
+          "id": "WSW",
+          "name": "West-southwest",
+          "rating": "neutral",
+          "meaning": "West-southwest can work for children if the room stays light.",
+          "remedies": [
+            "Let them sleep with the head to the east or south.",
+            "Keep the desk facing east or north."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "auspicious",
+          "meaning": "West is a calm, traditional place for a child's room.",
+          "remedies": []
+        },
+        {
+          "id": "WNW",
+          "name": "West-northwest",
+          "rating": "auspicious",
+          "meaning": "West-northwest is a comfortable second place for children.",
+          "remedies": []
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "auspicious",
+          "meaning": "Northwest is light and lively, a traditional place for children.",
+          "remedies": []
+        },
+        {
+          "id": "NNW",
+          "name": "North-northwest",
+          "rating": "auspicious",
+          "meaning": "North-northwest is a comfortable second place for children.",
+          "remedies": []
+        }
+      ]
+    },
+    {
+      "id": "guest_bedroom",
+      "title": "Guest room",
+      "blurb": "Where guests stay",
+      "icon": "guests",
+      "group": "Sleep",
+      "reference": "pointing-from-center",
+      "granularity": 16,
+      "instructions": "Stand at the center of the home and point the top of the phone at the guest room.",
+      "bestNote": "Best in the northwest, so guests are comfortable without taking the southwest.",
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "North is a fine second place for a guest room.",
+          "remedies": []
+        },
+        {
+          "id": "NNE",
+          "name": "North-northeast",
+          "rating": "neutral",
+          "meaning": "North-northeast can host guests if the room stays simple.",
+          "remedies": [
+            "Offer a bed with the head to the east or south.",
+            "Keep the room light and easy to air."
+          ]
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "neutral",
+          "meaning": "Northeast can host guests if the room stays simple.",
+          "remedies": [
+            "Offer a bed with the head to the east or south.",
+            "Keep the room light and easy to air."
+          ]
+        },
+        {
+          "id": "ENE",
+          "name": "East-northeast",
+          "rating": "inauspicious",
+          "meaning": "East-northeast is better kept for the people who live here, not for guests.",
+          "remedies": [
+            "Head to the east or south for the guest bed.",
+            "Keep the room simple, with light colors.",
+            "Leave the southwest bedroom for the household."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "inauspicious",
+          "meaning": "East is better kept for the people who live here, not for guests.",
+          "remedies": [
+            "Head to the east or south for the guest bed.",
+            "Keep the room simple, with light colors.",
+            "Leave the southwest bedroom for the household."
+          ]
+        },
+        {
+          "id": "ESE",
+          "name": "East-southeast",
+          "rating": "inauspicious",
+          "meaning": "East-southeast is better kept for the people who live here, not for guests.",
+          "remedies": [
+            "Head to the east or south for the guest bed.",
+            "Keep the room simple, with light colors.",
+            "Leave the southwest bedroom for the household."
+          ]
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Southeast is better kept for the people who live here, not for guests.",
+          "remedies": [
+            "Head to the east or south for the guest bed.",
+            "Keep the room simple, with light colors.",
+            "Leave the southwest bedroom for the household."
+          ]
+        },
+        {
+          "id": "SSE",
+          "name": "South-southeast",
+          "rating": "inauspicious",
+          "meaning": "South-southeast is better kept for the people who live here, not for guests.",
+          "remedies": [
+            "Head to the east or south for the guest bed.",
+            "Keep the room simple, with light colors.",
+            "Leave the southwest bedroom for the household."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "South is better kept for the people who live here, not for guests.",
+          "remedies": [
+            "Head to the east or south for the guest bed.",
+            "Keep the room simple, with light colors.",
+            "Leave the southwest bedroom for the household."
+          ]
+        },
+        {
+          "id": "SSW",
+          "name": "South-southwest",
+          "rating": "inauspicious",
+          "meaning": "South-southwest is better kept for the people who live here, not for guests.",
+          "remedies": [
+            "Head to the east or south for the guest bed.",
+            "Keep the room simple, with light colors.",
+            "Leave the southwest bedroom for the household."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Southwest is better kept for the people who live here, not for guests.",
+          "remedies": [
+            "Head to the east or south for the guest bed.",
+            "Keep the room simple, with light colors.",
+            "Leave the southwest bedroom for the household."
+          ]
+        },
+        {
+          "id": "WSW",
+          "name": "West-southwest",
+          "rating": "neutral",
+          "meaning": "West-southwest can host guests if the room stays simple.",
+          "remedies": [
+            "Offer a bed with the head to the east or south.",
+            "Keep the room light and easy to air."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "auspicious",
+          "meaning": "West is a fine second place for a guest room.",
+          "remedies": []
+        },
+        {
+          "id": "WNW",
+          "name": "West-northwest",
+          "rating": "auspicious",
+          "meaning": "West-northwest is a fine second place for a guest room.",
+          "remedies": []
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "auspicious",
+          "meaning": "Northwest lets guests stay comfortably without occupying the southwest.",
+          "remedies": []
+        },
+        {
+          "id": "NNW",
+          "name": "North-northwest",
+          "rating": "auspicious",
+          "meaning": "North-northwest is a fine second place for a guest room.",
+          "remedies": []
+        }
+      ]
+    },
+    {
+      "id": "pooja",
+      "title": "Prayer room",
+      "blurb": "Where you pray",
+      "icon": "flower",
+      "group": "Prayer",
+      "reference": "pointing-from-center",
+      "granularity": 16,
+      "instructions": "Stand at the center of the home and point the top of the phone at the prayer room or shrine.",
+      "bestNote": "Best in the northeast. North and east are the next choices.",
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "North is a good second place for the shrine.",
+          "remedies": []
+        },
+        {
+          "id": "NNE",
+          "name": "North-northeast",
+          "rating": "auspicious",
+          "meaning": "North-northeast is a good second place for the shrine.",
+          "remedies": []
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "auspicious",
+          "meaning": "Northeast is the quiet water corner, the traditional place for prayer.",
+          "remedies": []
+        },
+        {
+          "id": "ENE",
+          "name": "East-northeast",
+          "rating": "auspicious",
+          "meaning": "East-northeast is a good second place for the shrine.",
+          "remedies": []
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "East is a good second place for the shrine.",
+          "remedies": []
+        },
+        {
+          "id": "ESE",
+          "name": "East-southeast",
+          "rating": "neutral",
+          "meaning": "East-southeast can hold a quiet shrine if you face east to pray.",
+          "remedies": [
+            "Face east while you pray.",
+            "A steady lamp and a clean shelf are enough."
+          ]
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Southeast is not the usual place for prayer.",
+          "remedies": [
+            "Face east or north when you pray, even if the room stays.",
+            "Keep a small lamp and light colors in the northeast of the room.",
+            "Do not let the shrine face a toilet or share a wall with one."
+          ]
+        },
+        {
+          "id": "SSE",
+          "name": "South-southeast",
+          "rating": "inauspicious",
+          "meaning": "South-southeast is not the usual place for prayer.",
+          "remedies": [
+            "Face east or north when you pray, even if the room stays.",
+            "Keep a small lamp and light colors in the northeast of the room.",
+            "Do not let the shrine face a toilet or share a wall with one."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "South is not the usual place for prayer.",
+          "remedies": [
+            "Face east or north when you pray, even if the room stays.",
+            "Keep a small lamp and light colors in the northeast of the room.",
+            "Do not let the shrine face a toilet or share a wall with one."
+          ]
+        },
+        {
+          "id": "SSW",
+          "name": "South-southwest",
+          "rating": "inauspicious",
+          "meaning": "South-southwest is not the usual place for prayer.",
+          "remedies": [
+            "Face east or north when you pray, even if the room stays.",
+            "Keep a small lamp and light colors in the northeast of the room.",
+            "Do not let the shrine face a toilet or share a wall with one."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Southwest is not the usual place for prayer.",
+          "remedies": [
+            "Face east or north when you pray, even if the room stays.",
+            "Keep a small lamp and light colors in the northeast of the room.",
+            "Do not let the shrine face a toilet or share a wall with one."
+          ]
+        },
+        {
+          "id": "WSW",
+          "name": "West-southwest",
+          "rating": "inauspicious",
+          "meaning": "West-southwest is not the usual place for prayer.",
+          "remedies": [
+            "Face east or north when you pray, even if the room stays.",
+            "Keep a small lamp and light colors in the northeast of the room.",
+            "Do not let the shrine face a toilet or share a wall with one."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "inauspicious",
+          "meaning": "West is not the usual place for prayer.",
+          "remedies": [
+            "Face east or north when you pray, even if the room stays.",
+            "Keep a small lamp and light colors in the northeast of the room.",
+            "Do not let the shrine face a toilet or share a wall with one."
+          ]
+        },
+        {
+          "id": "WNW",
+          "name": "West-northwest",
+          "rating": "inauspicious",
+          "meaning": "West-northwest is not the usual place for prayer.",
+          "remedies": [
+            "Face east or north when you pray, even if the room stays.",
+            "Keep a small lamp and light colors in the northeast of the room.",
+            "Do not let the shrine face a toilet or share a wall with one."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "neutral",
+          "meaning": "Northwest can hold a quiet shrine if you face east to pray.",
+          "remedies": [
+            "Face east while you pray.",
+            "A steady lamp and a clean shelf are enough."
+          ]
+        },
+        {
+          "id": "NNW",
+          "name": "North-northwest",
+          "rating": "neutral",
+          "meaning": "North-northwest can hold a quiet shrine if you face east to pray.",
+          "remedies": [
+            "Face east while you pray.",
+            "A steady lamp and a clean shelf are enough."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prayer_facing",
+      "title": "Prayer direction",
+      "blurb": "Which way you face in prayer",
+      "icon": "pray",
+      "group": "Prayer",
+      "reference": "facing-out",
+      "instructions": "Sit or stand as you do for prayer, and point the top of the phone the way you are facing.",
+      "bestNote": "Best facing east or north.",
+      "granularity": 8,
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "Facing north is the other direction traditionally chosen for prayer.",
+          "remedies": []
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "auspicious",
+          "meaning": "Facing northeast in prayer is a traditional preference.",
+          "remedies": []
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "Facing east in prayer is the traditional first choice.",
+          "remedies": []
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Facing southeast is not the usual direction for prayer.",
+          "remedies": [
+            "Turn so you face east, or north.",
+            "If the seat cannot move, keep a lamp to your east.",
+            "A small clean mat is enough. The direction is the remedy."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "Facing south is not the usual direction for prayer.",
+          "remedies": [
+            "Turn so you face east, or north.",
+            "If the seat cannot move, keep a lamp to your east.",
+            "A small clean mat is enough. The direction is the remedy."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Facing southwest is not the usual direction for prayer.",
+          "remedies": [
+            "Turn so you face east, or north.",
+            "If the seat cannot move, keep a lamp to your east.",
+            "A small clean mat is enough. The direction is the remedy."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "neutral",
+          "meaning": "Facing west is workable. East or north is the first choice.",
+          "remedies": [
+            "Turn toward east if the seat allows.",
+            "Keep the seat quiet and uncluttered."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "inauspicious",
+          "meaning": "Facing northwest is not the usual direction for prayer.",
+          "remedies": [
+            "Turn so you face east, or north.",
+            "If the seat cannot move, keep a lamp to your east.",
+            "A small clean mat is enough. The direction is the remedy."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "idol_facing",
+      "title": "Idol facing",
+      "blurb": "Which way the idol looks",
+      "icon": "spark",
+      "group": "Prayer",
+      "reference": "facing-out",
+      "instructions": "Point the top of the phone the way the idol is looking.",
+      "bestNote": "Best if the idol looks east or west, so you can face east or north.",
+      "granularity": 8,
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "neutral",
+          "meaning": "Looking north is workable. East or west is the usual choice.",
+          "remedies": [
+            "East or west are the directions most often chosen for the idol's face.",
+            "Keep the shelf clean, a little above the seat."
+          ]
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "neutral",
+          "meaning": "Looking northeast is workable. East or west is the usual choice.",
+          "remedies": [
+            "East or west are the directions most often chosen for the idol's face.",
+            "Keep the shelf clean, a little above the seat."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "An idol looking east is a classical placement. You then sit to the west, facing east.",
+          "remedies": []
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "An idol looking southeast is not the usual placement.",
+          "remedies": [
+            "Turn the idol to look east or west if the shelf allows.",
+            "Keep the shrine off a south wall when a small shelf can move.",
+            "A lamp just to the east of the idol is a gentle traditional touch."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "An idol looking south is not the usual placement.",
+          "remedies": [
+            "Turn the idol to look east or west if the shelf allows.",
+            "Keep the shrine off a south wall when a small shelf can move.",
+            "A lamp just to the east of the idol is a gentle traditional touch."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "An idol looking southwest is not the usual placement.",
+          "remedies": [
+            "Turn the idol to look east or west if the shelf allows.",
+            "Keep the shrine off a south wall when a small shelf can move.",
+            "A lamp just to the east of the idol is a gentle traditional touch."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "auspicious",
+          "meaning": "An idol looking west lets you sit facing east, the direction most often chosen for prayer.",
+          "remedies": []
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "inauspicious",
+          "meaning": "An idol looking northwest is not the usual placement.",
+          "remedies": [
+            "Turn the idol to look east or west if the shelf allows.",
+            "Keep the shrine off a south wall when a small shelf can move.",
+            "A lamp just to the east of the idol is a gentle traditional touch."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "toilet",
+      "title": "Toilet and bath",
+      "blurb": "Where the toilet sits",
+      "icon": "bath",
+      "group": "Water",
+      "reference": "pointing-from-center",
+      "granularity": 16,
+      "instructions": "Stand at the center of the home and point the top of the phone at the toilet or bathroom.",
+      "bestNote": "Best toward the west-northwest or the south-southwest. Keep it out of the northeast.",
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "inauspicious",
+          "meaning": "North is not the usual place for a toilet or bath.",
+          "remedies": [
+            "Keep the door closed, and let the room ventilate.",
+            "Use light, cool colors rather than red.",
+            "A small bowl of rock salt, replaced often, is a common traditional softener."
+          ]
+        },
+        {
+          "id": "NNE",
+          "name": "North-northeast",
+          "rating": "inauspicious",
+          "meaning": "North-northeast is not the usual place for a toilet or bath.",
+          "remedies": [
+            "Keep the door closed, and let the room ventilate.",
+            "Use light, cool colors rather than red.",
+            "A small bowl of rock salt, replaced often, is a common traditional softener."
+          ]
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "inauspicious",
+          "meaning": "Northeast is not the usual place for a toilet or bath.",
+          "remedies": [
+            "Keep the door closed, and let the room ventilate.",
+            "Use light, cool colors rather than red.",
+            "A small bowl of rock salt, replaced often, is a common traditional softener."
+          ]
+        },
+        {
+          "id": "ENE",
+          "name": "East-northeast",
+          "rating": "inauspicious",
+          "meaning": "East-northeast is not the usual place for a toilet or bath.",
+          "remedies": [
+            "Keep the door closed, and let the room ventilate.",
+            "Use light, cool colors rather than red.",
+            "A small bowl of rock salt, replaced often, is a common traditional softener."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "inauspicious",
+          "meaning": "East is not the usual place for a toilet or bath.",
+          "remedies": [
+            "Keep the door closed, and let the room ventilate.",
+            "Use light, cool colors rather than red.",
+            "A small bowl of rock salt, replaced often, is a common traditional softener."
+          ]
+        },
+        {
+          "id": "ESE",
+          "name": "East-southeast",
+          "rating": "inauspicious",
+          "meaning": "East-southeast is not the usual place for a toilet or bath.",
+          "remedies": [
+            "Keep the door closed, and let the room ventilate.",
+            "Use light, cool colors rather than red.",
+            "A small bowl of rock salt, replaced often, is a common traditional softener."
+          ]
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Southeast is not the usual place for a toilet or bath.",
+          "remedies": [
+            "Keep the door closed, and let the room ventilate.",
+            "Use light, cool colors rather than red.",
+            "A small bowl of rock salt, replaced often, is a common traditional softener."
+          ]
+        },
+        {
+          "id": "SSE",
+          "name": "South-southeast",
+          "rating": "neutral",
+          "meaning": "South-southeast can work if the room stays ventilated and the door stays shut.",
+          "remedies": [
+            "Ventilate the room and keep the door closed.",
+            "Skip a mirror that faces the seat."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "neutral",
+          "meaning": "South can work if the room stays ventilated and the door stays shut.",
+          "remedies": [
+            "Ventilate the room and keep the door closed.",
+            "Skip a mirror that faces the seat."
+          ]
+        },
+        {
+          "id": "SSW",
+          "name": "South-southwest",
+          "rating": "auspicious",
+          "meaning": "South-southwest is a traditional zone for a toilet or bath.",
+          "remedies": []
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Southwest is not the usual place for a toilet or bath.",
+          "remedies": [
+            "Keep the door closed, and let the room ventilate.",
+            "Use light, cool colors rather than red.",
+            "A small bowl of rock salt, replaced often, is a common traditional softener."
+          ]
+        },
+        {
+          "id": "WSW",
+          "name": "West-southwest",
+          "rating": "neutral",
+          "meaning": "West-southwest can work if the room stays ventilated and the door stays shut.",
+          "remedies": [
+            "Ventilate the room and keep the door closed.",
+            "Skip a mirror that faces the seat."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "auspicious",
+          "meaning": "West is an acceptable side for a toilet or bath.",
+          "remedies": []
+        },
+        {
+          "id": "WNW",
+          "name": "West-northwest",
+          "rating": "auspicious",
+          "meaning": "West-northwest is a traditional zone for a toilet or bath.",
+          "remedies": []
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "auspicious",
+          "meaning": "Northwest is an acceptable side for a toilet or bath.",
+          "remedies": []
+        },
+        {
+          "id": "NNW",
+          "name": "North-northwest",
+          "rating": "neutral",
+          "meaning": "North-northwest can work if the room stays ventilated and the door stays shut.",
+          "remedies": [
+            "Ventilate the room and keep the door closed.",
+            "Skip a mirror that faces the seat."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "toilet_seat",
+      "title": "Toilet seat",
+      "blurb": "Which way you face",
+      "icon": "bath",
+      "group": "Water",
+      "reference": "facing-out",
+      "instructions": "Sit as you do, and point the top of the phone the way you are facing. A guess is fine.",
+      "bestNote": "Best facing north or south.",
+      "granularity": 8,
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "Facing north is the direction usually preferred.",
+          "remedies": []
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "neutral",
+          "meaning": "Facing northeast is in between. North or south is the ideal.",
+          "remedies": [
+            "North and south are the directions usually preferred.",
+            "Keep the door closed when you leave."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "inauspicious",
+          "meaning": "Facing east is the direction usually avoided.",
+          "remedies": [
+            "Face north or south if the seat can turn, even a little.",
+            "Keep the lid closed when the seat is not in use.",
+            "Ventilation matters more than a new fixture."
+          ]
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "neutral",
+          "meaning": "Facing southeast is in between. North or south is the ideal.",
+          "remedies": [
+            "North and south are the directions usually preferred.",
+            "Keep the door closed when you leave."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "auspicious",
+          "meaning": "Facing south is the direction usually preferred.",
+          "remedies": []
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "neutral",
+          "meaning": "Facing southwest is in between. North or south is the ideal.",
+          "remedies": [
+            "North and south are the directions usually preferred.",
+            "Keep the door closed when you leave."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "inauspicious",
+          "meaning": "Facing west is the direction usually avoided.",
+          "remedies": [
+            "Face north or south if the seat can turn, even a little.",
+            "Keep the lid closed when the seat is not in use.",
+            "Ventilation matters more than a new fixture."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "neutral",
+          "meaning": "Facing northwest is in between. North or south is the ideal.",
+          "remedies": [
+            "North and south are the directions usually preferred.",
+            "Keep the door closed when you leave."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "underground_water",
+      "title": "Underground water",
+      "blurb": "Borewell or sump",
+      "icon": "drop",
+      "group": "Water",
+      "reference": "pointing-from-center",
+      "granularity": 16,
+      "instructions": "Stand at the center of the home and point the phone toward the borewell or underground tank.",
+      "bestNote": "Best in the north or northeast. Keep heavy digging out of the southwest.",
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "North is a favored side for underground water.",
+          "remedies": []
+        },
+        {
+          "id": "NNE",
+          "name": "North-northeast",
+          "rating": "auspicious",
+          "meaning": "North-northeast is a reasonable side for a borewell or sump.",
+          "remedies": []
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "auspicious",
+          "meaning": "Northeast is the water corner, a traditional place for a borewell or sump.",
+          "remedies": []
+        },
+        {
+          "id": "ENE",
+          "name": "East-northeast",
+          "rating": "auspicious",
+          "meaning": "East-northeast is a reasonable side for a borewell or sump.",
+          "remedies": []
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "East is a reasonable side for a borewell or sump.",
+          "remedies": []
+        },
+        {
+          "id": "ESE",
+          "name": "East-southeast",
+          "rating": "neutral",
+          "meaning": "East-southeast can hold underground water if the northeast of the plot stays lighter.",
+          "remedies": [
+            "Keep the cover clean.",
+            "Leave the northeast of the home lighter than this spot."
+          ]
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Southeast is not the usual place for a borewell or an underground tank.",
+          "remedies": [
+            "If you ever dig again, the north or northeast is the usual side.",
+            "Keep the northeast of the plot open and clean, even if this well stays.",
+            "A tidy cover, and no junk piled on it, is the gentle fix."
+          ]
+        },
+        {
+          "id": "SSE",
+          "name": "South-southeast",
+          "rating": "inauspicious",
+          "meaning": "South-southeast is not the usual place for a borewell or an underground tank.",
+          "remedies": [
+            "If you ever dig again, the north or northeast is the usual side.",
+            "Keep the northeast of the plot open and clean, even if this well stays.",
+            "A tidy cover, and no junk piled on it, is the gentle fix."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "South is not the usual place for a borewell or an underground tank.",
+          "remedies": [
+            "If you ever dig again, the north or northeast is the usual side.",
+            "Keep the northeast of the plot open and clean, even if this well stays.",
+            "A tidy cover, and no junk piled on it, is the gentle fix."
+          ]
+        },
+        {
+          "id": "SSW",
+          "name": "South-southwest",
+          "rating": "inauspicious",
+          "meaning": "South-southwest is not the usual place for a borewell or an underground tank.",
+          "remedies": [
+            "If you ever dig again, the north or northeast is the usual side.",
+            "Keep the northeast of the plot open and clean, even if this well stays.",
+            "A tidy cover, and no junk piled on it, is the gentle fix."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Southwest is not the usual place for a borewell or an underground tank.",
+          "remedies": [
+            "If you ever dig again, the north or northeast is the usual side.",
+            "Keep the northeast of the plot open and clean, even if this well stays.",
+            "A tidy cover, and no junk piled on it, is the gentle fix."
+          ]
+        },
+        {
+          "id": "WSW",
+          "name": "West-southwest",
+          "rating": "inauspicious",
+          "meaning": "West-southwest is not the usual place for a borewell or an underground tank.",
+          "remedies": [
+            "If you ever dig again, the north or northeast is the usual side.",
+            "Keep the northeast of the plot open and clean, even if this well stays.",
+            "A tidy cover, and no junk piled on it, is the gentle fix."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "neutral",
+          "meaning": "West can hold underground water if the northeast of the plot stays lighter.",
+          "remedies": [
+            "Keep the cover clean.",
+            "Leave the northeast of the home lighter than this spot."
+          ]
+        },
+        {
+          "id": "WNW",
+          "name": "West-northwest",
+          "rating": "inauspicious",
+          "meaning": "West-northwest is not the usual place for a borewell or an underground tank.",
+          "remedies": [
+            "If you ever dig again, the north or northeast is the usual side.",
+            "Keep the northeast of the plot open and clean, even if this well stays.",
+            "A tidy cover, and no junk piled on it, is the gentle fix."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "neutral",
+          "meaning": "Northwest can hold underground water if the northeast of the plot stays lighter.",
+          "remedies": [
+            "Keep the cover clean.",
+            "Leave the northeast of the home lighter than this spot."
+          ]
+        },
+        {
+          "id": "NNW",
+          "name": "North-northwest",
+          "rating": "auspicious",
+          "meaning": "North-northwest is a reasonable side for a borewell or sump.",
+          "remedies": []
+        }
+      ]
+    },
+    {
+      "id": "overhead_tank",
+      "title": "Overhead tank",
+      "blurb": "The tank on the roof",
+      "icon": "tank",
+      "group": "Water",
+      "reference": "pointing-from-center",
+      "granularity": 16,
+      "instructions": "Stand at the center of the home and point the phone toward the overhead tank.",
+      "bestNote": "Best on the southwest or west of the roof. Keep the northeast light.",
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "inauspicious",
+          "meaning": "North is not the usual place for a heavy overhead tank.",
+          "remedies": [
+            "If the tank can ever move, the southwest or west of the roof is the usual place.",
+            "Until then, keep the northeast of the roof light and empty.",
+            "Paint the tank a quiet color, and fix any leak quickly."
+          ]
+        },
+        {
+          "id": "NNE",
+          "name": "North-northeast",
+          "rating": "inauspicious",
+          "meaning": "North-northeast is not the usual place for a heavy overhead tank.",
+          "remedies": [
+            "If the tank can ever move, the southwest or west of the roof is the usual place.",
+            "Until then, keep the northeast of the roof light and empty.",
+            "Paint the tank a quiet color, and fix any leak quickly."
+          ]
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "inauspicious",
+          "meaning": "Northeast is not the usual place for a heavy overhead tank.",
+          "remedies": [
+            "If the tank can ever move, the southwest or west of the roof is the usual place.",
+            "Until then, keep the northeast of the roof light and empty.",
+            "Paint the tank a quiet color, and fix any leak quickly."
+          ]
+        },
+        {
+          "id": "ENE",
+          "name": "East-northeast",
+          "rating": "inauspicious",
+          "meaning": "East-northeast is not the usual place for a heavy overhead tank.",
+          "remedies": [
+            "If the tank can ever move, the southwest or west of the roof is the usual place.",
+            "Until then, keep the northeast of the roof light and empty.",
+            "Paint the tank a quiet color, and fix any leak quickly."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "inauspicious",
+          "meaning": "East is not the usual place for a heavy overhead tank.",
+          "remedies": [
+            "If the tank can ever move, the southwest or west of the roof is the usual place.",
+            "Until then, keep the northeast of the roof light and empty.",
+            "Paint the tank a quiet color, and fix any leak quickly."
+          ]
+        },
+        {
+          "id": "ESE",
+          "name": "East-southeast",
+          "rating": "inauspicious",
+          "meaning": "East-southeast is not the usual place for a heavy overhead tank.",
+          "remedies": [
+            "If the tank can ever move, the southwest or west of the roof is the usual place.",
+            "Until then, keep the northeast of the roof light and empty.",
+            "Paint the tank a quiet color, and fix any leak quickly."
+          ]
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "neutral",
+          "meaning": "Southeast can carry the tank if the northeast of the roof stays empty.",
+          "remedies": [
+            "The heavier side of the roof, south or west, is the usual place.",
+            "Repair leaks so water does not sit."
+          ]
+        },
+        {
+          "id": "SSE",
+          "name": "South-southeast",
+          "rating": "neutral",
+          "meaning": "South-southeast can carry the tank if the northeast of the roof stays empty.",
+          "remedies": [
+            "The heavier side of the roof, south or west, is the usual place.",
+            "Repair leaks so water does not sit."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "auspicious",
+          "meaning": "South is an acceptable side of the roof for the tank.",
+          "remedies": []
+        },
+        {
+          "id": "SSW",
+          "name": "South-southwest",
+          "rating": "auspicious",
+          "meaning": "South-southwest is an acceptable side of the roof for the tank.",
+          "remedies": []
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "auspicious",
+          "meaning": "Southwest carries weight well. An overhead tank is traditionally placed here.",
+          "remedies": []
+        },
+        {
+          "id": "WSW",
+          "name": "West-southwest",
+          "rating": "auspicious",
+          "meaning": "West-southwest is an acceptable side of the roof for the tank.",
+          "remedies": []
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "auspicious",
+          "meaning": "West is a sound side of the roof for a heavy tank.",
+          "remedies": []
+        },
+        {
+          "id": "WNW",
+          "name": "West-northwest",
+          "rating": "auspicious",
+          "meaning": "West-northwest is an acceptable side of the roof for the tank.",
+          "remedies": []
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "neutral",
+          "meaning": "Northwest can carry the tank if the northeast of the roof stays empty.",
+          "remedies": [
+            "The heavier side of the roof, south or west, is the usual place.",
+            "Repair leaks so water does not sit."
+          ]
+        },
+        {
+          "id": "NNW",
+          "name": "North-northwest",
+          "rating": "inauspicious",
+          "meaning": "North-northwest is not the usual place for a heavy overhead tank.",
+          "remedies": [
+            "If the tank can ever move, the southwest or west of the roof is the usual place.",
+            "Until then, keep the northeast of the roof light and empty.",
+            "Paint the tank a quiet color, and fix any leak quickly."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "septic",
+      "title": "Septic tank",
+      "blurb": "Where waste water goes",
+      "icon": "septic",
+      "group": "Water",
+      "reference": "pointing-from-center",
+      "granularity": 16,
+      "instructions": "Stand at the center of the home and point the phone toward the septic tank.",
+      "bestNote": "Best in the west or northwest. Keep it out of the northeast.",
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "inauspicious",
+          "meaning": "North is not the usual place for a septic tank.",
+          "remedies": [
+            "The west or northwest is the usual side for waste water.",
+            "Keep the northeast of the plot free of the tank and of seepage.",
+            "A closed, vented tank is the practical softener."
+          ]
+        },
+        {
+          "id": "NNE",
+          "name": "North-northeast",
+          "rating": "inauspicious",
+          "meaning": "North-northeast is not the usual place for a septic tank.",
+          "remedies": [
+            "The west or northwest is the usual side for waste water.",
+            "Keep the northeast of the plot free of the tank and of seepage.",
+            "A closed, vented tank is the practical softener."
+          ]
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "inauspicious",
+          "meaning": "Northeast is not the usual place for a septic tank.",
+          "remedies": [
+            "The west or northwest is the usual side for waste water.",
+            "Keep the northeast of the plot free of the tank and of seepage.",
+            "A closed, vented tank is the practical softener."
+          ]
+        },
+        {
+          "id": "ENE",
+          "name": "East-northeast",
+          "rating": "inauspicious",
+          "meaning": "East-northeast is not the usual place for a septic tank.",
+          "remedies": [
+            "The west or northwest is the usual side for waste water.",
+            "Keep the northeast of the plot free of the tank and of seepage.",
+            "A closed, vented tank is the practical softener."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "inauspicious",
+          "meaning": "East is not the usual place for a septic tank.",
+          "remedies": [
+            "The west or northwest is the usual side for waste water.",
+            "Keep the northeast of the plot free of the tank and of seepage.",
+            "A closed, vented tank is the practical softener."
+          ]
+        },
+        {
+          "id": "ESE",
+          "name": "East-southeast",
+          "rating": "inauspicious",
+          "meaning": "East-southeast is not the usual place for a septic tank.",
+          "remedies": [
+            "The west or northwest is the usual side for waste water.",
+            "Keep the northeast of the plot free of the tank and of seepage.",
+            "A closed, vented tank is the practical softener."
+          ]
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Southeast is not the usual place for a septic tank.",
+          "remedies": [
+            "The west or northwest is the usual side for waste water.",
+            "Keep the northeast of the plot free of the tank and of seepage.",
+            "A closed, vented tank is the practical softener."
+          ]
+        },
+        {
+          "id": "SSE",
+          "name": "South-southeast",
+          "rating": "inauspicious",
+          "meaning": "South-southeast is not the usual place for a septic tank.",
+          "remedies": [
+            "The west or northwest is the usual side for waste water.",
+            "Keep the northeast of the plot free of the tank and of seepage.",
+            "A closed, vented tank is the practical softener."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "neutral",
+          "meaning": "South can work if the tank stays closed and away from the shrine.",
+          "remedies": [
+            "Keep it closed, vented, and away from the prayer corner.",
+            "Fix seepage promptly."
+          ]
+        },
+        {
+          "id": "SSW",
+          "name": "South-southwest",
+          "rating": "auspicious",
+          "meaning": "South-southwest is an acceptable side for waste water.",
+          "remedies": []
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "neutral",
+          "meaning": "Southwest can work if the tank stays closed and away from the shrine.",
+          "remedies": [
+            "Keep it closed, vented, and away from the prayer corner.",
+            "Fix seepage promptly."
+          ]
+        },
+        {
+          "id": "WSW",
+          "name": "West-southwest",
+          "rating": "auspicious",
+          "meaning": "West-southwest is an acceptable side for waste water.",
+          "remedies": []
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "auspicious",
+          "meaning": "West is an acceptable side for waste water.",
+          "remedies": []
+        },
+        {
+          "id": "WNW",
+          "name": "West-northwest",
+          "rating": "auspicious",
+          "meaning": "West-northwest is a traditional side for a septic tank.",
+          "remedies": []
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "auspicious",
+          "meaning": "Northwest is a traditional side for a septic tank.",
+          "remedies": []
+        },
+        {
+          "id": "NNW",
+          "name": "North-northwest",
+          "rating": "neutral",
+          "meaning": "North-northwest can work if the tank stays closed and away from the shrine.",
+          "remedies": [
+            "Keep it closed, vented, and away from the prayer corner.",
+            "Fix seepage promptly."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "study",
+      "title": "Study",
+      "blurb": "Where you read",
+      "icon": "book",
+      "group": "Work",
+      "reference": "pointing-from-center",
+      "granularity": 16,
+      "instructions": "Stand at the center of the home and point the top of the phone at the study.",
+      "bestNote": "Best in the north, northeast, or east.",
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "North is a favored side for a study.",
+          "remedies": []
+        },
+        {
+          "id": "NNE",
+          "name": "North-northeast",
+          "rating": "auspicious",
+          "meaning": "North-northeast is a good second place for a study.",
+          "remedies": []
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "auspicious",
+          "meaning": "Northeast is a clear, traditional place for study.",
+          "remedies": []
+        },
+        {
+          "id": "ENE",
+          "name": "East-northeast",
+          "rating": "auspicious",
+          "meaning": "East-northeast is a good second place for a study.",
+          "remedies": []
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "East suits concentration and a morning light.",
+          "remedies": []
+        },
+        {
+          "id": "ESE",
+          "name": "East-southeast",
+          "rating": "neutral",
+          "meaning": "East-southeast can be a study if you face east or north at the desk.",
+          "remedies": [
+            "Turn the chair to face east or north.",
+            "Keep the desk out of the exact center of the room."
+          ]
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Southeast is not the usual place for long hours of reading.",
+          "remedies": [
+            "Face east or north at the desk, even if the room stays.",
+            "Keep the northeast corner of the room clear for reading.",
+            "Light colors, and a lamp in front of you, help."
+          ]
+        },
+        {
+          "id": "SSE",
+          "name": "South-southeast",
+          "rating": "inauspicious",
+          "meaning": "South-southeast is not the usual place for long hours of reading.",
+          "remedies": [
+            "Face east or north at the desk, even if the room stays.",
+            "Keep the northeast corner of the room clear for reading.",
+            "Light colors, and a lamp in front of you, help."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "South is not the usual place for long hours of reading.",
+          "remedies": [
+            "Face east or north at the desk, even if the room stays.",
+            "Keep the northeast corner of the room clear for reading.",
+            "Light colors, and a lamp in front of you, help."
+          ]
+        },
+        {
+          "id": "SSW",
+          "name": "South-southwest",
+          "rating": "inauspicious",
+          "meaning": "South-southwest is not the usual place for long hours of reading.",
+          "remedies": [
+            "Face east or north at the desk, even if the room stays.",
+            "Keep the northeast corner of the room clear for reading.",
+            "Light colors, and a lamp in front of you, help."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Southwest is not the usual place for long hours of reading.",
+          "remedies": [
+            "Face east or north at the desk, even if the room stays.",
+            "Keep the northeast corner of the room clear for reading.",
+            "Light colors, and a lamp in front of you, help."
+          ]
+        },
+        {
+          "id": "WSW",
+          "name": "West-southwest",
+          "rating": "inauspicious",
+          "meaning": "West-southwest is not the usual place for long hours of reading.",
+          "remedies": [
+            "Face east or north at the desk, even if the room stays.",
+            "Keep the northeast corner of the room clear for reading.",
+            "Light colors, and a lamp in front of you, help."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "neutral",
+          "meaning": "West can be a study if you face east or north at the desk.",
+          "remedies": [
+            "Turn the chair to face east or north.",
+            "Keep the desk out of the exact center of the room."
+          ]
+        },
+        {
+          "id": "WNW",
+          "name": "West-northwest",
+          "rating": "neutral",
+          "meaning": "West-northwest can be a study if you face east or north at the desk.",
+          "remedies": [
+            "Turn the chair to face east or north.",
+            "Keep the desk out of the exact center of the room."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "auspicious",
+          "meaning": "Northwest is a good second place for a study.",
+          "remedies": []
+        },
+        {
+          "id": "NNW",
+          "name": "North-northwest",
+          "rating": "neutral",
+          "meaning": "North-northwest can be a study if you face east or north at the desk.",
+          "remedies": [
+            "Turn the chair to face east or north.",
+            "Keep the desk out of the exact center of the room."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "study_desk",
+      "title": "Study desk",
+      "blurb": "Which way the desk faces",
+      "icon": "book",
+      "group": "Work",
+      "reference": "facing-out",
+      "granularity": 16,
+      "instructions": "Sit at the study desk and point the top of the phone the way you are facing.",
+      "bestNote": "Best facing east, or a little either side of east. North is the next choice.",
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "Facing north is a good second choice for study.",
+          "remedies": []
+        },
+        {
+          "id": "NNE",
+          "name": "North-northeast",
+          "rating": "auspicious",
+          "meaning": "Facing north-northeast is a good second choice for study.",
+          "remedies": []
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "auspicious",
+          "meaning": "Facing northeast is a good second choice for study.",
+          "remedies": []
+        },
+        {
+          "id": "ENE",
+          "name": "East-northeast",
+          "rating": "auspicious",
+          "meaning": "Facing east-northeast at a desk is a traditional preference.",
+          "remedies": []
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "Facing east while studying is the traditional first choice.",
+          "remedies": []
+        },
+        {
+          "id": "ESE",
+          "name": "East-southeast",
+          "rating": "auspicious",
+          "meaning": "Facing east-southeast at a desk is a traditional preference.",
+          "remedies": []
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Facing southeast is not the usual direction for a desk.",
+          "remedies": [
+            "Turn the chair to face east, or north.",
+            "Sit with a solid wall behind you if you can.",
+            "Keep a mirror from facing you while you read."
+          ]
+        },
+        {
+          "id": "SSE",
+          "name": "South-southeast",
+          "rating": "inauspicious",
+          "meaning": "Facing south-southeast is not the usual direction for a desk.",
+          "remedies": [
+            "Turn the chair to face east, or north.",
+            "Sit with a solid wall behind you if you can.",
+            "Keep a mirror from facing you while you read."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "Facing south is not the usual direction for a desk.",
+          "remedies": [
+            "Turn the chair to face east, or north.",
+            "Sit with a solid wall behind you if you can.",
+            "Keep a mirror from facing you while you read."
+          ]
+        },
+        {
+          "id": "SSW",
+          "name": "South-southwest",
+          "rating": "inauspicious",
+          "meaning": "Facing south-southwest is not the usual direction for a desk.",
+          "remedies": [
+            "Turn the chair to face east, or north.",
+            "Sit with a solid wall behind you if you can.",
+            "Keep a mirror from facing you while you read."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Facing southwest is not the usual direction for a desk.",
+          "remedies": [
+            "Turn the chair to face east, or north.",
+            "Sit with a solid wall behind you if you can.",
+            "Keep a mirror from facing you while you read."
+          ]
+        },
+        {
+          "id": "WSW",
+          "name": "West-southwest",
+          "rating": "inauspicious",
+          "meaning": "Facing west-southwest is not the usual direction for a desk.",
+          "remedies": [
+            "Turn the chair to face east, or north.",
+            "Sit with a solid wall behind you if you can.",
+            "Keep a mirror from facing you while you read."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "neutral",
+          "meaning": "Facing west can work. East is still the first choice.",
+          "remedies": [
+            "East is the first choice, north the second.",
+            "A clear desk and a lamp are enough."
+          ]
+        },
+        {
+          "id": "WNW",
+          "name": "West-northwest",
+          "rating": "neutral",
+          "meaning": "Facing west-northwest can work. East is still the first choice.",
+          "remedies": [
+            "East is the first choice, north the second.",
+            "A clear desk and a lamp are enough."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "neutral",
+          "meaning": "Facing northwest can work. East is still the first choice.",
+          "remedies": [
+            "East is the first choice, north the second.",
+            "A clear desk and a lamp are enough."
+          ]
+        },
+        {
+          "id": "NNW",
+          "name": "North-northwest",
+          "rating": "neutral",
+          "meaning": "Facing north-northwest can work. East is still the first choice.",
+          "remedies": [
+            "East is the first choice, north the second.",
+            "A clear desk and a lamp are enough."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "office_desk",
+      "title": "Work desk",
+      "blurb": "Your work chair",
+      "icon": "laptop",
+      "group": "Work",
+      "reference": "facing-out",
+      "instructions": "Sit as you do for work and point the top of the phone the way you are facing.",
+      "bestNote": "Best facing east or north, with a solid wall behind you.",
+      "granularity": 8,
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "Facing north is the usual second choice, especially for accounts and planning.",
+          "remedies": []
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "neutral",
+          "meaning": "Facing northeast is workable. East or north is the first choice.",
+          "remedies": [
+            "Turn a little toward east if the desk allows.",
+            "Keep a solid support behind the chair."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "Facing east is the traditional first choice for work.",
+          "remedies": []
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Facing southeast is not the usual direction for a work desk.",
+          "remedies": [
+            "Turn the chair to face east, or north.",
+            "Sit with a wall behind you rather than a window at your back.",
+            "Keep a mirror from facing the chair."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "Facing south is not the usual direction for a work desk.",
+          "remedies": [
+            "Turn the chair to face east, or north.",
+            "Sit with a wall behind you rather than a window at your back.",
+            "Keep a mirror from facing the chair."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Facing southwest is not the usual direction for a work desk.",
+          "remedies": [
+            "Turn the chair to face east, or north.",
+            "Sit with a wall behind you rather than a window at your back.",
+            "Keep a mirror from facing the chair."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "neutral",
+          "meaning": "Facing west is workable. East or north is the first choice.",
+          "remedies": [
+            "Turn a little toward east if the desk allows.",
+            "Keep a solid support behind the chair."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "neutral",
+          "meaning": "Facing northwest is workable. East or north is the first choice.",
+          "remedies": [
+            "Turn a little toward east if the desk allows.",
+            "Keep a solid support behind the chair."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locker",
+      "title": "Safe and cash",
+      "blurb": "Where valuables sit",
+      "icon": "lock",
+      "group": "Work",
+      "reference": "pointing-from-center",
+      "granularity": 16,
+      "instructions": "Stand at the center of the home and point the phone at the safe, locker, or cash box.",
+      "bestNote": "Best in the south or southwest, opened while you face north.",
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "inauspicious",
+          "meaning": "North is not the usual place for a safe or a cash box.",
+          "remedies": [
+            "Open it facing north if the door can swing that way.",
+            "Keep it against a south or west wall, private and stable.",
+            "A clear top, with nothing cluttered above it, is the gentle fix."
+          ]
+        },
+        {
+          "id": "NNE",
+          "name": "North-northeast",
+          "rating": "inauspicious",
+          "meaning": "North-northeast is not the usual place for a safe or a cash box.",
+          "remedies": [
+            "Open it facing north if the door can swing that way.",
+            "Keep it against a south or west wall, private and stable.",
+            "A clear top, with nothing cluttered above it, is the gentle fix."
+          ]
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "inauspicious",
+          "meaning": "Northeast is not the usual place for a safe or a cash box.",
+          "remedies": [
+            "Open it facing north if the door can swing that way.",
+            "Keep it against a south or west wall, private and stable.",
+            "A clear top, with nothing cluttered above it, is the gentle fix."
+          ]
+        },
+        {
+          "id": "ENE",
+          "name": "East-northeast",
+          "rating": "inauspicious",
+          "meaning": "East-northeast is not the usual place for a safe or a cash box.",
+          "remedies": [
+            "Open it facing north if the door can swing that way.",
+            "Keep it against a south or west wall, private and stable.",
+            "A clear top, with nothing cluttered above it, is the gentle fix."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "inauspicious",
+          "meaning": "East is not the usual place for a safe or a cash box.",
+          "remedies": [
+            "Open it facing north if the door can swing that way.",
+            "Keep it against a south or west wall, private and stable.",
+            "A clear top, with nothing cluttered above it, is the gentle fix."
+          ]
+        },
+        {
+          "id": "ESE",
+          "name": "East-southeast",
+          "rating": "inauspicious",
+          "meaning": "East-southeast is not the usual place for a safe or a cash box.",
+          "remedies": [
+            "Open it facing north if the door can swing that way.",
+            "Keep it against a south or west wall, private and stable.",
+            "A clear top, with nothing cluttered above it, is the gentle fix."
+          ]
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Southeast is not the usual place for a safe or a cash box.",
+          "remedies": [
+            "Open it facing north if the door can swing that way.",
+            "Keep it against a south or west wall, private and stable.",
+            "A clear top, with nothing cluttered above it, is the gentle fix."
+          ]
+        },
+        {
+          "id": "SSE",
+          "name": "South-southeast",
+          "rating": "neutral",
+          "meaning": "South-southeast can hold a safe if you open it facing north.",
+          "remedies": [
+            "Face north when you open it.",
+            "Keep it shut, tidy, and out of the northeast."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "auspicious",
+          "meaning": "South is a steady place for cash and valuables.",
+          "remedies": []
+        },
+        {
+          "id": "SSW",
+          "name": "South-southwest",
+          "rating": "auspicious",
+          "meaning": "South-southwest is a sound second place for valuables.",
+          "remedies": []
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "auspicious",
+          "meaning": "Southwest is the heavy corner, a traditional place for a safe.",
+          "remedies": []
+        },
+        {
+          "id": "WSW",
+          "name": "West-southwest",
+          "rating": "auspicious",
+          "meaning": "West-southwest is a sound second place for valuables.",
+          "remedies": []
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "auspicious",
+          "meaning": "West is a sound second place for valuables.",
+          "remedies": []
+        },
+        {
+          "id": "WNW",
+          "name": "West-northwest",
+          "rating": "neutral",
+          "meaning": "West-northwest can hold a safe if you open it facing north.",
+          "remedies": [
+            "Face north when you open it.",
+            "Keep it shut, tidy, and out of the northeast."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "neutral",
+          "meaning": "Northwest can hold a safe if you open it facing north.",
+          "remedies": [
+            "Face north when you open it.",
+            "Keep it shut, tidy, and out of the northeast."
+          ]
+        },
+        {
+          "id": "NNW",
+          "name": "North-northwest",
+          "rating": "inauspicious",
+          "meaning": "North-northwest is not the usual place for a safe or a cash box.",
+          "remedies": [
+            "Open it facing north if the door can swing that way.",
+            "Keep it against a south or west wall, private and stable.",
+            "A clear top, with nothing cluttered above it, is the gentle fix."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "locker_opening",
+      "title": "Safe opening",
+      "blurb": "Which way you face to open it",
+      "icon": "lock",
+      "group": "Work",
+      "reference": "facing-out",
+      "instructions": "Stand as you do when you open the safe, and point the phone the way you are facing.",
+      "bestNote": "Best facing north. East is the next choice.",
+      "granularity": 8,
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "Facing north while opening a safe is the direction associated with keeping wealth.",
+          "remedies": []
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "neutral",
+          "meaning": "Facing northeast is acceptable. North is the first choice.",
+          "remedies": [
+            "North is the direction usually preferred.",
+            "Close the safe fully when you are done."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "neutral",
+          "meaning": "Facing east is acceptable. North is the first choice.",
+          "remedies": [
+            "North is the direction usually preferred.",
+            "Close the safe fully when you are done."
+          ]
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Facing southeast is not the usual way to open a safe.",
+          "remedies": [
+            "Turn so you face north while opening it.",
+            "East is the next choice if north is impossible.",
+            "Keep the inside orderly."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "Facing south is not the usual way to open a safe.",
+          "remedies": [
+            "Turn so you face north while opening it.",
+            "East is the next choice if north is impossible.",
+            "Keep the inside orderly."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Facing southwest is not the usual way to open a safe.",
+          "remedies": [
+            "Turn so you face north while opening it.",
+            "East is the next choice if north is impossible.",
+            "Keep the inside orderly."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "inauspicious",
+          "meaning": "Facing west is not the usual way to open a safe.",
+          "remedies": [
+            "Turn so you face north while opening it.",
+            "East is the next choice if north is impossible.",
+            "Keep the inside orderly."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "inauspicious",
+          "meaning": "Facing northwest is not the usual way to open a safe.",
+          "remedies": [
+            "Turn so you face north while opening it.",
+            "East is the next choice if north is impossible.",
+            "Keep the inside orderly."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shop_entrance",
+      "title": "Shop entrance",
+      "blurb": "The shop's front door",
+      "icon": "store",
+      "group": "Work",
+      "reference": "facing-out",
+      "instructions": "Stand inside the shop at the entrance, facing out. Phone flat, top pointing out the door.",
+      "bestNote": "Best facing north, northeast, or east, where customers and cash are said to enter easily.",
+      "granularity": 8,
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "A north entrance is associated with customers and cash.",
+          "remedies": []
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "auspicious",
+          "meaning": "A northeast entrance is a traditional preference for a shop.",
+          "remedies": []
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "An east entrance is associated with recognition and a steady trade.",
+          "remedies": []
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "A southeast entrance is not the usual choice for a shop.",
+          "remedies": [
+            "A north or east entrance is the usual choice when a shop can choose.",
+            "Keep the threshold clear, with a readable nameplate and a light.",
+            "A warm door color and an unblocked path help more than a new wall."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "A south entrance is not the usual choice for a shop.",
+          "remedies": [
+            "A north or east entrance is the usual choice when a shop can choose.",
+            "Keep the threshold clear, with a readable nameplate and a light.",
+            "A warm door color and an unblocked path help more than a new wall."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "A southwest entrance is not the usual choice for a shop.",
+          "remedies": [
+            "A north or east entrance is the usual choice when a shop can choose.",
+            "Keep the threshold clear, with a readable nameplate and a light.",
+            "A warm door color and an unblocked path help more than a new wall."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "neutral",
+          "meaning": "A west entrance can work if the front stays bright and easy.",
+          "remedies": [
+            "Keep the entrance bright and easy to walk through.",
+            "A clear nameplate and a clean threshold help."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "neutral",
+          "meaning": "A northwest entrance can work if the front stays bright and easy.",
+          "remedies": [
+            "Keep the entrance bright and easy to walk through.",
+            "A clear nameplate and a clean threshold help."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "owner_seat",
+      "title": "Owner's seat",
+      "blurb": "Which way the owner faces",
+      "icon": "chair",
+      "group": "Work",
+      "reference": "facing-out",
+      "instructions": "Sit in the owner's chair and point the top of the phone the way you are facing.",
+      "bestNote": "Best facing east or north, with support behind the chair.",
+      "granularity": 8,
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "Facing north is the usual second choice for the owner's seat.",
+          "remedies": []
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "neutral",
+          "meaning": "Facing northeast is workable. East or north is the first choice.",
+          "remedies": [
+            "East is the first choice, north the second.",
+            "A supported back and a clear desk are enough."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "Facing east is the traditional first choice for the person who runs the place.",
+          "remedies": []
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Facing southeast is not the usual direction for the owner's seat.",
+          "remedies": [
+            "Turn the chair to face east, or north.",
+            "Sit with a solid wall behind you.",
+            "Keep a mirror from facing the chair."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "Facing south is not the usual direction for the owner's seat.",
+          "remedies": [
+            "Turn the chair to face east, or north.",
+            "Sit with a solid wall behind you.",
+            "Keep a mirror from facing the chair."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Facing southwest is not the usual direction for the owner's seat.",
+          "remedies": [
+            "Turn the chair to face east, or north.",
+            "Sit with a solid wall behind you.",
+            "Keep a mirror from facing the chair."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "neutral",
+          "meaning": "Facing west is workable. East or north is the first choice.",
+          "remedies": [
+            "East is the first choice, north the second.",
+            "A supported back and a clear desk are enough."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "neutral",
+          "meaning": "Facing northwest is workable. East or north is the first choice.",
+          "remedies": [
+            "East is the first choice, north the second.",
+            "A supported back and a clear desk are enough."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "living",
+      "title": "Living room",
+      "blurb": "Where the family sits",
+      "icon": "sofa",
+      "group": "Living",
+      "reference": "pointing-from-center",
+      "granularity": 16,
+      "instructions": "Stand at the center of the home and point the top of the phone at the living room.",
+      "bestNote": "Best in the north, east, or northeast.",
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "North is a traditional place for the living room.",
+          "remedies": []
+        },
+        {
+          "id": "NNE",
+          "name": "North-northeast",
+          "rating": "auspicious",
+          "meaning": "North-northeast is a pleasant second place for the family to sit.",
+          "remedies": []
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "auspicious",
+          "meaning": "Northeast is a traditional place for the living room.",
+          "remedies": []
+        },
+        {
+          "id": "ENE",
+          "name": "East-northeast",
+          "rating": "auspicious",
+          "meaning": "East-northeast is a pleasant second place for the family to sit.",
+          "remedies": []
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "East is a traditional place for the living room.",
+          "remedies": []
+        },
+        {
+          "id": "ESE",
+          "name": "East-southeast",
+          "rating": "neutral",
+          "meaning": "East-southeast can be the living room if seats face east or north.",
+          "remedies": [
+            "Face east or north when you sit.",
+            "Keep the heaviest sofa on the south or west side of the room."
+          ]
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Southeast is not the usual place for the living room.",
+          "remedies": [
+            "Seat people facing east or north.",
+            "Keep the southwest of the room heavier and the northeast lighter.",
+            "Soft light colors, and a little green, help."
+          ]
+        },
+        {
+          "id": "SSE",
+          "name": "South-southeast",
+          "rating": "inauspicious",
+          "meaning": "South-southeast is not the usual place for the living room.",
+          "remedies": [
+            "Seat people facing east or north.",
+            "Keep the southwest of the room heavier and the northeast lighter.",
+            "Soft light colors, and a little green, help."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "South is not the usual place for the living room.",
+          "remedies": [
+            "Seat people facing east or north.",
+            "Keep the southwest of the room heavier and the northeast lighter.",
+            "Soft light colors, and a little green, help."
+          ]
+        },
+        {
+          "id": "SSW",
+          "name": "South-southwest",
+          "rating": "inauspicious",
+          "meaning": "South-southwest is not the usual place for the living room.",
+          "remedies": [
+            "Seat people facing east or north.",
+            "Keep the southwest of the room heavier and the northeast lighter.",
+            "Soft light colors, and a little green, help."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Southwest is not the usual place for the living room.",
+          "remedies": [
+            "Seat people facing east or north.",
+            "Keep the southwest of the room heavier and the northeast lighter.",
+            "Soft light colors, and a little green, help."
+          ]
+        },
+        {
+          "id": "WSW",
+          "name": "West-southwest",
+          "rating": "inauspicious",
+          "meaning": "West-southwest is not the usual place for the living room.",
+          "remedies": [
+            "Seat people facing east or north.",
+            "Keep the southwest of the room heavier and the northeast lighter.",
+            "Soft light colors, and a little green, help."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "neutral",
+          "meaning": "West can be the living room if seats face east or north.",
+          "remedies": [
+            "Face east or north when you sit.",
+            "Keep the heaviest sofa on the south or west side of the room."
+          ]
+        },
+        {
+          "id": "WNW",
+          "name": "West-northwest",
+          "rating": "inauspicious",
+          "meaning": "West-northwest is not the usual place for the living room.",
+          "remedies": [
+            "Seat people facing east or north.",
+            "Keep the southwest of the room heavier and the northeast lighter.",
+            "Soft light colors, and a little green, help."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "neutral",
+          "meaning": "Northwest can be the living room if seats face east or north.",
+          "remedies": [
+            "Face east or north when you sit.",
+            "Keep the heaviest sofa on the south or west side of the room."
+          ]
+        },
+        {
+          "id": "NNW",
+          "name": "North-northwest",
+          "rating": "auspicious",
+          "meaning": "North-northwest is a pleasant second place for the family to sit.",
+          "remedies": []
+        }
+      ]
+    },
+    {
+      "id": "sofa_facing",
+      "title": "Sofa facing",
+      "blurb": "Which way the sofa faces",
+      "icon": "sofa",
+      "group": "Living",
+      "reference": "facing-out",
+      "instructions": "Sit on the sofa and point the top of the phone the way you are looking.",
+      "bestNote": "Best looking east or north, with the sofa against a solid side.",
+      "granularity": 8,
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "Looking north from the sofa is a traditional preference.",
+          "remedies": []
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "neutral",
+          "meaning": "Looking northeast is fine. East or north is the easy ideal.",
+          "remedies": [
+            "East and north are the easy directions to face.",
+            "Keep the seat supported, not floating in the middle."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "Looking east from the sofa is a traditional preference.",
+          "remedies": []
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Looking southeast from the sofa is not the usual choice.",
+          "remedies": [
+            "Turn the sofa so you look east or north.",
+            "A solid wall behind the sofa is the usual preference.",
+            "Avoid a mirror directly opposite the seat."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "Looking south from the sofa is not the usual choice.",
+          "remedies": [
+            "Turn the sofa so you look east or north.",
+            "A solid wall behind the sofa is the usual preference.",
+            "Avoid a mirror directly opposite the seat."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Looking southwest from the sofa is not the usual choice.",
+          "remedies": [
+            "Turn the sofa so you look east or north.",
+            "A solid wall behind the sofa is the usual preference.",
+            "Avoid a mirror directly opposite the seat."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "neutral",
+          "meaning": "Looking west is fine. East or north is the easy ideal.",
+          "remedies": [
+            "East and north are the easy directions to face.",
+            "Keep the seat supported, not floating in the middle."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "inauspicious",
+          "meaning": "Looking northwest from the sofa is not the usual choice.",
+          "remedies": [
+            "Turn the sofa so you look east or north.",
+            "A solid wall behind the sofa is the usual preference.",
+            "Avoid a mirror directly opposite the seat."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dining",
+      "title": "Dining",
+      "blurb": "Where you eat",
+      "icon": "utensils",
+      "group": "Living",
+      "reference": "pointing-from-center",
+      "granularity": 16,
+      "instructions": "Stand at the center of the home and point the top of the phone at the dining table.",
+      "bestNote": "Best in the west, so people can face east. North and east also suit a table.",
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "North is a good second place for the table.",
+          "remedies": []
+        },
+        {
+          "id": "NNE",
+          "name": "North-northeast",
+          "rating": "neutral",
+          "meaning": "North-northeast can hold the table if you sit facing east.",
+          "remedies": [
+            "Face east while you eat.",
+            "Keep the table out of the exact center of the home."
+          ]
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "neutral",
+          "meaning": "Northeast can hold the table if you sit facing east.",
+          "remedies": [
+            "Face east while you eat.",
+            "Keep the table out of the exact center of the home."
+          ]
+        },
+        {
+          "id": "ENE",
+          "name": "East-northeast",
+          "rating": "auspicious",
+          "meaning": "East-northeast is a good second place for the table.",
+          "remedies": []
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "East is a good second place for the table.",
+          "remedies": []
+        },
+        {
+          "id": "ESE",
+          "name": "East-southeast",
+          "rating": "neutral",
+          "meaning": "East-southeast can hold the table if you sit facing east.",
+          "remedies": [
+            "Face east while you eat.",
+            "Keep the table out of the exact center of the home."
+          ]
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "neutral",
+          "meaning": "Southeast can hold the table if you sit facing east.",
+          "remedies": [
+            "Face east while you eat.",
+            "Keep the table out of the exact center of the home."
+          ]
+        },
+        {
+          "id": "SSE",
+          "name": "South-southeast",
+          "rating": "inauspicious",
+          "meaning": "South-southeast is not the usual place for the dining table.",
+          "remedies": [
+            "Sit facing east if the chairs allow.",
+            "Keep the southwest for the bedroom rather than the table.",
+            "Light colors and a clear table are enough."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "neutral",
+          "meaning": "South can hold the table if you sit facing east.",
+          "remedies": [
+            "Face east while you eat.",
+            "Keep the table out of the exact center of the home."
+          ]
+        },
+        {
+          "id": "SSW",
+          "name": "South-southwest",
+          "rating": "inauspicious",
+          "meaning": "South-southwest is not the usual place for the dining table.",
+          "remedies": [
+            "Sit facing east if the chairs allow.",
+            "Keep the southwest for the bedroom rather than the table.",
+            "Light colors and a clear table are enough."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Southwest is not the usual place for the dining table.",
+          "remedies": [
+            "Sit facing east if the chairs allow.",
+            "Keep the southwest for the bedroom rather than the table.",
+            "Light colors and a clear table are enough."
+          ]
+        },
+        {
+          "id": "WSW",
+          "name": "West-southwest",
+          "rating": "neutral",
+          "meaning": "West-southwest can hold the table if you sit facing east.",
+          "remedies": [
+            "Face east while you eat.",
+            "Keep the table out of the exact center of the home."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "auspicious",
+          "meaning": "West lets the people at the table face east, the traditional preference.",
+          "remedies": []
+        },
+        {
+          "id": "WNW",
+          "name": "West-northwest",
+          "rating": "auspicious",
+          "meaning": "West-northwest is a good second place for the table.",
+          "remedies": []
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "auspicious",
+          "meaning": "Northwest is a good second place for the table.",
+          "remedies": []
+        },
+        {
+          "id": "NNW",
+          "name": "North-northwest",
+          "rating": "neutral",
+          "meaning": "North-northwest can hold the table if you sit facing east.",
+          "remedies": [
+            "Face east while you eat.",
+            "Keep the table out of the exact center of the home."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dining_facing",
+      "title": "Dining seats",
+      "blurb": "Which way you face at the table",
+      "icon": "utensils",
+      "group": "Living",
+      "reference": "facing-out",
+      "instructions": "Sit as you do at the table and point the top of the phone the way you are facing.",
+      "bestNote": "Best facing east. North is a good second.",
+      "granularity": 8,
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "Facing north at the table is a traditional preference.",
+          "remedies": []
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "neutral",
+          "meaning": "Facing northeast is fine. East is the first choice.",
+          "remedies": [
+            "East is the first choice at the table.",
+            "Keep the table tidy."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "Facing east while eating is the traditional first choice.",
+          "remedies": []
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Facing southeast at the table is not the usual choice.",
+          "remedies": [
+            "Turn your chair to face east, or north.",
+            "The table can stay. The direction you face is the gentle fix.",
+            "A clear view in front of you, not a mirror, is enough."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "Facing south at the table is not the usual choice.",
+          "remedies": [
+            "Turn your chair to face east, or north.",
+            "The table can stay. The direction you face is the gentle fix.",
+            "A clear view in front of you, not a mirror, is enough."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Facing southwest at the table is not the usual choice.",
+          "remedies": [
+            "Turn your chair to face east, or north.",
+            "The table can stay. The direction you face is the gentle fix.",
+            "A clear view in front of you, not a mirror, is enough."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "neutral",
+          "meaning": "Facing west is fine. East is the first choice.",
+          "remedies": [
+            "East is the first choice at the table.",
+            "Keep the table tidy."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "inauspicious",
+          "meaning": "Facing northwest at the table is not the usual choice.",
+          "remedies": [
+            "Turn your chair to face east, or north.",
+            "The table can stay. The direction you face is the gentle fix.",
+            "A clear view in front of you, not a mirror, is enough."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "staircase",
+      "title": "Staircase",
+      "blurb": "Where the stairs sit",
+      "icon": "stairs",
+      "group": "Living",
+      "reference": "pointing-from-center",
+      "granularity": 16,
+      "instructions": "Stand at the center of the home and point the top of the phone at the staircase.",
+      "bestNote": "Best in the south, southwest, or west. Keep stairs out of the northeast and the exact center.",
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "inauspicious",
+          "meaning": "North is not the usual place for a staircase.",
+          "remedies": [
+            "If a turn allows, let the heavier steps rise toward the south or west.",
+            "Use the space under the stairs for storage, not for a shrine.",
+            "Keep the northeast free of the stair."
+          ]
+        },
+        {
+          "id": "NNE",
+          "name": "North-northeast",
+          "rating": "inauspicious",
+          "meaning": "North-northeast is not the usual place for a staircase.",
+          "remedies": [
+            "If a turn allows, let the heavier steps rise toward the south or west.",
+            "Use the space under the stairs for storage, not for a shrine.",
+            "Keep the northeast free of the stair."
+          ]
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "inauspicious",
+          "meaning": "Northeast is not the usual place for a staircase.",
+          "remedies": [
+            "If a turn allows, let the heavier steps rise toward the south or west.",
+            "Use the space under the stairs for storage, not for a shrine.",
+            "Keep the northeast free of the stair."
+          ]
+        },
+        {
+          "id": "ENE",
+          "name": "East-northeast",
+          "rating": "inauspicious",
+          "meaning": "East-northeast is not the usual place for a staircase.",
+          "remedies": [
+            "If a turn allows, let the heavier steps rise toward the south or west.",
+            "Use the space under the stairs for storage, not for a shrine.",
+            "Keep the northeast free of the stair."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "inauspicious",
+          "meaning": "East is not the usual place for a staircase.",
+          "remedies": [
+            "If a turn allows, let the heavier steps rise toward the south or west.",
+            "Use the space under the stairs for storage, not for a shrine.",
+            "Keep the northeast free of the stair."
+          ]
+        },
+        {
+          "id": "ESE",
+          "name": "East-southeast",
+          "rating": "inauspicious",
+          "meaning": "East-southeast is not the usual place for a staircase.",
+          "remedies": [
+            "If a turn allows, let the heavier steps rise toward the south or west.",
+            "Use the space under the stairs for storage, not for a shrine.",
+            "Keep the northeast free of the stair."
+          ]
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Southeast is not the usual place for a staircase.",
+          "remedies": [
+            "If a turn allows, let the heavier steps rise toward the south or west.",
+            "Use the space under the stairs for storage, not for a shrine.",
+            "Keep the northeast free of the stair."
+          ]
+        },
+        {
+          "id": "SSE",
+          "name": "South-southeast",
+          "rating": "neutral",
+          "meaning": "South-southeast can hold the stairs if the space underneath is only storage.",
+          "remedies": [
+            "Storage under the stair is fine. A shrine is not.",
+            "A light at the turn keeps it gentle."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "auspicious",
+          "meaning": "South is a traditional place for a staircase.",
+          "remedies": []
+        },
+        {
+          "id": "SSW",
+          "name": "South-southwest",
+          "rating": "auspicious",
+          "meaning": "South-southwest is an acceptable side for the stairs.",
+          "remedies": []
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "auspicious",
+          "meaning": "Southwest is a traditional place for a staircase.",
+          "remedies": []
+        },
+        {
+          "id": "WSW",
+          "name": "West-southwest",
+          "rating": "auspicious",
+          "meaning": "West-southwest is an acceptable side for the stairs.",
+          "remedies": []
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "auspicious",
+          "meaning": "West is an acceptable side for the stairs.",
+          "remedies": []
+        },
+        {
+          "id": "WNW",
+          "name": "West-northwest",
+          "rating": "neutral",
+          "meaning": "West-northwest can hold the stairs if the space underneath is only storage.",
+          "remedies": [
+            "Storage under the stair is fine. A shrine is not.",
+            "A light at the turn keeps it gentle."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "neutral",
+          "meaning": "Northwest can hold the stairs if the space underneath is only storage.",
+          "remedies": [
+            "Storage under the stair is fine. A shrine is not.",
+            "A light at the turn keeps it gentle."
+          ]
+        },
+        {
+          "id": "NNW",
+          "name": "North-northwest",
+          "rating": "inauspicious",
+          "meaning": "North-northwest is not the usual place for a staircase.",
+          "remedies": [
+            "If a turn allows, let the heavier steps rise toward the south or west.",
+            "Use the space under the stairs for storage, not for a shrine.",
+            "Keep the northeast free of the stair."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mirror",
+      "title": "Mirror",
+      "blurb": "Which way the mirror faces",
+      "icon": "mirror",
+      "group": "Living",
+      "reference": "pointing-from-center",
+      "instructions": "Stand in the middle of the room and point the phone at the mirror.",
+      "bestNote": "Best on a north or east wall. Avoid a mirror facing the bed or the main door.",
+      "granularity": 8,
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "A mirror on the north is a traditional placement.",
+          "remedies": []
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "neutral",
+          "meaning": "A mirror toward the northeast is workable if it does not face the bed.",
+          "remedies": [
+            "North and east walls are the usual choice.",
+            "Keep it from facing the bed."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "A mirror on the east is a traditional placement.",
+          "remedies": []
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "A mirror toward the southeast is not the usual placement.",
+          "remedies": [
+            "Prefer a north or east wall if the mirror can move.",
+            "Do not let it face the bed or the main door directly.",
+            "If it must stay, angle it aside, or cover it while you sleep."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "A mirror toward the south is not the usual placement.",
+          "remedies": [
+            "Prefer a north or east wall if the mirror can move.",
+            "Do not let it face the bed or the main door directly.",
+            "If it must stay, angle it aside, or cover it while you sleep."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "A mirror toward the southwest is not the usual placement.",
+          "remedies": [
+            "Prefer a north or east wall if the mirror can move.",
+            "Do not let it face the bed or the main door directly.",
+            "If it must stay, angle it aside, or cover it while you sleep."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "neutral",
+          "meaning": "A mirror toward the west is workable if it does not face the bed.",
+          "remedies": [
+            "North and east walls are the usual choice.",
+            "Keep it from facing the bed."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "inauspicious",
+          "meaning": "A mirror toward the northwest is not the usual placement.",
+          "remedies": [
+            "Prefer a north or east wall if the mirror can move.",
+            "Do not let it face the bed or the main door directly.",
+            "If it must stay, angle it aside, or cover it while you sleep."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv",
+      "title": "Television",
+      "blurb": "Where the screen sits",
+      "icon": "tv",
+      "group": "Living",
+      "reference": "pointing-from-center",
+      "instructions": "Stand in the middle of the room and point the phone at the television.",
+      "bestNote": "Best in the southeast or northwest of the room. Keep it out of the northeast.",
+      "granularity": 8,
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "neutral",
+          "meaning": "North can hold a screen if the northeast corner stays clear.",
+          "remedies": [
+            "Keep the screen out of the northeast corner.",
+            "Switch it off when nobody is watching, and tidy the cables."
+          ]
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "inauspicious",
+          "meaning": "Northeast is not the usual place for a television.",
+          "remedies": [
+            "The southeast or northwest of the room is the usual place for a screen.",
+            "Keep the television out of the northeast prayer corner.",
+            "A low, tidy stand is enough."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "neutral",
+          "meaning": "East can hold a screen if the northeast corner stays clear.",
+          "remedies": [
+            "Keep the screen out of the northeast corner.",
+            "Switch it off when nobody is watching, and tidy the cables."
+          ]
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "auspicious",
+          "meaning": "Southeast of the room is a traditional place for a screen.",
+          "remedies": []
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "South is not the usual place for a television.",
+          "remedies": [
+            "The southeast or northwest of the room is the usual place for a screen.",
+            "Keep the television out of the northeast prayer corner.",
+            "A low, tidy stand is enough."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Southwest is not the usual place for a television.",
+          "remedies": [
+            "The southeast or northwest of the room is the usual place for a screen.",
+            "Keep the television out of the northeast prayer corner.",
+            "A low, tidy stand is enough."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "neutral",
+          "meaning": "West can hold a screen if the northeast corner stays clear.",
+          "remedies": [
+            "Keep the screen out of the northeast corner.",
+            "Switch it off when nobody is watching, and tidy the cables."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "auspicious",
+          "meaning": "Northwest of the room is a traditional place for a screen.",
+          "remedies": []
+        }
+      ]
+    },
+    {
+      "id": "balcony",
+      "title": "Balcony and windows",
+      "blurb": "Light and open sides",
+      "icon": "window",
+      "group": "Outside",
+      "reference": "pointing-from-center",
+      "granularity": 16,
+      "instructions": "Stand at the center of the home and point the phone at the main balcony or the largest windows.",
+      "bestNote": "Best open to the north, east, or northeast. The southwest is kept more enclosed.",
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "Open light toward the north is traditionally welcome.",
+          "remedies": []
+        },
+        {
+          "id": "NNE",
+          "name": "North-northeast",
+          "rating": "auspicious",
+          "meaning": "An opening toward the north-northeast is a good second choice.",
+          "remedies": []
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "auspicious",
+          "meaning": "Open light toward the northeast is traditionally welcome.",
+          "remedies": []
+        },
+        {
+          "id": "ENE",
+          "name": "East-northeast",
+          "rating": "auspicious",
+          "meaning": "An opening toward the east-northeast is a good second choice.",
+          "remedies": []
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "Open light toward the east is traditionally welcome.",
+          "remedies": []
+        },
+        {
+          "id": "ESE",
+          "name": "East-southeast",
+          "rating": "neutral",
+          "meaning": "An opening toward the east-southeast is fine if it stays tidy.",
+          "remedies": [
+            "A few plants and a light curtain are enough.",
+            "Keep this side tidy so it does not feel heavy."
+          ]
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "A large opening toward the southeast is not the usual choice.",
+          "remedies": [
+            "Open light is welcome on the north and east.",
+            "A plant and a light curtain soften a south or west opening.",
+            "Keep the southwest more enclosed than the northeast."
+          ]
+        },
+        {
+          "id": "SSE",
+          "name": "South-southeast",
+          "rating": "inauspicious",
+          "meaning": "A large opening toward the south-southeast is not the usual choice.",
+          "remedies": [
+            "Open light is welcome on the north and east.",
+            "A plant and a light curtain soften a south or west opening.",
+            "Keep the southwest more enclosed than the northeast."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "A large opening toward the south is not the usual choice.",
+          "remedies": [
+            "Open light is welcome on the north and east.",
+            "A plant and a light curtain soften a south or west opening.",
+            "Keep the southwest more enclosed than the northeast."
+          ]
+        },
+        {
+          "id": "SSW",
+          "name": "South-southwest",
+          "rating": "inauspicious",
+          "meaning": "A large opening toward the south-southwest is not the usual choice.",
+          "remedies": [
+            "Open light is welcome on the north and east.",
+            "A plant and a light curtain soften a south or west opening.",
+            "Keep the southwest more enclosed than the northeast."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "A large opening toward the southwest is not the usual choice.",
+          "remedies": [
+            "Open light is welcome on the north and east.",
+            "A plant and a light curtain soften a south or west opening.",
+            "Keep the southwest more enclosed than the northeast."
+          ]
+        },
+        {
+          "id": "WSW",
+          "name": "West-southwest",
+          "rating": "inauspicious",
+          "meaning": "A large opening toward the west-southwest is not the usual choice.",
+          "remedies": [
+            "Open light is welcome on the north and east.",
+            "A plant and a light curtain soften a south or west opening.",
+            "Keep the southwest more enclosed than the northeast."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "neutral",
+          "meaning": "An opening toward the west is fine if it stays tidy.",
+          "remedies": [
+            "A few plants and a light curtain are enough.",
+            "Keep this side tidy so it does not feel heavy."
+          ]
+        },
+        {
+          "id": "WNW",
+          "name": "West-northwest",
+          "rating": "inauspicious",
+          "meaning": "A large opening toward the west-northwest is not the usual choice.",
+          "remedies": [
+            "Open light is welcome on the north and east.",
+            "A plant and a light curtain soften a south or west opening.",
+            "Keep the southwest more enclosed than the northeast."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "auspicious",
+          "meaning": "An opening toward the northwest is a good second choice.",
+          "remedies": []
+        },
+        {
+          "id": "NNW",
+          "name": "North-northwest",
+          "rating": "neutral",
+          "meaning": "An opening toward the north-northwest is fine if it stays tidy.",
+          "remedies": [
+            "A few plants and a light curtain are enough.",
+            "Keep this side tidy so it does not feel heavy."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "garden",
+      "title": "Garden and tulsi",
+      "blurb": "Plants and tulsi",
+      "icon": "tree",
+      "group": "Outside",
+      "reference": "pointing-from-center",
+      "instructions": "Stand at the center of the home, or of the yard, and point the phone at the tulsi or the main plants.",
+      "bestNote": "Best in the north, northeast, or east. Tulsi is traditionally kept off the south.",
+      "granularity": 8,
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "North is a favored side for tulsi and a light garden.",
+          "remedies": []
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "auspicious",
+          "meaning": "Northeast is a classical place for tulsi.",
+          "remedies": []
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "East suits tulsi and morning light on the plants.",
+          "remedies": []
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "inauspicious",
+          "meaning": "Southeast is not the usual place for tulsi.",
+          "remedies": [
+            "Move a tulsi pot to the north, northeast, or east if you can.",
+            "Other shrubs can stay. Tulsi is the plant this check is about.",
+            "Keep the pot clean, and water it."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "inauspicious",
+          "meaning": "South is not the usual place for tulsi.",
+          "remedies": [
+            "Move a tulsi pot to the north, northeast, or east if you can.",
+            "Other shrubs can stay. Tulsi is the plant this check is about.",
+            "Keep the pot clean, and water it."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Southwest is not the usual place for tulsi.",
+          "remedies": [
+            "Move a tulsi pot to the north, northeast, or east if you can.",
+            "Other shrubs can stay. Tulsi is the plant this check is about.",
+            "Keep the pot clean, and water it."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "neutral",
+          "meaning": "West can hold plants. Tulsi itself prefers the north, northeast, or east.",
+          "remedies": [
+            "North, northeast, and east are the usual sides for tulsi.",
+            "A clean pot and regular water are the whole of the remedy."
+          ]
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "neutral",
+          "meaning": "Northwest can hold plants. Tulsi itself prefers the north, northeast, or east.",
+          "remedies": [
+            "North, northeast, and east are the usual sides for tulsi.",
+            "A clean pot and regular water are the whole of the remedy."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "parking",
+      "title": "Parking",
+      "blurb": "Where the car sits",
+      "icon": "car",
+      "group": "Outside",
+      "reference": "pointing-from-center",
+      "granularity": 16,
+      "instructions": "Stand at the center of the home and point the phone at the parking spot or garage.",
+      "bestNote": "Best toward the north, northwest, or southeast. Keep a heavy vehicle out of the northeast.",
+      "zones": [
+        {
+          "id": "N",
+          "name": "North",
+          "rating": "auspicious",
+          "meaning": "North is a traditional place to park.",
+          "remedies": []
+        },
+        {
+          "id": "NNE",
+          "name": "North-northeast",
+          "rating": "neutral",
+          "meaning": "North-northeast can hold a car if the spot stays tidy and the door stays clear.",
+          "remedies": [
+            "Keep the car out of a closed garage in the prayer corner.",
+            "Leave a clear path to the door."
+          ]
+        },
+        {
+          "id": "NE",
+          "name": "Northeast",
+          "rating": "neutral",
+          "meaning": "Northeast is best kept light. An open visitor spot is gentler here than a closed, heavy garage.",
+          "remedies": [
+            "Keep the car out of a closed garage in the prayer corner.",
+            "Leave a clear path to the door."
+          ]
+        },
+        {
+          "id": "ENE",
+          "name": "East-northeast",
+          "rating": "neutral",
+          "meaning": "East-northeast can hold a car if the spot stays tidy and the door stays clear.",
+          "remedies": [
+            "Keep the car out of a closed garage in the prayer corner.",
+            "Leave a clear path to the door."
+          ]
+        },
+        {
+          "id": "E",
+          "name": "East",
+          "rating": "auspicious",
+          "meaning": "East is a good second place for a car.",
+          "remedies": []
+        },
+        {
+          "id": "ESE",
+          "name": "East-southeast",
+          "rating": "auspicious",
+          "meaning": "East-southeast is a good second place for a car.",
+          "remedies": []
+        },
+        {
+          "id": "SE",
+          "name": "Southeast",
+          "rating": "auspicious",
+          "meaning": "Southeast is a traditional place to park.",
+          "remedies": []
+        },
+        {
+          "id": "SSE",
+          "name": "South-southeast",
+          "rating": "inauspicious",
+          "meaning": "South-southeast is not the usual place for parking.",
+          "remedies": [
+            "North, east, or northwest are the usual places for a car.",
+            "Keep the northeast clear if the vehicle can sit elsewhere.",
+            "A tidy spot, with no leaking oil, is the practical fix."
+          ]
+        },
+        {
+          "id": "S",
+          "name": "South",
+          "rating": "neutral",
+          "meaning": "South can hold a car if the spot stays tidy and the door stays clear.",
+          "remedies": [
+            "Keep the car out of a closed garage in the prayer corner.",
+            "Leave a clear path to the door."
+          ]
+        },
+        {
+          "id": "SSW",
+          "name": "South-southwest",
+          "rating": "inauspicious",
+          "meaning": "South-southwest is not the usual place for parking.",
+          "remedies": [
+            "North, east, or northwest are the usual places for a car.",
+            "Keep the northeast clear if the vehicle can sit elsewhere.",
+            "A tidy spot, with no leaking oil, is the practical fix."
+          ]
+        },
+        {
+          "id": "SW",
+          "name": "Southwest",
+          "rating": "inauspicious",
+          "meaning": "Southwest is not the usual place for parking.",
+          "remedies": [
+            "North, east, or northwest are the usual places for a car.",
+            "Keep the northeast clear if the vehicle can sit elsewhere.",
+            "A tidy spot, with no leaking oil, is the practical fix."
+          ]
+        },
+        {
+          "id": "WSW",
+          "name": "West-southwest",
+          "rating": "inauspicious",
+          "meaning": "West-southwest is not the usual place for parking.",
+          "remedies": [
+            "North, east, or northwest are the usual places for a car.",
+            "Keep the northeast clear if the vehicle can sit elsewhere.",
+            "A tidy spot, with no leaking oil, is the practical fix."
+          ]
+        },
+        {
+          "id": "W",
+          "name": "West",
+          "rating": "neutral",
+          "meaning": "West can hold a car if the spot stays tidy and the door stays clear.",
+          "remedies": [
+            "Keep the car out of a closed garage in the prayer corner.",
+            "Leave a clear path to the door."
+          ]
+        },
+        {
+          "id": "WNW",
+          "name": "West-northwest",
+          "rating": "auspicious",
+          "meaning": "West-northwest is a good second place for a car.",
+          "remedies": []
+        },
+        {
+          "id": "NW",
+          "name": "Northwest",
+          "rating": "auspicious",
+          "meaning": "Northwest is a traditional place to park.",
+          "remedies": []
+        },
+        {
+          "id": "NNW",
+          "name": "North-northwest",
+          "rating": "auspicious",
+          "meaning": "North-northwest is a good second place for a car.",
+          "remedies": []
+        }
+      ]
+    }
+  ]
+}

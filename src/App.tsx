@@ -1,5 +1,6 @@
 import { Compass, FileText, House, LampDesk, ScanLine } from "lucide-react";
 import { useState } from "react";
+import { QuizFlow } from "@/components/quiz/QuizFlow.tsx";
 import { cn } from "@/lib/utils.ts";
 import { PropertiesProvider } from "@/state/properties.tsx";
 import { SensorsProvider } from "@/state/sensors.tsx";
@@ -30,12 +31,29 @@ export default function App() {
 }
 
 function Shell() {
+  const [advanced, setAdvanced] = useState(false);
+  return (
+    <>
+      <div hidden={advanced}>
+        <QuizFlow onAdvanced={() => setAdvanced(true)} />
+      </div>
+      {advanced && <AdvancedShell onBack={() => setAdvanced(false)} />}
+    </>
+  );
+}
+
+function AdvancedShell({ onBack }: { onBack: () => void }) {
   const [view, setView] = useState<ViewId>("compass");
   return (
     <div className="min-h-dvh">
       <a href="#content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-full focus:bg-card focus:px-3 focus:py-2">
         Skip to content
       </a>
+      <div className="sticky top-0 z-30 border-b border-border bg-[#f7f1e6]/95 px-4 py-3 backdrop-blur">
+        <button type="button" onClick={onBack} className="text-base font-medium text-primary">
+          ← Simple quiz
+        </button>
+      </div>
       <main id="content" className="px-4 pt-5 pb-36 sm:px-6">
         {view === "compass" && <CompassView />}
         {view === "check" && <CheckView />}
