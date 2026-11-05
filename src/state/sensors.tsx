@@ -1,6 +1,14 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { magneticToTrue, normalizeDegrees } from "@/lib/angles.ts";
 import { declinationAt, type DeclinationResult } from "@/lib/declination.ts";
+import {
+  callDevicePermission,
+  extractOrientation,
+  headingFromQuaternion,
+  isIosBrowser,
+  needsDirectGesture,
+  type OrientationReading,
+} from "@/lib/heading.ts";
 import { zoneFromBearing, type Zone } from "@/lib/zones.ts";
 
 export interface LocationFix {
@@ -10,8 +18,9 @@ export interface LocationFix {
   label: string;
 }
 
-type Permission = "unknown" | "need-tap" | "granted" | "denied" | "unsupported";
+export type Permission = "unknown" | "need-tap" | "requesting" | "granted" | "denied" | "unsupported" | "no-events";
 type Basis = "live-true" | "live-magnetic" | "manual";
+type HeadingSource = "ios" | "absolute" | "sensor" | "none";
 
 interface SensorsValue {
   magneticHeading: number | null;
@@ -19,8 +28,12 @@ interface SensorsValue {
   gamma: number | null;
   accuracy: number | null;
   stability: number | null;
-  source: "ios" | "absolute" | "none";
+  source: HeadingSource;
   permission: Permission;
+  needsGesture: boolean;
+  ios: boolean;
+  motionSeen: boolean;
+  promptStalled: boolean;
   requestPermission: () => Promise<void>;
   useManual: boolean;
   setHeadingFromUser: (heading: number) => void;
@@ -45,6 +58,31 @@ interface SensorsValue {
 
 const SensorsContext = createContext<SensorsValue | null>(null);
 
+/** How long to wait for a heading after permission (or on Android, after load). */
+const SILENCE_MS = 3000;
+const PROMPT_MS = 15000;
+const CAPTURE = true;
+
+interface AbsoluteOrientationSensorLike {
+  quaternion: ArrayLike<number> | null;
+  start: () => void;
+  stop: () => void;
+  addEventListener: (type: "reading" | "error", listener: () => void) => void;
+}
+
+interface AbsoluteOrientationSensorConstructor {
+  new (options?: { frequency?: number; referenceFrame?: "device" | "screen" }): AbsoluteOrientationSensorLike;
+}
+
+interface HeadingSample {
+  magnetic?: number;
+  source?: Exclude<HeadingSource, "none">;
+  accuracy?: number;
+  beta?: number;
+  gamma?: number;
+  eventSeen?: boolean;
+}
+
 function circularStdDev(samples: number[]): number {
   if (samples.length < 2) return 0;
   let x = 0;
@@ -61,15 +99,35 @@ function circularStdDev(samples: number[]): number {
   return (Math.sqrt(Math.max(0, -2 * Math.log(resultant))) * 180) / Math.PI;
 }
 
+function orientationConstructor(): unknown {
+  return typeof DeviceOrientationEvent === "undefined" ? null : DeviceOrientationEvent;
+}
+
+function motionConstructor(): unknown {
+  return typeof DeviceMotionEvent === "undefined" ? null : DeviceMotionEvent;
+}
+
+function gestureRequiredNow(): boolean {
+  return needsDirectGesture(orientationConstructor(), motionConstructor());
+}
+
+function iosBrowserNow(): boolean {
+  if (typeof navigator === "undefined") return false;
+  return isIosBrowser(navigator.userAgent, navigator.platform, navigator.maxTouchPoints);
+}
+
 export function SensorsProvider({ children }: { children: ReactNode }) {
   const [magneticHeading, setMagneticHeading] = useState<number | null>(null);
   const [beta, setBeta] = useState<number | null>(null);
   const [gamma, setGamma] = useState<number | null>(null);
   const [accuracy, setAccuracy] = useState<number | null>(null);
   const [stability, setStability] = useState<number | null>(null);
-  const [source, setSource] = useState<"ios" | "absolute" | "none">("none");
-  const [permission, setPermission] = useState<Permission>("unknown");
-  const [listenKey, setListenKey] = useState(0);
+  const [source, setSource] = useState<HeadingSource>("none");
+  const [permission, setPermission] = useState<Permission>(() => (gestureRequiredNow() ? "need-tap" : "unknown"));
+  const [needsGesture] = useState(() => gestureRequiredNow());
+  const [ios] = useState(() => iosBrowserNow());
+  const [motionSeen, setMotionSeen] = useState(false);
+  const [promptStalled, setPromptStalled] = useState(false);
   const [useManual, setUseManual] = useState(false);
   const [manualTrueHeading, setManualTrueHeading] = useState(0);
   const [location, setLocation] = useState<LocationFix | null>(null);
@@ -78,99 +136,197 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
   const [declinationOverride, setDeclinationOverride] = useState<number | null>(null);
   const [model, setModel] = useState<DeclinationResult | null>(null);
   const [modelError, setModelError] = useState<string | null>(null);
-  const needsTap = useRef(false);
+
+  const gestureRequired = useRef(needsGesture);
   const gotHeading = useRef(false);
+  const eventHeading = useRef(false);
+  const motionSeenRef = useRef(false);
+  const asking = useRef(false);
+  const requestGen = useRef(0);
+  const silenceTimer = useRef(0);
+  const promptTimer = useRef(0);
+  const sensorRef = useRef<AbsoluteOrientationSensorLike | null>(null);
+  const ingestRef = useRef<(sample: HeadingSample) => void>(() => {});
 
   useEffect(() => {
-    const orientation = window.DeviceOrientationEvent as typeof DeviceOrientationEvent & {
-      requestPermission?: () => Promise<string>;
-    };
-    const ios =
-      /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-    if (ios && typeof orientation?.requestPermission === "function") {
-      needsTap.current = true;
-      setPermission("need-tap");
-    }
-
     let samples: number[] = [];
     let frame = 0;
-    const latest: {
-      beta?: number;
-      gamma?: number;
-      magnetic?: number;
-      source?: "ios" | "absolute";
-      accuracy?: number;
-    } = {};
+    const latest: HeadingSample = {};
 
     const flush = () => {
       frame = 0;
       if (typeof latest.beta === "number") setBeta(latest.beta);
       if (typeof latest.gamma === "number") setGamma(latest.gamma);
       if (typeof latest.accuracy === "number") setAccuracy(latest.accuracy);
-      if (typeof latest.magnetic === "number") {
-        gotHeading.current = true;
-        setMagneticHeading(latest.magnetic);
-        setSource(latest.source ?? "absolute");
-        setPermission("granted");
-        samples = [...samples, latest.magnetic].slice(-18);
-        setStability(circularStdDev(samples));
+      if (typeof latest.magnetic !== "number") return;
+      gotHeading.current = true;
+      window.clearTimeout(silenceTimer.current);
+      setMagneticHeading(latest.magnetic);
+      setSource(latest.source ?? "absolute");
+      setPermission("granted");
+      setPromptStalled(false);
+      samples = [...samples, latest.magnetic].slice(-18);
+      setStability(circularStdDev(samples));
+      if (eventHeading.current && sensorRef.current) {
+        try {
+          sensorRef.current.stop();
+        } catch {
+          /* The event path is already driving the dial. */
+        }
+        sensorRef.current = null;
       }
     };
 
-    const onEvent = (event: DeviceOrientationEvent) => {
-      const reading = event as DeviceOrientationEvent & {
-        webkitCompassHeading?: number;
-        webkitCompassAccuracy?: number;
-      };
-      if (typeof reading.beta === "number") latest.beta = reading.beta;
-      if (typeof reading.gamma === "number") latest.gamma = reading.gamma;
-      if (typeof reading.webkitCompassHeading === "number" && !Number.isNaN(reading.webkitCompassHeading)) {
-        latest.magnetic = normalizeDegrees(reading.webkitCompassHeading);
-        latest.source = "ios";
-        if (typeof reading.webkitCompassAccuracy === "number") latest.accuracy = reading.webkitCompassAccuracy;
-      } else if (
-        (event.type === "deviceorientationabsolute" || event.absolute === true) &&
-        typeof event.alpha === "number"
-      ) {
-        latest.magnetic = normalizeDegrees(360 - event.alpha);
-        latest.source = "absolute";
+    ingestRef.current = (sample) => {
+      if (sample.eventSeen && !motionSeenRef.current) {
+        motionSeenRef.current = true;
+        setMotionSeen(true);
       }
-      if (!frame) frame = window.requestAnimationFrame(flush);
+      if (typeof sample.beta === "number") latest.beta = sample.beta;
+      if (typeof sample.gamma === "number") latest.gamma = sample.gamma;
+      if (typeof sample.accuracy === "number") latest.accuracy = sample.accuracy;
+      if (typeof sample.magnetic === "number") {
+        latest.magnetic = sample.magnetic;
+        latest.source = sample.source;
+        if (sample.source === "ios" || sample.source === "absolute") eventHeading.current = true;
+      }
+      if (frame === 0) frame = window.requestAnimationFrame(flush);
     };
-
-    window.addEventListener("deviceorientationabsolute", onEvent, true);
-    window.addEventListener("deviceorientation", onEvent, true);
-    const timer = window.setTimeout(() => {
-      if (!gotHeading.current && !needsTap.current) setPermission("unsupported");
-    }, 1600);
 
     return () => {
-      window.removeEventListener("deviceorientationabsolute", onEvent, true);
-      window.removeEventListener("deviceorientation", onEvent, true);
       window.cancelAnimationFrame(frame);
-      window.clearTimeout(timer);
     };
-  }, [listenKey]);
+  }, []);
 
-  const requestPermission = useCallback(async () => {
-    const orientation = window.DeviceOrientationEvent as typeof DeviceOrientationEvent & {
-      requestPermission?: () => Promise<string>;
-    };
-    if (typeof orientation.requestPermission !== "function") return;
+  const onOrientation = useCallback((event: Event) => {
+    const fix = extractOrientation(event as OrientationReading);
+    ingestRef.current({
+      eventSeen: true,
+      beta: fix.beta ?? undefined,
+      gamma: fix.gamma ?? undefined,
+      magnetic: fix.heading?.magnetic,
+      source: fix.heading?.source,
+      accuracy: fix.heading?.accuracy,
+    });
+  }, []);
+
+  const detachListeners = useCallback(() => {
+    window.removeEventListener("deviceorientationabsolute", onOrientation, CAPTURE);
+    window.removeEventListener("deviceorientation", onOrientation, CAPTURE);
+  }, [onOrientation]);
+
+  const attachListeners = useCallback(() => {
+    // Remove + add in this turn so iOS treats the listener as part of the tap.
+    detachListeners();
+    window.addEventListener("deviceorientationabsolute", onOrientation, CAPTURE);
+    window.addEventListener("deviceorientation", onOrientation, CAPTURE);
+  }, [detachListeners, onOrientation]);
+
+  const stopSensor = useCallback(() => {
+    const sensor = sensorRef.current;
+    sensorRef.current = null;
+    if (!sensor) return;
     try {
-      const result = await orientation.requestPermission();
-      if (result === "granted") {
-        needsTap.current = false;
-        setPermission("granted");
-        setListenKey((key) => key + 1);
-      } else {
-        setPermission("denied");
-      }
+      sensor.stop();
     } catch {
-      setPermission("denied");
+      /* Already stopped. */
     }
   }, []);
+
+  const startSensor = useCallback(() => {
+    stopSensor();
+    const Ctor = (window as Window & { AbsoluteOrientationSensor?: AbsoluteOrientationSensorConstructor })
+      .AbsoluteOrientationSensor;
+    if (typeof Ctor !== "function") return;
+    try {
+      const sensor = new Ctor({ frequency: 30, referenceFrame: "device" });
+      sensor.addEventListener("reading", () => {
+        if (eventHeading.current) return;
+        const magnetic = headingFromQuaternion(sensor.quaternion);
+        if (magnetic == null) return;
+        ingestRef.current({ magnetic, source: "sensor" });
+      });
+      sensor.addEventListener("error", () => {
+        /* Permissions-Policy or a missing magnetometer. Events may still work. */
+      });
+      sensor.start();
+      sensorRef.current = sensor;
+    } catch {
+      /* Generic Sensor API missing or blocked. deviceorientation remains the primary path. */
+    }
+  }, [stopSensor]);
+
+  const scheduleSilenceWatch = useCallback(() => {
+    window.clearTimeout(silenceTimer.current);
+    silenceTimer.current = window.setTimeout(() => {
+      if (gotHeading.current) return;
+      setPermission(gestureRequired.current ? "no-events" : "unsupported");
+    }, SILENCE_MS);
+  }, []);
+
+  const requestPermission = useCallback(() => {
+    if (asking.current) return Promise.resolve();
+    const gen = ++requestGen.current;
+    asking.current = true;
+
+    // Both of these must run inside the tap, before any await. iOS Safari only
+    // delivers webkitCompassHeading to a deviceorientation listener that was
+    // added in that same turn, and it ignores requestPermission() if the
+    // user-gesture bit was already consumed.
+    attachListeners();
+    const orientationPromise = callDevicePermission(orientationConstructor());
+    const motionPromise = callDevicePermission(motionConstructor());
+
+    setUseManual(false);
+    setPromptStalled(false);
+    if (gestureRequired.current) setPermission("requesting");
+
+    window.clearTimeout(promptTimer.current);
+    if (gestureRequired.current) {
+      promptTimer.current = window.setTimeout(() => {
+        asking.current = false;
+        setPermission((current) => (current === "requesting" ? "need-tap" : current));
+        setPromptStalled(true);
+      }, PROMPT_MS);
+    }
+
+    return Promise.all([orientationPromise, motionPromise])
+      .then(([orientation]) => {
+        if (gen !== requestGen.current) return;
+        window.clearTimeout(promptTimer.current);
+        const orientationRequired = needsDirectGesture(orientationConstructor(), null);
+        if (orientationRequired && orientation !== "granted") {
+          setPermission("denied");
+          setPromptStalled(false);
+          return;
+        }
+        setPromptStalled(false);
+        setPermission((current) => (current === "denied" ? current : "granted"));
+        // A heading may already be in flight from the listener attached above.
+        // Only arm the silence watch when nothing has arrived yet.
+        if (!gotHeading.current) scheduleSilenceWatch();
+        if (!eventHeading.current) startSensor();
+      })
+      .finally(() => {
+        if (gen === requestGen.current) asking.current = false;
+      });
+  }, [attachListeners, scheduleSilenceWatch, startSensor]);
+
+  useEffect(() => {
+    const required = gestureRequiredNow();
+    gestureRequired.current = required;
+    if (!required) {
+      attachListeners();
+      startSensor();
+      scheduleSilenceWatch();
+    }
+    return () => {
+      detachListeners();
+      stopSensor();
+      window.clearTimeout(silenceTimer.current);
+      window.clearTimeout(promptTimer.current);
+    };
+  }, [attachListeners, detachListeners, scheduleSilenceWatch, startSensor, stopSensor]);
 
   const requestLocation = useCallback(() => {
     if (!navigator.geolocation) {
@@ -254,6 +410,10 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
       stability,
       source,
       permission,
+      needsGesture,
+      ios,
+      motionSeen,
+      promptStalled,
       requestPermission,
       useManual,
       setHeadingFromUser: (heading: number) => {
@@ -286,7 +446,11 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
       magneticHeading,
       model,
       modelError,
+      ios,
+      motionSeen,
+      needsGesture,
       permission,
+      promptStalled,
       requestLocation,
       requestPermission,
       setManualLocation,

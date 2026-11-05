@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { RoomChips } from "@/components/RoomChips.tsx";
 import { Disclaimer, TierMark } from "@/components/VerdictCard.tsx";
 import { VerdictCard } from "@/components/VerdictCard.tsx";
+import { CompassAccess } from "@/components/CompassAccess.tsx";
 import { ZoneWheel } from "@/components/ZoneWheel.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { Input } from "@/components/ui/input.tsx";
@@ -105,25 +106,16 @@ export function CheckView() {
         </TabsList>
         <TabsContent value={tab}>
           <p className="text-sm leading-relaxed text-muted-foreground">{prompt}</p>
+          <div className="mt-3">
+            <CompassAccess />
+          </div>
           <ZoneWheel
-            className="mt-3 max-w-[300px]"
+            className="max-w-[300px]"
             heading={effective.trueHeading}
             interactive
             onHeading={sensors.setHeadingFromUser}
             basisNote={effective.basis === "manual" ? "Manual" : effective.declinationApplied ? "True" : "Magnetic"}
           />
-          {sensors.permission === "need-tap" && (
-            <Button className="mt-3 w-full" variant="secondary" onClick={() => void sensors.requestPermission()}>
-              Enable compass
-            </Button>
-          )}
-          {sensors.useManual && sensors.magneticHeading != null && (
-            <div className="mt-2 text-center">
-              <Button variant="ghost" size="sm" onClick={sensors.followLive}>
-                Follow the live compass
-              </Button>
-            </div>
-          )}
           {tab === "room" && (
             <div className="mt-4">
               <p className="eyebrow mb-2">Room</p>

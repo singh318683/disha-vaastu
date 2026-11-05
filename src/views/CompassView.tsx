@@ -1,6 +1,7 @@
 import { Info, LocateFixed } from "lucide-react";
 import { useState } from "react";
 import { BubbleLevel } from "@/components/BubbleLevel.tsx";
+import { CompassAccess } from "@/components/CompassAccess.tsx";
 import { Disclaimer, TierMark } from "@/components/VerdictCard.tsx";
 import { ElementLegend, ZoneWheel } from "@/components/ZoneWheel.tsx";
 import { Button } from "@/components/ui/button.tsx";
@@ -47,8 +48,22 @@ export function CompassView() {
         Vaastu uses geographic north. The dial takes the compass heading and adds the local magnetic declination.
       </p>
 
+      <CompassAccess />
+
+      <ZoneWheel
+        heading={effective.trueHeading}
+        interactive
+        onHeading={sensors.setHeadingFromUser}
+        basisNote={basisNote}
+      />
+      <p className="mt-2 text-center text-xs text-muted-foreground">
+        {effective.basis === "manual"
+          ? "Drag the dial or use the arrow keys. This heading is treated as true north."
+          : "The tick at the top is the direction you are facing. The wheel turns under it."}
+      </p>
+
       {!welcomed && (
-        <div className="mb-4 rounded-3xl border border-border bg-card p-4">
+        <div className="mt-4 rounded-3xl border border-border bg-card p-4">
           <p className="text-sm leading-relaxed">
             Point the top of the phone the way you are facing. Sixteen zones, each 22.5° wide, turn with you. On a
             laptop, drag the dial — the New Jersey sample shows the 12° west correction the compass would apply.
@@ -62,39 +77,6 @@ export function CompassView() {
             }}
           >
             Got it
-          </Button>
-        </div>
-      )}
-
-      {sensors.permission === "need-tap" && (
-        <div className="mb-4 rounded-3xl border border-[#e7c9a4] bg-[#fff8ef] p-4">
-          <p className="text-sm">iOS only shares compass heading after a tap.</p>
-          <Button className="mt-3" onClick={() => void sensors.requestPermission()}>
-            Enable compass
-          </Button>
-        </div>
-      )}
-      {sensors.permission === "denied" && (
-        <p className="mb-4 rounded-3xl bg-[#fff8ef] px-4 py-3 text-sm">
-          Compass access was denied. On iPhone, allow Motion & Orientation for this site, or drag the dial below.
-        </p>
-      )}
-
-      <ZoneWheel
-        heading={effective.trueHeading}
-        interactive
-        onHeading={sensors.setHeadingFromUser}
-        basisNote={basisNote}
-      />
-      <p className="mt-2 text-center text-xs text-muted-foreground">
-        {effective.basis === "manual"
-          ? "Drag the dial or use the arrow keys. This heading is treated as true north."
-          : "The tick at the top is the direction you are facing."}
-      </p>
-      {sensors.magneticHeading != null && sensors.useManual && (
-        <div className="mt-2 text-center">
-          <Button variant="ghost" size="sm" onClick={sensors.followLive}>
-            Follow the live compass
           </Button>
         </div>
       )}

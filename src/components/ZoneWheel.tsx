@@ -49,7 +49,14 @@ export function ZoneWheel({
   basisNote,
 }: ZoneWheelProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const drag = useRef<{ pointerId: number; startAngle: number; startHeading: number } | null>(null);
+  const drag = useRef<{
+    pointerId: number;
+    startAngle: number;
+    startHeading: number;
+    originX: number;
+    originY: number;
+    armed: boolean;
+  } | null>(null);
   const rotation = northUp ? 0 : heading;
   const zone = zoneFromBearing(heading);
   const element = ELEMENTS[zone.element];
@@ -65,11 +72,27 @@ export function ZoneWheel({
   function beginDrag(event: ReactPointerEvent<HTMLDivElement>) {
     if (!interactive || !onHeading) return;
     event.currentTarget.setPointerCapture(event.pointerId);
-    drag.current = { pointerId: event.pointerId, startAngle: pointerAngle(event), startHeading: heading };
+    drag.current = {
+      pointerId: event.pointerId,
+      startAngle: pointerAngle(event),
+      startHeading: heading,
+      originX: event.clientX,
+      originY: event.clientY,
+      armed: false,
+    };
   }
 
   function moveDrag(event: ReactPointerEvent<HTMLDivElement>) {
     if (!drag.current || drag.current.pointerId !== event.pointerId || !onHeading) return;
+    if (!drag.current.armed) {
+      const dx = event.clientX - drag.current.originX;
+      const dy = event.clientY - drag.current.originY;
+      // A resting finger on the dial should not freeze the live compass.
+      if (dx * dx + dy * dy < 18 * 18) return;
+      drag.current.armed = true;
+      drag.current.startAngle = pointerAngle(event);
+      drag.current.startHeading = heading;
+    }
     let delta = pointerAngle(event) - drag.current.startAngle;
     if (delta > 180) delta -= 360;
     if (delta < -180) delta += 360;
@@ -89,9 +112,10 @@ export function ZoneWheel({
         ref={ref}
         role={interactive ? "slider" : "img"}
         tabIndex={interactive ? 0 : undefined}
+        data-heading={Math.round(normalizeDegrees(heading))}
         aria-label={
           interactive
-            ? `Manual true heading ${formatHeading(heading)}, ${zone.label}. Drag or use the arrow keys.`
+            ? `True heading ${formatHeading(heading)}, ${zone.label}. Drag or use the arrow keys to set it by hand.`
             : `Facing ${zone.label}, ${formatHeading(heading)}`
         }
         aria-valuemin={interactive ? 0 : undefined}
@@ -114,25 +138,29 @@ export function ZoneWheel({
         <svg viewBox="0 0 360 360" className="h-full w-full drop-shadow-[0_18px_30px_rgba(90,50,20,0.16)]">
           <circle cx={CX} cy={CY} r="176" fill="#fffaf3" />
           <circle cx={CX} cy={CY} r="170" fill="none" stroke="#e7d7c3" strokeWidth="8" />
-          <g style={{ transform: `rotate(${-rotation}deg)`, transformOrigin: "180px 180px" }}>
-            {ZONES.map((slice) => (
+          {ZONES.map((slice) => {
+            // Screen-space wedges. iOS Safari drops CSS transforms on <g>, so the
+            // heading has to be baked into the path instead of a rotate().
+            const center = slice.center - rotation;
+            return (
               <path
                 key={slice.id}
-                d={wedge(78, 158, slice.center - 11.25, slice.center + 11.25)}
+                data-zone={slice.id}
+                d={wedge(78, 158, center - 11.25, center + 11.25)}
                 fill={ELEMENTS[slice.element].color}
                 stroke="#fffaf3"
                 strokeWidth="1.4"
               />
-            ))}
-            {markers.map((marker) => {
-              const [x, y] = polar(118, marker.bearing);
-              return (
-                <g key={marker.id}>
-                  <circle cx={x} cy={y} r="7" fill={marker.color} stroke="#fffaf3" strokeWidth="2" />
-                </g>
-              );
-            })}
-          </g>
+            );
+          })}
+          {markers.map((marker) => {
+            const [x, y] = polar(118, marker.bearing - rotation);
+            return (
+              <g key={marker.id}>
+                <circle cx={x} cy={y} r="7" fill={marker.color} stroke="#fffaf3" strokeWidth="2" />
+              </g>
+            );
+          })}
           {ZONES.map((slice) => {
             const screen = normalizeDegrees(slice.center - rotation);
             const [x, y] = polar(slice.short.length > 2 ? 116 : 118, screen);

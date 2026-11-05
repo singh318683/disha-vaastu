@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { FloorPlanCanvas, alignmentLabel } from "@/components/FloorPlanEditor.tsx";
 import { RoomChips } from "@/components/RoomChips.tsx";
 import { Disclaimer, TierMark } from "@/components/VerdictCard.tsx";
+import { CompassAccess } from "@/components/CompassAccess.tsx";
 import { ZoneWheel } from "@/components/ZoneWheel.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog.tsx";
@@ -169,6 +170,7 @@ export function ScanView() {
 
             {mode === "point" ? (
               <div className="mt-4">
+                <CompassAccess />
                 <ZoneWheel
                   className="max-w-[320px]"
                   heading={effective.trueHeading}
@@ -176,16 +178,6 @@ export function ScanView() {
                   onHeading={sensors.setHeadingFromUser}
                   basisNote={effective.basis === "manual" ? "Manual" : effective.declinationApplied ? "True" : "Magnetic"}
                 />
-                {sensors.permission === "need-tap" && (
-                  <Button className="mt-3" variant="secondary" onClick={() => void sensors.requestPermission()}>
-                    Enable compass
-                  </Button>
-                )}
-                {sensors.useManual && sensors.magneticHeading != null && (
-                  <Button className="mt-2" variant="ghost" size="sm" onClick={sensors.followLive}>
-                    Follow the live compass
-                  </Button>
-                )}
                 {!effective.declinationApplied && (
                   <p className="mt-2 text-xs text-[#8a4e22]">
                     Tagging now stores a magnetic bearing. Set a location on the North tab for true north.
