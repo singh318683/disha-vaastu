@@ -1,5 +1,5 @@
 // Bump this name on every compass/shell change so activate() drops stale caches.
-const CACHE = "disha-shell-v4";
+const CACHE = "disha-shell-v5";
 const PRECACHE = ["/", "/index.html", "/manifest.webmanifest", "/favicon.svg"];
 
 self.addEventListener("install", (event) => {

@@ -21,6 +21,14 @@ export const UI = {
   advancedHint: L("Floor plan, detailed report, and saved homes.", "नक्शा, विस्तृत रिपोर्ट, और सहेजे घर।"),
   back: L("Back", "वापस"),
   flat: L("Hold the phone flat, like a plate.", "फ़ोन को थाली की तरह सपाट रखें।"),
+  figure8: L(
+    "Trace a slow figure-8, away from metal, to steady the compass.",
+    "कम्पास को स्थिर करने के लिए धातु से दूर, धीमा 8 का आकार बनाएँ।",
+  ),
+  relative: L(
+    "This browser is only sharing tilt, not a compass direction. Try a figure-8, or set the direction by hand.",
+    "यह ब्राउज़र केवल झुकाव बता रहा है, कम्पास दिशा नहीं। 8 का आकार बनाएँ, या दिशा हाथ से चुनें।",
+  ),
   metal: L("Step away from metal if the needle wanders.", "सुई भटके तो धातु से एक क़दम दूर हटकर देखें।"),
   unsteady: L("Hold still for a moment.", "एक पल के लिए स्थिर रहें।"),
   quiet: L("Turn the ring if the compass stays quiet.", "कम्पास चुप रहे तो छल्ले को घुमाएँ।"),

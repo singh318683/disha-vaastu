@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button.tsx";
 import { useI18n } from "@/i18n/I18nProvider.tsx";
 import { directionFromHeading } from "@/lib/bearings.ts";
 import { directionName } from "@/lib/l10n.ts";
+import { phoneIsLevel } from "@/lib/heading.ts";
 import {
   CHECK_CATALOG,
   CHECKS,
@@ -30,10 +31,9 @@ type Step =
   | { name: "verdict"; id: string }
   | { name: "summary" };
 
-const LEVEL_DEG = 12;
 const STEADY_DEG = 8;
 
-type PromptKind = "flat" | "metal" | "unsteady" | "quiet" | "manual" | "steady";
+type PromptKind = "flat" | "metal" | "unsteady" | "quiet" | "manual" | "steady" | "relative";
 
 function compassPromptKind(input: {
   live: boolean;
@@ -46,6 +46,7 @@ function compassPromptKind(input: {
   if (input.live && input.metal) return "metal";
   if (input.live && !input.steady) return "unsteady";
   if (input.live) return "steady";
+  if (input.permission === "relative") return "relative";
   if (input.permission === "unsupported" || input.permission === "no-events") return "manual";
   return "quiet";
 }
@@ -82,11 +83,11 @@ export function QuizFlow({ onAdvanced }: { onAdvanced: () => void }) {
 
   function lockHeading() {
     if (step.name !== "lock") return;
-    const trueNorth = sensors.effective.basis !== "live-magnetic";
+    const locked = sensors.headingToLock();
     const next = upsertResult(results, {
       checkId: step.id,
-      heading: sensors.effective.trueHeading,
-      trueNorth,
+      heading: locked.trueHeading,
+      trueNorth: locked.trueNorth,
       at: Date.now(),
     });
     setResults(next);
@@ -244,9 +245,7 @@ function LockScreen({ id, onBack, onLock }: { id: string; onBack: () => void; on
   const heading = sensors.effective.trueHeading;
   const label = directionName(directionFromHeading(heading), locale);
   const live = sensors.magneticHeading != null && !sensors.useManual;
-  const tilt =
-    sensors.beta != null && sensors.gamma != null ? Math.hypot(sensors.beta, sensors.gamma) : null;
-  const level = tilt == null || tilt < LEVEL_DEG;
+  const level = phoneIsLevel(sensors.beta, sensors.gamma);
   const steady = !live || (sensors.stability != null && sensors.stability <= STEADY_DEG);
   const metal =
     (sensors.accuracy != null && (sensors.accuracy < 0 || sensors.accuracy > 40)) ||
@@ -258,7 +257,7 @@ function LockScreen({ id, onBack, onLock }: { id: string; onBack: () => void; on
     level,
     steady,
     metal,
-    permission: sensors.permission,
+    permission: sensors.relativeOnly && sensors.magneticHeading == null ? "relative" : sensors.permission,
   });
 
   function enableCompass() {
@@ -296,6 +295,7 @@ function LockScreen({ id, onBack, onLock }: { id: string; onBack: () => void; on
       </div>
       <div className="mt-4 min-h-12 text-center text-base leading-snug text-muted-foreground" role="status" aria-live="polite">
         {promptKind === "steady" ? <SteadyPrompt /> : <p>{u(promptKind)}</p>}
+        {sensors.noisy && <p className="mt-1 text-sm">{u("figure8")}</p>}
       </div>
       {sensors.effective.basis === "live-magnetic" && (
         <button type="button" className="text-center text-sm text-[#8a4e22]" onClick={sensors.requestLocation}>

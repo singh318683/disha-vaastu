@@ -1,12 +1,18 @@
 import { describe, expect, it } from "vitest";
 import {
+  applyScreenAngle,
   callDevicePermission,
+  circularMean,
   extractOrientation,
   headingFromOrientation,
   headingFromQuaternion,
   isIosBrowser,
   needsDirectGesture,
+  phoneIsLevel,
+  smoothHeading,
+  tiltCompensatedHeading,
 } from "./heading.ts";
+import { normalizeDegrees } from "./angles.ts";
 
 const HALF = Math.SQRT1_2;
 
@@ -52,21 +58,44 @@ describe("headingFromOrientation", () => {
     ).toEqual({ magnetic: 20, source: "ios" });
   });
 
-  it("converts absolute alpha from counter-clockwise to a clockwise compass heading", () => {
-    expect(headingFromOrientation({ type: "deviceorientationabsolute", alpha: 0 })).toEqual({
-      magnetic: 0,
-      source: "absolute",
-    });
-    expect(headingFromOrientation({ type: "deviceorientationabsolute", alpha: 90 })).toEqual({
-      magnetic: 270,
-      source: "absolute",
-    });
+  it("treats Android absolute alpha as clockwise, so east is 90° from north", () => {
+    const north = headingFromOrientation({ type: "deviceorientationabsolute", alpha: 0 });
+    const east = headingFromOrientation({ type: "deviceorientationabsolute", alpha: 90 });
+    expect(north).toEqual({ magnetic: 0, source: "absolute" });
+    expect(east).toEqual({ magnetic: 90, source: "absolute" });
+    expect(normalizeDegrees(east!.magnetic - north!.magnetic)).toBe(90);
     expect(headingFromOrientation({ absolute: true, alpha: 180 })).toEqual({
       magnetic: 180,
       source: "absolute",
     });
-    expect(headingFromOrientation({ type: "deviceorientationabsolute", alpha: 270 })?.magnetic).toBe(90);
+    expect(headingFromOrientation({ type: "deviceorientationabsolute", alpha: 270 })?.magnetic).toBe(270);
     expect(headingFromOrientation({ type: "deviceorientationabsolute", alpha: 360 })?.magnetic).toBe(0);
+    expect(headingFromOrientation({ type: "deviceorientationabsolute", alpha: 359 })?.magnetic).toBe(359);
+  });
+
+  it("adjusts Android headings for screen rotation at 0, 90, 180, and 270", () => {
+    for (const angle of [0, 90, 180, 270]) {
+      const fix = headingFromOrientation({ type: "deviceorientationabsolute", alpha: 90, beta: 0, gamma: 0 }, { screenAngle: angle });
+      expect(fix?.magnetic).toBe(normalizeDegrees(90 - angle));
+    }
+    // iOS heading is not rotated again by the screen angle.
+    expect(
+      headingFromOrientation({ webkitCompassHeading: 90, alpha: 0 }, { screenAngle: 90 })?.magnetic,
+    ).toBe(90);
+  });
+
+  it("keeps a tilted Android phone on the same compass point", () => {
+    expect(tiltCompensatedHeading(0, 35, 0)).toBeCloseTo(0, 4);
+    expect(tiltCompensatedHeading(90, 35, 0)).toBeCloseTo(90, 4);
+    expect(tiltCompensatedHeading(180, 28, 0)).toBeCloseTo(180, 4);
+    expect(tiltCompensatedHeading(270, 40, 0)).toBeCloseTo(270, 4);
+    const tilted = headingFromOrientation({
+      type: "deviceorientationabsolute",
+      alpha: 90,
+      beta: 35,
+      gamma: 0,
+    });
+    expect(tilted?.magnetic).toBeCloseTo(90, 4);
   });
 
   it("ignores a relative alpha, which is not referenced to north", () => {
@@ -122,6 +151,26 @@ describe("headingFromQuaternion", () => {
     expect(headingFromQuaternion([])).toBeNull();
     expect(headingFromQuaternion([1, 2, 3])).toBeNull();
     expect(headingFromQuaternion([Number.NaN, 0, 0, 1])).toBeNull();
+  });
+});
+
+describe("circular smoothing", () => {
+  it("steps across 359° to 1° without spinning through south", () => {
+    let state = smoothHeading(null, 359, 0);
+    state = smoothHeading(state.state, 1, 50);
+    state = smoothHeading(state.state, 2, 50);
+    expect(state.heading < 20 || state.heading > 340).toBe(true);
+    expect(circularMean([359, 0, 1, 2])).toBeCloseTo(0.5, 0);
+    const across = circularMean([350, 10])!;
+    expect(Math.min(across, 360 - across)).toBeLessThan(1);
+  });
+
+  it("treats a hand-held phone as level and an upright phone as not", () => {
+    expect(phoneIsLevel(null, null)).toBe(true);
+    expect(phoneIsLevel(12, 8)).toBe(true);
+    expect(phoneIsLevel(25, 10)).toBe(true);
+    expect(phoneIsLevel(70, 5)).toBe(false);
+    expect(applyScreenAngle(90, 90)).toBe(0);
   });
 });
 

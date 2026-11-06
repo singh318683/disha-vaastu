@@ -65,6 +65,10 @@ export function CompassAccess() {
         <p className="font-serif text-2xl leading-none">{copy.title}</p>
       </div>
       <p className="mt-2 text-sm leading-relaxed">{copy.body}</p>
+      {sensors.relativeOnly && sensors.magneticHeading == null && (
+        <p className="mt-2 text-sm leading-relaxed">{u("relative")}</p>
+      )}
+      {sensors.noisy && <p className="mt-2 text-sm leading-relaxed">{u("figure8")}</p>}
       <Button className="mt-3 h-12 w-full text-base" size="lg" disabled={waitingOnPrompt} onClick={enable}>
         {copy.action}
       </Button>

@@ -3,10 +3,15 @@ import { magneticToTrue, normalizeDegrees } from "@/lib/angles.ts";
 import { declinationAt, type DeclinationResult } from "@/lib/declination.ts";
 import {
   callDevicePermission,
+  circularMean,
   extractOrientation,
   headingFromQuaternion,
   isIosBrowser,
   needsDirectGesture,
+  queryOrientationSensorPermission,
+  readScreenAngle,
+  smoothHeading,
+  type CircularSmooth,
   type OrientationReading,
 } from "@/lib/heading.ts";
 import { zoneFromBearing, type Zone } from "@/lib/zones.ts";
@@ -32,8 +37,16 @@ interface SensorsValue {
   permission: Permission;
   needsGesture: boolean;
   ios: boolean;
+  /** Android Chrome, not iPhone. Figure-8 hints stay off the iOS path. */
+  android: boolean;
+  /** deviceorientation events arrived, but none were absolute and no sensor is driving. */
+  relativeOnly: boolean;
+  /** Android readings are wandering enough to suggest a figure-8. */
+  noisy: boolean;
   motionSeen: boolean;
   promptStalled: boolean;
+  /** True heading from the last second of corrected samples, for Lock direction. */
+  headingToLock: () => { trueHeading: number; trueNorth: boolean };
   requestPermission: () => Promise<void>;
   useManual: boolean;
   setHeadingFromUser: (heading: number) => void;
@@ -126,6 +139,11 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
   const [permission, setPermission] = useState<Permission>(() => (gestureRequiredNow() ? "need-tap" : "unknown"));
   const [needsGesture] = useState(() => gestureRequiredNow());
   const [ios] = useState(() => iosBrowserNow());
+  const [android] = useState(() => {
+    if (typeof navigator === "undefined") return false;
+    return /Android/i.test(navigator.userAgent) && !iosBrowserNow();
+  });
+  const [relativeOnly, setRelativeOnly] = useState(false);
   const [motionSeen, setMotionSeen] = useState(false);
   const [promptStalled, setPromptStalled] = useState(false);
   const [useManual, setUseManual] = useState(false);
@@ -139,18 +157,27 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
 
   const gestureRequired = useRef(needsGesture);
   const gotHeading = useRef(false);
-  const eventHeading = useRef(false);
+  const sensorFreshUntil = useRef(0);
   const motionSeenRef = useRef(false);
   const asking = useRef(false);
   const requestGen = useRef(0);
   const silenceTimer = useRef(0);
   const promptTimer = useRef(0);
   const sensorRef = useRef<AbsoluteOrientationSensorLike | null>(null);
+  const sensorGen = useRef(0);
   const ingestRef = useRef<(sample: HeadingSample) => void>(() => {});
+  const recentMagnetic = useRef<{ t: number; magnetic: number }[]>([]);
+  const declinationRef = useRef<number | null>(null);
+  const manualRef = useRef(manualTrueHeading);
+  const useManualRef = useRef(useManual);
+  manualRef.current = manualTrueHeading;
+  useManualRef.current = useManual;
 
   useEffect(() => {
-    let samples: number[] = [];
+    let displaySamples: number[] = [];
     let frame = 0;
+    let smooth: CircularSmooth | null = null;
+    let lastSmoothAt = 0;
     const latest: HeadingSample = {};
 
     const flush = () => {
@@ -159,22 +186,24 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
       if (typeof latest.gamma === "number") setGamma(latest.gamma);
       if (typeof latest.accuracy === "number") setAccuracy(latest.accuracy);
       if (typeof latest.magnetic !== "number") return;
+      const now = performance.now();
+      recentMagnetic.current.push({ t: now, magnetic: latest.magnetic });
+      const keepFrom = now - 1500;
+      while (recentMagnetic.current.length > 0 && recentMagnetic.current[0]!.t < keepFrom) {
+        recentMagnetic.current.shift();
+      }
+      const smoothed = smoothHeading(smooth, latest.magnetic, lastSmoothAt === 0 ? 0 : now - lastSmoothAt);
+      smooth = smoothed.state;
+      lastSmoothAt = now;
       gotHeading.current = true;
       window.clearTimeout(silenceTimer.current);
-      setMagneticHeading(latest.magnetic);
+      setMagneticHeading(smoothed.heading);
       setSource(latest.source ?? "absolute");
       setPermission("granted");
       setPromptStalled(false);
-      samples = [...samples, latest.magnetic].slice(-18);
-      setStability(circularStdDev(samples));
-      if (eventHeading.current && sensorRef.current) {
-        try {
-          sensorRef.current.stop();
-        } catch {
-          /* The event path is already driving the dial. */
-        }
-        sensorRef.current = null;
-      }
+      setRelativeOnly(false);
+      displaySamples = [...displaySamples, smoothed.heading].slice(-18);
+      setStability(circularStdDev(displaySamples));
     };
 
     ingestRef.current = (sample) => {
@@ -188,7 +217,6 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
       if (typeof sample.magnetic === "number") {
         latest.magnetic = sample.magnetic;
         latest.source = sample.source;
-        if (sample.source === "ios" || sample.source === "absolute") eventHeading.current = true;
       }
       if (frame === 0) frame = window.requestAnimationFrame(flush);
     };
@@ -199,13 +227,22 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const onOrientation = useCallback((event: Event) => {
-    const fix = extractOrientation(event as OrientationReading);
+    const reading = event as OrientationReading;
+    const fix = extractOrientation(reading, { screenAngle: readScreenAngle() });
+    const sensorFresh = performance.now() < sensorFreshUntil.current;
+    const iosHeading = fix.heading?.source === "ios";
+    // AbsoluteOrientationSensor wins on Android. iOS webkit still wins, and a
+    // non-absolute event never becomes a compass heading.
+    const useEventHeading = fix.heading != null && (iosHeading || !sensorFresh);
+    if (!useEventHeading && fix.heading == null && reading.absolute !== true && reading.type !== "deviceorientationabsolute") {
+      if (!gotHeading.current && performance.now() >= sensorFreshUntil.current) setRelativeOnly(true);
+    }
     ingestRef.current({
       eventSeen: true,
       beta: fix.beta ?? undefined,
       gamma: fix.gamma ?? undefined,
-      magnetic: fix.heading?.magnetic,
-      source: fix.heading?.source,
+      magnetic: useEventHeading ? fix.heading?.magnetic : undefined,
+      source: useEventHeading ? fix.heading?.source : undefined,
       accuracy: fix.heading?.accuracy,
     });
   }, []);
@@ -223,6 +260,7 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
   }, [detachListeners, onOrientation]);
 
   const stopSensor = useCallback(() => {
+    sensorGen.current += 1;
     const sensor = sensorRef.current;
     sensorRef.current = null;
     if (!sensor) return;
@@ -235,26 +273,34 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
 
   const startSensor = useCallback(() => {
     stopSensor();
+    const generation = sensorGen.current;
     const Ctor = (window as Window & { AbsoluteOrientationSensor?: AbsoluteOrientationSensorConstructor })
       .AbsoluteOrientationSensor;
-    if (typeof Ctor !== "function") return;
-    try {
-      const sensor = new Ctor({ frequency: 30, referenceFrame: "device" });
-      sensor.addEventListener("reading", () => {
-        if (eventHeading.current) return;
-        const magnetic = headingFromQuaternion(sensor.quaternion);
-        if (magnetic == null) return;
-        ingestRef.current({ magnetic, source: "sensor" });
-      });
-      sensor.addEventListener("error", () => {
-        /* Permissions-Policy or a missing magnetometer. Events may still work. */
-      });
-      sensor.start();
-      sensorRef.current = sensor;
-    } catch {
-      /* Generic Sensor API missing or blocked. deviceorientation remains the primary path. */
-    }
-  }, [stopSensor]);
+    if (typeof Ctor !== "function" || ios) return;
+    void queryOrientationSensorPermission().then((permissionState) => {
+      if (generation !== sensorGen.current) return;
+      if (permissionState === "denied") return;
+      if (sensorRef.current) return;
+      try {
+        const sensor = new Ctor({ frequency: 60, referenceFrame: "device" });
+        sensor.addEventListener("reading", () => {
+          const magnetic = headingFromQuaternion(sensor.quaternion, readScreenAngle());
+          if (magnetic == null) return;
+          // Keep the sensor ahead of deviceorientation for half a second after each sample.
+          sensorFreshUntil.current = performance.now() + 500;
+          ingestRef.current({ magnetic, source: "sensor" });
+        });
+        sensor.addEventListener("error", () => {
+          sensorFreshUntil.current = 0;
+          /* Permissions-Policy or a missing magnetometer. Absolute events may still work. */
+        });
+        sensor.start();
+        sensorRef.current = sensor;
+      } catch {
+        /* Generic Sensor API missing or blocked. deviceorientationabsolute remains the fallback. */
+      }
+    });
+  }, [ios, stopSensor]);
 
   const scheduleSilenceWatch = useCallback(() => {
     window.clearTimeout(silenceTimer.current);
@@ -305,12 +351,13 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
         // A heading may already be in flight from the listener attached above.
         // Only arm the silence watch when nothing has arrived yet.
         if (!gotHeading.current) scheduleSilenceWatch();
-        if (!eventHeading.current) startSensor();
+        // Android prefers AbsoluteOrientationSensor. iOS keeps webkitCompassHeading.
+        if (!ios) startSensor();
       })
       .finally(() => {
         if (gen === requestGen.current) asking.current = false;
       });
-  }, [attachListeners, scheduleSilenceWatch, startSensor]);
+  }, [attachListeners, ios, scheduleSilenceWatch, startSensor]);
 
   useEffect(() => {
     const required = gestureRequiredNow();
@@ -377,6 +424,7 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
   }, [location]);
 
   const declination = declinationOverride ?? model?.declination ?? null;
+  declinationRef.current = declination;
 
   const effective = useMemo(() => {
     const sensorLive = magneticHeading != null && !useManual;
@@ -408,6 +456,9 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
       permission,
       needsGesture,
       ios,
+      android,
+      relativeOnly,
+      noisy: android && ((stability != null && stability > 12) || (accuracy != null && accuracy > 30)),
       motionSeen,
       promptStalled,
       requestPermission,
@@ -417,6 +468,16 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
         setManualTrueHeading(normalizeDegrees(heading));
       },
       followLive: () => setUseManual(false),
+      headingToLock: () => {
+        if (useManualRef.current) return { trueHeading: manualRef.current, trueNorth: true };
+        const now = performance.now();
+        const recent = recentMagnetic.current.filter((sample) => now - sample.t <= 1000).map((sample) => sample.magnetic);
+        const magnetic = circularMean(recent);
+        if (magnetic == null) return { trueHeading: manualRef.current, trueNorth: true };
+        const shift = declinationRef.current;
+        if (shift == null) return { trueHeading: magnetic, trueNorth: false };
+        return { trueHeading: magneticToTrue(magnetic, shift), trueNorth: true };
+      },
       location,
       locationStatus,
       locationError,
@@ -443,6 +504,8 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
       model,
       modelError,
       ios,
+      android,
+      relativeOnly,
       motionSeen,
       needsGesture,
       permission,
