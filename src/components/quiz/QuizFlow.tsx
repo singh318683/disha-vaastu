@@ -13,15 +13,16 @@ import {
   requireCheck,
   verdictForHeading,
   type QuizVerdict,
-  type Rating,
 } from "@/lib/checks.ts";
 import { formatDeclination, formatHeading } from "@/lib/format.ts";
 import type { HarmonyCardInput } from "@/lib/harmonyExport.ts";
-import { loadQuizResults, saveQuizResults, upsertResult, type StoredQuizResult } from "@/lib/quizStore.ts";
+import { homeScore, type HomeScore, type ScoreBand } from "@/lib/homeScore.ts";
+import { loadQuizResults, loadRemedyDone, saveQuizResults, saveRemedyDone, upsertResult, type StoredQuizResult } from "@/lib/quizStore.ts";
 import { useSensors } from "@/state/sensors.tsx";
 import { CompassDial } from "./CompassDial.tsx";
 import { HomePager } from "./HomePager.tsx";
 import { MoodFace } from "./MoodFace.tsx";
+import { ScoreRing } from "./ScoreRing.tsx";
 
 type Step =
   | { name: "welcome" }
@@ -62,13 +63,25 @@ function SteadyPrompt() {
 
 export function QuizFlow({ onAdvanced }: { onAdvanced: () => void }) {
   const sensors = useSensors();
+  const { locale } = useI18n();
   const [step, setStep] = useState<Step>({ name: "welcome" });
   const [results, setResults] = useState<StoredQuizResult[]>(() => loadQuizResults());
+  const [remedies, setRemedies] = useState<Record<string, number>>(() => loadRemedyDone());
   const [note, setNote] = useState<string | null>(null);
+  const [scoreDelta, setScoreDelta] = useState<number | null>(null);
+  const report = useMemo(() => homeScore(results, remedies, locale), [results, remedies, locale]);
 
   useEffect(() => {
     saveQuizResults(results);
   }, [results]);
+
+  useEffect(() => {
+    saveRemedyDone(remedies);
+  }, [remedies]);
+
+  useEffect(() => {
+    if (step.name !== "verdict") setScoreDelta(null);
+  }, [step.name]);
 
   function start() {
     // Both permission calls have to happen in this tap, before any await.
@@ -85,14 +98,26 @@ export function QuizFlow({ onAdvanced }: { onAdvanced: () => void }) {
   function lockHeading() {
     if (step.name !== "lock") return;
     const locked = sensors.headingToLock();
+    const before = homeScore(results, remedies, locale).score;
     const next = upsertResult(results, {
       checkId: step.id,
       heading: locked.trueHeading,
       trueNorth: locked.trueNorth,
       at: Date.now(),
     });
+    const after = homeScore(next, remedies, locale).score;
+    setScoreDelta((after ?? 0) - (before ?? 0));
     setResults(next);
     setStep({ name: "verdict", id: step.id });
+  }
+
+  function toggleRemedy(checkId: string, heading: number) {
+    setRemedies((current) => {
+      const next = { ...current };
+      if (next[checkId] === heading) delete next[checkId];
+      else next[checkId] = heading;
+      return next;
+    });
   }
 
   const savedById = useMemo(() => new Map(results.map((item) => [item.checkId, item])), [results]);
@@ -106,6 +131,7 @@ export function QuizFlow({ onAdvanced }: { onAdvanced: () => void }) {
           onOpen={openCheck}
           onSummary={() => setStep({ name: "summary" })}
           onAdvanced={onAdvanced}
+          report={report}
         />
       )}
       {step.name === "lock" && (
@@ -123,6 +149,12 @@ export function QuizFlow({ onAdvanced }: { onAdvanced: () => void }) {
           onHome={() => setStep({ name: "home" })}
           onSummary={() => setStep({ name: "summary" })}
           canSummarize={results.length > 0}
+          scoreDelta={scoreDelta}
+          remedyDone={remedies[step.id] === savedById.get(step.id)?.heading}
+          onToggleRemedy={() => {
+            const saved = savedById.get(step.id);
+            if (saved) toggleRemedy(step.id, saved.heading);
+          }}
         />
       )}
       {step.name === "summary" && (
@@ -133,8 +165,11 @@ export function QuizFlow({ onAdvanced }: { onAdvanced: () => void }) {
           onBack={() => setStep({ name: "home" })}
           onClear={() => {
             setResults([]);
+            setRemedies({});
             setNote(null);
           }}
+          report={report}
+          onToggleRemedy={toggleRemedy}
         />
       )}
     </div>
@@ -173,6 +208,7 @@ function HomeScreen(props: {
   onOpen: (id: string) => void;
   onSummary: () => void;
   onAdvanced: () => void;
+  report: HomeScore;
 }) {
   return <HomePager {...props} />;
 }
@@ -303,6 +339,9 @@ function VerdictScreen({
   onHome,
   onSummary,
   canSummarize,
+  scoreDelta,
+  remedyDone,
+  onToggleRemedy,
 }: {
   id: string;
   saved: StoredQuizResult | undefined;
@@ -310,19 +349,28 @@ function VerdictScreen({
   onHome: () => void;
   onSummary: () => void;
   canSummarize: boolean;
+  scoreDelta: number | null;
+  remedyDone: boolean;
+  onToggleRemedy: () => void;
 }) {
   const { locale, u } = useI18n();
   const check = requireCheck(id);
   const verdict = verdictForHeading(check, saved?.heading ?? 0, locale);
   return (
     <section data-screen="verdict" className="flex h-full flex-col overflow-hidden px-4 pt-[max(0.6rem,env(safe-area-inset-top))] pb-[max(0.45rem,env(safe-area-inset-bottom))]">
+      {scoreDelta != null && scoreDelta !== 0 && <ScoreToast delta={scoreDelta} />}
       <div className="flex shrink-0 items-center justify-between">
         <button type="button" onClick={onHome} className="grid h-10 w-10 place-items-center rounded-full bg-card" aria-label={u("back")}>
           <ChevronLeft className="h-5 w-5" />
         </button>
         <LanguageToggle />
       </div>
-      <VerdictBody verdict={verdict} trueNorth={saved?.trueNorth !== false} />
+      <VerdictBody
+        verdict={verdict}
+        trueNorth={saved?.trueNorth !== false}
+        remedyDone={remedyDone}
+        onToggleRemedy={verdict.remedies.length > 0 ? onToggleRemedy : undefined}
+      />
       <div className="mt-2 grid shrink-0 gap-1.5">
         <Button className="h-11 text-base" onClick={onHome}>
           {u("checkAnother")}
@@ -340,7 +388,17 @@ function VerdictScreen({
   );
 }
 
-function VerdictBody({ verdict, trueNorth }: { verdict: QuizVerdict; trueNorth: boolean }) {
+function VerdictBody({
+  verdict,
+  trueNorth,
+  remedyDone,
+  onToggleRemedy,
+}: {
+  verdict: QuizVerdict;
+  trueNorth: boolean;
+  remedyDone: boolean;
+  onToggleRemedy?: () => void;
+}) {
   const { t, u } = useI18n();
   const ideal = verdict.rating === "auspicious" && verdict.remedies.length === 0;
   return (
@@ -362,6 +420,11 @@ function VerdictBody({ verdict, trueNorth }: { verdict: QuizVerdict; trueNorth: 
             </li>
           ))}
         </ul>
+      )}
+      {onToggleRemedy && (
+        <button type="button" className="mt-1 shrink-0 text-center text-xs font-medium text-primary" onClick={onToggleRemedy}>
+          {remedyDone ? u("remedyDone") : u("markRemedy")}
+        </button>
       )}
       <NorthNote trueNorth={trueNorth} />
       <MoreSheet>
@@ -385,12 +448,16 @@ function SummaryScreen({
   onNote,
   onBack,
   onClear,
+  report,
+  onToggleRemedy,
 }: {
   results: StoredQuizResult[];
   note: string | null;
   onNote: (note: string | null) => void;
   onBack: () => void;
   onClear: () => void;
+  report: HomeScore;
+  onToggleRemedy: (checkId: string, heading: number) => void;
 }) {
   const { locale, t, u } = useI18n();
   const rows = CHECKS.flatMap((check) => {
@@ -412,6 +479,8 @@ function SummaryScreen({
       placement: row.verdict.placementLine,
       rating: row.verdict.rating,
     })),
+    scoreLabel: report.score == null ? null : `${report.score} · ${u(bandKey(report.band!))}`,
+    coverage: fill(u("basedOn"), { done: report.done, total: report.total }),
   };
   const [busy, setBusy] = useState<"card" | "pdf" | null>(null);
 
@@ -445,6 +514,7 @@ function SummaryScreen({
     }
   }
 
+  const hint = report.confidence === "low" ? u("confidenceLow") : report.confidence === "mid" ? u("confidenceMid") : u("confidenceHigh");
   return (
     <section data-screen="summary" className="flex h-full flex-col overflow-hidden px-4 pt-[max(0.6rem,env(safe-area-inset-top))] pb-[max(0.45rem,env(safe-area-inset-bottom))]">
       <div className="flex shrink-0 items-center justify-between">
@@ -453,26 +523,52 @@ function SummaryScreen({
         </button>
         <LanguageToggle />
       </div>
-      <p className="eyebrow mt-2 shrink-0">{u("homeHarmony")}</p>
-      <h1 className="mt-1 line-clamp-2 shrink-0 text-[clamp(1.6rem,6vw,2rem)] leading-tight">{harmony.title}</h1>
-      <p className="mt-1 line-clamp-2 shrink-0 text-sm leading-snug text-muted-foreground">{harmony.line}</p>
-      <div className="mt-2 grid shrink-0 grid-cols-3 gap-2">
-        <Count value={harmony.auspicious} label={u("auspicious")} rating="auspicious" />
-        <Count value={harmony.neutral} label={u("neutral")} rating="neutral" />
-        <Count value={harmony.inauspicious} label={u("toSoften")} rating="inauspicious" />
+      <div className="mt-2 flex shrink-0 items-center gap-3">
+        <ScoreRing score={report.score} size={92} animate caption={report.score == null ? u("noScoreYet") : `${report.score}`} />
+        <div className="min-w-0">
+          <p className="eyebrow">{u("homeHarmony")}</p>
+          <h1 className="truncate font-serif text-[clamp(1.6rem,6vw,2rem)] leading-none">
+            {report.band ? u(bandKey(report.band)) : u("noScoreYet")}
+          </h1>
+          <p className="mt-1 text-xs text-muted-foreground">{fill(u("basedOn"), { done: report.done, total: report.total })}</p>
+          <p className="line-clamp-2 text-xs leading-snug text-muted-foreground">{report.score == null ? u("noScoreYet") : hint}</p>
+        </div>
       </div>
-      <ul className="mt-2 min-h-0 flex-1 space-y-1.5 overflow-y-auto overscroll-contain">
-        {rows.length === 0 && <li className="text-sm text-muted-foreground">{u("nothingChecked")}</li>}
-        {rows.map((row) => (
-          <li key={row.verdict.check.id} className="flex items-center gap-3 rounded-2xl bg-card px-3 py-2">
-            <MoodFace rating={row.verdict.rating} className="h-8 w-8" />
-            <span className="min-w-0">
-              <span className="block truncate text-sm font-medium">{t(row.verdict.check.title)}</span>
-              <span className="block truncate text-xs text-muted-foreground">{row.verdict.placementLine}</span>
-            </span>
-          </li>
+      <div className="mt-2 grid shrink-0 grid-cols-4 gap-1">
+        {report.categories.map((category) => (
+          <div key={category.group.en} className="rounded-xl bg-card px-1 py-1 text-center">
+            <p className="truncate text-[0.62rem] text-muted-foreground">{t(category.group)}</p>
+            <p className="font-serif text-lg leading-none text-primary">{category.score ?? "–"}</p>
+          </div>
         ))}
-      </ul>
+      </div>
+      <div className="mt-2 min-h-0 flex-1">
+        <p className="text-xs font-medium tracking-wide text-primary uppercase">{u("biggestBoosts")}</p>
+        {report.boosts.length === 0 ? (
+          <p className="mt-1 text-xs text-muted-foreground">{u("nothingToLift")}</p>
+        ) : (
+          <ul className="mt-1 space-y-1">
+            {report.boosts.map((boost) => {
+              const saved = results.find((item) => item.checkId === boost.checkId);
+              return (
+                <li key={boost.checkId} className="flex items-center gap-2 rounded-xl bg-card px-2 py-1.5">
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate text-sm font-medium">{t(boost.title)}</span>
+                    <span className="block truncate text-[0.68rem] text-muted-foreground">{boost.remedy}</span>
+                  </span>
+                  <button
+                    type="button"
+                    className="shrink-0 rounded-full bg-primary px-2 py-1 text-[0.68rem] font-medium text-primary-foreground"
+                    onClick={() => saved && onToggleRemedy(boost.checkId, saved.heading)}
+                  >
+                    {fill(u("boostPoints"), { n: boost.gain })}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
       <div className="mt-2 grid shrink-0 gap-1.5">
         <Button className="h-11 text-base" disabled={busy !== null || rows.length === 0} onClick={() => void shareCard()}>
           {busy === "card" ? u("makingCard") : u("shareCard")}
@@ -599,12 +695,26 @@ function Mandala({ className }: { className?: string }) {
   );
 }
 
-function Count({ value, label, rating }: { value: number; label: string; rating: Rating }) {
-  const color = rating === "auspicious" ? "text-[#9be7c0]" : rating === "neutral" ? "text-[#f0d78c]" : "text-[#f3b4a6]";
+function ScoreToast({ delta }: { delta: number }) {
+  const label = delta > 0 ? `+${delta}` : `−${Math.abs(delta)}`;
   return (
-    <div className="rounded-3xl bg-card px-3 py-3 text-center">
-      <p className={`font-serif text-3xl leading-none ${color}`}>{value}</p>
-      <p className="mt-1 text-xs text-muted-foreground">{label}</p>
-    </div>
+    <p
+      data-score-toast={label}
+      role="status"
+      className="score-toast pointer-events-none fixed top-[42%] left-1/2 z-50 rounded-full bg-primary px-4 py-1.5 font-serif text-xl text-primary-foreground"
+    >
+      {label}
+    </p>
   );
+}
+
+function bandKey(band: ScoreBand): "scoreExcellent" | "scoreGood" | "scoreFair" | "scoreCare" {
+  if (band === "excellent") return "scoreExcellent";
+  if (band === "good") return "scoreGood";
+  if (band === "fair") return "scoreFair";
+  return "scoreCare";
+}
+
+function fill(template: string, values: Record<string, string | number>): string {
+  return template.replace(/\{(\w+)\}/g, (_, key: string) => String(values[key] ?? ""));
 }

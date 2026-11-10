@@ -1,6 +1,7 @@
 import type { Rating } from "./checks.ts";
 
 const STORAGE_KEY = "disha.quiz.results.v1";
+const REMEDY_KEY = "disha.remedyDone";
 
 export interface StoredQuizResult {
   checkId: string;
@@ -43,6 +44,33 @@ export function saveQuizResults(results: readonly StoredQuizResult[]): void {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(results));
   } catch {
     /* A private browser can refuse storage. The summary still works for this visit. */
+  }
+}
+
+/** Heading at which the person marked that check's remedy done. */
+export function loadRemedyDone(): Record<string, number> {
+  try {
+    if (typeof localStorage === "undefined") return {};
+    const raw = localStorage.getItem(REMEDY_KEY);
+    if (!raw) return {};
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return {};
+    const done: Record<string, number> = {};
+    for (const [id, heading] of Object.entries(parsed)) {
+      if (typeof heading === "number" && Number.isFinite(heading)) done[id] = heading;
+    }
+    return done;
+  } catch {
+    return {};
+  }
+}
+
+export function saveRemedyDone(done: Record<string, number>): void {
+  try {
+    if (typeof localStorage === "undefined") return;
+    localStorage.setItem(REMEDY_KEY, JSON.stringify(done));
+  } catch {
+    /* The score still updates for this visit. */
   }
 }
 

@@ -15,6 +15,8 @@ export interface HarmonyCardInput {
   neutral: number;
   inauspicious: number;
   rows: HarmonyCardRow[];
+  scoreLabel?: string | null;
+  coverage?: string | null;
 }
 
 const INK = "#f7f1e4";
@@ -71,7 +73,8 @@ export function renderHarmonyCanvas(input: HarmonyCardInput): HTMLCanvasElement 
   const bodyLines = input.rows.reduce((sum, row) => {
     return sum + wrap(ctx, `${row.title}  ·  ${row.placement}`, width - pad * 2 - 28).length;
   }, 0);
-  const height = 420 + bodyLines * 36 + 80;
+  const scoreBlock = input.scoreLabel ? 56 : 0;
+  const height = 420 + scoreBlock + bodyLines * 36 + 80;
   canvas.height = Math.max(height, 960);
 
   ctx.fillStyle = PAPER;
@@ -91,12 +94,24 @@ export function renderHarmonyCanvas(input: HarmonyCardInput): HTMLCanvasElement 
   ctx.font = `560 54px ${display}`;
   ctx.fillText(input.title, pad, 168);
 
+  if (input.scoreLabel) {
+    ctx.fillStyle = SAFFRON;
+    ctx.font = `600 32px ${display}`;
+    ctx.fillText(input.scoreLabel, pad, 214);
+    if (input.coverage) {
+      ctx.fillStyle = CLAY;
+      ctx.font = `22px ${face}`;
+      ctx.fillText(input.coverage, pad, 246);
+    }
+  }
+
   ctx.fillStyle = CLAY;
   ctx.font = `28px ${face}`;
   const intro = wrap(ctx, input.line, width - pad * 2);
-  intro.forEach((line, index) => ctx.fillText(line, pad, 214 + index * 36));
+  const introY = 214 + scoreBlock;
+  intro.forEach((line, index) => ctx.fillText(line, pad, introY + index * 36));
 
-  const countsY = 214 + intro.length * 36 + 28;
+  const countsY = introY + intro.length * 36 + 28;
   drawCount(ctx, pad, countsY, String(input.auspicious), countLabels[0]!, RATING_COLOR.auspicious, display, face);
   drawCount(ctx, pad + 220, countsY, String(input.neutral), countLabels[1]!, RATING_COLOR.neutral, display, face);
   drawCount(ctx, pad + 440, countsY, String(input.inauspicious), countLabels[2]!, RATING_COLOR.inauspicious, display, face);
@@ -279,7 +294,19 @@ export async function buildQuizPdf(input: HarmonyCardInput): Promise<Blob> {
   doc.setFontSize(12);
   doc.setTextColor(...clay);
   paintPdf(doc, input.line, 48, y);
-  y += 28;
+  y += 22;
+  if (input.scoreLabel) {
+    doc.setFontSize(16);
+    doc.setTextColor(168, 126, 42);
+    paintPdf(doc, input.scoreLabel, 48, y);
+    y += 20;
+  }
+  if (input.coverage) {
+    doc.setFontSize(11);
+    doc.setTextColor(...clay);
+    paintPdf(doc, input.coverage, 48, y);
+    y += 18;
+  }
   doc.setTextColor(...ink);
   doc.setFontSize(12);
   paintPdf(

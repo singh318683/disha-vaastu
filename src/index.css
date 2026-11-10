@@ -109,6 +109,28 @@
   }
 }
 
+.score-toast {
+  animation: score-toast 2.4s ease-out forwards;
+}
+
+@keyframes score-toast {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 10px) scale(0.92);
+  }
+  12% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+  72% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -14px) scale(1);
+  }
+}
+
 @utility eyebrow {
   font-family: var(--font-sans);
   font-size: 0.68rem;

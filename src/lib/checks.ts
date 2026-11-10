@@ -25,6 +25,8 @@ export interface CheckZone {
 
 export interface VaastuCheck {
   id: string;
+  /** 5 is a heavy placement such as the main door. 1 is a minor item. */
+  weight: number;
   title: L10n;
   blurb: L10n;
   icon: string;
@@ -98,6 +100,10 @@ function loadCheck(raw: unknown, index: number): VaastuCheck {
   if (typeof reference !== "string" || !REFERENCES.has(reference as CheckReference)) {
     throw new Error(`${id} has an unknown reference`);
   }
+  const weight = source.weight;
+  if (typeof weight !== "number" || !Number.isInteger(weight) || weight < 1 || weight > 5) {
+    throw new Error(`${id} needs a weight from 1 to 5`);
+  }
   const icon = requiredString(source, "icon", id);
   if (!isCheckIcon(icon)) throw new Error(`${id} has an unknown icon ${icon}`);
   const zonesRaw = source.zones;
@@ -126,6 +132,7 @@ function loadCheck(raw: unknown, index: number): VaastuCheck {
 
   return {
     id,
+    weight,
     title: loadL10n(source.title, `${id} title`),
     blurb: loadL10n(source.blurb, `${id} blurb`),
     icon,

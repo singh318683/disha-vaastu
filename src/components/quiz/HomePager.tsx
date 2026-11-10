@@ -4,9 +4,11 @@ import { LanguageToggle } from "@/components/LanguageToggle.tsx";
 import { useI18n } from "@/i18n/I18nProvider.tsx";
 import { checkGroups, verdictForHeading, type VaastuCheck } from "@/lib/checks.ts";
 import { homePages, type HomePage } from "@/lib/homePages.ts";
+import type { HomeScore } from "@/lib/homeScore.ts";
 import type { StoredQuizResult } from "@/lib/quizStore.ts";
 import { CheckGlyph } from "./CheckGlyph.tsx";
 import { MoodFace } from "./MoodFace.tsx";
+import { ScoreRing } from "./ScoreRing.tsx";
 
 const PAGE_KEY = "disha.homePage";
 
@@ -15,11 +17,13 @@ export function HomePager({
   onOpen,
   onSummary,
   onAdvanced,
+  report,
 }: {
   savedById: Map<string, StoredQuizResult>;
   onOpen: (id: string) => void;
   onSummary: () => void;
   onAdvanced: () => void;
+  report: HomeScore;
 }) {
   const { t, u } = useI18n();
   const pages = useMemo(() => homePages(checkGroups()), []);
@@ -77,8 +81,6 @@ export function HomePager({
     remember(next);
   }
 
-  const checked = savedById.size;
-
   return (
     <section data-screen="home" data-home-page={index} className="flex h-full flex-col overflow-hidden">
       <header className="flex shrink-0 items-center justify-between px-4 pt-[max(0.75rem,env(safe-area-inset-top))]">
@@ -88,17 +90,20 @@ export function HomePager({
       <button
         type="button"
         onClick={onSummary}
-        className="mx-4 mt-2 flex shrink-0 items-center justify-between rounded-2xl bg-primary px-4 py-2 text-left text-primary-foreground shadow-[0_12px_24px_-16px_rgba(228,195,106,0.8)]"
+        data-score={report.score ?? ""}
+        className="mx-4 mt-2 flex shrink-0 items-center gap-3 rounded-2xl border border-[#e4c36a]/40 bg-card px-3 py-1.5 text-left shadow-[0_12px_24px_-18px_rgba(228,195,106,0.7)]"
       >
-        <span className="min-w-0">
-          <span className="block font-serif text-lg leading-none">{u("homeHarmony")}</span>
-          <span className="mt-0.5 block truncate text-xs text-primary-foreground/80">
-            {checked === 0
-              ? u("nothingChecked")
-              : `${checked} ${checked === 1 ? u("placeChecked") : u("placesChecked")}`}
+        <ScoreRing score={report.score} size={46} caption={report.score == null ? u("noScoreYet") : `${report.score}`} />
+        <span className="min-w-0 flex-1">
+          <span className="block truncate font-serif text-lg leading-none text-primary">
+            {report.band ? u(bandKey(report.band)) : u("noScoreYet")}
+          </span>
+          <span className="mt-0.5 block truncate text-xs text-muted-foreground">
+            {fill(u("basedOn"), { done: report.done, total: report.total })}
+            {report.score != null ? ` · ${u(trustKey(report.confidence))}` : ""}
           </span>
         </span>
-        <span aria-hidden="true" className="text-xl">
+        <span aria-hidden="true" className="text-xl text-primary">
           →
         </span>
       </button>
@@ -235,6 +240,23 @@ function CheckTile({
       </span>
     </button>
   );
+}
+
+function bandKey(band: NonNullable<HomeScore["band"]>): "scoreExcellent" | "scoreGood" | "scoreFair" | "scoreCare" {
+  if (band === "excellent") return "scoreExcellent";
+  if (band === "good") return "scoreGood";
+  if (band === "fair") return "scoreFair";
+  return "scoreCare";
+}
+
+function trustKey(confidence: HomeScore["confidence"]): "scoreTrustLow" | "scoreTrustMid" | "scoreTrustHigh" {
+  if (confidence === "low") return "scoreTrustLow";
+  if (confidence === "mid") return "scoreTrustMid";
+  return "scoreTrustHigh";
+}
+
+function fill(template: string, values: Record<string, string | number>): string {
+  return template.replace(/\{(\w+)\}/g, (_, key: string) => String(values[key] ?? ""));
 }
 
 function pageTitle(page: HomePage, t: (value: HomePage["group"]) => string): string {
