@@ -1,0 +1,530 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		18A2E6A1B22B24F9B7BC2294 /* Angles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820F732BAD57F4DA78D6A8CE /* Angles.swift */; };
+		35AEC8343987F43453C03346 /* Bearings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BAE026E5CAB72CA89BDBAC /* Bearings.swift */; };
+		FA8BCBE434ADF138D62920DC /* Catalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B60A717CFDF0F54EC044073 /* Catalog.swift */; };
+		AD994FF1336B9F6AF1901E9A /* CheckViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CD0160DC271AC9B83CF1F3 /* CheckViews.swift */; };
+		E00C78A3DC8281E68D4FD08F /* CompassService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92EC3E1FE8A4FC032E79BD0 /* CompassService.swift */; };
+		F344102E34D2C011C3611602 /* Declination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F85571A1405CD8A372BA64 /* Declination.swift */; };
+		41A967639991D3C2F9C94FBD /* DishaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9F56FFB8BCDF513D67A938 /* DishaApp.swift */; };
+		1EE577EE17A3BC5BDE213BF1 /* HeadingMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E8A054F87FBE20D7E484C2 /* HeadingMath.swift */; };
+		2F8DD15DA6DE4147D935110F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1F74F36F40ECE7631AC99F /* HomeView.swift */; };
+		08E499C8D4F845385AAE0F4D /* ReportExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850200CA94DD1AE5904082BF /* ReportExport.swift */; };
+		377D6D84AADC7B94F8E6351C /* Scoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE16AA1DC76ADE970AC3A9CA /* Scoring.swift */; };
+		B18C35C1EBC8B7E588725DB4 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEADBAB9078A73ECDFA0963 /* Store.swift */; };
+		C4E08B7B86E9D4B8F1A7D728 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AD71884CBC36F5E3E10BE6 /* SummaryView.swift */; };
+		C320EEEAB4D4FCF84326F62B /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74B776727E9155EE44D1735 /* Theme.swift */; };
+		24FDAA22671E19D7556B50E8 /* Verdict.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8870669EE2F7C230DFF9634 /* Verdict.swift */; };
+		02CB1C311F2098F219075536 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B15DF0789322ABBDBEBD86 /* WelcomeView.swift */; };
+		569B69D861D10904725E23A5 /* NOTICE-WMM.txt in Sources */ = {isa = PBXBuildFile; fileRef = ADC1754C80EB0CE1C0BBD63D /* NOTICE-WMM.txt */; };
+		9F78ECA67E5E12A235DC1BD9 /* checks.json in Sources */ = {isa = PBXBuildFile; fileRef = 7B7374E312BD786D61CDBAD3 /* checks.json */; };
+		EE1366CF3A080BD7D2CF84B1 /* remedies.json in Sources */ = {isa = PBXBuildFile; fileRef = 66667C67A066FF8327094F33 /* remedies.json */; };
+		7C450E5589DB3C3741BAE68C /* rules.json in Sources */ = {isa = PBXBuildFile; fileRef = 274B94FD26A05F623637FB63 /* rules.json */; };
+		90353F71920305241A74B170 /* ui.json in Sources */ = {isa = PBXBuildFile; fileRef = 28106AF2DBEAECD118A49D7E /* ui.json */; };
+		E8626C4C4FFAEE7564BA1CB0 /* wmm-2025.json in Sources */ = {isa = PBXBuildFile; fileRef = B82F2B9E9EFA7BA9119B37DC /* wmm-2025.json */; };
+		9A31C15719F6E3D6239F6886 /* CormorantGaramond-Medium.ttf in Sources */ = {isa = PBXBuildFile; fileRef = D5C807DD16F3225F8F5FAD9F /* CormorantGaramond-Medium.ttf */; };
+		ACCC7B01C41F17977E0B2845 /* CormorantGaramond-OFL.txt in Sources */ = {isa = PBXBuildFile; fileRef = C8EE085AC3A1EECAA9BEF09E /* CormorantGaramond-OFL.txt */; };
+		FDE36053AA5205C8AABB7629 /* CormorantGaramond-SemiBold.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 5094589AEC268A14A03113BB /* CormorantGaramond-SemiBold.ttf */; };
+		D7A0812F5C4141F8A6F31613 /* NotoSansDevanagari-OFL.txt in Sources */ = {isa = PBXBuildFile; fileRef = 34F77F1B71E3AE21E525CAA2 /* NotoSansDevanagari-OFL.txt */; };
+		B36D0BD174D7AE7C7A66451C /* NotoSansDevanagari-Regular.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 07549C514AB697B7986A828E /* NotoSansDevanagari-Regular.ttf */; };
+		63DB932A35C45D8A275983F8 /* NotoSansDevanagari-SemiBold.ttf in Sources */ = {isa = PBXBuildFile; fileRef = D37B15E68BC912E55EAA57A5 /* NotoSansDevanagari-SemiBold.ttf */; };
+		1DC5AF077CD947B839783524 /* DishaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F3A317963477B7884A76F3 /* DishaTests.swift */; };
+		DB249DB9D0FF833647E29581 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F301B82F7840B0ACF30666A /* Assets.xcassets */; };
+		7506060A154BFBC166F7764F /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 49A7CA9196CEDCA05AC30E42 /* PrivacyInfo.xcprivacy */; };
+		1178028A773C8FD1FE4358FD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 381D2D15347DA9A529ABA581 /* InfoPlist.strings */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		431387EB7262E1CFC79B125E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1C647D13E9A587378E487207;
+			remoteInfo = Disha;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6814A7BC6CF9FA4C833E4793 /* Disha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Disha.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FE6FE67956153A600B134EC /* DishaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DishaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F301B82F7840B0ACF30666A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B15A13ACECE86FF5B996CE6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49A7CA9196CEDCA05AC30E42 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		7645BD1239F60DA5C68C1CA0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EBCBAAF87AEF4C8D42AAD4D0 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		820F732BAD57F4DA78D6A8CE /* Angles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Angles.swift; sourceTree = "<group>"; };
+		21BAE026E5CAB72CA89BDBAC /* Bearings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bearings.swift; sourceTree = "<group>"; };
+		6B60A717CFDF0F54EC044073 /* Catalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Catalog.swift; sourceTree = "<group>"; };
+		45CD0160DC271AC9B83CF1F3 /* CheckViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckViews.swift; sourceTree = "<group>"; };
+		D92EC3E1FE8A4FC032E79BD0 /* CompassService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassService.swift; sourceTree = "<group>"; };
+		00F85571A1405CD8A372BA64 /* Declination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Declination.swift; sourceTree = "<group>"; };
+		DD9F56FFB8BCDF513D67A938 /* DishaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishaApp.swift; sourceTree = "<group>"; };
+		52E8A054F87FBE20D7E484C2 /* HeadingMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadingMath.swift; sourceTree = "<group>"; };
+		9C1F74F36F40ECE7631AC99F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		850200CA94DD1AE5904082BF /* ReportExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportExport.swift; sourceTree = "<group>"; };
+		FE16AA1DC76ADE970AC3A9CA /* Scoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scoring.swift; sourceTree = "<group>"; };
+		5EEADBAB9078A73ECDFA0963 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		11AD71884CBC36F5E3E10BE6 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
+		A74B776727E9155EE44D1735 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		C8870669EE2F7C230DFF9634 /* Verdict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verdict.swift; sourceTree = "<group>"; };
+		28B15DF0789322ABBDBEBD86 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		01F3A317963477B7884A76F3 /* DishaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishaTests.swift; sourceTree = "<group>"; };
+		ADC1754C80EB0CE1C0BBD63D /* NOTICE-WMM.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = NOTICE-WMM.txt; sourceTree = "<group>"; };
+		7B7374E312BD786D61CDBAD3 /* checks.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = checks.json; sourceTree = "<group>"; };
+		66667C67A066FF8327094F33 /* remedies.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = remedies.json; sourceTree = "<group>"; };
+		274B94FD26A05F623637FB63 /* rules.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = rules.json; sourceTree = "<group>"; };
+		28106AF2DBEAECD118A49D7E /* ui.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ui.json; sourceTree = "<group>"; };
+		B82F2B9E9EFA7BA9119B37DC /* wmm-2025.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = wmm-2025.json; sourceTree = "<group>"; };
+		D5C807DD16F3225F8F5FAD9F /* CormorantGaramond-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CormorantGaramond-Medium.ttf; sourceTree = "<group>"; };
+		C8EE085AC3A1EECAA9BEF09E /* CormorantGaramond-OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CormorantGaramond-OFL.txt; sourceTree = "<group>"; };
+		5094589AEC268A14A03113BB /* CormorantGaramond-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CormorantGaramond-SemiBold.ttf; sourceTree = "<group>"; };
+		34F77F1B71E3AE21E525CAA2 /* NotoSansDevanagari-OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = NotoSansDevanagari-OFL.txt; sourceTree = "<group>"; };
+		07549C514AB697B7986A828E /* NotoSansDevanagari-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NotoSansDevanagari-Regular.ttf; sourceTree = "<group>"; };
+		D37B15E68BC912E55EAA57A5 /* NotoSansDevanagari-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NotoSansDevanagari-SemiBold.ttf; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9E88FEF503C1E40FDF23CCDE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		56361F60CA31B6C99997FAC5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		518DA81DB9B99529C0C0AEBE = {
+			isa = PBXGroup;
+			children = (
+				ACA4B51909D5609A761182D7 /* Disha */,
+				74C0354F987B4FC0FDE2C044 /* DishaTests */,
+				2F3A6B1E78F896718625FF06 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ACA4B51909D5609A761182D7 /* Disha */ = {
+			isa = PBXGroup;
+			children = (
+				420CFB359C2A33DC60BFB328 /* Sources */,
+				887A6F90336FF23D95C3914B /* Resources */,
+				2F301B82F7840B0ACF30666A /* Assets.xcassets */,
+				B15A13ACECE86FF5B996CE6C /* Info.plist */,
+				49A7CA9196CEDCA05AC30E42 /* PrivacyInfo.xcprivacy */,
+				381D2D15347DA9A529ABA581 /* InfoPlist.strings */,
+			);
+			path = Disha;
+			sourceTree = "<group>";
+		};
+		420CFB359C2A33DC60BFB328 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				820F732BAD57F4DA78D6A8CE /* Angles.swift */,
+				21BAE026E5CAB72CA89BDBAC /* Bearings.swift */,
+				6B60A717CFDF0F54EC044073 /* Catalog.swift */,
+				45CD0160DC271AC9B83CF1F3 /* CheckViews.swift */,
+				D92EC3E1FE8A4FC032E79BD0 /* CompassService.swift */,
+				00F85571A1405CD8A372BA64 /* Declination.swift */,
+				DD9F56FFB8BCDF513D67A938 /* DishaApp.swift */,
+				52E8A054F87FBE20D7E484C2 /* HeadingMath.swift */,
+				9C1F74F36F40ECE7631AC99F /* HomeView.swift */,
+				850200CA94DD1AE5904082BF /* ReportExport.swift */,
+				FE16AA1DC76ADE970AC3A9CA /* Scoring.swift */,
+				5EEADBAB9078A73ECDFA0963 /* Store.swift */,
+				11AD71884CBC36F5E3E10BE6 /* SummaryView.swift */,
+				A74B776727E9155EE44D1735 /* Theme.swift */,
+				C8870669EE2F7C230DFF9634 /* Verdict.swift */,
+				28B15DF0789322ABBDBEBD86 /* WelcomeView.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		887A6F90336FF23D95C3914B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BDE2ED5DE00E597790AEE18E /* Fonts */,
+				ADC1754C80EB0CE1C0BBD63D /* NOTICE-WMM.txt */,
+				7B7374E312BD786D61CDBAD3 /* checks.json */,
+				66667C67A066FF8327094F33 /* remedies.json */,
+				274B94FD26A05F623637FB63 /* rules.json */,
+				28106AF2DBEAECD118A49D7E /* ui.json */,
+				B82F2B9E9EFA7BA9119B37DC /* wmm-2025.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		BDE2ED5DE00E597790AEE18E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D5C807DD16F3225F8F5FAD9F /* CormorantGaramond-Medium.ttf */,
+				C8EE085AC3A1EECAA9BEF09E /* CormorantGaramond-OFL.txt */,
+				5094589AEC268A14A03113BB /* CormorantGaramond-SemiBold.ttf */,
+				34F77F1B71E3AE21E525CAA2 /* NotoSansDevanagari-OFL.txt */,
+				07549C514AB697B7986A828E /* NotoSansDevanagari-Regular.ttf */,
+				D37B15E68BC912E55EAA57A5 /* NotoSansDevanagari-SemiBold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		74C0354F987B4FC0FDE2C044 /* DishaTests */ = {
+			isa = PBXGroup;
+			children = (
+				01F3A317963477B7884A76F3 /* DishaTests.swift */,
+			);
+			path = DishaTests;
+			sourceTree = "<group>";
+		};
+		2F3A6B1E78F896718625FF06 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6814A7BC6CF9FA4C833E4793 /* Disha.app */,
+				4FE6FE67956153A600B134EC /* DishaTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1C647D13E9A587378E487207 /* Disha */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1F3512EF34B2A4C6D8FFD69F /* Build configuration list for PBXNativeTarget "Disha" */;
+			buildPhases = (
+				2FB286088BD0BF8AE88E0D78 /* Sources */,
+				9E88FEF503C1E40FDF23CCDE /* Frameworks */,
+				B156C1E46BE15DE52AC798A1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Disha;
+			productName = Disha;
+			productReference = 6814A7BC6CF9FA4C833E4793 /* Disha.app */;
+			productType = "com.apple.product-type.application";
+		};
+		59C5D2F272DAEE8C94AB19A8 /* DishaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4872CBEA60B542AD017E14DD /* Build configuration list for PBXNativeTarget "DishaTests" */;
+			buildPhases = (
+				253B7D7D35FBA95AB93123FF /* Sources */,
+				56361F60CA31B6C99997FAC5 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E54DEBD65D8142E7785275AA /* PBXTargetDependency */,
+			);
+			name = DishaTests;
+			productName = DishaTests;
+			productReference = 4FE6FE67956153A600B134EC /* DishaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		46F86FAA6BBF9AC94A7E4595 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					59C5D2F272DAEE8C94AB19A8 = {
+						TestTargetID = 1C647D13E9A587378E487207;
+					};
+				};
+			};
+			buildConfigurationList = 4B6C2876ED42CF301970B266 /* Build configuration list for PBXProject "Disha" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				hi,
+				Base,
+			);
+			mainGroup = 518DA81DB9B99529C0C0AEBE;
+			productRefGroup = 2F3A6B1E78F896718625FF06 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1C647D13E9A587378E487207 /* Disha */,
+				59C5D2F272DAEE8C94AB19A8 /* DishaTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B156C1E46BE15DE52AC798A1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB249DB9D0FF833647E29581 /* Assets.xcassets in Resources */,
+				7506060A154BFBC166F7764F /* PrivacyInfo.xcprivacy in Resources */,
+				1178028A773C8FD1FE4358FD /* InfoPlist.strings in Resources */,
+				569B69D861D10904725E23A5 /* NOTICE-WMM.txt in Resources */,
+				9F78ECA67E5E12A235DC1BD9 /* checks.json in Resources */,
+				EE1366CF3A080BD7D2CF84B1 /* remedies.json in Resources */,
+				7C450E5589DB3C3741BAE68C /* rules.json in Resources */,
+				90353F71920305241A74B170 /* ui.json in Resources */,
+				E8626C4C4FFAEE7564BA1CB0 /* wmm-2025.json in Resources */,
+				9A31C15719F6E3D6239F6886 /* CormorantGaramond-Medium.ttf in Resources */,
+				ACCC7B01C41F17977E0B2845 /* CormorantGaramond-OFL.txt in Resources */,
+				FDE36053AA5205C8AABB7629 /* CormorantGaramond-SemiBold.ttf in Resources */,
+				D7A0812F5C4141F8A6F31613 /* NotoSansDevanagari-OFL.txt in Resources */,
+				B36D0BD174D7AE7C7A66451C /* NotoSansDevanagari-Regular.ttf in Resources */,
+				63DB932A35C45D8A275983F8 /* NotoSansDevanagari-SemiBold.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2FB286088BD0BF8AE88E0D78 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18A2E6A1B22B24F9B7BC2294 /* Angles.swift in Sources */,
+				35AEC8343987F43453C03346 /* Bearings.swift in Sources */,
+				FA8BCBE434ADF138D62920DC /* Catalog.swift in Sources */,
+				AD994FF1336B9F6AF1901E9A /* CheckViews.swift in Sources */,
+				E00C78A3DC8281E68D4FD08F /* CompassService.swift in Sources */,
+				F344102E34D2C011C3611602 /* Declination.swift in Sources */,
+				41A967639991D3C2F9C94FBD /* DishaApp.swift in Sources */,
+				1EE577EE17A3BC5BDE213BF1 /* HeadingMath.swift in Sources */,
+				2F8DD15DA6DE4147D935110F /* HomeView.swift in Sources */,
+				08E499C8D4F845385AAE0F4D /* ReportExport.swift in Sources */,
+				377D6D84AADC7B94F8E6351C /* Scoring.swift in Sources */,
+				B18C35C1EBC8B7E588725DB4 /* Store.swift in Sources */,
+				C4E08B7B86E9D4B8F1A7D728 /* SummaryView.swift in Sources */,
+				C320EEEAB4D4FCF84326F62B /* Theme.swift in Sources */,
+				24FDAA22671E19D7556B50E8 /* Verdict.swift in Sources */,
+				02CB1C311F2098F219075536 /* WelcomeView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		253B7D7D35FBA95AB93123FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DC5AF077CD947B839783524 /* DishaTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E54DEBD65D8142E7785275AA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1C647D13E9A587378E487207 /* Disha */;
+			targetProxy = 431387EB7262E1CFC79B125E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		381D2D15347DA9A529ABA581 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7645BD1239F60DA5C68C1CA0 /* en */,
+				EBCBAAF87AEF4C8D42AAD4D0 /* hi */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		35D0387E8A36F09B2F1874B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		19B69E46700831D730A5F9AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5129F47484156CFE0A2B0B98 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Disha/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ikshanasolutions.disha;
+				PRODUCT_NAME = Disha;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		0DC4A93B97866A7C66FF0056 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Disha/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ikshanasolutions.disha;
+				PRODUCT_NAME = Disha;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		43BC741CE4236F686408D1C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ikshanasolutions.disha.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Disha.app/Disha";
+			};
+			name = Debug;
+		};
+		2BEDCF9AB54FB630A577D035 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ikshanasolutions.disha.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Disha.app/Disha";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4B6C2876ED42CF301970B266 /* Build configuration list for PBXProject "Disha" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				35D0387E8A36F09B2F1874B0 /* Debug */,
+				19B69E46700831D730A5F9AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1F3512EF34B2A4C6D8FFD69F /* Build configuration list for PBXNativeTarget "Disha" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5129F47484156CFE0A2B0B98 /* Debug */,
+				0DC4A93B97866A7C66FF0056 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4872CBEA60B542AD017E14DD /* Build configuration list for PBXNativeTarget "DishaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43BC741CE4236F686408D1C0 /* Debug */,
+				2BEDCF9AB54FB630A577D035 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+}

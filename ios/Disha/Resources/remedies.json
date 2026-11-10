@@ -1,0 +1,1115 @@
+{
+  "items": [
+    {
+      "id": "kitchen-keep",
+      "title": {
+        "en": "Leave the kitchen where it is",
+        "hi": "रसोई को वहीं रहने दें"
+      },
+      "detail": {
+        "en": "Southeast is the traditional fire corner, and northwest is the usual second choice. Keep the stove clean and the northeast corner of the room uncluttered.",
+        "hi": "आग्नेय अग्नि का पारंपरिक कोना है, और वायव्य आम दूसरा विकल्प। चूल्हा साफ़ रखें और कमरे का ईशान कोना खाली।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "kitchen-face-east",
+      "title": {
+        "en": "Face east while cooking",
+        "hi": "पकाते समय पूर्व की ओर मुँह करें"
+      },
+      "detail": {
+        "en": "Turn the cook's standing position so you look east. If the stove cannot move, shift the prep spot instead.",
+        "hi": "पकाने वाले की जगह ऐसा घुमाएँ कि आप पूर्व देखें। चूल्हा न हिल सके तो तैयारी की जगह बदल दें।"
+      },
+      "kinds": [
+        "direction"
+      ]
+    },
+    {
+      "id": "kitchen-stove-corner",
+      "title": {
+        "en": "Slide the stove toward the southeast corner of the room",
+        "hi": "चूल्हे को कमरे के आग्नेय कोने की ओर सरकाएँ"
+      },
+      "detail": {
+        "en": "Even when the kitchen itself sits in a poor zone, the stove belongs in the southeast part of that room, a little away from the wall so the flame has air.",
+        "hi": "रसोई खुद कमज़ोर क्षेत्र में हो, तब भी चूल्हा उस कमरे के आग्नेय में हो, दीवार से थोड़ा हटकर, ताकि आँच को हवा मिले।"
+      },
+      "kinds": [
+        "direction",
+        "furniture"
+      ]
+    },
+    {
+      "id": "kitchen-colors",
+      "title": {
+        "en": "Use a warm, fire-leaning palette",
+        "hi": "गर्म, आग से झुका रंग रखें"
+      },
+      "detail": {
+        "en": "Terracotta, saffron, and soft red on one wall or in textiles suit a kitchen. Let black and dark blue stay as small accents, not the whole room.",
+        "hi": "एक दीवार या कपड़ों में टेराकोटा, केसरिया और हल्का लाल रसोई के अनुकूल हैं। काला और गहरा नीला छोटे अंश रहें, पूरा कमरा नहीं।"
+      },
+      "kinds": [
+        "color"
+      ]
+    },
+    {
+      "id": "kitchen-sink",
+      "title": {
+        "en": "Separate water from the flame",
+        "hi": "पानी को आँच से अलग रखें"
+      },
+      "detail": {
+        "en": "Keep the sink a step away from the stove. If you can choose a side, water toward the northeast of the kitchen is the traditional pairing.",
+        "hi": "सिंक को चूल्हे से एक क़दम दूर रखें। तरफ़ चुन सकें तो रसोई के ईशान की ओर पानी पारंपरिक जोड़ी है।"
+      },
+      "kinds": [
+        "element"
+      ]
+    },
+    {
+      "id": "kitchen-clutter",
+      "title": {
+        "en": "Keep the northeast corner of the kitchen clear",
+        "hi": "रसोई का ईशान कोना साफ़ रखें"
+      },
+      "detail": {
+        "en": "No bin, no tall stack of pans. That corner stays light even when the rest of the kitchen is busy.",
+        "hi": "न कूड़ेदान, न बर्तनों का ऊँचा ढेर। बाकी रसोई व्यस्त रहे, वह कोना हल्का रहे।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "kitchen-mirror",
+      "title": {
+        "en": "Do not reflect the stove",
+        "hi": "चूल्हे की परछाईं न बने"
+      },
+      "detail": {
+        "en": "Hang mirrors away from the cooktop. A mirror that doubles the flame is traditionally avoided.",
+        "hi": "दर्पण को चूल्हे से दूर टाँगें। जो दर्पण आँच को दुगुना दिखाए, वह पारंपरिक रूप से टाला जाता है।"
+      },
+      "kinds": [
+        "mirror"
+      ]
+    },
+    {
+      "id": "master-keep",
+      "title": {
+        "en": "The southwest is the traditional master suite",
+        "hi": "नैऋत्य पारंपरिक मुख्य शयनकक्ष है"
+      },
+      "detail": {
+        "en": "Sleep here with your head toward the south, or east if the bed will not fit that way. Keep the room quiet and a little heavier than the rest of the home.",
+        "hi": "यहाँ सिर दक्षिण की ओर रखकर सोएँ, या बिस्तर न आए तो पूर्व। कमरा शांत रखें और घर के बाकी हिस्से से थोड़ा भारी।"
+      },
+      "kinds": [
+        "direction"
+      ]
+    },
+    {
+      "id": "master-head-south",
+      "title": {
+        "en": "Put the pillows to the south",
+        "hi": "तकिए दक्षिण की ओर रखें"
+      },
+      "detail": {
+        "en": "Head toward the south is the most cited sleeping direction. East is the usual second choice. Avoid sleeping with your head to the north.",
+        "hi": "सिर दक्षिण की ओर सोना सबसे कही गई दिशा है। पूर्व आम दूसरा विकल्प है। सिर उत्तर की ओर रखकर सोना टालें।"
+      },
+      "kinds": [
+        "direction"
+      ]
+    },
+    {
+      "id": "master-colors",
+      "title": {
+        "en": "Use calm earth colors",
+        "hi": "शांत मिट्टी जैसे रंग रखें"
+      },
+      "detail": {
+        "en": "Cream, sand, soft brown, and a muted terracotta keep a bedroom settled. Skip loud red, which belongs with fire, not sleep.",
+        "hi": "क्रीम, रेत, हल्का भूरा और मद्धम टेराकोटा शयनकक्ष को स्थिर रखते हैं। चटक लाल छोड़ें, वह आग के साथ है, नींद के साथ नहीं।"
+      },
+      "kinds": [
+        "color"
+      ]
+    },
+    {
+      "id": "master-furniture",
+      "title": {
+        "en": "Weight the south and west walls",
+        "hi": "दक्षिण और पश्चिम की दीवारें भारी रखें"
+      },
+      "detail": {
+        "en": "Place the wardrobe and the heavier chest on the south or west side. Leave the northeast corner of the room lighter.",
+        "hi": "अलमारी और भारी संदूक दक्षिण या पश्चिम में रखें। कमरे का ईशान कोना हल्का छोड़ें।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "master-mirror",
+      "title": {
+        "en": "Keep mirrors off the wall facing the bed",
+        "hi": "बिस्तर के सामने वाली दीवार पर दर्पण न रखें"
+      },
+      "detail": {
+        "en": "A mirror beside the bed is easier to live with than one you look into while lying down. Wardrobe mirrors can face a side wall.",
+        "hi": "लेटकर जिसमें देखें, उससे बेहतर बिस्तर के बगल का दर्पण है। अलमारी का दर्पण बगल की दीवार की ओर रह सकता है।"
+      },
+      "kinds": [
+        "mirror"
+      ]
+    },
+    {
+      "id": "master-elements",
+      "title": {
+        "en": "Skip water features in the bedroom",
+        "hi": "शयनकक्ष में पानी की सजावट न रखें"
+      },
+      "detail": {
+        "en": "No fountain and no large aquarium. A single plant is enough, and not jammed into the southwest corner.",
+        "hi": "न फव्वारा, न बड़ा एक्वेरियम। एक पौधा काफी है, और वह भी नैऋत्य कोने में ठूँसा हुआ नहीं।"
+      },
+      "kinds": [
+        "element"
+      ]
+    },
+    {
+      "id": "bed-keep",
+      "title": {
+        "en": "This head direction is traditionally preferred",
+        "hi": "सिर की यह दिशा पारंपरिक रूप से पसंद है"
+      },
+      "detail": {
+        "en": "South is the first choice and east the second. Keep a little clear space under the bed if you store anything there.",
+        "hi": "पहली पसंद दक्षिण है और दूसरी पूर्व। बिस्तर के नीचे कुछ रखें तो थोड़ी खाली जगह छोड़ें।"
+      },
+      "kinds": [
+        "direction"
+      ]
+    },
+    {
+      "id": "bed-shift",
+      "title": {
+        "en": "Turn the bed before you move the room",
+        "hi": "कमरा बदलने से पहले बिस्तर घुमाएँ"
+      },
+      "detail": {
+        "en": "Rotate so the pillows point south. If the wall will not allow it, use east. North is the direction traditional guidance asks you to leave.",
+        "hi": "ऐसा घुमाएँ कि तकिए दक्षिण की ओर हों। दीवार न आने दे तो पूर्व का उपयोग करें। उत्तर वह दिशा है जिसे पारंपरिक सलाह छोड़ने को कहती है।"
+      },
+      "kinds": [
+        "direction"
+      ]
+    },
+    {
+      "id": "bed-colors",
+      "title": {
+        "en": "Soften the textiles",
+        "hi": "कपड़ों को नरम करें"
+      },
+      "detail": {
+        "en": "Cream, sand, and dusty rose on the bedcover do more than repainting. Avoid an all-black bedroom if the direction is already poor.",
+        "hi": "बेडशीट पर क्रीम, रेत और हल्का गुलाबी रंग-रोगन से ज़्यादा काम करता है। दिशा पहले से कमज़ोर हो तो पूरा काला शयनकक्ष टालें।"
+      },
+      "kinds": [
+        "color"
+      ]
+    },
+    {
+      "id": "bed-mirror",
+      "title": {
+        "en": "Move a mirror that faces the pillows",
+        "hi": "तकियों के सामने वाला दर्पण हटाएँ"
+      },
+      "detail": {
+        "en": "Shift it to a side wall, or drape it at night if it is fixed to a wardrobe door you cannot relocate.",
+        "hi": "इसे बगल की दीवार पर ले जाएँ, या अलमारी के दरवाज़े पर लगा हो जिसे न हिला सकें तो रात में ढक दें।"
+      },
+      "kinds": [
+        "mirror"
+      ]
+    },
+    {
+      "id": "bed-storage",
+      "title": {
+        "en": "Keep under-bed storage light",
+        "hi": "बिस्तर के नीचे का सामान हल्का रखें"
+      },
+      "detail": {
+        "en": "Shoes, electronics, and heavy boxes under the mattress are traditionally discouraged. A low, empty space sleeps more quietly.",
+        "hi": "जूते, इलेक्ट्रॉनिक्स और भारी डिब्बे गद्दे के नीचे पारंपरिक रूप से टाले जाते हैं। नीची, खाली जगह ज़्यादा शांत नींद देती है।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "pooja-keep",
+      "title": {
+        "en": "The northeast is the traditional shrine",
+        "hi": "ईशान पारंपरिक पूजा स्थान है"
+      },
+      "detail": {
+        "en": "Keep it clean, lit, and free of storage. Face east while you pray, which usually means the images face west.",
+        "hi": "इसे साफ़, रोशन और सामान से मुक्त रखें। प्रार्थना में पूर्व की ओर मुँह करें, जिसका अर्थ अक्सर यह है कि चित्र पश्चिम देखें।"
+      },
+      "kinds": [
+        "direction"
+      ]
+    },
+    {
+      "id": "pooja-corner",
+      "title": {
+        "en": "Make a small northeast shrine inside the room",
+        "hi": "कमरे के अंदर एक छोटा ईशान मंदिर बनाएँ"
+      },
+      "detail": {
+        "en": "If the room cannot move, place the images in the northeast corner of that room, raised a little off the floor, with nothing stored above them.",
+        "hi": "कमरा न हिल सके तो चित्र उस कमरे के ईशान कोने में रखें, फ़र्श से थोड़ा ऊपर, और उनके ऊपर कुछ न रखें।"
+      },
+      "kinds": [
+        "direction",
+        "furniture"
+      ]
+    },
+    {
+      "id": "pooja-face",
+      "title": {
+        "en": "Face east when you pray",
+        "hi": "प्रार्थना में पूर्व की ओर मुँह करें"
+      },
+      "detail": {
+        "en": "Stand or sit so you look east. North is the other traditional facing. The images themselves then look back toward you.",
+        "hi": "ऐसे खड़े या बैठें कि पूर्व देखें। उत्तर दूसरी पारंपरिक दिशा है। चित्र तब आपकी ओर देखते हैं।"
+      },
+      "kinds": [
+        "direction"
+      ]
+    },
+    {
+      "id": "pooja-colors",
+      "title": {
+        "en": "Keep the shrine light in color",
+        "hi": "पूजा का रंग हल्का रखें"
+      },
+      "detail": {
+        "en": "White, light yellow, and a pale sandal tone are the usual choices. Avoid black, and avoid a loud red wall behind the images.",
+        "hi": "सफ़ेद, हल्का पीला और हल्की चंदन जैसी आभा आम पसंद हैं। काला टालें, और चित्रों के पीछे चटक लाल दीवार भी।"
+      },
+      "kinds": [
+        "color"
+      ]
+    },
+    {
+      "id": "pooja-mirror",
+      "title": {
+        "en": "Do not face the shrine with a mirror",
+        "hi": "पूजा के सामने दर्पण न रखें"
+      },
+      "detail": {
+        "en": "A mirror opposite the images is traditionally avoided. If one is already there, shift it to a side wall.",
+        "hi": "चित्रों के विपरीत दर्पण पारंपरिक रूप से टाला जाता है। अगर पहले से हो तो उसे बगल की दीवार पर ले जाएँ।"
+      },
+      "kinds": [
+        "mirror"
+      ]
+    },
+    {
+      "id": "pooja-lamp",
+      "title": {
+        "en": "Use a small lamp, not a fountain",
+        "hi": "फव्वारा नहीं, एक छोटा दीपक"
+      },
+      "detail": {
+        "en": "A brass or copper lamp is the traditional fire element here. If you keep water, use a clean bowl rather than a running fountain beside the images.",
+        "hi": "यहाँ पीतल या ताँबे का दीपक पारंपरिक अग्नि है। पानी रखना हो तो चित्रों के पास बहता फव्वारा नहीं, एक साफ़ कटोरा।"
+      },
+      "kinds": [
+        "element"
+      ]
+    },
+    {
+      "id": "pooja-toilet",
+      "title": {
+        "en": "Break the line of sight to the toilet",
+        "hi": "शौचालय की सीध तोड़ें"
+      },
+      "detail": {
+        "en": "Keep the toilet door closed. If the two rooms share a wall, a full-height cabinet on the shrine side is a common non-structural buffer. Do not place the images on that shared wall.",
+        "hi": "शौचालय का दरवाज़ा बंद रखें। दोनों कमरे दीवार साझा करें तो पूजा वाली तरफ़ पूरी ऊँचाई की अलमारी एक आम गैर-निर्माण अवरोध है। चित्र उस साझी दीवार पर न रखें।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "toilet-keep",
+      "title": {
+        "en": "West-northwest and south-southwest are the cited toilet zones",
+        "hi": "पश्चिम-वायव्य और दक्षिण-नैऋत्य बताए गए शौचालय क्षेत्र हैं"
+      },
+      "detail": {
+        "en": "Keep the lid down, the door shut, and the fan in use. That is the maintenance side of a placement that is already acceptable.",
+        "hi": "ढक्कन गिराएँ, दरवाज़ा बंद रखें, और पंखा चलाएँ। जो स्थान पहले से मान्य है, उसकी देखरेख यही है।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "toilet-vent",
+      "title": {
+        "en": "Ventilate, and prefer a west or northwest exhaust",
+        "hi": "हवा आने दें, और निकास पश्चिम या वायव्य बेहतर है"
+      },
+      "detail": {
+        "en": "Use the fan. If a duct can leave toward the west or northwest, that is the traditional preference. Any reliable exhaust is better than a sealed room.",
+        "hi": "पंखा चलाएँ। नली पश्चिम या वायव्य की ओर जा सके तो वही पारंपरिक पसंद है। बंद कमरे से कोई भी भरोसेमंद निकास बेहतर है।"
+      },
+      "kinds": [
+        "direction"
+      ]
+    },
+    {
+      "id": "toilet-colors",
+      "title": {
+        "en": "Choose a muted finish",
+        "hi": "मद्धम फ़िनिश चुनें"
+      },
+      "detail": {
+        "en": "Sand, warm grey, or a deeper stone tone suits a toilet that sits in a poor zone. Bright white-and-blue, which reads as a shrine palette, is the combination to avoid.",
+        "hi": "रेत, गर्म स्लेटी या गहरा पत्थर जैसा रंग कमज़ोर क्षेत्र के शौचालय के अनुकूल है। चमकीला सफ़ेद-नीला, जो पूजा जैसा लगता है, वह जोड़ी टालें।"
+      },
+      "kinds": [
+        "color"
+      ]
+    },
+    {
+      "id": "toilet-mirror",
+      "title": {
+        "en": "Do not reflect the toilet",
+        "hi": "शौचालय की परछाईं न बने"
+      },
+      "detail": {
+        "en": "Place the mirror beside the basin so it does not face the seat. Skip a mirrored wall opposite it.",
+        "hi": "दर्पण को बेसिन के बगल रखें, ताकि वह सीट के सामने न हो। उसके विपरीत पूरी दर्पण-दीवार न लगाएँ।"
+      },
+      "kinds": [
+        "mirror"
+      ]
+    },
+    {
+      "id": "toilet-salt",
+      "title": {
+        "en": "A bowl of rock salt is the usual household remedy",
+        "hi": "सेंधा नमक का कटोरा आम घरेलू उपाय है"
+      },
+      "detail": {
+        "en": "Leave a small open bowl of rock salt in the room and replace it every few weeks. It is a widely circulated traditional suggestion where the toilet cannot be moved.",
+        "hi": "कमरे में सेंधा नमक का छोटा खुला कटोरा रखें और हर कुछ हफ़्तों में बदलें। जहाँ शौचालय न हिल सके, यह व्यापक पारंपरिक सुझाव है।"
+      },
+      "kinds": [
+        "element"
+      ]
+    },
+    {
+      "id": "toilet-closed",
+      "title": {
+        "en": "Keep the door and lid closed",
+        "hi": "दरवाज़ा और ढक्कन बंद रखें"
+      },
+      "detail": {
+        "en": "Especially if the door is visible from the pooja room, the living room, or the main entrance. A closed door is the simplest fix.",
+        "hi": "खासकर अगर दरवाज़ा पूजा, बैठक या मुख्य प्रवेश से दिखे। बंद दरवाज़ा सबसे सरल उपाय है।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "center-severe",
+      "title": {
+        "en": "The center wants to stay open",
+        "hi": "बीच खुला रहना चाहता है"
+      },
+      "detail": {
+        "en": "The Brahmasthan, the middle of the home, is traditionally left light and empty. A toilet, kitchen, or stair here is the placement texts most want changed. Until that is possible, keep the door shut, the middle as clear as the plan allows, and heavy storage out of the exact center.",
+        "hi": "ब्रह्मस्थान, घर का बीच, पारंपरिक रूप से हल्का और खाली छोड़ा जाता है। यहाँ शौचालय, रसोई या सीढ़ी वह स्थान है जिसे ग्रंथ सबसे ज़्यादा बदलना चाहते हैं। जब तक वह संभव न हो, दरवाज़ा बंद रखें, बीच को जितना नक्शा दे उतना साफ़, और भारी सामान ठीक बीच से बाहर।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "center-caution",
+      "title": {
+        "en": "Lighten whatever covers the center",
+        "hi": "जो बीच को ढके, उसे हल्का करें"
+      },
+      "detail": {
+        "en": "If this room sits on the Brahmasthan, keep that middle free of a heavy cupboard or a bed. A low table you can walk around is easier to live with than a solid block of furniture.",
+        "hi": "यह कमरा ब्रह्मस्थान पर हो तो उस बीच को भारी अलमारी या बिस्तर से मुक्त रखें। एक नीची मेज़ जिसके चारों ओर चला जा सके, फ़र्नीचर के ठोस ब्लॉक से बेहतर है।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "living-keep",
+      "title": {
+        "en": "North and east are the traditional living zones",
+        "hi": "उत्तर और पूर्व बैठक के पारंपरिक क्षेत्र हैं"
+      },
+      "detail": {
+        "en": "Seat people so they look north or east, and leave those sides a little more open than the south and west.",
+        "hi": "लोगों को ऐसा बैठाएँ कि वे उत्तर या पूर्व देखें, और उन तरफ़ को दक्षिण-पश्चिम से थोड़ा ज़्यादा खुला छोड़ें।"
+      },
+      "kinds": [
+        "direction"
+      ]
+    },
+    {
+      "id": "living-seat",
+      "title": {
+        "en": "Turn the seating north or east",
+        "hi": "बैठक को उत्तर या पूर्व की ओर घुमाएँ"
+      },
+      "detail": {
+        "en": "The main sofa can back onto the south or west wall so that people face north or east. That is the change to make before any paint.",
+        "hi": "मुख्य सोफ़ा दक्षिण या पश्चिम की दीवार से पीठ लगा सकता है, ताकि लोग उत्तर या पूर्व देखें। रंग से पहले यही बदलाव करें।"
+      },
+      "kinds": [
+        "direction",
+        "furniture"
+      ]
+    },
+    {
+      "id": "living-weight",
+      "title": {
+        "en": "Put weight on the south and west",
+        "hi": "भार दक्षिण और पश्चिम पर रखें"
+      },
+      "detail": {
+        "en": "Heavier storage and the long sofa belong on the south or west side. Keep the north and east lighter, with lower furniture.",
+        "hi": "भारी सामान और लंबा सोफ़ा दक्षिण या पश्चिम में हों। उत्तर और पूर्व हल्के रखें, नीची फ़र्नीचर के साथ।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "living-colors",
+      "title": {
+        "en": "Stay with cream, soft green, or a quiet blue",
+        "hi": "क्रीम, हल्का हरा, या शांत नीला रखें"
+      },
+      "detail": {
+        "en": "Those are the usual living-room colors in this system. A saffron cushion is plenty of accent if the room already sits in a heavy zone.",
+        "hi": "इस पद्धति में बैठक के आम रंग यही हैं। कमरा पहले से भारी क्षेत्र में हो तो एक केसरिया गद्दी काफी रंग है।"
+      },
+      "kinds": [
+        "color"
+      ]
+    },
+    {
+      "id": "living-mirror",
+      "title": {
+        "en": "A mirror on the north or east wall opens the room",
+        "hi": "उत्तर या पूर्व की दीवार पर दर्पण कमरा खोलता है"
+      },
+      "detail": {
+        "en": "Use it to lengthen a cramped living room. Do not hang it directly opposite the main door.",
+        "hi": "सँकरी बैठक को लंबा करने के लिए इसका उपयोग करें। इसे मुख्य द्वार के ठीक सामने न टाँगें।"
+      },
+      "kinds": [
+        "mirror"
+      ]
+    },
+    {
+      "id": "living-plants",
+      "title": {
+        "en": "One plant, north or east",
+        "hi": "एक पौधा, उत्तर या पूर्व में"
+      },
+      "detail": {
+        "en": "A healthy plant on the north or east side is the living element traditionally added here. Do not fill the center with a cluster of pots.",
+        "hi": "उत्तर या पूर्व में एक हरा-भरा पौधा यहाँ पारंपरिक रूप से जोड़ा जाने वाला जीवित अंश है। बीच को गमलों के झुंड से न भरें।"
+      },
+      "kinds": [
+        "element"
+      ]
+    },
+    {
+      "id": "study-keep",
+      "title": {
+        "en": "Face east or north at the desk",
+        "hi": "मेज़ पर पूर्व या उत्तर की ओर मुँह करें"
+      },
+      "detail": {
+        "en": "North, northeast, and east are the traditional study zones. Sit with a solid wall behind the chair.",
+        "hi": "उत्तर, ईशान और पूर्व पढ़ाई के पारंपरिक क्षेत्र हैं। कुर्सी के पीछे ठोस दीवार रखकर बैठें।"
+      },
+      "kinds": [
+        "direction"
+      ]
+    },
+    {
+      "id": "study-face",
+      "title": {
+        "en": "Turn the desk to face east or north",
+        "hi": "मेज़ को पूर्व या उत्तर की ओर घुमाएँ"
+      },
+      "detail": {
+        "en": "The direction you look matters as much as the room. East is the first choice, north the second. Avoid facing a wall a few inches from your nose if you can look across the room instead.",
+        "hi": "आप जिस तरफ़ देखते हैं, वह कमरे जितना ही मायने रखता है। पहली पसंद पूर्व है, दूसरी उत्तर। हो सके तो नाक से कुछ इंच दूर दीवार की ओर मुँह न करें, कमरे के पार देखें।"
+      },
+      "kinds": [
+        "direction"
+      ]
+    },
+    {
+      "id": "study-seat",
+      "title": {
+        "en": "Sit with a solid wall at your back",
+        "hi": "पीठ के पीछे ठोस दीवार रखकर बैठें"
+      },
+      "detail": {
+        "en": "A window or an open door behind the chair is traditionally avoided. Shift the desk so the wall is behind you and, if you can, so you are not seated under a beam.",
+        "hi": "कुर्सी के पीछे खिड़की या खुला दरवाज़ा पारंपरिक रूप से टाला जाता है। मेज़ ऐसा सरकाएँ कि दीवार पीछे हो, और हो सके तो आप शहतीर के नीचे न बैठें।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "study-colors",
+      "title": {
+        "en": "Light green, pale yellow, or cream",
+        "hi": "हल्का हरा, हल्का पीला, या क्रीम"
+      },
+      "detail": {
+        "en": "Those are the usual study colors. A green desk blotter or a pale wall does the job without a full repaint.",
+        "hi": "पढ़ाई के आम रंग यही हैं। हरी डेस्क-शीट या हल्की दीवार पूरे रंग-रोगन के बिना काम कर देती है।"
+      },
+      "kinds": [
+        "color"
+      ]
+    },
+    {
+      "id": "study-mirror",
+      "title": {
+        "en": "Do not face a mirror while working",
+        "hi": "काम करते समय दर्पण के सामने न बैठें"
+      },
+      "detail": {
+        "en": "Move it off the wall in front of the desk. A mirror behind you is less distracting than one in your line of sight.",
+        "hi": "इसे मेज़ के सामने वाली दीवार से हटाएँ। आपकी नज़र में आने वाले दर्पण से पीछे वाला दर्पण कम बाधा है।"
+      },
+      "kinds": [
+        "mirror"
+      ]
+    },
+    {
+      "id": "study-shelf",
+      "title": {
+        "en": "Put the bookshelf on the south or west",
+        "hi": "किताबों की अलमारी दक्षिण या पश्चिम पर रखें"
+      },
+      "detail": {
+        "en": "Books are weight. The south or west wall carries them more comfortably in this system than the northeast corner.",
+        "hi": "किताबें भार हैं। इस पद्धति में ईशान कोने से बेहतर दक्षिण या पश्चिम की दीवार उन्हें सहती है।"
+      },
+      "kinds": [
+        "furniture",
+        "element"
+      ]
+    },
+    {
+      "id": "desk-keep",
+      "title": {
+        "en": "East and north are the traditional facing directions",
+        "hi": "पूर्व और उत्तर पारंपरिक मुख-दिशाएँ हैं"
+      },
+      "detail": {
+        "en": "Stay with this orientation. A clear desk and a wall behind the chair are the only upkeep.",
+        "hi": "इसी दिशा पर रहें। साफ़ मेज़ और कुर्सी के पीछे दीवार, बस इतनी देखरेख।"
+      },
+      "kinds": [
+        "direction"
+      ]
+    },
+    {
+      "id": "desk-turn",
+      "title": {
+        "en": "Rotate the chair to face east",
+        "hi": "कुर्सी को पूर्व की ओर घुमाएँ"
+      },
+      "detail": {
+        "en": "East is the first choice for a desk, north the second. South is the facing traditional notes most often ask you to leave. You do not need to move the room.",
+        "hi": "मेज़ के लिए पहली पसंद पूर्व है, दूसरी उत्तर। दक्षिण वह मुख है जिसे पारंपरिक नोट सबसे ज़्यादा छोड़ने को कहते हैं। कमरा हिलाने की ज़रूरत नहीं।"
+      },
+      "kinds": [
+        "direction"
+      ]
+    },
+    {
+      "id": "desk-wall",
+      "title": {
+        "en": "Back the chair with a wall",
+        "hi": "कुर्सी को दीवार का सहारा दें"
+      },
+      "detail": {
+        "en": "Leave a little open space in front of you, toward the north or east of the desk if the room allows.",
+        "hi": "अपने सामने थोड़ी खुली जगह छोड़ें, कमरा दे तो मेज़ के उत्तर या पूर्व की ओर।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "desk-colors",
+      "title": {
+        "en": "A pale desktop",
+        "hi": "हल्की मेज़ की सतह"
+      },
+      "detail": {
+        "en": "Cream, light wood, or pale green on the desktop and chair keep a study from feeling heavy. Avoid an all-black setup if the facing is already poor.",
+        "hi": "मेज़ और कुर्सी पर क्रीम, हल्की लकड़ी या हल्का हरा पढ़ाई को भारी होने से बचाते हैं। मुख पहले से कमज़ोर हो तो पूरी काली व्यवस्था टालें।"
+      },
+      "kinds": [
+        "color"
+      ]
+    },
+    {
+      "id": "desk-mirror",
+      "title": {
+        "en": "Keep the screen, not a mirror, in front of you",
+        "hi": "आपके सामने दर्पण नहीं, स्क्रीन"
+      },
+      "detail": {
+        "en": "A mirror facing the seat competes with the work. Shift it to the side.",
+        "hi": "सीट के सामने दर्पण काम से ध्यान बाँटता है। इसे बगल में सरकाएँ।"
+      },
+      "kinds": [
+        "mirror"
+      ]
+    },
+    {
+      "id": "door-keep",
+      "title": {
+        "en": "North, northeast, and east entrances are the preferred zones",
+        "hi": "उत्तर, ईशान और पूर्व पसंदीदा प्रवेश क्षेत्र हैं"
+      },
+      "detail": {
+        "en": "Classical texts go further and judge each wall by pada, a finer slice than these 16 zones. At zone level, keep this entrance lit, clear, and unobstructed.",
+        "hi": "शास्त्र आगे बढ़कर हर दीवार को पद से परखते हैं, जो इन 16 क्षेत्रों से बारीक है। क्षेत्र के स्तर पर इस प्रवेश को रोशन, साफ़ और बिना रुकावट रखें।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "door-light",
+      "title": {
+        "en": "Light the threshold",
+        "hi": "चौखट को रोशन करें"
+      },
+      "detail": {
+        "en": "A lamp on each side of a south or southwest door is the usual non-structural remedy. The approach should be bright in the evening.",
+        "hi": "दक्षिण या नैऋत्य के दरवाज़े के दोनों ओर एक दीपक आम गैर-निर्माण उपाय है। शाम को रास्ता उजला होना चाहिए।"
+      },
+      "kinds": [
+        "element"
+      ]
+    },
+    {
+      "id": "door-clear",
+      "title": {
+        "en": "Clear the swing of the door",
+        "hi": "दरवाज़े के घुमाव को खाली रखें"
+      },
+      "detail": {
+        "en": "Shoes, bins, and a shoe rack belong off to the side, not in the path. The door should open fully.",
+        "hi": "जूते, कूड़ेदान और जूता-रैक रास्ते में नहीं, बगल में हों। दरवाज़ा पूरा खुलना चाहिए।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "door-color",
+      "title": {
+        "en": "Choose a warm door color",
+        "hi": "दरवाज़े का गर्म रंग चुनें"
+      },
+      "detail": {
+        "en": "Wood, deep red, saffron, or a sandy tone are the traditional door colors. Solid black is the one usually avoided.",
+        "hi": "लकड़ी, गहरा लाल, केसरिया या रेतीला रंग पारंपरिक दरवाज़े के रंग हैं। ठोस काला आमतौर पर टाला जाता है।"
+      },
+      "kinds": [
+        "color"
+      ]
+    },
+    {
+      "id": "door-mirror",
+      "title": {
+        "en": "No mirror directly opposite the door",
+        "hi": "दरवाज़े के ठीक सामने दर्पण न हो"
+      },
+      "detail": {
+        "en": "Move it to a side wall so the entrance is not reflected straight back out.",
+        "hi": "इसे बगल की दीवार पर ले जाएँ, ताकि प्रवेश सीधा वापस बाहर न दिखे।"
+      },
+      "kinds": [
+        "mirror"
+      ]
+    },
+    {
+      "id": "door-plant",
+      "title": {
+        "en": "A plant beside the approach",
+        "hi": "रास्ते के बगल एक पौधा"
+      },
+      "detail": {
+        "en": "A healthy plant just outside, traditionally to the right as you leave, softens an entrance that sits in a heavier zone. Replace it when it struggles.",
+        "hi": "बाहर एक हरा-भरा पौधा, पारंपरिक रूप से निकलते समय आपकी दाईं ओर, भारी क्षेत्र के प्रवेश को नरम करता है। जब मुरझाए, बदल दें।"
+      },
+      "kinds": [
+        "element"
+      ]
+    },
+    {
+      "id": "door-threshold",
+      "title": {
+        "en": "Keep a clean threshold",
+        "hi": "चौखट साफ़ रखें"
+      },
+      "detail": {
+        "en": "A slightly raised sill, a nameplate at eye level, and no broken fixture at the door. These are the small traditional corrections when the wall itself cannot change.",
+        "hi": "थोड़ी उठी देहली, आँख की ऊँचाई पर नामपट्ट, और दरवाज़े पर कोई टूटी फिटिंग नहीं। जब दीवार खुद न बदल सके, छोटे पारंपरिक सुधार यही हैं।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "child-keep",
+      "title": {
+        "en": "West and northwest suit children in this system",
+        "hi": "इस पद्धति में पश्चिम और वायव्य बच्चों के अनुकूल हैं"
+      },
+      "detail": {
+        "en": "The southwest is kept for the adults. Head toward the east or south, and keep the room lighter than the master bedroom.",
+        "hi": "नैऋत्य बड़ों के लिए रखा जाता है। सिर पूर्व या दक्षिण की ओर रखें, और कमरा मुख्य शयनकक्ष से हल्का।"
+      },
+      "kinds": [
+        "direction"
+      ]
+    },
+    {
+      "id": "child-head",
+      "title": {
+        "en": "Pillows to the east or south",
+        "hi": "तकिए पूर्व या दक्षिण की ओर"
+      },
+      "detail": {
+        "en": "Turn the bed before you try to swap rooms. East is a comfortable fit in many children's rooms; south is the other cited choice.",
+        "hi": "कमरे बदलने से पहले बिस्तर घुमाएँ। कई बच्चों के कमरों में पूर्व सहज बैठता है; दक्षिण दूसरा बताया गया विकल्प है।"
+      },
+      "kinds": [
+        "direction"
+      ]
+    },
+    {
+      "id": "child-colors",
+      "title": {
+        "en": "Light green, soft blue, or cream",
+        "hi": "हल्का हरा, नरम नीला, या क्रीम"
+      },
+      "detail": {
+        "en": "Keep the palette light. A very dark, heavy room is the look traditional notes discourage for children.",
+        "hi": "रंग हल्का रखें। बहुत गहरा, भारी कमरा वह रूप है जिसे बच्चों के लिए पारंपरिक नोट टालते हैं।"
+      },
+      "kinds": [
+        "color"
+      ]
+    },
+    {
+      "id": "child-furniture",
+      "title": {
+        "en": "Keep storage from piling into the southwest corner",
+        "hi": "सामान को नैऋत्य कोने में जमा न होने दें"
+      },
+      "detail": {
+        "en": "Lighter furniture, and the heaviest piece against the west or south wall rather than blocking the middle.",
+        "hi": "हल्की फ़र्नीचर, और सबसे भारी चीज़ बीच रोकने के बजाय पश्चिम या दक्षिण की दीवार से सटी हो।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "child-mirror",
+      "title": {
+        "en": "Mirror on a side wall",
+        "hi": "दर्पण बगल की दीवार पर"
+      },
+      "detail": {
+        "en": "Not facing the bed. A closet mirror can swing away from the pillows.",
+        "hi": "बिस्तर के सामने नहीं। अलमारी का दर्पण तकियों से हट सकता है।"
+      },
+      "kinds": [
+        "mirror"
+      ]
+    },
+    {
+      "id": "guest-keep",
+      "title": {
+        "en": "Northwest is the traditional guest room",
+        "hi": "वायव्य पारंपरिक मेहमान कमरा है"
+      },
+      "detail": {
+        "en": "It is meant to be pleasant and not too heavy. Head toward the east or south, as in the other bedrooms.",
+        "hi": "यह सुखद हो और बहुत भारी न हो। दूसरे शयनकक्षों की तरह सिर पूर्व या दक्षिण की ओर रखें।"
+      },
+      "kinds": [
+        "direction"
+      ]
+    },
+    {
+      "id": "dining-keep",
+      "title": {
+        "en": "West is the traditional dining side",
+        "hi": "पश्चिम भोजन की पारंपरिक तरफ़ है"
+      },
+      "detail": {
+        "en": "Sit so you face east or north while you eat. The table can stay.",
+        "hi": "ऐसे बैठें कि खाते समय पूर्व या उत्तर की ओर मुँह हो। मेज़ रह सकती है।"
+      },
+      "kinds": [
+        "direction"
+      ]
+    },
+    {
+      "id": "dining-face",
+      "title": {
+        "en": "Face east or north at the table",
+        "hi": "मेज़ पर पूर्व या उत्तर की ओर मुँह करें"
+      },
+      "detail": {
+        "en": "Turn the chairs so the main seats look east, or north if east is the wall. This is the change that does not require moving the room.",
+        "hi": "कुर्सियाँ ऐसा घुमाएँ कि मुख्य सीटें पूर्व देखें, या पूर्व दीवार हो तो उत्तर। यह वह बदलाव है जिसमें कमरा नहीं हिलता।"
+      },
+      "kinds": [
+        "direction"
+      ]
+    },
+    {
+      "id": "dining-colors",
+      "title": {
+        "en": "Warm, appetizing colors",
+        "hi": "गर्म, भूख जगाने वाले रंग"
+      },
+      "detail": {
+        "en": "Cream, soft orange, and light green are the usual dining colors. Avoid a cold, all-grey room if the zone is already weak.",
+        "hi": "क्रीम, हल्का नारंगी और हल्का हरा भोजन के आम रंग हैं। क्षेत्र पहले से कमज़ोर हो तो ठंडा, पूरा स्लेटी कमरा टालें।"
+      },
+      "kinds": [
+        "color"
+      ]
+    },
+    {
+      "id": "dining-mirror",
+      "title": {
+        "en": "A mirror may reflect the table",
+        "hi": "दर्पण मेज़ को दिखा सकता है"
+      },
+      "detail": {
+        "en": "Unlike the bedroom, a mirror that shows the dining table is a traditional suggestion, read as a sense of plenty. Keep it on a side wall, not opposite the main door of the home.",
+        "hi": "शयनकक्ष के उलट, जो दर्पण भोजन की मेज़ दिखाए वह पारंपरिक सुझाव है, बहुतायत के अर्थ में। इसे बगल की दीवार पर रखें, घर के मुख्य द्वार के सामने नहीं।"
+      },
+      "kinds": [
+        "mirror"
+      ]
+    },
+    {
+      "id": "dining-sideboard",
+      "title": {
+        "en": "Heavier storage to the south or west",
+        "hi": "भारी सामान दक्षिण या पश्चिम में"
+      },
+      "detail": {
+        "en": "The sideboard and china cabinet belong on the south or west wall of the dining room.",
+        "hi": "साइडबोर्ड और बर्तनों की अलमारी भोजन कक्ष की दक्षिण या पश्चिम दीवार पर हों।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "store-keep",
+      "title": {
+        "en": "Heavy storage belongs south, southwest, or northwest",
+        "hi": "भारी सामान दक्षिण, नैऋत्य या वायव्य में होता है"
+      },
+      "detail": {
+        "en": "Keep the northeast of the home free of a junk room. Inside the storeroom, put the heaviest shelves on the south or west wall.",
+        "hi": "घर का ईशान कबाड़ के कमरे से मुक्त रखें। स्टोर के अंदर सबसे भारी अलमारियाँ दक्षिण या पश्चिम की दीवार पर रखें।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "store-weight",
+      "title": {
+        "en": "Stack weight to the south or west of the room",
+        "hi": "कमरे का भार दक्षिण या पश्चिम में सटाएँ"
+      },
+      "detail": {
+        "en": "If the storeroom itself is in a poor zone, still push the heavy shelves to the south or west side of that room and leave the northeast corner of the room emptier.",
+        "hi": "स्टोर खुद कमज़ोर क्षेत्र में हो, तब भी भारी अलमारियों को उस कमरे के दक्षिण या पश्चिम में धकेलें और कमरे का ईशान कोना ज़्यादा खाली छोड़ें।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "store-colors",
+      "title": {
+        "en": "Earth colors, and a shut door",
+        "hi": "मिट्टी के रंग, और बंद दरवाज़ा"
+      },
+      "detail": {
+        "en": "Sand and brown suit a store. Keep the door closed so the clutter is not the first thing the entrance sees.",
+        "hi": "रेत और भूरा स्टोर के अनुकूल हैं। दरवाज़ा बंद रखें, ताकि प्रवेश पर पहली चीज़ कबाड़ न दिखे।"
+      },
+      "kinds": [
+        "color"
+      ]
+    },
+    {
+      "id": "store-clear-ne",
+      "title": {
+        "en": "Do not let the northeast become the dump",
+        "hi": "ईशान को कबाड़घर न बनने दें"
+      },
+      "detail": {
+        "en": "If the only store is in the northeast, keep it sparse, light, and clean. Move what you can to a cupboard on the south or west of some other room.",
+        "hi": "अगर इकलौता स्टोर ईशान में है, तो उसे कम, हल्का और साफ़ रखें। जो हिल सके उसे किसी और कमरे के दक्षिण या पश्चिम की अलमारी में ले जाएँ।"
+      },
+      "kinds": [
+        "furniture",
+        "element"
+      ]
+    },
+    {
+      "id": "stair-keep",
+      "title": {
+        "en": "South, southwest, and west are the usual stair zones",
+        "hi": "दक्षिण, नैऋत्य और पश्चिम सीढ़ी के आम क्षेत्र हैं"
+      },
+      "detail": {
+        "en": "Climbing toward the south or west is the traditional preference. The exact center of the home should not be the stair.",
+        "hi": "दक्षिण या पश्चिम की ओर चढ़ना पारंपरिक पसंद है। घर का ठीक बीच सीढ़ी नहीं होना चाहिए।"
+      },
+      "kinds": [
+        "direction"
+      ]
+    },
+    {
+      "id": "stair-turn",
+      "title": {
+        "en": "Use the flight that climbs south or west",
+        "hi": "जो उड़ान दक्षिण या पश्चिम चढ़े, उसका उपयोग करें"
+      },
+      "detail": {
+        "en": "Where a stair has a turn, the main climb toward the south or west is the one traditional notes prefer. You cannot always rebuild it. Keep the center of the home clear of the first step if you can.",
+        "hi": "जहाँ सीढ़ी में मोड़ हो, दक्षिण या पश्चिम की ओर मुख्य चढ़ाई पारंपरिक नोट पसंद करते हैं। आप हमेशा उसे फिर से नहीं बना सकते। हो सके तो घर के बीच को पहली सीढ़ी से खाली रखें।"
+      },
+      "kinds": [
+        "direction"
+      ]
+    },
+    {
+      "id": "stair-under",
+      "title": {
+        "en": "Storage under the stair, not a shrine",
+        "hi": "सीढ़ी के नीचे सामान, पूजा नहीं"
+      },
+      "detail": {
+        "en": "The space beneath a stair can hold shoes or boxes. It is traditionally a poor place for the pooja.",
+        "hi": "सीढ़ी के नीचे जूते या डिब्बे रह सकते हैं। पूजा के लिए यह पारंपरिक रूप से कमज़ोर जगह है।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "balcony-keep",
+      "title": {
+        "en": "North, east, and northeast balconies are preferred",
+        "hi": "उत्तर, पूर्व और ईशान की बालकनियाँ पसंद की जाती हैं"
+      },
+      "detail": {
+        "en": "Keep them open. Plants do well here. Avoid closing a north or east balcony into a heavy store.",
+        "hi": "उन्हें खुला रखें। पौधे यहाँ अच्छे रहते हैं। उत्तर या पूर्व की बालकनी को भारी स्टोर में बंद न करें।"
+      },
+      "kinds": [
+        "element"
+      ]
+    },
+    {
+      "id": "balcony-plants",
+      "title": {
+        "en": "Plants on the north or east railing",
+        "hi": "उत्तर या पूर्व की रेलिंग पर पौधे"
+      },
+      "detail": {
+        "en": "A few healthy plants are the traditional addition. Do not line the whole balcony with tall stored junk.",
+        "hi": "कुछ हरे-भरे पौधे पारंपरिक जोड़ हैं। पूरी बालकनी को ऊँचे रखे कबाड़ से न पाटें।"
+      },
+      "kinds": [
+        "element"
+      ]
+    },
+    {
+      "id": "balcony-screen",
+      "title": {
+        "en": "Screen a southwest balcony rather than opening it further",
+        "hi": "नैऋत्य की बालकनी को और खोलने के बजाय ढकें"
+      },
+      "detail": {
+        "en": "A balcony in the southwest is traditionally kept smaller in feel: a bit more screening, fewer extra openings, and no heavy water tank if you can place that elsewhere.",
+        "hi": "नैऋत्य की बालकनी पारंपरिक रूप से महसूस में छोटी रखी जाती है: थोड़ी ज़्यादा आड़, कम अतिरिक्त खुलाव, और हो सके तो भारी पानी की टंकी वहाँ न हो।"
+      },
+      "kinds": [
+        "furniture"
+      ]
+    },
+    {
+      "id": "balcony-color",
+      "title": {
+        "en": "Light colors on an open balcony",
+        "hi": "खुली बालकनी पर हल्के रंग"
+      },
+      "detail": {
+        "en": "Cream and soft green keep a north or east balcony in character. A dark enclosed finish fights the openness these zones are meant to have.",
+        "hi": "क्रीम और हल्का हरा उत्तर या पूर्व की बालकनी के स्वभाव में रहते हैं। गहरा बंद फ़िनिश उस खुलेपन से लड़ता है जो इन क्षेत्रों में होना चाहिए।"
+      },
+      "kinds": [
+        "color"
+      ]
+    }
+  ]
+}

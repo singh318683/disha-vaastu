@@ -1,0 +1,9 @@
+World Magnetic Model 2025 coefficients (wmm-2025.json)
+
+Source: NOAA National Centers for Environmental Information and the
+National Geospatial-Intelligence Agency, World Magnetic Model 2025.
+The coefficient values are in the public domain.
+https://www.ncei.noaa.gov/products/world-magnetic-model
+
+Disha uses them only as a fallback when Core Location cannot supply a
+true heading. They are not a copy of the geomagnetism JavaScript package.

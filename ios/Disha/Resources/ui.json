@@ -1,0 +1,1186 @@
+{
+  "aNewHome": {
+    "en": "a new home",
+    "hi": "एक नया घर"
+  },
+  "about": {
+    "en": "About",
+    "hi": "लगभग"
+  },
+  "absoluteHeading": {
+    "en": "absolute heading",
+    "hi": "पूर्ण दिशा"
+  },
+  "acceptable": {
+    "en": "Acceptable",
+    "hi": "स्वीकार्य"
+  },
+  "acceptableSum": {
+    "en": "Workable, with a few adjustments.",
+    "hi": "चलने लायक, कुछ छोटे बदलावों के साथ।"
+  },
+  "accuracy": {
+    "en": "Accuracy",
+    "hi": "सटीकता"
+  },
+  "add": {
+    "en": "Add",
+    "hi": "जोड़ें"
+  },
+  "advanced": {
+    "en": "Advanced tools",
+    "hi": "आगे के औज़ार"
+  },
+  "advancedHint": {
+    "en": "Floor plan, detailed report, and saved homes.",
+    "hi": "नक्शा, विस्तृत रिपोर्ट, और सहेजे घर।"
+  },
+  "allowBrowser": {
+    "en": "Tap Allow on the browser prompt. The dial stays still until motion access is allowed.",
+    "hi": "ब्राउज़र के संदेश पर Allow दबाएँ। गति की अनुमति से पहले डायल नहीं हिलेगा।"
+  },
+  "allowCompass": {
+    "en": "Allow compass access",
+    "hi": "कम्पास की अनुमति दें"
+  },
+  "allowIphone": {
+    "en": "Tap Allow on the iPhone prompt. The dial stays still until motion access is allowed.",
+    "hi": "आईफ़ोन के संदेश पर Allow दबाएँ। गति की अनुमति से पहले डायल नहीं हिलेगा।"
+  },
+  "applyCoords": {
+    "en": "Apply coordinates",
+    "hi": "निर्देशांक लगाएँ"
+  },
+  "approximateNorth": {
+    "en": "True north is approximate here, from the World Magnetic Model.",
+    "hi": "यहाँ सही उत्तर अनुमान है, विश्व चुंबकीय मॉडल से।"
+  },
+  "attention": {
+    "en": "Needs attention",
+    "hi": "ध्यान दें"
+  },
+  "attentionSum": {
+    "en": "Traditional texts would want this softened.",
+    "hi": "पारंपरिक ग्रंथ इसे हल्का करना चाहेंगे।"
+  },
+  "auspicious": {
+    "en": "Auspicious",
+    "hi": "शुभ"
+  },
+  "back": {
+    "en": "Back",
+    "hi": "वापस"
+  },
+  "bandExcellent": {
+    "en": "Excellent",
+    "hi": "उत्तम"
+  },
+  "bandFair": {
+    "en": "Fair",
+    "hi": "ठीक"
+  },
+  "bandGood": {
+    "en": "Good",
+    "hi": "अच्छा"
+  },
+  "bed": {
+    "en": "Bed",
+    "hi": "बिस्तर"
+  },
+  "boostLine": {
+    "en": "If this reached the traditional best",
+    "hi": "अगर यह पारंपरिक सर्वोत्तम तक पहुँचे"
+  },
+  "boosts": {
+    "en": "Biggest boosts",
+    "hi": "सबसे बड़े सुधार"
+  },
+  "brahmasthanDrag": {
+    "en": "Brahmasthan, the center. Drag to move.",
+    "hi": "ब्रह्मस्थान, बीच। खिसकाने के लिए घसीटें।"
+  },
+  "bubbleLive": {
+    "en": "Lay the phone flat. A centered bubble is steadier.",
+    "hi": "फ़ोन सपाट रखें। बीच में बैठा बुलबुला ज़्यादा स्थिर है।"
+  },
+  "bubbleOff": {
+    "en": "Tilt appears when the phone shares it.",
+    "hi": "झुकाव तब दिखता है जब फ़ोन उसे बताता है।"
+  },
+  "byArea": {
+    "en": "By area",
+    "hi": "क्षेत्रों के अनुसार"
+  },
+  "calibrate": {
+    "en": "The phone is sending tilt, but no compass heading arrived within 3 seconds. Lay it flat, step away from metal, and trace a slow figure-8 to calibrate. Then tap Try again.",
+    "hi": "फ़ोन झुकाव भेज रहा है, पर 3 सेकंड में कम्पास दिशा नहीं आई। इसे सपाट रखें, धातु से दूर हों, और कैलिब्रेट करने के लिए धीमा 8 का आकार बनाएँ। फिर फिर कोशिश करें दबाएँ।"
+  },
+  "calibration": {
+    "en": "The compass is unsure. Lay the phone flat, step away from steel, and trace a slow figure-8.",
+    "hi": "कम्पास अनिश्चित है। फ़ोन सपाट रखें, लोहे से दूर हों, और धीमा 8 का आकार बनाएँ।"
+  },
+  "calibrationTips": {
+    "en": "Calibration tips",
+    "hi": "स्थिर करने के सुझाव"
+  },
+  "cancel": {
+    "en": "Cancel",
+    "hi": "रद्द करें"
+  },
+  "cardFailed": {
+    "en": "Could not make the card in this browser.",
+    "hi": "इस ब्राउज़र में कार्ड नहीं बन पाया।"
+  },
+  "cardSaved": {
+    "en": "Card saved.",
+    "hi": "कार्ड सहेज लिया।"
+  },
+  "cardShared": {
+    "en": "Card shared.",
+    "hi": "कार्ड बाँट दिया।"
+  },
+  "center": {
+    "en": "Brahmasthan",
+    "hi": "ब्रह्मस्थान"
+  },
+  "centerTap": {
+    "en": "This tap is on the Brahmasthan, the center. Traditional guidance keeps it open.",
+    "hi": "यह टैप ब्रह्मस्थान पर है, घर के बीच। पारंपरिक सलाह उसे खुला रखती है।"
+  },
+  "check": {
+    "en": "Check",
+    "hi": "जाँच"
+  },
+  "checkAnother": {
+    "en": "Check another",
+    "hi": "एक और देखें"
+  },
+  "chooseImage": {
+    "en": "Choose image",
+    "hi": "चित्र चुनें"
+  },
+  "chooseUnderTap": {
+    "en": "Choose the room that sits under the tap.",
+    "hi": "जिस कमरे पर टैप हुआ है, उसे चुनें।"
+  },
+  "clearChecks": {
+    "en": "Clear these checks",
+    "hi": "ये जाँचें मिटाएँ"
+  },
+  "clearConfirm": {
+    "en": "Clear every saved check on this iPhone?",
+    "hi": "इस आईफ़ोन की सारी जाँचें मिटाएँ?"
+  },
+  "color": {
+    "en": "Color",
+    "hi": "रंग"
+  },
+  "compassIntro": {
+    "en": "Vaastu uses geographic north. The dial takes the compass heading and adds the local magnetic declination.",
+    "hi": "वास्तु भौगोलिक उत्तर मानता है। डायल कम्पास दिशा लेता है और स्थानीय चुंबकीय दिक्पात जोड़ता है।"
+  },
+  "compassOff": {
+    "en": "Compass access is off",
+    "hi": "कम्पास बंद है"
+  },
+  "compassShowing": {
+    "en": "Compass showing",
+    "hi": "कम्पास दिखा रहा है"
+  },
+  "continueOn": {
+    "en": "Continue",
+    "hi": "आगे"
+  },
+  "continueScan": {
+    "en": "Continue scan",
+    "hi": "नक्शा जारी रखें"
+  },
+  "coordError": {
+    "en": "Latitude is -90 to 90, longitude -180 to 180.",
+    "hi": "अक्षांश -90 से 90, देशांतर -180 से 180।"
+  },
+  "couldNotImage": {
+    "en": "Could not use that image.",
+    "hi": "वह चित्र इस्तेमाल नहीं हो पाया।"
+  },
+  "create": {
+    "en": "Create",
+    "hi": "बनाएँ"
+  },
+  "currently": {
+    "en": "currently",
+    "hi": "अभी"
+  },
+  "declDepends": {
+    "en": "Declination depends on where you are.",
+    "hi": "दिक्पात इस पर निर्भर है कि आप कहाँ हैं।"
+  },
+  "declination": {
+    "en": "Declination",
+    "hi": "दिक्पात"
+  },
+  "declinationFailed": {
+    "en": "Could not compute declination.",
+    "hi": "दिक्पात निकाल नहीं पाए।"
+  },
+  "declinationNot": {
+    "en": "Declination not recorded",
+    "hi": "दिक्पात दर्ज नहीं"
+  },
+  "delete": {
+    "en": "Delete",
+    "hi": "मिटाएँ"
+  },
+  "deleteBody": {
+    "en": "It is only stored on this device. Deleting it cannot be undone.",
+    "hi": "यह केवल इस यंत्र पर है। मिटाने के बाद वापस नहीं आएगा।"
+  },
+  "deleteHome": {
+    "en": "Delete this home?",
+    "hi": "यह घर मिटाएँ?"
+  },
+  "deniedBody": {
+    "en": "Location is off, so this reading stays on magnetic north. You can allow location in Settings. iPhone will not ask again.",
+    "hi": "स्थान बंद है, इसलिए यह माप चुंबकीय उत्तर पर रहेगी। सेटिंग में स्थान की अनुमति दे सकते हैं। आईफ़ोन फिर नहीं पूछेगा।"
+  },
+  "deniedIos": {
+    "en": "iPhone blocked motion for this site. Open Settings → Safari → Motion & Orientation Access and set it to Allow. iPhone will not ask again while that switch is off. Then come back and tap Try again.",
+    "hi": "आईफ़ोन ने इस साइट की गति रोक दी है। Settings → Safari → Motion & Orientation Access खोलकर Allow करें। वह स्विच बंद रहे तो आईफ़ोन फिर नहीं पूछेगा। फिर लौटकर फिर कोशिश करें दबाएँ।"
+  },
+  "deniedOther": {
+    "en": "Compass access was denied. Allow motion and orientation for this site in the browser settings, then tap Try again.",
+    "hi": "कम्पास की अनुमति नहीं मिली। ब्राउज़र सेटिंग में इस साइट को गति और दिशा की अनुमति दें, फिर फिर कोशिश करें दबाएँ।"
+  },
+  "desk": {
+    "en": "Desk",
+    "hi": "मेज़"
+  },
+  "deskAndBed": {
+    "en": "Desk and bed",
+    "hi": "मेज़ और बिस्तर"
+  },
+  "details": {
+    "en": "Details",
+    "hi": "विवरण"
+  },
+  "dialAria": {
+    "en": "Direction dial",
+    "hi": "दिशा का छल्ला"
+  },
+  "dialHand": {
+    "en": "Dial is set by hand",
+    "hi": "डायल हाथ से सेट है"
+  },
+  "dialStay": {
+    "en": "It will stay still until you follow the live compass again.",
+    "hi": "जब तक आप जीवित कम्पास का साथ नहीं देते, यह स्थिर रहेगा।"
+  },
+  "dir.E": {
+    "en": "East",
+    "hi": "पूर्व"
+  },
+  "dir.ENE": {
+    "en": "East-northeast",
+    "hi": "पूर्व-ईशान"
+  },
+  "dir.ESE": {
+    "en": "East-southeast",
+    "hi": "पूर्व-आग्नेय"
+  },
+  "dir.N": {
+    "en": "North",
+    "hi": "उत्तर"
+  },
+  "dir.NE": {
+    "en": "Northeast",
+    "hi": "ईशान"
+  },
+  "dir.NNE": {
+    "en": "North-northeast",
+    "hi": "उत्तर-ईशान"
+  },
+  "dir.NNW": {
+    "en": "North-northwest",
+    "hi": "उत्तर-वायव्य"
+  },
+  "dir.NW": {
+    "en": "Northwest",
+    "hi": "वायव्य"
+  },
+  "dir.S": {
+    "en": "South",
+    "hi": "दक्षिण"
+  },
+  "dir.SE": {
+    "en": "Southeast",
+    "hi": "आग्नेय"
+  },
+  "dir.SSE": {
+    "en": "South-southeast",
+    "hi": "दक्षिण-आग्नेय"
+  },
+  "dir.SSW": {
+    "en": "South-southwest",
+    "hi": "दक्षिण-नैऋत्य"
+  },
+  "dir.SW": {
+    "en": "Southwest",
+    "hi": "नैऋत्य"
+  },
+  "dir.W": {
+    "en": "West",
+    "hi": "पश्चिम"
+  },
+  "dir.WNW": {
+    "en": "West-northwest",
+    "hi": "पश्चिम-वायव्य"
+  },
+  "dir.WSW": {
+    "en": "West-southwest",
+    "hi": "पश्चिम-नैऋत्य"
+  },
+  "direction": {
+    "en": "Direction",
+    "hi": "दिशा"
+  },
+  "directionNotes": {
+    "en": "These directions are notes. They are not part of the home score.",
+    "hi": "ये दिशाएँ नोट हैं। ये घर के अंक का हिस्सा नहीं।"
+  },
+  "done": {
+    "en": "Done",
+    "hi": "हो गया"
+  },
+  "downloadPdf": {
+    "en": "Download PDF",
+    "hi": "पीडीएफ़ डाउनलोड करें"
+  },
+  "dragDial": {
+    "en": "Drag the dial or use the arrow keys. This heading is treated as true north.",
+    "hi": "डायल घुमाएँ या तीर कुंजियाँ दबाएँ। यह दिशा सही उत्तर मानी जाएगी।"
+  },
+  "dragToTurn": {
+    "en": "Drag to turn it.",
+    "hi": "घुमाने के लिए घसीटें।"
+  },
+  "east": {
+    "en": "East",
+    "hi": "पूर्व"
+  },
+  "element": {
+    "en": "Element",
+    "hi": "तत्व"
+  },
+  "element.air": {
+    "en": "Air",
+    "hi": "वायु"
+  },
+  "element.earth": {
+    "en": "Earth",
+    "hi": "पृथ्वी"
+  },
+  "element.fire": {
+    "en": "Fire",
+    "hi": "अग्नि"
+  },
+  "element.space": {
+    "en": "Space",
+    "hi": "आकाश"
+  },
+  "element.water": {
+    "en": "Water",
+    "hi": "जल"
+  },
+  "enableCompass": {
+    "en": "Enable compass",
+    "hi": "कम्पास चालू करें"
+  },
+  "enableIos": {
+    "en": "iPhone only shares a heading after a tap. Tap Enable compass, then allow Motion & Orientation. The dial turns with the top of the phone.",
+    "hi": "आईफ़ोन दिशा टैप के बाद ही देता है। कम्पास चालू करें दबाएँ, फिर Motion & Orientation की अनुमति दें। डायल फ़ोन के ऊपरी सिरे के साथ घूमता है।"
+  },
+  "enableOther": {
+    "en": "The browser shares the compass heading after a tap. Tap Enable compass, then allow motion. The dial turns with the top of the phone.",
+    "hi": "ब्राउज़र कम्पास दिशा टैप के बाद देता है। कम्पास चालू करें दबाएँ, फिर गति की अनुमति दें। डायल फ़ोन के ऊपरी सिरे के साथ घूमता है।"
+  },
+  "enteredByHand": {
+    "en": "Entered by hand",
+    "hi": "हाथ से लिखा"
+  },
+  "excellent": {
+    "en": "Excellent",
+    "hi": "उत्तम"
+  },
+  "excellentSum": {
+    "en": "A traditional first choice.",
+    "hi": "पारंपरिक पहली पसंद।"
+  },
+  "expectedField": {
+    "en": "expected field",
+    "hi": "अपेक्षित क्षेत्र"
+  },
+  "extended": {
+    "en": "(extended past its published window)",
+    "hi": "(प्रकाशित अवधि के आगे बढ़ाया गया)"
+  },
+  "facing.E": {
+    "en": "East-facing",
+    "hi": "पूर्वमुखी"
+  },
+  "facing.N": {
+    "en": "North-facing",
+    "hi": "उत्तरमुखी"
+  },
+  "facing.S": {
+    "en": "South-facing",
+    "hi": "दक्षिणमुखी"
+  },
+  "facing.W": {
+    "en": "West-facing",
+    "hi": "पश्चिममुखी"
+  },
+  "facingWord": {
+    "en": "facing",
+    "hi": "मुख"
+  },
+  "fair": {
+    "en": "Fair",
+    "hi": "ठीक"
+  },
+  "fieldNote": {
+    "en": "A browser cannot read the magnetometer’s field strength, so this is the model’s figure only.",
+    "hi": "ब्राउज़र चुंबकमापी की शक्ति नहीं पढ़ सकता, इसलिए यह केवल मॉडल का आँकड़ा है।"
+  },
+  "finding": {
+    "en": "Finding you…",
+    "hi": "आपको ढूँढ रहे हैं…"
+  },
+  "flat": {
+    "en": "Hold the phone flat, like a plate.",
+    "hi": "फ़ोन को थाली की तरह सपाट रखें।"
+  },
+  "flatWord": {
+    "en": "Flat",
+    "hi": "सपाट"
+  },
+  "floorPlan": {
+    "en": "Floor plan",
+    "hi": "फ़र्श का नक्शा"
+  },
+  "followLive": {
+    "en": "Follow the live compass",
+    "hi": "जीवित कम्पास का साथ दें"
+  },
+  "free": {
+    "en": "Free",
+    "hi": "मुफ़्त"
+  },
+  "fullScan": {
+    "en": "Full-home scan",
+    "hi": "पूरे घर का नक्शा"
+  },
+  "furniture": {
+    "en": "Furniture",
+    "hi": "फ़र्नीचर"
+  },
+  "good": {
+    "en": "Good",
+    "hi": "अच्छी"
+  },
+  "goodSum": {
+    "en": "A favorable placement in the traditional system.",
+    "hi": "पारंपरिक पद्धति में अनुकूल स्थान।"
+  },
+  "gotIt": {
+    "en": "Got it",
+    "hi": "समझ गया"
+  },
+  "high": {
+    "en": "High",
+    "hi": "ऊँची"
+  },
+  "holding": {
+    "en": "Holding steady. You can lock this.",
+    "hi": "दिशा स्थिर है। अब रोक सकते हैं।"
+  },
+  "home": {
+    "en": "Home",
+    "hi": "घर"
+  },
+  "homeHarmony": {
+    "en": "Home harmony",
+    "hi": "घर का संतुलन"
+  },
+  "homeScore": {
+    "en": "Home score",
+    "hi": "घर का अंक"
+  },
+  "homes": {
+    "en": "Homes",
+    "hi": "घर"
+  },
+  "houseHunting": {
+    "en": "House-hunting",
+    "hi": "घर खोजना"
+  },
+  "houseHuntingMode": {
+    "en": "House-hunting mode",
+    "hi": "घर खोजने की विधि"
+  },
+  "inauspicious": {
+    "en": "Inauspicious",
+    "hi": "अशुभ"
+  },
+  "instant": {
+    "en": "Instant check",
+    "hi": "तुरंत जाँच"
+  },
+  "iphoneCompass": {
+    "en": "iPhone compass",
+    "hi": "आईफ़ोन कम्पास"
+  },
+  "issues": {
+    "en": "issues",
+    "hi": "बातें"
+  },
+  "language": {
+    "en": "Language",
+    "hi": "भाषा"
+  },
+  "latitude": {
+    "en": "Latitude",
+    "hi": "अक्षांश"
+  },
+  "level": {
+    "en": "Level",
+    "hi": "समतल"
+  },
+  "listening": {
+    "en": "Listening for the compass",
+    "hi": "कम्पास सुन रहे हैं"
+  },
+  "listeningBody": {
+    "en": "Access is on. Point the top of the phone the way you are facing. The dial and the zone wheel follow that heading.",
+    "hi": "अनुमति मिल गई। फ़ोन का ऊपरी सिरा उसी तरफ़ करें जिधर आपका मुँह है। डायल और चक्र उसी दिशा पर चलेंगे।"
+  },
+  "live": {
+    "en": "Live",
+    "hi": "सीधा"
+  },
+  "location": {
+    "en": "Location",
+    "hi": "स्थान"
+  },
+  "locationAllow": {
+    "en": "Use true north",
+    "hi": "सही उत्तर लें"
+  },
+  "locationBody": {
+    "en": "Vaastu uses geographic north. Location lets Disha correct the compass from magnetic north to true north. This is asked once, and only while the app is open. The heading itself needs no permission.",
+    "hi": "वास्तु भौगोलिक उत्तर मानता है। स्थान से दिशा कम्पास को चुंबकीय उत्तर से सही उत्तर पर लाती है। यह एक बार पूछा जाता है, और केवल ऐप खुला हो तब। दिशा के लिए अनुमति की ज़रूरत नहीं।"
+  },
+  "locationDenied": {
+    "en": "Location was denied. Type a latitude and longitude, or use the New Jersey sample.",
+    "hi": "स्थान की अनुमति नहीं मिली। अक्षांश और देशांतर लिखें, या न्यू जर्सी का नमूना लें।"
+  },
+  "locationSkip": {
+    "en": "Not now",
+    "hi": "अभी नहीं"
+  },
+  "locationTitle": {
+    "en": "True north",
+    "hi": "सही उत्तर"
+  },
+  "lock": {
+    "en": "Lock direction",
+    "hi": "दिशा रोकें"
+  },
+  "lockRing": {
+    "en": "Lock the ring instead",
+    "hi": "इसके बजाय छल्ला रोकें"
+  },
+  "longitude": {
+    "en": "Longitude",
+    "hi": "देशांतर"
+  },
+  "lookFirst": {
+    "en": "Look at these first",
+    "hi": "पहले ये देखें"
+  },
+  "magnetic": {
+    "en": "Magnetic",
+    "hi": "चुंबकीय"
+  },
+  "magneticHint": {
+    "en": "This is still magnetic north. Use my location for true north.",
+    "hi": "यह अभी चुंबकीय उत्तर है। सही उत्तर के लिए मेरा स्थान इस्तेमाल करें।"
+  },
+  "makingCard": {
+    "en": "Making the card…",
+    "hi": "कार्ड बन रहा है…"
+  },
+  "makingPdf": {
+    "en": "Making the PDF…",
+    "hi": "पीडीएफ़ बन रही है…"
+  },
+  "manual": {
+    "en": "This device has no compass. Turn the ring to the way you are facing.",
+    "hi": "इस यंत्र में कम्पास नहीं है। छल्ले को उसी तरफ़ घुमाएँ जिधर आपका मुँह है।"
+  },
+  "manualDecl": {
+    "en": "Manual declination",
+    "hi": "हाथ से दिक्पात"
+  },
+  "mapRooms": {
+    "en": "Map the rooms",
+    "hi": "कमरों का नक्शा"
+  },
+  "metal": {
+    "en": "Step away from metal if the needle wanders.",
+    "hi": "सुई भटके तो धातु से एक क़दम दूर हटकर देखें।"
+  },
+  "metalNote": {
+    "en": "A browser cannot read magnetic field strength. If the needle jumps, step away from steel.",
+    "hi": "ब्राउज़र चुंबकीय बल नहीं पढ़ सकता। सुई उछले तो लोहे से दूर हटें।"
+  },
+  "mirror": {
+    "en": "Mirror",
+    "hi": "दर्पण"
+  },
+  "more": {
+    "en": "More",
+    "hi": "और"
+  },
+  "nameAddress": {
+    "en": "Name it after the address, or load the sample apartment.",
+    "hi": "पते का नाम रखें, या नमूना अपार्टमेंट लाएँ।"
+  },
+  "needsCare": {
+    "en": "Needs care",
+    "hi": "देखभाल चाहिए"
+  },
+  "neutral": {
+    "en": "Neutral",
+    "hi": "सामान्य"
+  },
+  "newHomeName": {
+    "en": "New home name",
+    "hi": "नए घर का नाम"
+  },
+  "njSample": {
+    "en": "New Jersey sample",
+    "hi": "न्यू जर्सी नमूना"
+  },
+  "noCompassDrag": {
+    "en": "This browser isn’t providing a compass heading. Drag the dial to set one.",
+    "hi": "यह ब्राउज़र कम्पास दिशा नहीं दे रहा। डायल घुमाकर दिशा रखें।"
+  },
+  "noEvents": {
+    "en": "No compass events",
+    "hi": "कम्पास संकेत नहीं"
+  },
+  "noEventsIos": {
+    "en": "No compass events arrived within 3 seconds. On iPhone, set Settings → Safari → Motion & Orientation Access to Allow, then tap Try again. A normal Safari tab is more reliable than Private.",
+    "hi": "3 सेकंड में कम्पास संकेत नहीं आए। आईफ़ोन पर Settings → Safari → Motion & Orientation Access को Allow करें, फिर फिर कोशिश करें दबाएँ। सामान्य सफ़ारी टैब प्राइवेट से बेहतर रहता है।"
+  },
+  "noEventsOther": {
+    "en": "No compass events arrived within 3 seconds. Tap Try again and allow motion if the browser asks. Android Chrome needs a device with a compass.",
+    "hi": "3 सेकंड में कम्पास संकेत नहीं आए। फिर कोशिश करें दबाएँ, और ब्राउज़र पूछे तो गति की अनुमति दें। एंड्रॉइड क्रोम को कम्पास वाले यंत्र की ज़रूरत है।"
+  },
+  "noFix": {
+    "en": "No location fix. Type one in, or use the New Jersey sample.",
+    "hi": "स्थान नहीं मिला। लिखकर दें, या न्यू जर्सी का नमूना लें।"
+  },
+  "noHeadingYet": {
+    "en": "No compass heading yet",
+    "hi": "अभी कम्पास दिशा नहीं"
+  },
+  "noHomes": {
+    "en": "No homes yet. Add one, or load the sample apartment from the scan.",
+    "hi": "अभी कोई घर नहीं। एक जोड़ें, या नक्शे से नमूना अपार्टमेंट लाएँ।"
+  },
+  "noLocationApi": {
+    "en": "This browser has no location API. Enter a latitude and longitude instead.",
+    "hi": "इस ब्राउज़र में स्थान की सुविधा नहीं है। अक्षांश और देशांतर लिखें।"
+  },
+  "noRooms": {
+    "en": "No rooms tagged yet.",
+    "hi": "अभी कोई कमरा चिह्नित नहीं।"
+  },
+  "noSensor": {
+    "en": "No sensor",
+    "hi": "संवेदक नहीं"
+  },
+  "noTilt": {
+    "en": "No tilt",
+    "hi": "झुकाव नहीं"
+  },
+  "north": {
+    "en": "North",
+    "hi": "उत्तर"
+  },
+  "notGuarantee": {
+    "en": "These notes follow traditional guidelines and are not a guarantee.",
+    "hi": "ये नोट पारंपरिक दिशा-निर्देश हैं, गारंटी नहीं।"
+  },
+  "noteCenterCaution": {
+    "en": "This sits on the center of the plan. Traditional guidance leaves that middle light — keep heavy furniture out of the middle of the room.",
+    "hi": "यह नक्शे के बीच में है। पारंपरिक सलाह उस बीच को हल्का छोड़ती है — भारी फ़र्नीचर कमरे के बीच से बाहर रखें।"
+  },
+  "noteCenterSevere": {
+    "en": "The Brahmasthan, the center of the home, is traditionally kept open. A toilet, kitchen, or staircase here is avoided.",
+    "hi": "ब्रह्मस्थान, घर का बीच, पारंपरिक रूप से खुला रखा जाता है। यहाँ शौचालय, रसोई या सीढ़ी टाली जाती है।"
+  },
+  "noteToilet": {
+    "en": "A prayer room is traditionally kept away from a toilet, including the neighboring zone or a shared wall.",
+    "hi": "पूजा घर पारंपरिक रूप से शौचालय से दूर रखा जाता है, पड़ोसी क्षेत्र या साझी दीवार सहित।"
+  },
+  "nothingChecked": {
+    "en": "Nothing checked yet.",
+    "hi": "अभी कुछ नहीं देखा।"
+  },
+  "nothingTagged": {
+    "en": "Nothing tagged yet.",
+    "hi": "अभी कुछ चिह्नित नहीं।"
+  },
+  "nothingToMove": {
+    "en": "Nothing to move. Keep this as it is.",
+    "hi": "कुछ हिलाने की ज़रूरत नहीं। इसे ऐसा ही रहने दें।"
+  },
+  "nothingToRead": {
+    "en": "Nothing to read yet",
+    "hi": "अभी पढ़ने को कुछ नहीं"
+  },
+  "openReport": {
+    "en": "Open report",
+    "hi": "रिपोर्ट खोलें"
+  },
+  "openSettings": {
+    "en": "Open Settings",
+    "hi": "सेटिंग खोलें"
+  },
+  "optionalName": {
+    "en": "Optional name",
+    "hi": "नाम, अगर चाहें"
+  },
+  "orientationSensor": {
+    "en": "orientation sensor",
+    "hi": "दिशा संवेदक"
+  },
+  "overall": {
+    "en": "Overall",
+    "hi": "कुल"
+  },
+  "pageOf": {
+    "en": "Page",
+    "hi": "पृष्ठ"
+  },
+  "paid": {
+    "en": "Paid",
+    "hi": "सशुल्क"
+  },
+  "paidHint": {
+    "en": "Paid in the product plan. Unlocked in this preview — no payment is required.",
+    "hi": "उत्पाद योजना में सशुल्क। इस झलक में खुला है — भुगतान की ज़रूरत नहीं।"
+  },
+  "pdfBuildFailed": {
+    "en": "Could not build the PDF in this browser.",
+    "hi": "इस ब्राउज़र में पीडीएफ़ नहीं बन पाई।"
+  },
+  "pdfDownloaded": {
+    "en": "PDF downloaded.",
+    "hi": "पीडीएफ़ डाउनलोड हो गई।"
+  },
+  "pdfFailed": {
+    "en": "Could not make the PDF in this browser.",
+    "hi": "इस ब्राउज़र में पीडीएफ़ नहीं बन पाई।"
+  },
+  "pdfFooter": {
+    "en": "Per traditional Vaastu guidelines — not a structural, medical, or financial guarantee.",
+    "hi": "पारंपरिक वास्तु के अनुसार — निर्माण, चिकित्सा या धन की गारंटी नहीं।"
+  },
+  "pdfSaved": {
+    "en": "PDF saved.",
+    "hi": "पीडीएफ़ सहेज ली।"
+  },
+  "perGuidelines": {
+    "en": "Per traditional Vaastu guidelines",
+    "hi": "पारंपरिक वास्तु के अनुसार"
+  },
+  "placeChecked": {
+    "en": "place checked",
+    "hi": "जगह देखी गई"
+  },
+  "placesChecked": {
+    "en": "places checked",
+    "hi": "जगहें देखी गईं"
+  },
+  "pointRead": {
+    "en": "Point and read",
+    "hi": "दिशा बताएँ और पढ़ें"
+  },
+  "pointsWord": {
+    "en": "points",
+    "hi": "अंक"
+  },
+  "poor": {
+    "en": "Poor",
+    "hi": "कमज़ोर"
+  },
+  "preparing": {
+    "en": "Preparing…",
+    "hi": "तैयार हो रहा है…"
+  },
+  "pulled": {
+    "en": "The phone is easily pulled off magnetic north indoors.",
+    "hi": "घर के अंदर फ़ोन चुंबकीय उत्तर से आसानी से भटक जाता है।"
+  },
+  "qualityDrift": {
+    "en": "The heading is drifting a little. Give it a second, away from appliances.",
+    "hi": "दिशा थोड़ी बह रही है। एक पल दें, उपकरणों से दूर।"
+  },
+  "qualityFair": {
+    "en": "Hold the phone flat, away from metal.",
+    "hi": "फ़ोन सपाट रखें, धातु से दूर।"
+  },
+  "qualityHigh": {
+    "en": "The compass reports about",
+    "hi": "कम्पास लगभग बता रहा है"
+  },
+  "qualityInvalid": {
+    "en": "The compass marked this reading as invalid. Calibrate with a figure-8, away from metal.",
+    "hi": "कम्पास ने इस माप को अमान्य कहा। धातु से दूर, 8 का आकार बनाकर कैलिब्रेट करें।"
+  },
+  "qualityJump": {
+    "en": "The heading is jumping. Step away from metal, or take the reading near a window.",
+    "hi": "दिशा उछल रही है। धातु से दूर हों, या खिड़की के पास माप लें।"
+  },
+  "qualityNone": {
+    "en": "Drag the dial, or type a heading. Declination still applies once you set a location.",
+    "hi": "डायल घुमाएँ, या दिशा लिखें। स्थान तय होने पर दिक्पात फिर भी लगता है।"
+  },
+  "qualityPoor": {
+    "en": "Move away from steel or trace a figure-8.",
+    "hi": "लोहे से दूर हों या 8 का आकार बनाएँ।"
+  },
+  "qualitySteady": {
+    "en": "The heading is holding still. Browsers cannot read raw field strength.",
+    "hi": "दिशा स्थिर है। ब्राउज़र कच्ची क्षेत्र-शक्ति नहीं पढ़ सकते।"
+  },
+  "quiet": {
+    "en": "Turn the ring if the compass stays quiet.",
+    "hi": "कम्पास चुप रहे तो छल्ले को घुमाएँ।"
+  },
+  "rankHomes": {
+    "en": "Rank the saved homes. A higher score is closer to the guidelines, not a promise.",
+    "hi": "सहेजे घरों को क्रम दें। ऊँचा अंक दिशा-निर्देश के करीब है, वादा नहीं।"
+  },
+  "remediesHeading": {
+    "en": "Gentle remedies",
+    "hi": "हल्के उपाय"
+  },
+  "remedyDone": {
+    "en": "A gentle remedy is in place",
+    "hi": "हल्का उपाय कर दिया है"
+  },
+  "replaceRooms": {
+    "en": "Replace this home’s rooms?",
+    "hi": "इस घर के कमरे बदलें?"
+  },
+  "report": {
+    "en": "Report",
+    "hi": "रिपोर्ट"
+  },
+  "retake": {
+    "en": "Retake",
+    "hi": "फिर से लें"
+  },
+  "room": {
+    "en": "Room",
+    "hi": "कमरा"
+  },
+  "rooms": {
+    "en": "Rooms",
+    "hi": "कमरे"
+  },
+  "roomsHeading": {
+    "en": "Rooms",
+    "hi": "कमरे"
+  },
+  "rotateNorth": {
+    "en": "Rotate north",
+    "hi": "उत्तर घुमाएँ"
+  },
+  "sampleApartment": {
+    "en": "Load the sample apartment",
+    "hi": "नमूना अपार्टमेंट लाएँ"
+  },
+  "savedOn": {
+    "en": "Saved on this device",
+    "hi": "इस यंत्र पर सहेजा"
+  },
+  "savedTo": {
+    "en": "Saved to",
+    "hi": "सहेजा गया"
+  },
+  "scan": {
+    "en": "Scan",
+    "hi": "नक्शा"
+  },
+  "score": {
+    "en": "score",
+    "hi": "अंक"
+  },
+  "seeHarmony": {
+    "en": "See home harmony",
+    "hi": "घर का संतुलन देखें"
+  },
+  "setByHand": {
+    "en": "Set the direction by hand.",
+    "hi": "दिशा हाथ से चुनें।"
+  },
+  "setDeclBefore": {
+    "en": "Set a declination before capturing the phone’s heading as the plan’s up direction.",
+    "hi": "फ़ोन की दिशा को नक्शे के ऊपर के रूप में लेने से पहले दिक्पात तय करें।"
+  },
+  "setDirection": {
+    "en": "Set direction",
+    "hi": "दिशा चुनें"
+  },
+  "share": {
+    "en": "Share",
+    "hi": "बाँटें"
+  },
+  "shareCard": {
+    "en": "Share card",
+    "hi": "कार्ड बाँटें"
+  },
+  "shareFailed": {
+    "en": "Could not share the report.",
+    "hi": "रिपोर्ट बाँट नहीं पाए।"
+  },
+  "shareFallback": {
+    "en": "Sharing is not available here, so the PDF was downloaded.",
+    "hi": "यहाँ बाँटना उपलब्ध नहीं, इसलिए पीडीएफ़ डाउनलोड हो गई।"
+  },
+  "side": {
+    "en": "Side",
+    "hi": "तरफ़"
+  },
+  "simpleQuiz": {
+    "en": "← Simple quiz",
+    "hi": "← आसान जाँच"
+  },
+  "skip": {
+    "en": "Skip to content",
+    "hi": "सीधे सामग्री पर जाएँ"
+  },
+  "spotFalls": {
+    "en": "This spot falls in",
+    "hi": "यह जगह पड़ती है"
+  },
+  "stallIos": {
+    "en": "The iPhone prompt didn’t finish. Open Settings → Safari → Motion & Orientation Access, set it to Allow, then tap Enable compass again.",
+    "hi": "आईफ़ोन का संदेश पूरा नहीं हुआ। Settings → Safari → Motion & Orientation Access को Allow करें, फिर कम्पास चालू करें फिर दबाएँ।"
+  },
+  "stallOther": {
+    "en": "The permission prompt didn’t finish. Allow motion and orientation for this site, then tap Enable compass again.",
+    "hi": "अनुमति का संदेश पूरा नहीं हुआ। इस साइट को गति और दिशा की अनुमति दें, फिर कम्पास चालू करें फिर दबाएँ।"
+  },
+  "standPoint": {
+    "en": "Stand, point, and lock. One place at a time.",
+    "hi": "खड़े हों, दिशा बताएँ, और रोक दें। एक बार में एक जगह।"
+  },
+  "start": {
+    "en": "Start",
+    "hi": "शुरू करें"
+  },
+  "startHome": {
+    "en": "Start a home",
+    "hi": "एक घर शुरू करें"
+  },
+  "startScan": {
+    "en": "Start a scan",
+    "hi": "नक्शा शुरू करें"
+  },
+  "steadier": {
+    "en": "A steadier reading",
+    "hi": "ज़्यादा स्थिर माप"
+  },
+  "steady": {
+    "en": "Steady",
+    "hi": "स्थिर"
+  },
+  "steadyEnough": {
+    "en": "Steady enough to lock.",
+    "hi": "रोकने के लिए काफ़ी स्थिर है।"
+  },
+  "stillMagnetic": {
+    "en": "This reading is still magnetic. Allow location to correct it to true north.",
+    "hi": "यह माप अभी चुंबकीय है। सही उत्तर के लिए स्थान की अनुमति दें।"
+  },
+  "stillMagneticOld": {
+    "en": "This is still magnetic north. Add a location so the World Magnetic Model can correct it.",
+    "hi": "यह अभी चुंबकीय उत्तर है। स्थान जोड़ें, ताकि विश्व चुंबकीय मॉडल इसे सुधार सके।"
+  },
+  "storageFull": {
+    "en": "This device could not store more data. Remove a floor plan or a home and try again.",
+    "hi": "इस यंत्र पर और डेटा नहीं समाया। एक नक्शा या घर हटाकर फिर कोशिश करें।"
+  },
+  "tagPointing": {
+    "en": "Tag the room you are pointing at",
+    "hi": "जिस कमरे की ओर इशारा है, उसे चिह्नित करें"
+  },
+  "tagRoomScore": {
+    "en": "Tag a room to score the home.",
+    "hi": "घर का अंक पाने के लिए एक कमरा चिह्नित करें।"
+  },
+  "thisDevice": {
+    "en": "This device",
+    "hi": "यह यंत्र"
+  },
+  "thisHome": {
+    "en": "This home",
+    "hi": "यह घर"
+  },
+  "tickTop": {
+    "en": "The tick at the top is the direction you are facing. The wheel turns under it.",
+    "hi": "ऊपर का निशान वह दिशा है जिधर आपका मुँह है। चक्र उसके नीचे घूमता है।"
+  },
+  "tipEight": {
+    "en": "Trace a slow figure-8 in the air to calibrate the compass.",
+    "hi": "कम्पास कैलिब्रेट करने के लिए हवा में धीमा 8 का आकार बनाएँ।"
+  },
+  "tipFlat": {
+    "en": "Lay the phone flat. The bubble should sit in the middle of the circle.",
+    "hi": "फ़ोन सपाट रखें। बुलबुला घेरे के बीच में बैठना चाहिए।"
+  },
+  "tipMetal": {
+    "en": "Step away from refrigerators, speakers, steel beams, and vehicles.",
+    "hi": "फ़्रिज, स्पीकर, लोहे की कड़ियों और वाहनों से दूर हों।"
+  },
+  "tipWindow": {
+    "en": "In a steel-frame building, take the heading near a window, then align the floor plan to it.",
+    "hi": "लोहे की इमारत में दिशा खिड़की के पास लें, फिर नक्शे को उसी से मिलाएँ।"
+  },
+  "tipZone": {
+    "en": "Each zone is only 22.5° wide, so the declination — about 12° west in New Jersey — is worth applying.",
+    "hi": "हर क्षेत्र सिर्फ़ 22.5° चौड़ा है, इसलिए दिक्पात लगाना उपयोगी है — न्यू जर्सी में लगभग 12° पश्चिम।"
+  },
+  "toSoften": {
+    "en": "To soften",
+    "hi": "संभालें"
+  },
+  "topIsNorth": {
+    "en": "Top of the plan is true north",
+    "hi": "नक्शे का ऊपर सही उत्तर है"
+  },
+  "topPoints": {
+    "en": "Top of the plan points",
+    "hi": "नक्शे का ऊपर इशारा करता है"
+  },
+  "trueHeading": {
+    "en": "True heading",
+    "hi": "सही दिशा"
+  },
+  "trueNorth": {
+    "en": "True north",
+    "hi": "सही उत्तर"
+  },
+  "trueNorthUp": {
+    "en": "True north up",
+    "hi": "सही उत्तर ऊपर"
+  },
+  "tryAgain": {
+    "en": "Try again",
+    "hi": "फिर कोशिश करें"
+  },
+  "tryCompass": {
+    "en": "Try the compass again",
+    "hi": "कम्पास फिर आज़माएँ"
+  },
+  "unfavorable": {
+    "en": "Unfavorable",
+    "hi": "प्रतिकूल"
+  },
+  "unfavorableSum": {
+    "en": "Traditionally avoided. The remedies stay non-structural.",
+    "hi": "पारंपरिक रूप से टाला गया। उपाय बिना तोड़े-फोड़े हैं।"
+  },
+  "unreliable": {
+    "en": "Unreliable",
+    "hi": "अविश्वसनीय"
+  },
+  "unstable": {
+    "en": "Unstable",
+    "hi": "अस्थिर"
+  },
+  "unsteady": {
+    "en": "Hold still for a moment.",
+    "hi": "एक पल के लिए स्थिर रहें।"
+  },
+  "uploadPlan": {
+    "en": "Upload a floor plan",
+    "hi": "फ़र्श का नक्शा डालें"
+  },
+  "useDecl": {
+    "en": "Use this declination",
+    "hi": "यह दिक्पात इस्तेमाल करें"
+  },
+  "useLocation": {
+    "en": "Use my location",
+    "hi": "मेरा स्थान इस्तेमाल करें"
+  },
+  "useModel": {
+    "en": "Use the model",
+    "hi": "मॉडल इस्तेमाल करें"
+  },
+  "usingMagnetic": {
+    "en": "Still magnetic north.",
+    "hi": "अभी चुंबकीय उत्तर।"
+  },
+  "vaastuNotes": {
+    "en": "Vaastu notes for",
+    "hi": "वास्तु नोट"
+  },
+  "waiting": {
+    "en": "Waiting…",
+    "hi": "इंतज़ार…"
+  },
+  "waitingCompass": {
+    "en": "Waiting for the compass…",
+    "hi": "कम्पास का इंतज़ार…"
+  },
+  "waitingIphone": {
+    "en": "Waiting for iPhone…",
+    "hi": "आईफ़ोन का इंतज़ार…"
+  },
+  "waitingPermission": {
+    "en": "Waiting for permission…",
+    "hi": "अनुमति का इंतज़ार…"
+  },
+  "welcomeLine": {
+    "en": "One gentle question at a time, using true north.",
+    "hi": "एक-एक आसान सवाल, सही उत्तर के साथ।"
+  },
+  "welcomeOld": {
+    "en": "Point the top of the phone the way you are facing. Sixteen zones, each 22.5° wide, turn with you. On a laptop, drag the dial — the New Jersey sample shows the 12° west correction the compass would apply.",
+    "hi": "फ़ोन का ऊपरी सिरा उसी तरफ़ करें जिधर आपका मुँह है। सोलह क्षेत्र, हर एक 22.5° चौड़ा, आपके साथ घूमते हैं। लैपटॉप पर डायल घुमाएँ — न्यू जर्सी का नमूना वह 12° पश्चिम सुधार दिखाता है जो कम्पास लगाता।"
+  },
+  "welcomeTitle": {
+    "en": "A calmer way to read your home.",
+    "hi": "अपने घर की दिशा, आसानी से।"
+  },
+  "west": {
+    "en": "West",
+    "hi": "पश्चिम"
+  },
+  "whatCheck": {
+    "en": "What shall we check?",
+    "hi": "क्या देखें?"
+  },
+  "whichRoom": {
+    "en": "Which room is this?",
+    "hi": "यह कौन सा कमरा है?"
+  }
+}
