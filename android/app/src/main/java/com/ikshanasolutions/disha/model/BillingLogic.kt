@@ -34,8 +34,8 @@ object Products {
 
 /** Placeholder legal links. Replace both before Play review. */
 object Legal {
-    const val TERMS = "https://disha.example.com/terms"
-    const val PRIVACY = "https://disha.example.com/privacy"
+    const val TERMS = "https://disha-vaastu.vercel.app/terms"
+    const val PRIVACY = "https://disha-vaastu.vercel.app/privacy"
     const val MANAGE_SUBS =
         "https://play.google.com/store/account/subscriptions?package=com.ikshanasolutions.disha"
 }

@@ -90,7 +90,7 @@ Handled on purpose:
 5. Pending shows “Payment pending”. User cancel is silent. `BILLING_UNAVAILABLE` and `SERVICE_DISCONNECTED` reconnect with backoff. An empty or failed product query shows a retry card, not a blank paywall or a spinner with no way out.
 6. Home Report is the non-consumable described above.
 7. The purchase signature is checked on the device with SHA1withRSA against the Play license public key. Put that key in `android/local.properties` as `BILLING_LICENSE_KEY` or in the environment as `DISHA_BILLING_LICENSE_KEY`. It is copied into `BuildConfig` and is not committed. This check can be bypassed by a modified APK. Verifying the token with the Play Developer API on a server is the recommended follow-up.
-8. Restore Purchases is on the paywall and in Settings. Terms and Privacy use the placeholders in `Legal` (`https://disha.example.com/terms` and `https://disha.example.com/privacy`). Replace both before review. The paywall states the price per period from the product, the trial when the offer has a free phase, that a subscription renews until cancelled, and links to Play subscription management.
+8. Restore Purchases is on the paywall and in Settings. Terms and Privacy in `Legal` are `https://disha-vaastu.vercel.app/terms` and `https://disha-vaastu.vercel.app/privacy`. The paywall states the price per period from the product, the trial when the offer has a free phase, that a subscription renews until cancelled, and links to Play subscription management.
 
 The debug paywall has a Billing lab: pending, cancel, already owned, leave unacknowledged (then restart the app to recover it), complete pending, disconnect, empty catalog, and revoke.
 
@@ -101,7 +101,7 @@ The debug paywall has a Billing lab: pending, cancel, already owned, leave unack
 3. Create the four products above, with those ids and prices. Put the yearly subscription in a subscription group and add a 7-day free-trial offer for new subscribers. Add English and Hindi names.
 4. Add license testers. Upload the AAB to the internal testing track and install from that opt-in link. A debug APK sideloaded onto a device will not complete a real purchase unless it is signed with the Play app signing key and the package is the one Play knows.
 5. Data safety form: location is coarse, collected for app functionality (true north), processed on device, not shared, not used for tracking. The compass sensors are not a data-safety collection. Purchases are handled by Google Play.
-6. Replace the Terms and Privacy URLs in `com.ikshanasolutions.disha.model.Legal` and host those pages. Put the same links in the store listing.
+6. Put `https://disha-vaastu.vercel.app/terms` and `https://disha-vaastu.vercel.app/privacy` in the Play store listing. The app already opens those pages from `Legal`.
 7. In the review notes, point at the lock badges and the paywall. Say the reading is a traditional guideline, not a building instruction.
 
 ## Billing test matrix
