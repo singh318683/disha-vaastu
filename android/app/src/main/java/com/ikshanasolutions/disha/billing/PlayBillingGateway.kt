@@ -47,7 +47,7 @@ import java.lang.ref.WeakReference
  * 1. acknowledgePurchase runs only after the signature verifies and the grant is saved.
  * 2. ITEM_ALREADY_OWNED queries purchases and restores. It is not shown as an error.
  * 3. queryPurchasesAsync runs on start and every resume, including pending-to-purchased
- *    and anything still unacknowledged.
+ *    and anything still unacknowledged. Purchase history is not queried; Billing 8 removed it.
  * 4. Purchase.products is never indexed without a guard.
  * 5. Pending shows a notice. User cancel is silent. Unavailable / disconnected reconnects.
  *    An empty catalog becomes a retry state, not a spinner.
@@ -70,6 +70,7 @@ class PlayBillingGateway(
         .enablePendingPurchases(
             PendingPurchasesParams.newBuilder().enableOneTimeProducts().build(),
         )
+        .enableAutoServiceReconnection()
         .build()
 
     private var activityRef = WeakReference<Activity>(null)
@@ -214,9 +215,10 @@ class PlayBillingGateway(
                 .build()
         }
         val params = QueryProductDetailsParams.newBuilder().setProductList(products).build()
-        client.queryProductDetailsAsync(params) { result, list ->
-            val details = list.orEmpty()
-            if (catalogFailed(result.responseCode, details.size)) {
+        client.queryProductDetailsAsync(params) { result, detailsResult ->
+            val details = detailsResult.productDetailsList.orEmpty()
+            val unfetched = detailsResult.unfetchedProductList.orEmpty()
+            if (catalogFailed(result.responseCode, details.size) || (details.isEmpty() && unfetched.isNotEmpty())) {
                 _state.update { current ->
                     current.copy(loading = false, failed = current.products.isEmpty(), notice = BillingNotice.RETRY)
                 }
@@ -342,6 +344,7 @@ class PlayBillingGateway(
                 CatalogOffer(
                     offerId = offer.offerId,
                     offerToken = offer.offerToken,
+                    basePlanId = offer.basePlanId,
                     phases = offer.pricingPhases.pricingPhaseList.map { phase ->
                         PricePhase(phase.formattedPrice, phase.priceAmountMicros, phase.billingPeriod)
                     },

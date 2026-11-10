@@ -236,9 +236,15 @@ data class CatalogOffer(
     val offerId: String?,
     val offerToken: String,
     val phases: List<PricePhase>,
+    /** Informational. Selection does not key off this. Play's yearly plan is `annual` with offer `trial7`; a deactivated `yearly` base plan may still exist. */
+    val basePlanId: String? = null,
 )
 
-/** Prefer the offer that includes a free phase, otherwise the base plan. */
+/**
+ * Prefer the offer that includes a free phase (price 0), regardless of base plan id.
+ * A deactivated `yearly` plan must not beat `annual` / `trial7` just because of its name.
+ * Otherwise use the base plan (no offer id), then the first offer.
+ */
 fun selectOffer(offers: List<CatalogOffer>): CatalogOffer? {
     if (offers.isEmpty()) return null
     return offers.firstOrNull { offer -> offer.phases.any { it.priceAmountMicros == 0L } }

@@ -25,9 +25,10 @@ cd android
 The debug APK is `android/app/build/outputs/apk/debug/app-debug.apk`.
 
 - `applicationId`: `com.ikshanasolutions.disha`
-- `minSdk` 26, `compileSdk` / `targetSdk` 35
+- `minSdk` 26, `compileSdk` / `targetSdk` 36
 - Kotlin, Jetpack Compose, Material 3
-- Play Billing Library `billing-ktx` 7.1.1
+- Play Billing Library `billing-ktx` 8.3.0
+- `versionCode` 4, `versionName` 1.0.0
 - Play services location, used only when Play services are on the device
 
 ### Install the APK
@@ -77,7 +78,7 @@ Product ids to create in Play Console:
 | Id | Type | Price to enter in Console | Notes |
 | --- | --- | --- | --- |
 | `premium_monthly` | Subscription | ₹149 / $3.99 | No trial |
-| `premium_yearly` | Subscription | ₹999 / $24.99 | 7-day free trial offer |
+| `premium_yearly` | Subscription | ₹999 / $24.99 | Base plan `annual` with offer `trial7`. A deactivated `yearly` base plan may still exist. The app chooses the offer that contains a free phase, not a base-plan id. |
 | `premium_lifetime` | One-time, non-consumable | ₹2,499 / $49.99 | |
 | `home_report` | One-time, non-consumable | ₹299 / $6.99 | Unlocks one home |
 
@@ -87,7 +88,7 @@ Handled on purpose:
 2. `ITEM_ALREADY_OWNED` queries purchases and restores. It is not shown as a failure.
 3. `queryPurchasesAsync` runs on start and every resume, for subscriptions and one-time products, including a pending purchase that later becomes purchased.
 4. `Purchase.products` is never read with an unguarded index. An empty list is ignored.
-5. Pending shows “Payment pending”. User cancel is silent. `BILLING_UNAVAILABLE` and `SERVICE_DISCONNECTED` reconnect with backoff. An empty or failed product query shows a retry card, not a blank paywall or a spinner with no way out.
+5. Pending shows “Payment pending”. User cancel is silent. `BILLING_UNAVAILABLE` and `SERVICE_DISCONNECTED` reconnect with backoff, and Billing 8 also keeps `enableAutoServiceReconnection()`. Product details come from `QueryProductDetailsResult`. An empty list, a failed query, or only unfetched products shows a retry card, not a blank paywall or a spinner with no way out. `queryPurchaseHistoryAsync` is not used; Billing 8 removed it.
 6. Home Report is the non-consumable described above.
 7. The purchase signature is checked on the device with SHA1withRSA against the Play license public key. Put that key in `android/local.properties` as `BILLING_LICENSE_KEY` or in the environment as `DISHA_BILLING_LICENSE_KEY`. It is copied into `BuildConfig` and is not committed. This check can be bypassed by a modified APK. Verifying the token with the Play Developer API on a server is the recommended follow-up.
 8. Restore Purchases is on the paywall and in Settings. Terms and Privacy in `Legal` are `https://disha-vaastu.vercel.app/terms` and `https://disha-vaastu.vercel.app/privacy`. The paywall states the price per period from the product, the trial when the offer has a free phase, that a subscription renews until cancelled, and links to Play subscription management.

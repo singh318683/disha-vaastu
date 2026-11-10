@@ -449,6 +449,25 @@ class BillingLogicTest {
         assertEquals("₹999", paidPhase(chosen!!)?.formattedPrice)
         assertEquals(7, trialDays(chosen))
         assertEquals(7, isoPeriodDays("P7D"))
+        val deactivatedYearly = CatalogOffer(
+            offerId = null,
+            offerToken = "yearly-token",
+            phases = listOf(PricePhase("₹999", 999_000_000L, "P1Y")),
+            basePlanId = "yearly",
+        )
+        val annualTrial = CatalogOffer(
+            offerId = "trial7",
+            offerToken = "annual-trial",
+            phases = listOf(
+                PricePhase("₹0", 0L, "P7D"),
+                PricePhase("₹999", 999_000_000L, "P1Y"),
+            ),
+            basePlanId = "annual",
+        )
+        val picked = selectOffer(listOf(deactivatedYearly, annualTrial))
+        assertEquals("annual-trial", picked?.offerToken)
+        assertEquals("trial7", picked?.offerId)
+        assertEquals("annual", picked?.basePlanId)
         assertEquals(365, isoPeriodDays("P1Y"))
         assertEquals(30, isoPeriodDays("P1M"))
     }
