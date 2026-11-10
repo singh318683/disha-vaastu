@@ -314,8 +314,8 @@ final class AccessTests: XCTestCase {
     XCTAssertFalse(StoreConfig.isHomeReport(StoreConfig.yearly))
     XCTAssertEqual(mergeReportGrant(["home-a"], homeID: "home-b"), Set(["home-a", "home-b"]))
     XCTAssertEqual(mergeReportGrant(["home-a"], homeID: ""), Set(["home-a"]))
-    XCTAssertEqual(StoreConfig.termsURL.host, "disha.example.com")
-    XCTAssertEqual(StoreConfig.privacyURL.host, "disha.example.com")
+    XCTAssertEqual(StoreConfig.termsURL.absoluteString, "https://disha-vaastu.vercel.app/terms")
+    XCTAssertEqual(StoreConfig.privacyURL.absoluteString, "https://disha-vaastu.vercel.app/privacy")
   }
 }
 

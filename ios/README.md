@@ -81,7 +81,7 @@ Prices in the app always come from StoreKit. The amounts below are what to enter
    - Price $6.99 / ₹299
    - This purchase unlocks every check and the PDF for one saved home on that iPhone. It does not renew, and a finished consumable is not returned by Restore Purchases. The subscription and the lifetime unlock are.
    - Review screenshot
-8. Add the paywall screenshot to each product’s review information. Terms and privacy in the app are placeholders (`https://disha.example.com/terms` and `https://disha.example.com/privacy` in `StoreConfig`). Replace those URLs before review, and put the same links in App Store Connect.
+8. Add the paywall screenshot to each product’s review information. Terms and privacy in the app are `https://disha-vaastu.vercel.app/terms` and `https://disha-vaastu.vercel.app/privacy` in `StoreConfig`. Put the same links in App Store Connect.
 9. Archive, upload, and test with a Sandbox Apple ID. In Xcode, the StoreKit configuration file is enough for the simulator; Sandbox is what exercises the real store.
 
 ## TestFlight and the App Store

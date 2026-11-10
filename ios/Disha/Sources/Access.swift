@@ -7,8 +7,8 @@ enum StoreConfig {
   static let yearly = "com.ikshanasolutions.disha.premium.yearly"
   static let lifetime = "com.ikshanasolutions.disha.premium.lifetime"
   static let homeReport = "com.ikshanasolutions.disha.report.single"
-  static let termsURL = URL(string: "https://disha.example.com/terms")!
-  static let privacyURL = URL(string: "https://disha.example.com/privacy")!
+  static let termsURL = URL(string: "https://disha-vaastu.vercel.app/terms")!
+  static let privacyURL = URL(string: "https://disha-vaastu.vercel.app/privacy")!
 
   static let premiumIDs: Set<String> = [monthly, yearly, lifetime]
 
