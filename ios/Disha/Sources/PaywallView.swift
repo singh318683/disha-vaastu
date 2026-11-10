@@ -1,6 +1,10 @@
 import StoreKit
 import SwiftUI
 
+// TODO(iap-hold): Guideline 3.1.2 — show duration and “7 days free, then {displayPrice}/year”
+// from the StoreKit product. Repeat Terms, Privacy, and Restore in Settings/About.
+// If products fail to load or come back empty, replace the plan buttons with a retry
+// message. Ask to Buy (.pending) and cancel need a visible state. No external checkout.
 struct PaywallView: View {
   @EnvironmentObject private var model: AppModel
   @EnvironmentObject private var entitlements: EntitlementStore

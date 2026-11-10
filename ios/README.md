@@ -2,6 +2,19 @@
 
 Native SwiftUI app for the Vaastu quiz. It lives entirely under `ios/` and does not change the web app.
 
+**On hold.** Android is the next store build. Do not start new iOS IAP work from this note. The scanner and the first StoreKit pass are in the tree; the review and interrupted-purchase follow-ups below are not built.
+
+### Unfinished IAP (do not treat as done)
+
+- Guideline 3.1.2: each subscription row still needs an explicit duration and the sentence “7 days free, then {displayPrice}/year” (or /month), built only from the StoreKit product. Terms of Use and Privacy Policy are on the paywall only. There is no Settings or About screen, so those links and Restore Purchases are not repeated there.
+- If `Product.products` returns an empty list or throws, the paywall shows “Price unavailable” or the error string. It does not yet have a single retry state that replaces the plan buttons. A spinner is not left up (`isLoading` is cleared), but this path was never run.
+- `.pending` (Ask to Buy) and `.userCancelled` return without a message. Verified transactions are finished. An unverified `Transaction.updates` event is skipped and not finished. Revocation and expiry are checked when entitlements refresh. A thrown error before `finish()` can still drop the Home Report unlock.
+- Home Report calls `finish()` after `rememberReport`, which writes UserDefaults, but launch does not walk `Transaction.unfinished` to re-deliver a purchase interrupted by a kill.
+- Premium access is re-read from verified `Transaction.currentEntitlements`. The Home Report grant is a local set because a finished consumable leaves that list. That cache is not rebuilt from Apple on a fresh install.
+- `Transaction.updates` starts in `RootView`’s `.task`, which is as soon as the first screen appears, not before any UI.
+- No StoreKitTest / `SKTestSession` cases. No sandbox matrix. On-device StoreKit 2 JWS verification is the intended check; a server App Store Server API is not required for this offline app and was not added.
+- App Store Connect checklist in this file does not yet say to submit every product with the first version, or include review notes that point a reviewer at the lock icons and the paywall. Sandbox tester steps are not written out.
+
 The web app remains the source of truth for checks, rules, remedies, and the English and Hindi strings. Refresh the copies in the bundle with:
 
 ```bash

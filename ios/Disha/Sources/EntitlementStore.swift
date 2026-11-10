@@ -1,6 +1,11 @@
 import Foundation
 import StoreKit
 
+// TODO(iap-hold): Finish the Home Report only after the unlock is persisted, and
+// replay Transaction.unfinished at launch. Unverified updates are skipped and
+// not finished. The updates listener starts from RootView.task, not before UI.
+// isPremium is re-derived from verified currentEntitlements; the report grant
+// is a local cache and will not restore onto a fresh install.
 /// StoreKit 2 entitlements.
 ///
 /// Monthly and yearly are auto-renewing subscriptions in the group "Disha Premium".
