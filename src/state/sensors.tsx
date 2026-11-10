@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { magneticToTrue, normalizeDegrees } from "@/lib/angles.ts";
-import { declinationAt, type DeclinationResult } from "@/lib/declination.ts";
+import { approximateDeclination, declinationAt, type DeclinationResult } from "@/lib/declination.ts";
 import {
   callDevicePermission,
   circularMean,
@@ -54,7 +54,12 @@ interface SensorsValue {
   location: LocationFix | null;
   locationStatus: "idle" | "locating" | "ready" | "denied" | "error";
   locationError: string | null;
+  /** Ask only when the person has not already allowed or refused. */
   requestLocation: () => void;
+  /** Ask again after a refusal. Must run inside the tap. */
+  retryLocation: () => void;
+  /** gps is a real fix. approximate is a timezone fallback. magnetic has no correction. */
+  northQuality: "gps" | "approximate" | "magnetic";
   setManualLocation: (lat: number, lon: number, label: string) => void;
   declinationOverride: number | null;
   setDeclinationOverride: (value: number | null) => void;
@@ -129,6 +134,36 @@ function iosBrowserNow(): boolean {
   return isIosBrowser(navigator.userAgent, navigator.platform, navigator.maxTouchPoints);
 }
 
+const TRUE_NORTH_KEY = "disha.trueNorth";
+
+type SavedTrueNorth = { status: "granted"; lat: number; lon: number } | { status: "denied" };
+
+function readTrueNorth(): SavedTrueNorth | null {
+  try {
+    if (typeof localStorage === "undefined") return null;
+    const raw = localStorage.getItem(TRUE_NORTH_KEY);
+    if (!raw) return null;
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object") return null;
+    const row = parsed as { status?: string; lat?: unknown; lon?: unknown };
+    if (row.status === "granted" && typeof row.lat === "number" && typeof row.lon === "number") {
+      return { status: "granted", lat: row.lat, lon: row.lon };
+    }
+    if (row.status === "denied") return { status: "denied" };
+  } catch {
+    return null;
+  }
+  return null;
+}
+
+function writeTrueNorth(value: SavedTrueNorth) {
+  try {
+    localStorage.setItem(TRUE_NORTH_KEY, JSON.stringify(value));
+  } catch {
+    /* Private mode can refuse storage. This visit still applies the choice. */
+  }
+}
+
 export function SensorsProvider({ children }: { children: ReactNode }) {
   const [magneticHeading, setMagneticHeading] = useState<number | null>(null);
   const [beta, setBeta] = useState<number | null>(null);
@@ -148,8 +183,17 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
   const [promptStalled, setPromptStalled] = useState(false);
   const [useManual, setUseManual] = useState(false);
   const [manualTrueHeading, setManualTrueHeading] = useState(0);
-  const [location, setLocation] = useState<LocationFix | null>(null);
-  const [locationStatus, setLocationStatus] = useState<SensorsValue["locationStatus"]>("idle");
+  const [location, setLocation] = useState<LocationFix | null>(() => {
+    const saved = readTrueNorth();
+    if (saved?.status !== "granted") return null;
+    return { lat: saved.lat, lon: saved.lon, label: "This device" };
+  });
+  const [locationStatus, setLocationStatus] = useState<SensorsValue["locationStatus"]>(() => {
+    const saved = readTrueNorth();
+    if (saved?.status === "granted") return "ready";
+    if (saved?.status === "denied") return "denied";
+    return "idle";
+  });
   const [locationError, setLocationError] = useState<string | null>(null);
   const [declinationOverride, setDeclinationOverride] = useState<number | null>(null);
   const [model, setModel] = useState<DeclinationResult | null>(null);
@@ -168,6 +212,7 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
   const ingestRef = useRef<(sample: HeadingSample) => void>(() => {});
   const recentMagnetic = useRef<{ t: number; magnetic: number }[]>([]);
   const declinationRef = useRef<number | null>(null);
+  const choiceRef = useRef<"unknown" | "asking" | "granted" | "denied">(readTrueNorth()?.status ?? "unknown");
   const manualRef = useRef(manualTrueHeading);
   const useManualRef = useRef(useManual);
   manualRef.current = manualTrueHeading;
@@ -375,34 +420,53 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
     };
   }, [attachListeners, detachListeners, scheduleSilenceWatch, startSensor, stopSensor]);
 
-  const requestLocation = useCallback(() => {
-    if (!navigator.geolocation) {
+  const askForLocation = useCallback((force: boolean) => {
+    if (choiceRef.current === "granted") return;
+    if (!force && choiceRef.current !== "unknown") return;
+    if (force && choiceRef.current === "asking") return;
+    if (typeof navigator === "undefined" || !navigator.geolocation) {
+      choiceRef.current = "denied";
+      writeTrueNorth({ status: "denied" });
+      setLocation(null);
       setLocationStatus("error");
       setLocationError("no-api");
       return;
     }
+    choiceRef.current = "asking";
     setLocationStatus("locating");
     setLocationError(null);
+    // getCurrentPosition has to run inside the tap, before any await.
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        setLocation({
+        const fix = {
           lat: position.coords.latitude,
           lon: position.coords.longitude,
           accuracy: position.coords.accuracy,
           label: "This device",
-        });
+        };
+        choiceRef.current = "granted";
+        writeTrueNorth({ status: "granted", lat: fix.lat, lon: fix.lon });
+        setLocation(fix);
         setLocationStatus("ready");
+        setLocationError(null);
       },
       (error) => {
-        const denied = error.code === error.PERMISSION_DENIED;
+        const denied = error.code === 1;
+        choiceRef.current = "denied";
+        writeTrueNorth({ status: "denied" });
+        setLocation(null);
         setLocationStatus(denied ? "denied" : "error");
         setLocationError(denied ? "denied" : "no-fix");
       },
       { enableHighAccuracy: true, timeout: 12000, maximumAge: 5 * 60 * 1000 },
     );
   }, []);
+  const requestLocation = useCallback(() => askForLocation(false), [askForLocation]);
+  const retryLocation = useCallback(() => askForLocation(true), [askForLocation]);
 
   const setManualLocation = useCallback((lat: number, lon: number, label: string) => {
+    choiceRef.current = "granted";
+    writeTrueNorth({ status: "granted", lat, lon });
     setLocation({ lat, lon, label });
     setLocationStatus("ready");
     setLocationError(null);
@@ -423,7 +487,17 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
     }
   }, [location]);
 
-  const declination = declinationOverride ?? model?.declination ?? null;
+  const fallback = useMemo(() => {
+    try {
+      return approximateDeclination();
+    } catch {
+      return null;
+    }
+  }, []);
+  const hasGps = declinationOverride != null || (model != null && location != null);
+  const useFallback = !hasGps && (locationStatus === "denied" || locationStatus === "error");
+  const declination = hasGps ? (declinationOverride ?? model?.declination ?? null) : useFallback ? (fallback?.declination ?? null) : null;
+  const northQuality: SensorsValue["northQuality"] = hasGps ? "gps" : useFallback && declination != null ? "approximate" : "magnetic";
   declinationRef.current = declination;
 
   const effective = useMemo(() => {
@@ -482,6 +556,8 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
       locationStatus,
       locationError,
       requestLocation,
+      retryLocation,
+      northQuality,
       setManualLocation,
       declinationOverride,
       setDeclinationOverride,
@@ -500,6 +576,7 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
       location,
       locationError,
       locationStatus,
+      northQuality,
       magneticHeading,
       model,
       modelError,
@@ -511,6 +588,7 @@ export function SensorsProvider({ children }: { children: ReactNode }) {
       permission,
       promptStalled,
       requestLocation,
+      retryLocation,
       requestPermission,
       setManualLocation,
       source,

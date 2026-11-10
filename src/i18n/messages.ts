@@ -41,6 +41,21 @@ export const UI = {
   holding: L("Holding steady. You can lock this.", "दिशा स्थिर है। अब रोक सकते हैं।"),
   steadyEnough: L("Steady enough to lock.", "रोकने के लिए काफ़ी स्थिर है।"),
   magneticHint: L("This is still magnetic north. Use my location for true north.", "यह अभी चुंबकीय उत्तर है। सही उत्तर के लिए मेरा स्थान इस्तेमाल करें।"),
+  locationWhy: L(
+    "Location corrects magnetic north to true north for accurate Vaastu.",
+    "स्थान चुंबकीय उत्तर को सही उत्तर बनाता है, ताकि वास्तु सटीक रहे।",
+  ),
+  useLocationNorth: L("Use my location for true North", "सही उत्तर के लिए मेरा स्थान लें"),
+  trueNorthReady: L("True North", "सही उत्तर"),
+  approxNorth: L("Approximate true north for this region.", "इस क्षेत्र के लिए अनुमानित सही उत्तर।"),
+  locationHelpIos: L(
+    "Settings → Privacy & Security → Location Services → Safari Websites → While Using.",
+    "सेटिंग्स → गोपनीयता और सुरक्षा → स्थान सेवाएँ → Safari वेबसाइटें → इस्तेमाल के दौरान।",
+  ),
+  locationHelpAndroid: L(
+    "Tap the lock icon in the address bar, then Permissions → Location → Allow.",
+    "पते की पट्टी में ताले पर टैप करें, फिर अनुमतियाँ → स्थान → अनुमति दें।",
+  ),
   tryCompass: L("Try the compass again", "कम्पास फिर आज़माएँ"),
   enableCompass: L("Enable compass", "कम्पास चालू करें"),
   waiting: L("Waiting…", "इंतज़ार…"),

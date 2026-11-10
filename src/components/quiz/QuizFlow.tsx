@@ -1,4 +1,4 @@
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, MapPin } from "lucide-react";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { LanguageToggle } from "@/components/LanguageToggle.tsx";
 import { Button } from "@/components/ui/button.tsx";
@@ -71,7 +71,9 @@ export function QuizFlow({ onAdvanced }: { onAdvanced: () => void }) {
   }, [results]);
 
   function start() {
+    // Both permission calls have to happen in this tap, before any await.
     void sensors.requestPermission();
+    sensors.requestLocation();
     setStep({ name: "home" });
   }
 
@@ -141,6 +143,8 @@ export function QuizFlow({ onAdvanced }: { onAdvanced: () => void }) {
 
 function WelcomeScreen({ onStart }: { onStart: () => void }) {
   const { t, u } = useI18n();
+  const sensors = useSensors();
+  const decided = sensors.northQuality !== "magnetic" || sensors.locationStatus === "locating";
   return (
     <section data-screen="welcome" className="relative flex h-full flex-col justify-between overflow-hidden px-6 py-8">
       <Mandala className="pointer-events-none absolute -top-24 -right-16 h-72 w-72 opacity-50" />
@@ -149,14 +153,16 @@ function WelcomeScreen({ onStart }: { onStart: () => void }) {
         <LanguageToggle />
       </div>
       <div className="relative">
-        <h1 className="max-w-[12ch] text-[clamp(2.35rem,9vw,3.25rem)] leading-[1.15]">{u("welcomeTitle")}</h1>
-        <p className="mt-5 max-w-[28ch] text-lg leading-relaxed text-muted-foreground">{u("welcomeLine")}</p>
+        <h1 className="max-w-[12ch] text-[clamp(2.15rem,8vw,3.1rem)] leading-[1.15]">{u("welcomeTitle")}</h1>
+        <p className="mt-4 max-w-[28ch] text-lg leading-relaxed text-muted-foreground">{u("welcomeLine")}</p>
       </div>
       <div>
-        <Button className="h-14 w-full text-lg" onClick={onStart}>
+        {!decided && <p className="mb-3 text-center text-sm leading-snug text-muted-foreground">{u("locationWhy")}</p>}
+        <TrueNorthBar />
+        <Button className="mt-3 h-14 w-full text-lg" onClick={onStart}>
           {u("start")}
         </Button>
-        <p className="mt-4 text-center text-sm text-muted-foreground">{t(CHECK_CATALOG.framing)}</p>
+        <p className="mt-3 text-center text-sm text-muted-foreground">{t(CHECK_CATALOG.framing)}</p>
       </div>
     </section>
   );
@@ -230,11 +236,7 @@ function LockScreen({ id, onBack, onLock }: { id: string; onBack: () => void; on
         {promptKind === "steady" ? <SteadyPrompt /> : <span>{u(promptKind)}</span>}
         {sensors.noisy && <span className="mt-0.5 block text-xs">{u("figure8")}</span>}
       </div>
-      {sensors.effective.basis === "live-magnetic" && (
-        <button type="button" className="mt-1 line-clamp-2 shrink-0 text-center text-xs text-primary" onClick={sensors.requestLocation}>
-          {u("magneticHint")}
-        </button>
-      )}
+      <TrueNorthBar />
       {askPermission ? (
         <Button className="mt-2 h-11 w-full shrink-0 text-base" disabled={waiting} onClick={enableCompass}>
           {sensors.permission === "denied" ? u("tryCompass") : u("enableCompass")}
@@ -361,7 +363,7 @@ function VerdictBody({ verdict, trueNorth }: { verdict: QuizVerdict; trueNorth: 
           ))}
         </ul>
       )}
-      {!trueNorth && <p className="mt-1 line-clamp-2 shrink-0 text-xs text-primary">{u("stillMagnetic")}</p>}
+      <NorthNote trueNorth={trueNorth} />
       <MoreSheet>
         <div className="space-y-3 text-sm leading-relaxed">
           <p>{verdict.bestNote}</p>
@@ -490,6 +492,62 @@ function SummaryScreen({
       </div>
     </section>
   );
+}
+
+function TrueNorthBar() {
+  const sensors = useSensors();
+  const { u } = useI18n();
+  if (sensors.northQuality === "gps") {
+    return (
+      <p className="mt-1 flex shrink-0 items-center justify-center gap-1.5 text-sm font-medium text-[#9be7c0]" role="status">
+        <span aria-hidden="true">✓</span>
+        {u("trueNorthReady")}
+      </p>
+    );
+  }
+  if (sensors.locationStatus === "locating") {
+    return <p className="mt-1 shrink-0 text-center text-sm text-muted-foreground">{u("finding")}</p>;
+  }
+  if (sensors.northQuality === "approximate" || sensors.locationStatus === "denied" || sensors.locationStatus === "error") {
+    return (
+      <div className="mt-1 shrink-0 rounded-2xl border border-[#e4c36a]/40 bg-card px-3 py-2">
+        <p className="text-center text-xs font-medium text-primary">{u("approxNorth")}</p>
+        <p className="mt-1 text-center text-[0.7rem] leading-snug text-muted-foreground">
+          {sensors.ios ? u("locationHelpIos") : u("locationHelpAndroid")}
+        </p>
+        <button
+          type="button"
+          className="mt-2 flex h-10 w-full items-center justify-center gap-2 rounded-full bg-primary text-sm font-medium text-primary-foreground"
+          onClick={sensors.retryLocation}
+        >
+          <MapPin className="h-4 w-4" aria-hidden="true" />
+          {u("tryAgain")}
+        </button>
+      </div>
+    );
+  }
+  return (
+    <button
+      type="button"
+      className="mt-1 flex h-11 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-sm font-medium text-primary-foreground shadow-[0_12px_24px_-16px_rgba(228,195,106,0.85)]"
+      onClick={sensors.requestLocation}
+    >
+      <MapPin className="h-4 w-4" aria-hidden="true" />
+      {u("useLocationNorth")}
+    </button>
+  );
+}
+
+function NorthNote({ trueNorth }: { trueNorth: boolean }) {
+  const sensors = useSensors();
+  const { u } = useI18n();
+  if (sensors.northQuality === "approximate") {
+    return <p className="mt-1 line-clamp-2 shrink-0 text-center text-xs text-primary">{u("approxNorth")}</p>;
+  }
+  if (!trueNorth && sensors.northQuality === "magnetic") {
+    return <p className="mt-1 line-clamp-2 shrink-0 text-center text-xs text-primary">{u("stillMagnetic")}</p>;
+  }
+  return null;
 }
 
 function MoreSheet({ children }: { children: ReactNode }) {

@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { magneticToTrue, trueToMagnetic } from "./angles.ts";
-import { declinationAt } from "./declination.ts";
+import { approximateDeclination, declinationAt } from "./declination.ts";
 
 describe("magnetic and true headings", () => {
   it("adds an east declination and subtracts a west one", () => {
@@ -45,5 +45,13 @@ describe("World Magnetic Model", () => {
     expect(result.declination).toBeGreaterThan(-20);
     expect(result.declination).toBeLessThan(-5);
     error.mockRestore();
+  });
+
+  it("uses a near-zero India declination when the timezone is Kolkata", () => {
+    const result = approximateDeclination("Asia/Kolkata", -330);
+    expect(result.approximate).toBe(true);
+    expect(result.modelName).toBe("India approximate");
+    expect(result.declination).toBeGreaterThan(-1);
+    expect(result.declination).toBeLessThan(1);
   });
 });

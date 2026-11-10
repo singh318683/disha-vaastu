@@ -41,4 +41,28 @@ export function declinationAt(lat: number, lon: number, date = new Date()): Decl
   };
 }
 
+const INDIA_ZONES = new Set(["Asia/Kolkata", "Asia/Calcutta"]);
+
+/**
+ * A coarse declination when GPS is refused. India uses a central point
+ * (about 0° to 1°). Anywhere else uses the timezone's rough longitude.
+ */
+export function approximateDeclination(timeZone?: string, offsetMinutes?: number): DeclinationResult {
+  const zone = timeZone ?? Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const offset = offsetMinutes ?? new Date().getTimezoneOffset();
+  const place = INDIA_ZONES.has(zone) ? { lat: 22.5, lon: 79 } : roughPlace(offset);
+  const result = declinationAt(place.lat, place.lon);
+  return {
+    ...result,
+    approximate: true,
+    modelName: INDIA_ZONES.has(zone) ? "India approximate" : "Timezone approximate",
+  };
+}
+
+function roughPlace(offsetMinutes: number): { lat: number; lon: number } {
+  const hours = -offsetMinutes / 60;
+  const lon = Math.max(-180, Math.min(180, hours * 15));
+  return { lat: 20, lon };
+}
+
 export { magneticToTrue, trueToMagnetic };
