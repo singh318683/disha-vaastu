@@ -46,7 +46,18 @@ private struct HomePager: View {
         Button {
           model.route = .summary
         } label: {
-          ScoreRing(score: model.score?.score, diameter: 54, locale: locale)
+          ZStack(alignment: .bottom) {
+            ScoreRing(score: model.score?.score, diameter: 54, locale: locale)
+            if model.presented?.kind == .preview {
+              Text(content.t("scorePreview", locale))
+                .font(bodyFont(size: 9, locale: locale, bold: true))
+                .foregroundStyle(Royal.ink)
+                .padding(.horizontal, 5)
+                .padding(.vertical, 1)
+                .background(Capsule().fill(Royal.gold))
+                .offset(y: 8)
+            }
+          }
         }
         .buttonStyle(.plain)
         .accessibilityIdentifier("home-score")
@@ -178,9 +189,10 @@ private struct CheckTile: View {
 
   var body: some View {
     let locale = model.locale
-    let verdict = saved.map {
+    let unlocked = model.access.isUnlocked(check, freeChecks: model.freeChecks)
+    let verdict = unlocked ? saved.map {
       verdictForHeading(check: check, heading: $0.heading, locale: locale, strings: content.strings)
-    }
+    } : nil
     Button {
       model.openCheck(check.id)
     } label: {
@@ -195,7 +207,12 @@ private struct CheckTile: View {
                 .fill(Royal.navy)
             )
           Spacer(minLength: 4)
-          if saved != nil {
+          if !unlocked {
+            Image(systemName: "lock.fill")
+              .font(.system(size: 11, weight: .bold))
+              .foregroundStyle(Royal.gold)
+              .accessibilityLabel(content.t("unlock", locale))
+          } else if saved != nil {
             Image(systemName: "checkmark")
               .font(.system(size: 10, weight: .bold))
               .foregroundStyle(Royal.ink)

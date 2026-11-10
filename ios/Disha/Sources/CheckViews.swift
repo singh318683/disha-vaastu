@@ -295,7 +295,8 @@ struct VerdictView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Royal.card))
 
-          let lines = content.remedyLines(check: check, verdict: verdict, locale: locale)
+          let allLines = content.remedyLines(check: check, verdict: verdict, locale: locale)
+          let lines = model.access.visibleRemedies(allLines)
           if lines.isEmpty {
             Text(content.t("nothingToMove", locale))
               .font(bodyFont(size: 17, locale: locale))
@@ -319,6 +320,12 @@ struct VerdictView: View {
                   .foregroundStyle(Royal.cream)
               }
               .tint(Royal.gold)
+            }
+            if lines.count < allLines.count {
+              Button(content.t("moreRemedies", locale)) { model.showPaywall = true }
+                .font(bodyFont(size: 15, locale: locale, bold: true))
+                .foregroundStyle(Royal.gold)
+                .accessibilityIdentifier("more-remedies")
             }
           }
           if saved?.trueNorth == false {

@@ -1,7 +1,7 @@
 import UIKit
 
 enum ReportExport {
-  static func cardImage(content: ContentBundle, results: [StoredResult], locale: AppLocale, score: HomeScoreResult) -> UIImage {
+  static func cardImage(content: ContentBundle, results: [StoredResult], locale: AppLocale, score: HomeScoreResult, preview: Bool) -> UIImage {
     let size = CGSize(width: 1080, height: 1440)
     let format = UIGraphicsImageRendererFormat()
     format.scale = 1
@@ -53,6 +53,8 @@ enum ReportExport {
         y += 10
         if y > size.height - 160 { break }
       }
+      let mark = preview ? "Disha  ·  \(content.t("scorePreview", locale))" : "Disha"
+      _ = draw(mark, font: uiFont(Face.displayBold, 22), color: gold, x: 90, y: size.height - 168, width: 900, align: .center)
       _ = draw(content.catalog.framing.text(locale), font: uiFont(locale == .hi ? Face.hindi : Face.display, 22), color: UIColor(white: 0.65, alpha: 1), x: 90, y: size.height - 120, width: 900, align: .center)
     }
   }

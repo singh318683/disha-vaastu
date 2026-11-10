@@ -87,6 +87,10 @@
     "en": "Bed",
     "hi": "बिस्तर"
   },
+  "bestValue": {
+    "en": "Best value",
+    "hi": "सबसे अच्छा मूल्य"
+  },
   "boostLine": {
     "en": "If this reached the traditional best",
     "hi": "अगर यह पारंपरिक सर्वोत्तम तक पहुँचे"
@@ -511,6 +515,14 @@
     "en": "Home harmony",
     "hi": "घर का संतुलन"
   },
+  "homeReportLine": {
+    "en": "Unlock every check and the PDF for this saved home.",
+    "hi": "इस सहेजे घर की हर जाँच और पीडीएफ़ खोलें।"
+  },
+  "homeReportPlan": {
+    "en": "Home Report",
+    "hi": "घर की रिपोर्ट"
+  },
   "homeScore": {
     "en": "Home score",
     "hi": "घर का अंक"
@@ -555,6 +567,10 @@
     "en": "Level",
     "hi": "समतल"
   },
+  "lifetimePlan": {
+    "en": "Lifetime",
+    "hi": "जीवनभर"
+  },
   "listening": {
     "en": "Listening for the compass",
     "hi": "कम्पास सुन रहे हैं"
@@ -566,6 +582,10 @@
   "live": {
     "en": "Live",
     "hi": "सीधा"
+  },
+  "loadingPrice": {
+    "en": "Loading price…",
+    "hi": "कीमत आ रही है…"
   },
   "location": {
     "en": "Location",
@@ -647,9 +667,17 @@
     "en": "Mirror",
     "hi": "दर्पण"
   },
+  "monthlyPlan": {
+    "en": "Monthly",
+    "hi": "मासिक"
+  },
   "more": {
     "en": "More",
     "hi": "और"
+  },
+  "moreRemedies": {
+    "en": "The other remedies are in Premium.",
+    "hi": "बाकी उपाय प्रीमियम में हैं।"
   },
   "nameAddress": {
     "en": "Name it after the address, or load the sample apartment.",
@@ -827,9 +855,29 @@
     "en": "Poor",
     "hi": "कमज़ोर"
   },
+  "premiumLine": {
+    "en": "All 34 checks, every remedy, the full score, and the PDF.",
+    "hi": "सारी 34 जाँचें, हर उपाय, पूरा अंक, और पीडीएफ़।"
+  },
+  "premiumTitle": {
+    "en": "Disha Premium",
+    "hi": "दिशा प्रीमियम"
+  },
   "preparing": {
     "en": "Preparing…",
     "hi": "तैयार हो रहा है…"
+  },
+  "previewNote": {
+    "en": "Preview from the free checks. The full score uses every room.",
+    "hi": "मुफ़्त जाँचों की झलक। पूरा अंक हर कमरे को गिनता है।"
+  },
+  "priceUnavailable": {
+    "en": "Price unavailable",
+    "hi": "कीमत उपलब्ध नहीं"
+  },
+  "privacy": {
+    "en": "Privacy",
+    "hi": "गोपनीयता"
   },
   "pulled": {
     "en": "The phone is easily pulled off magnetic north indoors.",
@@ -883,6 +931,10 @@
     "en": "A gentle remedy is in place",
     "hi": "हल्का उपाय कर दिया है"
   },
+  "renewDisclosure": {
+    "en": "Payment is charged to your Apple ID at confirmation. A subscription renews automatically unless you cancel at least 24 hours before the end of the current period. The account is charged for renewal within 24 hours before the period ends. Manage or cancel in Settings → Apple ID → Subscriptions. If a free trial is offered, it becomes a paid subscription unless you cancel before the trial ends.",
+    "hi": "भुगतान पुष्टि पर आपके Apple ID से लिया जाता है। सदस्यता अपने आप चलती रहती है, जब तक आप वर्तमान अवधि के अंत से कम से कम 24 घंटे पहले रद्द न करें। नवीनीकरण का शुल्क अवधि समाप्त होने से 24 घंटे के अंदर लिया जाता है। सेटिंग → Apple ID → Subscriptions में बदलें या रद्द करें। मुफ़्त परीक्षण हो तो अवधि से पहले रद्द न करने पर वह सशुल्क सदस्यता बन जाता है।"
+  },
   "replaceRooms": {
     "en": "Replace this home’s rooms?",
     "hi": "इस घर के कमरे बदलें?"
@@ -890,6 +942,14 @@
   "report": {
     "en": "Report",
     "hi": "रिपोर्ट"
+  },
+  "reportDisclosure": {
+    "en": "Home Report is a one-time purchase for this saved home on this iPhone. It does not renew. Restore Purchases restores the subscription and lifetime unlock.",
+    "hi": "घर की रिपोर्ट इस आईफ़ोन पर इस सहेजे घर के लिए एक बार की खरीद है। यह अपने आप नहीं चलती। खरीदारी बहाल करें सदस्यता और जीवनभर की खरीद लौटाता है।"
+  },
+  "restore": {
+    "en": "Restore Purchases",
+    "hi": "खरीदारी बहाल करें"
   },
   "retake": {
     "en": "Retake",
@@ -915,6 +975,18 @@
     "en": "Load the sample apartment",
     "hi": "नमूना अपार्टमेंट लाएँ"
   },
+  "savedHomeLocked": {
+    "en": "Premium keeps every saved home.",
+    "hi": "प्रीमियम हर सहेजा घर रखता है।"
+  },
+  "savedHomeOpen": {
+    "en": "This home is saved on this iPhone.",
+    "hi": "यह घर इस आईफ़ोन पर सहेजा है।"
+  },
+  "savedHomes": {
+    "en": "Saved homes",
+    "hi": "सहेजे घर"
+  },
   "savedOn": {
     "en": "Saved on this device",
     "hi": "इस यंत्र पर सहेजा"
@@ -930,6 +1002,10 @@
   "score": {
     "en": "score",
     "hi": "अंक"
+  },
+  "scorePreview": {
+    "en": "Preview",
+    "hi": "झलक"
   },
   "seeHarmony": {
     "en": "See home harmony",
@@ -1035,6 +1111,10 @@
     "en": "Tag a room to score the home.",
     "hi": "घर का अंक पाने के लिए एक कमरा चिह्नित करें।"
   },
+  "terms": {
+    "en": "Terms",
+    "hi": "शर्तें"
+  },
   "thisDevice": {
     "en": "This device",
     "hi": "यह यंत्र"
@@ -1106,6 +1186,10 @@
   "unfavorableSum": {
     "en": "Traditionally avoided. The remedies stay non-structural.",
     "hi": "पारंपरिक रूप से टाला गया। उपाय बिना तोड़े-फोड़े हैं।"
+  },
+  "unlock": {
+    "en": "Unlock",
+    "hi": "खोलें"
   },
   "unreliable": {
     "en": "Unreliable",
@@ -1182,5 +1266,9 @@
   "whichRoom": {
     "en": "Which room is this?",
     "hi": "यह कौन सा कमरा है?"
+  },
+  "yearlyPlan": {
+    "en": "Yearly",
+    "hi": "वार्षिक"
   }
 }

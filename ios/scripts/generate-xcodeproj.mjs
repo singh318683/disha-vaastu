@@ -103,6 +103,7 @@ w("\t\t};");
 w("/* End PBXContainerItemProxy section */");
 w("");
 w("/* Begin PBXFileReference section */");
+w(`\t\t${id("file:storekit")} /* Disha.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Disha.storekit; sourceTree = "<group>"; };`);
 w(`\t\t${appProduct} /* Disha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Disha.app; sourceTree = BUILT_PRODUCTS_DIR; };`);
 w(`\t\t${testProduct} /* DishaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DishaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };`);
 w(`\t\t${assets} /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };`);
@@ -143,6 +144,7 @@ w(`\t\t${mainGroup} = {`);
 w("\t\t\tisa = PBXGroup;");
 w("\t\t\tchildren = (");
 w(`\t\t\t\t${dishaGroup} /* Disha */,`);
+w(`\t\t\t\t${id("file:storekit")} /* Disha.storekit */,`);
 w(`\t\t\t\t${testsGroup} /* DishaTests */,`);
 w(`\t\t\t\t${productsGroup} /* Products */,`);
 w("\t\t\t);");
@@ -507,6 +509,9 @@ const scheme = `<?xml version="1.0" encoding="UTF-8"?>
             ReferencedContainer = "container:Disha.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <StoreKitConfigurationFileReference
+         identifier = "../../../Disha.storekit">
+      </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

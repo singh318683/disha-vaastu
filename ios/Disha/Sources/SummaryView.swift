@@ -17,7 +17,7 @@ struct SummaryView: View {
           Spacer()
           LanguageToggle()
         }
-        Text(content?.t("homeScore", locale) ?? "Home score")
+        Text(model.presented?.kind == .preview ? (content?.t("scorePreview", locale) ?? "Preview") : (content?.t("homeScore", locale) ?? "Home score"))
           .font(bodyFont(size: 13, locale: locale, bold: true))
           .foregroundStyle(Royal.gold)
           .textCase(locale == .en ? Text.Case.uppercase : nil)
@@ -34,12 +34,19 @@ struct SummaryView: View {
                 .font(bodyFont(size: 14, locale: locale))
                 .foregroundStyle(Royal.muted)
                 .fixedSize(horizontal: false, vertical: true)
+              if model.presented?.kind == .preview {
+                Text(content?.t("previewNote", locale) ?? "")
+                  .font(bodyFont(size: 13, locale: locale))
+                  .foregroundStyle(Royal.gold)
+                  .fixedSize(horizontal: false, vertical: true)
+              }
             }
           }
         }
         .accessibilityIdentifier("score-summary")
 
         if let content, let score {
+          if model.access.full {
           Text(content.t("byArea", locale))
             .font(displayFont(size: 24, locale: locale))
             .foregroundStyle(Royal.cream)
@@ -84,6 +91,12 @@ struct SummaryView: View {
               .font(bodyFont(size: 12, locale: locale))
               .foregroundStyle(Royal.muted)
           }
+          } else {
+            lockedRow(content.t("byArea", locale), locale: locale)
+            lockedRow(content.t("boosts", locale), locale: locale)
+          }
+
+          lockedRow(content.t("savedHomes", locale), detail: model.access.full ? content.t("savedHomeOpen", locale) : content.t("savedHomeLocked", locale), locale: locale, open: model.access.full)
 
           if let cardURL {
             ShareLink(item: cardURL, preview: SharePreview(content.t("shareCard", locale))) {
@@ -91,21 +104,33 @@ struct SummaryView: View {
             }
             .accessibilityIdentifier("share-card")
           }
-          if let pdfURL {
-            ShareLink(item: pdfURL, preview: SharePreview(content.t("downloadPdf", locale))) {
+          if model.access.full {
+            if let pdfURL {
+              ShareLink(item: pdfURL, preview: SharePreview(content.t("downloadPdf", locale))) {
+                shareLabel(content.t("downloadPdf", locale), locale: locale, filled: false)
+              }
+              .accessibilityIdentifier("download-pdf")
+            }
+          } else {
+            Button { model.showPaywall = true } label: {
               shareLabel(content.t("downloadPdf", locale), locale: locale, filled: false)
             }
+            .buttonStyle(.plain)
             .accessibilityIdentifier("download-pdf")
           }
 
-          let counts = ratingCounts(results: model.results, content: content)
+          let visibleResults = model.access.full
+            ? model.results
+            : scopedResults(model.results, checks: content.catalog.checks, freeChecks: model.freeChecks, access: model.access)
+          let counts = ratingCounts(results: visibleResults, content: content)
           HStack {
             count(counts.auspicious, content.t("auspicious", locale), Royal.good, locale)
             count(counts.neutral, content.t("neutral", locale), Royal.gold, locale)
             count(counts.inauspicious, content.t("toSoften", locale), Royal.avoid, locale)
           }
           ForEach(content.catalog.checks) { check in
-            if let saved = model.results.first(where: { $0.checkId == check.id }) {
+            if model.access.isUnlocked(check, freeChecks: model.freeChecks),
+               let saved = model.results.first(where: { $0.checkId == check.id }) {
               let verdict = verdictForHeading(check: check, heading: saved.heading, locale: locale, strings: content.strings)
               HStack(spacing: 10) {
                 Circle().fill(ratingColor(verdict.rating)).frame(width: 10, height: 10)
@@ -137,6 +162,7 @@ struct SummaryView: View {
     .onAppear(perform: refresh)
     .onChange(of: model.locale) { _, _ in refresh() }
     .onChange(of: model.results) { _, _ in refresh() }
+    .onChange(of: model.access) { _, _ in refresh() }
     .confirmationDialog(
       content?.t("clearConfirm", locale) ?? "Clear every saved check on this iPhone?",
       isPresented: $confirmClear,
@@ -152,12 +178,47 @@ struct SummaryView: View {
 
   private func refresh() {
     guard let content = model.content, let score = model.score else { return }
-    let image = ReportExport.cardImage(content: content, results: model.results, locale: model.locale, score: score)
+    let preview = model.presented?.kind == .preview
+    let shown = preview
+      ? scopedResults(model.results, checks: content.catalog.checks, freeChecks: model.freeChecks, access: model.access)
+      : model.results
+    let image = ReportExport.cardImage(content: content, results: shown, locale: model.locale, score: score, preview: preview)
     if let data = image.pngData() {
       cardURL = writeReportFile(data, name: "disha-home-harmony.png")
     }
-    let pdf = ReportExport.pdf(content: content, results: model.results, score: score)
-    pdfURL = writeReportFile(pdf, name: "disha-vaastu-report.pdf")
+    if model.access.full {
+      let pdf = ReportExport.pdf(content: content, results: model.results, score: score)
+      pdfURL = writeReportFile(pdf, name: "disha-vaastu-report.pdf")
+    } else {
+      pdfURL = nil
+    }
+  }
+
+  private func lockedRow(_ title: String, detail: String? = nil, locale: AppLocale, open: Bool = false) -> some View {
+    Button {
+      if !open { model.showPaywall = true }
+    } label: {
+      HStack {
+        VStack(alignment: .leading, spacing: 2) {
+          Text(title)
+            .font(displayFont(size: 22, locale: locale))
+            .foregroundStyle(Royal.cream)
+          if let detail {
+            Text(detail)
+              .font(bodyFont(size: 13, locale: locale))
+              .foregroundStyle(Royal.muted)
+          }
+        }
+        Spacer()
+        if !open {
+          Image(systemName: "lock.fill")
+            .foregroundStyle(Royal.gold)
+        }
+      }
+      .padding(12)
+      .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Royal.card))
+    }
+    .buttonStyle(.plain)
   }
 
   private func shareLabel(_ title: String, locale: AppLocale, filled: Bool) -> some View {

@@ -19,8 +19,9 @@ This tree was written without Xcode, so it has not been compiled here.
 2. Open `ios/Disha.xcodeproj`.
 3. Select the **Disha** scheme and an iPhone simulator (iPhone 15 or 16).
 4. For a simulator build, Signing can stay automatic. For a device, set the team and replace the bundle id `com.ikshanasolutions.disha` if you do not own that prefix.
-5. Product → Test (`Cmd+U`) runs the pada, smoothing, scoring, catalog, declination, and storage tests.
-6. Product → Run. The simulator has no magnetometer: on the compass, tap a direction chip or drag the gold dial, then **Lock direction**.
+5. Product → Test (`Cmd+U`) runs the pada, smoothing, scoring, catalog, declination, storage, and entitlement tests.
+6. Product → Run. The **Disha** scheme already points at `Disha.storekit`, so the paywall can be bought in the simulator without App Store Connect. If products do not load, open the scheme editor, Run → Options, and set StoreKit Configuration to `Disha.storekit`.
+7. The simulator has no magnetometer: on the compass, tap a direction chip or drag the gold dial, then **Lock direction**. A lock on a tile opens the paywall. Yearly is the highlighted plan and, in the configuration file, includes a 7-day free trial.
 
 Screenshots worth taking: welcome, a home category page, the compass, a verdict, the score summary, and the same home page after switching to हिन्दी.
 
@@ -32,8 +33,43 @@ Screenshots worth taking: welcome, a home category page, the compass, a verdict,
 - Verdicts use the same 32-pada map as the web app: 11.25° sectors, N1 at 315°, E1 at 45°, and 0°/360° = N5. Remedies come from the check. **More** opens the detail sheet. Marking a gentle remedy done gives partial credit.
 - Heading uses Core Location. `trueHeading` is used after When In Use location is allowed. Otherwise the app uses `magneticHeading` plus a World Magnetic Model 2025 fallback when a location is known. The explanatory prompt is shown once. A denial stays denied and links to Settings. A poor `headingAccuracy` asks for a figure-8.
 - The home score is 0–100, weighted like `rules.json`, with main door, house facing, kitchen, master bedroom, pooja, and toilet heavier. Bands are Excellent 85+, Good 70–84, Fair 50–69, Needs care below 50. The summary shows each category and the three biggest boosts. A +N/−N toast follows a verdict.
-- The summary shares a card image and a PDF that states the score in English and Hindi.
-- Results, language, and the “we already asked for location” flag are stored in UserDefaults.
+- The summary shares a card image (free, with a Disha mark) and a PDF that states the score in English and Hindi. The PDF is part of Premium or a Home Report.
+- Six checks are free: house facing, main door, kitchen, master bedroom, pooja, and living. The synced `checks.json` marks each check `tier` and lists `freeChecks`. A free verdict shows the first remedy. The home score is a preview of those checks until the home is unlocked. Room scores and the top fixes stay locked.
+- Premium (monthly, yearly, or lifetime) unlocks all 34 checks, every remedy, the full score, the PDF, and saved-home status. Home Report is a consumable that unlocks the full reading and PDF for the one home on this iPhone. Restore Purchases restores the subscription and lifetime purchase.
+- Results, language, the home id, report grants, and the “we already asked for location” flag are stored in UserDefaults.
+
+## App Store Connect
+
+Prices in the app always come from StoreKit. The amounts below are what to enter in App Store Connect, not strings in the UI. The simulator configuration `ios/Disha.storekit` uses the US prices so `displayPrice` has something to show.
+
+1. Sign the Paid Apps agreement. In App Store Connect, go to Business (or Agreements, Tax, and Banking) and complete the Paid Applications agreement, plus banking and tax. In-app purchases stay in Missing Metadata until that agreement is active.
+2. Create the app record for Disha with the bundle id you ship (`com.ikshanasolutions.disha` is the placeholder).
+3. Subscriptions → create a group named **Disha Premium**.
+4. In that group, create an auto-renewable subscription:
+   - Product id `com.ikshanasolutions.disha.premium.yearly`
+   - Duration 1 year, subscription level 1
+   - Price $24.99 in the US and ₹999 in India
+   - Introductory offer: free trial, 1 week (7 days), new subscribers
+   - English and Hindi display name and description
+   - Review screenshot of the paywall
+5. In the same group, create:
+   - Product id `com.ikshanasolutions.disha.premium.monthly`
+   - Duration 1 month, level 2
+   - Price $3.99 / ₹149
+   - No introductory offer
+   - Review screenshot
+6. In-App Purchases → Non-Consumable:
+   - Product id `com.ikshanasolutions.disha.premium.lifetime`
+   - Price $49.99 / ₹2,499
+   - Review screenshot
+7. In-App Purchases → Consumable:
+   - Product id `com.ikshanasolutions.disha.report.single`
+   - Reference name Home Report
+   - Price $6.99 / ₹299
+   - This purchase unlocks every check and the PDF for one saved home on that iPhone. It does not renew, and a finished consumable is not returned by Restore Purchases. The subscription and the lifetime unlock are.
+   - Review screenshot
+8. Add the paywall screenshot to each product’s review information. Terms and privacy in the app are placeholders (`https://disha.example.com/terms` and `https://disha.example.com/privacy` in `StoreConfig`). Replace those URLs before review, and put the same links in App Store Connect.
+9. Archive, upload, and test with a Sandbox Apple ID. In Xcode, the StoreKit configuration file is enough for the simulator; Sandbox is what exercises the real store.
 
 ## TestFlight and the App Store
 

@@ -21,6 +21,8 @@ struct VaastuCheck: Codable, Equatable, Identifiable {
   var facingNotes: [String: L10n]?
   var resultNoun: L10n?
   var detailNote: L10n?
+  /// "free" or "premium", stamped by ios/scripts/sync-content.mjs.
+  var tier: String?
   var zones: [CheckZone]
 }
 
@@ -28,6 +30,7 @@ struct CheckCatalog: Codable, Equatable {
   var version: Int
   var framing: L10n
   var convention: L10n
+  var freeChecks: [String]?
   var checks: [VaastuCheck]
 }
 
@@ -176,7 +179,7 @@ func weightedChecks(results: [StoredResult], content: ContentBundle) -> [Weighte
   }
 }
 
-func scoreResults(_ results: [StoredResult], content: ContentBundle) -> HomeScoreResult {
+func scoreResults(_ results: [StoredResult], content: ContentBundle, catalogCount: Int? = nil) -> HomeScoreResult {
   let groups = checkGroups(content.catalog.checks).map { group in
     (key: group.group.en, name: group.group, total: group.checks.count)
   }
@@ -188,6 +191,6 @@ func scoreResults(_ results: [StoredResult], content: ContentBundle) -> HomeScor
     checks: weightedChecks(results: results, content: content),
     groups: groups,
     titles: titles,
-    catalogCount: content.catalog.checks.count
+    catalogCount: catalogCount ?? content.catalog.checks.count
   )
 }

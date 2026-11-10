@@ -1,0 +1,197 @@
+{
+  "identifier" : "DishaStoreKit",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "49.99",
+      "familyShareable" : false,
+      "internalID" : "A1F0E0D0C0B0A001",
+      "localizations" : [
+        {
+          "description" : "Every check, the full Vaastu score, and PDF reports. One purchase, kept with this Apple ID.",
+          "displayName" : "Disha Premium Lifetime",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "हर जाँच, पूरा वास्तु अंक, और पीडीएफ़। एक खरीद, इस Apple ID के साथ।",
+          "displayName" : "दिशा प्रीमियम जीवनभर",
+          "locale" : "hi"
+        }
+      ],
+      "productID" : "com.ikshanasolutions.disha.premium.lifetime",
+      "referenceName" : "Lifetime",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "6.99",
+      "familyShareable" : false,
+      "internalID" : "A1F0E0D0C0B0A002",
+      "localizations" : [
+        {
+          "description" : "Unlock every check and the PDF for one saved home.",
+          "displayName" : "Home Report",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "एक सहेजे घर की हर जाँच और पीडीएफ़ खोलें।",
+          "displayName" : "घर की रिपोर्ट",
+          "locale" : "hi"
+        }
+      ],
+      "productID" : "com.ikshanasolutions.disha.report.single",
+      "referenceName" : "Home Report",
+      "type" : "Consumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "0000000001",
+    "_developerTeamID" : "DISHATEAM",
+    "_failTransactionsEnabled" : false,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Offer Code Redeem Sheet"
+      }
+    ]
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "DishaPremium",
+      "localizations" : [
+        {
+          "description" : "All checks, the full Vaastu score, and PDF reports.",
+          "displayName" : "Disha Premium",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "सारी जाँचें, पूरा वास्तु अंक, और पीडीएफ़।",
+          "displayName" : "दिशा प्रीमियम",
+          "locale" : "hi"
+        }
+      ],
+      "name" : "Disha Premium",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "24.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "S1F0E0D0C0B0A001",
+          "introductoryOffer" : {
+            "internalID" : "I1F0E0D0C0B0A001",
+            "numberOfPeriods" : 1,
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P1W"
+          },
+          "localizations" : [
+            {
+              "description" : "All checks, the full score, and PDF reports. Includes a 7-day free trial, then renews each year.",
+              "displayName" : "Disha Premium Yearly",
+              "locale" : "en_US"
+            },
+            {
+              "description" : "सारी जाँचें, पूरा अंक, और पीडीएफ़। 7 दिन मुफ़्त, फिर हर साल।",
+              "displayName" : "दिशा प्रीमियम वार्षिक",
+              "locale" : "hi"
+            }
+          ],
+          "productID" : "com.ikshanasolutions.disha.premium.yearly",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Yearly",
+          "subscriptionGroupID" : "DishaPremium",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "3.99",
+          "familyShareable" : false,
+          "groupNumber" : 2,
+          "internalID" : "S1F0E0D0C0B0A002",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "All checks, the full score, and PDF reports. Renews each month.",
+              "displayName" : "Disha Premium Monthly",
+              "locale" : "en_US"
+            },
+            {
+              "description" : "सारी जाँचें, पूरा अंक, और पीडीएफ़। हर महीने नवीनीकृत।",
+              "displayName" : "दिशा प्रीमियम मासिक",
+              "locale" : "hi"
+            }
+          ],
+          "productID" : "com.ikshanasolutions.disha.premium.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Monthly",
+          "subscriptionGroupID" : "DishaPremium",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

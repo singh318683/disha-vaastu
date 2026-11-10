@@ -21,6 +21,8 @@ enum StoreKey {
   static let latitude = "disha.latitude"
   static let longitude = "disha.longitude"
   static let declination = "disha.declination"
+  static let homeID = "disha.home.id"
+  static let reportHomes = "disha.report.homes"
 }
 
 struct PersistedQuiz {
@@ -30,6 +32,7 @@ struct PersistedQuiz {
   var latitude: Double?
   var longitude: Double?
   var declination: Double?
+  var homeID: String
 
   static func load(defaults: UserDefaults) -> PersistedQuiz {
     let locale: AppLocale
@@ -50,13 +53,20 @@ struct PersistedQuiz {
     let latitude = defaults.object(forKey: StoreKey.latitude) as? Double
     let longitude = defaults.object(forKey: StoreKey.longitude) as? Double
     let declination = defaults.object(forKey: StoreKey.declination) as? Double
+    let homeID: String
+    if let saved = defaults.string(forKey: StoreKey.homeID), UUID(uuidString: saved) != nil {
+      homeID = saved
+    } else {
+      homeID = UUID().uuidString
+    }
     return PersistedQuiz(
       locale: locale,
       results: results,
       askedLocation: defaults.bool(forKey: StoreKey.askedLocation),
       latitude: latitude,
       longitude: longitude,
-      declination: declination
+      declination: declination,
+      homeID: homeID
     )
   }
 
@@ -69,5 +79,6 @@ struct PersistedQuiz {
     if let latitude { defaults.set(latitude, forKey: StoreKey.latitude) }
     if let longitude { defaults.set(longitude, forKey: StoreKey.longitude) }
     if let declination { defaults.set(declination, forKey: StoreKey.declination) }
+    defaults.set(homeID, forKey: StoreKey.homeID)
   }
 }

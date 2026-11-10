@@ -208,6 +208,9 @@ final class CatalogTests: XCTestCase {
     }
     XCTAssertEqual(bundle.ruleWeights["kitchen"], 1.4 as Double?)
     XCTAssertEqual(CheckWeight.weight(id: "kitchen", ruleWeights: bundle.ruleWeights), 1.4)
+    XCTAssertEqual(Set(bundle.catalog.checks.filter { $0.tier == "free" }.map(\.id)), FreeCatalog.ids)
+    XCTAssertEqual(Set(bundle.catalog.freeChecks ?? []), FreeCatalog.ids)
+    XCTAssertEqual(bundle.catalog.checks.filter { $0.tier == "premium" }.count, 28)
   }
 
   func testDeclinationFallbackForNewJersey() throws {
@@ -231,8 +234,10 @@ final class StoreTests: XCTestCase {
     stored.results = upsertResult(stored.results, StoredResult(checkId: "kitchen", heading: 90, trueNorth: false, at: 11, remedyDone: true))
     stored.locale = .hi
     stored.askedLocation = true
+    let homeID = stored.homeID
     stored.save(defaults: defaults)
     let loaded = PersistedQuiz.load(defaults: defaults)
+    XCTAssertEqual(loaded.homeID, homeID)
     XCTAssertEqual(loaded.locale, .hi)
     XCTAssertEqual(loaded.askedLocation, true)
     XCTAssertEqual(loaded.results.count, 1)
@@ -240,4 +245,84 @@ final class StoreTests: XCTestCase {
     XCTAssertEqual(loaded.results[0].remedyDone, true)
     defaults.removePersistentDomain(forName: name)
   }
+}
+
+final class AccessTests: XCTestCase {
+  func testCanonicalSixStayFreeWhenTheCatalogHasNoTier() {
+    for id in ["house_facing", "main_door", "kitchen", "master_bedroom", "pooja", "living"] {
+      XCTAssertEqual(contentTier(id: id, tierField: nil, freeChecks: nil), .free, id)
+    }
+    XCTAssertEqual(contentTier(id: "toilet", tierField: nil, freeChecks: nil), .premium)
+    XCTAssertEqual(contentTier(id: "stove", tierField: nil, freeChecks: nil), .premium)
+    XCTAssertEqual(FreeCatalog.ids.count, 6)
+  }
+
+  func testExplicitTierWinsAndAFreeListCoversTheRest() {
+    let onlyToilet: Set<String> = ["toilet"]
+    XCTAssertEqual(contentTier(id: "toilet", tierField: "premium", freeChecks: onlyToilet), .premium)
+    XCTAssertEqual(contentTier(id: "kitchen", tierField: "free", freeChecks: onlyToilet), .free)
+    XCTAssertEqual(contentTier(id: "mirror", tierField: nil, freeChecks: onlyToilet), .premium)
+    XCTAssertEqual(contentTier(id: "toilet", tierField: nil, freeChecks: onlyToilet), .free)
+    XCTAssertEqual(contentTier(id: "kitchen", tierField: "paid", freeChecks: nil), .free)
+  }
+
+  func testRemediesAndUnlockFlags() {
+    let free = LibraryAccess(premium: false, homeReport: false)
+    XCTAssertEqual(free.kind, .preview)
+    XCTAssertFalse(free.full)
+    XCTAssertEqual(free.visibleRemedies(["one", "two", "three"]), ["one"])
+    XCTAssertEqual(free.visibleRemedies(["only"]), ["only"])
+    XCTAssertEqual(free.visibleRemedies([String]()), [])
+    XCTAssertTrue(free.isUnlocked(id: "living", tierField: "free", freeChecks: nil))
+    XCTAssertFalse(free.isUnlocked(id: "toilet", tierField: "premium", freeChecks: nil))
+
+    let premium = LibraryAccess(premium: true, homeReport: false)
+    XCTAssertEqual(premium.visibleRemedies(["one", "two", "three"]), ["one", "two", "three"])
+    XCTAssertTrue(premium.isUnlocked(id: "toilet", tierField: "premium", freeChecks: nil))
+    XCTAssertEqual(premium.kind, .full)
+
+    let report = LibraryAccess(premium: false, homeReport: true)
+    XCTAssertTrue(report.full)
+    XCTAssertTrue(report.isUnlocked(id: "staircase", tierField: "premium", freeChecks: nil))
+  }
+
+  func testPreviewScoreDropsPremiumChecks() throws {
+    let bundle = try loadBundle()
+    let results = [
+      StoredResult(checkId: "kitchen", heading: 135, trueNorth: true, at: 1, remedyDone: false),
+      StoredResult(checkId: "toilet", heading: 0, trueNorth: true, at: 2, remedyDone: false),
+    ]
+    let preview = presentedScore(results: results, content: bundle, access: LibraryAccess(premium: false, homeReport: false))
+    XCTAssertEqual(preview.kind, .preview)
+    XCTAssertEqual(preview.score.done, 1)
+    XCTAssertEqual(preview.score.total, 6)
+    let full = presentedScore(results: results, content: bundle, access: LibraryAccess(premium: true, homeReport: false))
+    XCTAssertEqual(full.kind, .full)
+    XCTAssertEqual(full.score.done, 2)
+    XCTAssertEqual(full.score.total, 34)
+    let report = presentedScore(results: results, content: bundle, access: LibraryAccess(premium: false, homeReport: true))
+    XCTAssertEqual(report.score.done, 2)
+    XCTAssertEqual(report.score.total, 34)
+  }
+
+  func testProductIdsAndReportGrant() {
+    XCTAssertTrue(StoreConfig.grantsPremium(StoreConfig.monthly))
+    XCTAssertTrue(StoreConfig.grantsPremium(StoreConfig.yearly))
+    XCTAssertTrue(StoreConfig.grantsPremium(StoreConfig.lifetime))
+    XCTAssertFalse(StoreConfig.grantsPremium(StoreConfig.homeReport))
+    XCTAssertTrue(StoreConfig.isHomeReport(StoreConfig.homeReport))
+    XCTAssertFalse(StoreConfig.isHomeReport(StoreConfig.yearly))
+    XCTAssertEqual(mergeReportGrant(["home-a"], homeID: "home-b"), Set(["home-a", "home-b"]))
+    XCTAssertEqual(mergeReportGrant(["home-a"], homeID: ""), Set(["home-a"]))
+    XCTAssertEqual(StoreConfig.termsURL.host, "disha.example.com")
+    XCTAssertEqual(StoreConfig.privacyURL.host, "disha.example.com")
+  }
+}
+
+private func loadBundle() throws -> ContentBundle {
+  let directory = URL(fileURLWithPath: #filePath)
+    .deletingLastPathComponent()
+    .deletingLastPathComponent()
+    .appendingPathComponent("Disha/Resources")
+  return try ContentLoader.load(directory: directory)
 }

@@ -50,6 +50,36 @@ for (const [key, value] of Object.entries(directions)) ui[`dir.${key}`] = value;
 for (const [key, value] of Object.entries(facings)) ui[`facing.${key}`] = value;
 for (const [key, value] of Object.entries(elements)) ui[`element.${key}`] = value;
 
+const CANONICAL_FREE_CHECKS = [
+  "house_facing",
+  "main_door",
+  "kitchen",
+  "master_bedroom",
+  "pooja",
+  "living",
+];
+
+function stampAccess(raw) {
+  const catalog = JSON.parse(raw);
+  const declared = Array.isArray(catalog.freeChecks) ? catalog.freeChecks.filter((id) => typeof id === "string") : null;
+  const freeIds = new Set(declared && declared.length ? declared : CANONICAL_FREE_CHECKS);
+  const tierOf = new Map();
+  for (const check of catalog.checks) {
+    if (check.tier === "free" || check.tier === "premium") tierOf.set(check.id, check.tier);
+    else tierOf.set(check.id, freeIds.has(check.id) ? "free" : "premium");
+  }
+  let text = raw.replace(/^ {6}"id": "([A-Za-z0-9_]+)",(?!\r?\n {6}"tier":)/gm, (line, id) => {
+    const tier = tierOf.get(id);
+    if (!tier) return line;
+    return `${line}\n      "tier": "${tier}",`;
+  });
+  if (!text.includes('"freeChecks"')) {
+    const list = JSON.stringify(CANONICAL_FREE_CHECKS);
+    text = text.replace(/"version":\s*(\d+),/, `"version": $1,\n  "freeChecks": ${list},`);
+  }
+  return text;
+}
+
 const extra = {
   continueOn: { en: "Continue", hi: "आगे" },
   more: { en: "More", hi: "और" },
@@ -89,6 +119,43 @@ const extra = {
   clearConfirm: { en: "Clear every saved check on this iPhone?", hi: "इस आईफ़ोन की सारी जाँचें मिटाएँ?" },
   done: { en: "Done", hi: "हो गया" },
   pageOf: { en: "Page", hi: "पृष्ठ" },
+  scorePreview: { en: "Preview", hi: "झलक" },
+  previewNote: {
+    en: "Preview from the free checks. The full score uses every room.",
+    hi: "मुफ़्त जाँचों की झलक। पूरा अंक हर कमरे को गिनता है।",
+  },
+  unlock: { en: "Unlock", hi: "खोलें" },
+  moreRemedies: { en: "The other remedies are in Premium.", hi: "बाकी उपाय प्रीमियम में हैं।" },
+  bestValue: { en: "Best value", hi: "सबसे अच्छा मूल्य" },
+  premiumTitle: { en: "Disha Premium", hi: "दिशा प्रीमियम" },
+  premiumLine: {
+    en: "All 34 checks, every remedy, the full score, and the PDF.",
+    hi: "सारी 34 जाँचें, हर उपाय, पूरा अंक, और पीडीएफ़।",
+  },
+  restore: { en: "Restore Purchases", hi: "खरीदारी बहाल करें" },
+  terms: { en: "Terms", hi: "शर्तें" },
+  privacy: { en: "Privacy", hi: "गोपनीयता" },
+  priceUnavailable: { en: "Price unavailable", hi: "कीमत उपलब्ध नहीं" },
+  loadingPrice: { en: "Loading price…", hi: "कीमत आ रही है…" },
+  savedHomes: { en: "Saved homes", hi: "सहेजे घर" },
+  savedHomeOpen: { en: "This home is saved on this iPhone.", hi: "यह घर इस आईफ़ोन पर सहेजा है।" },
+  savedHomeLocked: { en: "Premium keeps every saved home.", hi: "प्रीमियम हर सहेजा घर रखता है।" },
+  yearlyPlan: { en: "Yearly", hi: "वार्षिक" },
+  monthlyPlan: { en: "Monthly", hi: "मासिक" },
+  lifetimePlan: { en: "Lifetime", hi: "जीवनभर" },
+  homeReportPlan: { en: "Home Report", hi: "घर की रिपोर्ट" },
+  homeReportLine: {
+    en: "Unlock every check and the PDF for this saved home.",
+    hi: "इस सहेजे घर की हर जाँच और पीडीएफ़ खोलें।",
+  },
+  renewDisclosure: {
+    en: "Payment is charged to your Apple ID at confirmation. A subscription renews automatically unless you cancel at least 24 hours before the end of the current period. The account is charged for renewal within 24 hours before the period ends. Manage or cancel in Settings → Apple ID → Subscriptions. If a free trial is offered, it becomes a paid subscription unless you cancel before the trial ends.",
+    hi: "भुगतान पुष्टि पर आपके Apple ID से लिया जाता है। सदस्यता अपने आप चलती रहती है, जब तक आप वर्तमान अवधि के अंत से कम से कम 24 घंटे पहले रद्द न करें। नवीनीकरण का शुल्क अवधि समाप्त होने से 24 घंटे के अंदर लिया जाता है। सेटिंग → Apple ID → Subscriptions में बदलें या रद्द करें। मुफ़्त परीक्षण हो तो अवधि से पहले रद्द न करने पर वह सशुल्क सदस्यता बन जाता है।",
+  },
+  reportDisclosure: {
+    en: "Home Report is a one-time purchase for this saved home on this iPhone. It does not renew. Restore Purchases restores the subscription and lifetime unlock.",
+    hi: "घर की रिपोर्ट इस आईफ़ोन पर इस सहेजे घर के लिए एक बार की खरीद है। यह अपने आप नहीं चलती। खरीदारी बहाल करें सदस्यता और जीवनभर की खरीद लौटाता है।",
+  },
 };
 
 for (const [key, value] of Object.entries(extra)) {
@@ -96,10 +163,11 @@ for (const [key, value] of Object.entries(extra)) {
 }
 
 mkdirSync(outDir, { recursive: true });
-for (const name of ["checks.json", "rules.json", "remedies.json"]) {
-  const raw = readFileSync(resolve(repo, "src/data", name));
-  writeFileSync(resolve(outDir, name), raw);
+for (const name of ["rules.json", "remedies.json"]) {
+  writeFileSync(resolve(outDir, name), readFileSync(resolve(repo, "src/data", name)));
 }
+const checksRaw = readFileSync(resolve(repo, "src/data/checks.json"), "utf8");
+writeFileSync(resolve(outDir, "checks.json"), stampAccess(checksRaw));
 
 const ordered = Object.fromEntries(Object.keys(ui).sort().map((key) => [key, ui[key]]));
 writeFileSync(resolve(outDir, "ui.json"), `${JSON.stringify(ordered, null, 2)}\n`);

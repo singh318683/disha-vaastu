@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 import UIKit
 
@@ -15,6 +16,7 @@ struct ScoreToast: Equatable, Identifiable {
   var delta: Int
 }
 
+@MainActor
 final class AppModel: ObservableObject {
   @Published var route: AppRoute = .welcome
   @Published var locale: AppLocale
@@ -22,10 +24,14 @@ final class AppModel: ObservableObject {
   @Published var showLocationPrompt = false
   @Published var toast: ScoreToast?
   @Published var loadError: String?
+  @Published var showPaywall = false
   let compass = CompassModel()
+  let entitlements: EntitlementStore
   let content: ContentBundle?
+  let homeID: String
   private let defaults: UserDefaults
   private var askedLocation: Bool
+  private var cancellables = Set<AnyCancellable>()
 
   init(defaults: UserDefaults = .standard, bundle: Bundle = .main) {
     self.defaults = defaults
@@ -33,6 +39,8 @@ final class AppModel: ObservableObject {
     locale = stored.locale
     results = stored.results
     askedLocation = stored.askedLocation
+    homeID = stored.homeID
+    entitlements = EntitlementStore(defaults: defaults)
     var loaded: ContentBundle?
     do {
       loaded = try ContentLoader.load(bundle: bundle)
@@ -49,11 +57,27 @@ final class AppModel: ObservableObject {
       self?.defaults.set(longitude, forKey: StoreKey.longitude)
       self?.defaults.set(declination, forKey: StoreKey.declination)
     }
+    entitlements.objectWillChange.sink { [weak self] _ in
+      self?.objectWillChange.send()
+    }.store(in: &cancellables)
+    persist()
+  }
+
+  var freeChecks: Set<String>? {
+    content?.catalog.freeChecks.map { Set($0) }
+  }
+
+  var access: LibraryAccess {
+    LibraryAccess(premium: entitlements.isPremium, homeReport: entitlements.ownsReport(homeID))
+  }
+
+  var presented: PresentedScore? {
+    guard let content else { return nil }
+    return presentedScore(results: results, content: content, access: access)
   }
 
   var score: HomeScoreResult? {
-    guard let content else { return nil }
-    return scoreResults(results, content: content)
+    presented?.score
   }
 
   func setLocale(_ next: AppLocale) {
@@ -86,7 +110,12 @@ final class AppModel: ObservableObject {
   }
 
   func openCheck(_ id: String) {
-    route = .instruct(id)
+    guard let check = content?.check(id) else { return }
+    if access.isUnlocked(check, freeChecks: freeChecks) {
+      route = .instruct(id)
+    } else {
+      showPaywall = true
+    }
   }
 
   func lock(checkId: String) {
@@ -142,7 +171,8 @@ final class AppModel: ObservableObject {
       askedLocation: askedLocation,
       latitude: compass.cachedLatitude,
       longitude: compass.cachedLongitude,
-      declination: compass.cachedDeclination
+      declination: compass.cachedDeclination,
+      homeID: homeID
     )
     stored.save(defaults: defaults)
   }
@@ -157,8 +187,10 @@ struct DishaApp: App {
       RootView()
         .environmentObject(model)
         .environmentObject(model.compass)
+        .environmentObject(model.entitlements)
         .preferredColorScheme(.dark)
         .tint(Royal.gold)
+        .task { model.entitlements.start() }
     }
   }
 }
@@ -205,6 +237,13 @@ struct RootView: View {
     }) {
       LocationPrompt()
         .presentationDetents([.medium])
+        .presentationDragIndicator(.visible)
+    }
+    .sheet(isPresented: $model.showPaywall) {
+      PaywallView()
+        .environmentObject(model)
+        .environmentObject(model.entitlements)
+        .presentationDetents([.large])
         .presentationDragIndicator(.visible)
     }
   }
