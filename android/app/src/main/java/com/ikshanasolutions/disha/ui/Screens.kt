@@ -5,6 +5,7 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +20,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
@@ -27,8 +29,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
@@ -60,8 +65,9 @@ import com.ikshanasolutions.disha.model.Legal
 import com.ikshanasolutions.disha.model.Products
 import com.ikshanasolutions.disha.model.StoreProduct
 import com.ikshanasolutions.disha.model.VaastuCheck
-import com.ikshanasolutions.disha.model.checkGroups
+import com.ikshanasolutions.disha.model.homePages
 import com.ikshanasolutions.disha.model.periodWord
+import com.ikshanasolutions.disha.model.priceWithPeriod
 import com.ikshanasolutions.disha.model.verdictForHeading
 import com.ikshanasolutions.disha.noticeText
 import com.ikshanasolutions.disha.openAppSettings
@@ -70,7 +76,6 @@ import com.ikshanasolutions.disha.openSubscriptionManagement
 import com.ikshanasolutions.disha.shareFile
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.math.ceil
 
 @Composable
 fun DishaRoot(vm: DishaViewModel) {
@@ -153,15 +158,12 @@ private fun WelcomeScreen(vm: DishaViewModel, content: ContentBundle) {
 @Composable
 private fun HomeScreen(vm: DishaViewModel, content: ContentBundle) {
     val locale by vm.locale.collectAsState()
-    val homes by vm.homes.collectAsState()
-    val homeId by vm.homeId.collectAsState()
-    val home = homes.firstOrNull { it.id == homeId }
-    val groups = remember(content) { checkGroups(content.catalog.checks) }
-    val pager = rememberPagerState(pageCount = { groups.size })
+    val pages = remember(content) { homePages(content.catalog.checks) }
+    val pager = rememberPagerState(pageCount = { pages.size })
     val scope = rememberCoroutineScope()
     val presented = vm.presented()
     ScreenBox("home-screen") {
-        Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().padding(horizontal = 16.dp, vertical = 8.dp)) {
+        Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().padding(horizontal = 16.dp, vertical = 6.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Wordmark()
                 Spacer(Modifier.weight(1f))
@@ -170,43 +172,47 @@ private fun HomeScreen(vm: DishaViewModel, content: ContentBundle) {
                 }
                 LanguageToggle(locale) { vm.setLocale(it) }
             }
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(16.dp))
+                    .border(1.dp, Gold.copy(alpha = 0.35f), RoundedCornerShape(16.dp))
+                    .background(CardNavy)
+                    .clickable { vm.openSummary() }
+                    .padding(horizontal = 12.dp, vertical = 8.dp)
+                    .semantics { contentDescription = "home-score" },
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                ScoreRing(presented?.score?.score, 52.dp)
+                Spacer(Modifier.width(12.dp))
                 Column(Modifier.weight(1f)) {
-                    Text(content.t("whatCheck", locale), style = displayStyle(28.sp), maxLines = 1, overflow = TextOverflow.Ellipsis)
-                    Text(content.t("standPoint", locale), style = bodyStyle(13.sp, Muted), maxLines = 2)
-                }
-                Box(Modifier.clickable { vm.openSummary() }.semantics { contentDescription = "home-score" }) {
-                    ScoreRing(presented?.score?.score, 58.dp)
-                    if (presented?.kind?.name == "PREVIEW") {
-                        Text(
-                            content.t("scorePreview", locale),
-                            style = bodyStyle(9.sp, Ink, bold = true),
-                            modifier = Modifier.align(Alignment.BottomCenter).background(Gold, CircleShape).padding(horizontal = 6.dp, vertical = 1.dp),
-                        )
-                    }
-                }
-            }
-            Spacer(Modifier.height(8.dp))
-            Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                groups.forEachIndexed { index, group ->
-                    val selected = pager.currentPage == index
                     Text(
-                        group.group.text(locale),
-                        style = bodyStyle(12.sp, if (selected) Ink else Cream, bold = selected),
+                        presented?.score?.band?.title(content, locale) ?: content.t("noScoreYet", locale),
+                        style = displayStyle(20.sp),
                         maxLines = 1,
-                        modifier = Modifier
-                            .clip(CircleShape)
-                            .background(if (selected) Gold else CardNavy)
-                            .clickable { scope.launch { pager.animateScrollToPage(index) } }
-                            .padding(horizontal = 10.dp, vertical = 6.dp),
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                    val coverage = presented?.score?.let { score ->
+                        content.fill("basedOn", locale, mapOf("done" to score.done.toString(), "total" to score.total.toString()))
+                    }
+                    Text(
+                        if (presented?.kind?.name == "PREVIEW" && coverage != null) {
+                            "${content.t("scorePreview", locale)} · $coverage"
+                        } else {
+                            coverage ?: content.t("standPoint", locale)
+                        },
+                        style = bodyStyle(12.sp, Muted),
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
                     )
                 }
             }
-            HorizontalPager(state = pager, modifier = Modifier.weight(1f).padding(top = 8.dp)) { page ->
-                CategoryPage(vm, content, groups[page].checks, locale)
+            Spacer(Modifier.height(8.dp))
+            HorizontalPager(state = pager, modifier = Modifier.weight(1f)) { page ->
+                CategoryPage(vm, content, pages[page], locale)
             }
-            Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), horizontalArrangement = Arrangement.Center) {
-                groups.forEachIndexed { index, _ ->
+            Row(Modifier.fillMaxWidth().padding(top = 6.dp), horizontalArrangement = Arrangement.Center) {
+                pages.forEachIndexed { index, _ ->
                     val selected = pager.currentPage == index
                     Box(
                         Modifier
@@ -218,55 +224,112 @@ private fun HomeScreen(vm: DishaViewModel, content: ContentBundle) {
                     )
                 }
             }
-            if (home != null) {
-                Text(home.name, style = bodyStyle(12.sp, Muted), modifier = Modifier.align(Alignment.CenterHorizontally))
+            Row(
+                Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(top = 6.dp),
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+            ) {
+                pages.forEachIndexed { index, page ->
+                    val selected = pager.currentPage == index
+                    Text(
+                        page.title.text(locale),
+                        style = bodyStyle(12.sp, if (selected) Ink else Cream, bold = selected),
+                        maxLines = 1,
+                        modifier = Modifier
+                            .clip(CircleShape)
+                            .background(if (selected) Gold else CardNavy)
+                            .clickable { scope.launch { pager.animateScrollToPage(index) } }
+                            .padding(horizontal = 10.dp, vertical = 6.dp),
+                    )
+                }
             }
         }
     }
 }
 
 @Composable
-private fun CategoryPage(vm: DishaViewModel, content: ContentBundle, checks: List<VaastuCheck>, locale: AppLocale) {
+private fun CategoryPage(vm: DishaViewModel, content: ContentBundle, page: com.ikshanasolutions.disha.model.HomePage, locale: AppLocale) {
     val homes by vm.homes.collectAsState()
     val homeId by vm.homeId.collectAsState()
     val saved = homes.firstOrNull { it.id == homeId }?.results.orEmpty().associateBy { it.checkId }
     val access = vm.access()
-    BoxWithConstraints(Modifier.fillMaxSize()) {
-        val columns = 2
-        val rows = ceil(checks.size / columns.toDouble()).toInt().coerceAtLeast(1)
-        val gap = 8.dp
-        val tileHeight = (maxHeight - gap * (rows - 1)) / rows
-        Column(verticalArrangement = Arrangement.spacedBy(gap), modifier = Modifier.fillMaxSize()) {
-            checks.chunked(columns).forEach { row ->
-                Row(Modifier.height(tileHeight), horizontalArrangement = Arrangement.spacedBy(gap)) {
-                    row.forEach { check ->
-                        val unlocked = access.isUnlocked(check)
-                        val result = saved[check.id]
-                        Column(
-                            Modifier
-                                .weight(1f)
-                                .fillMaxHeight()
-                                .clip(RoundedCornerShape(16.dp))
-                                .background(CardNavy)
-                                .clickable { vm.openCheck(check.id) }
-                                .padding(10.dp)
-                                .semantics { contentDescription = if (unlocked) "check-${check.id}" else "locked-check" },
-                            verticalArrangement = Arrangement.SpaceBetween,
-                        ) {
-                            Text(check.title.text(locale), style = displayStyle(18.sp), maxLines = 2, overflow = TextOverflow.Ellipsis)
-                            if (!unlocked) {
-                                Text(content.t("lockedCheck", locale), style = bodyStyle(12.sp, Gold, bold = true))
-                            } else if (result != null) {
-                                val verdict = verdictForHeading(check, result.heading, locale, content.strings)
-                                Text(verdict.placementLine, style = bodyStyle(12.sp, ratingColor(verdict.rating)), maxLines = 2, overflow = TextOverflow.Ellipsis)
-                            } else {
-                                Text(check.blurb.text(locale), style = bodyStyle(12.sp, Muted), maxLines = 2, overflow = TextOverflow.Ellipsis)
-                            }
+    Column(Modifier.fillMaxSize()) {
+        Text(page.title.text(locale), style = displayStyle(26.sp), maxLines = 1, overflow = TextOverflow.Ellipsis)
+        Spacer(Modifier.height(8.dp))
+        BoxWithConstraints(Modifier.weight(1f).fillMaxWidth()) {
+            val gap = 8.dp
+            val cardHeight = ((maxHeight - gap * 2) / 3).coerceAtMost(156.dp)
+            Column(verticalArrangement = Arrangement.spacedBy(gap)) {
+                page.checks.chunked(2).forEach { row ->
+                    Row(Modifier.height(cardHeight), horizontalArrangement = Arrangement.spacedBy(gap)) {
+                        row.forEach { check ->
+                            CheckCard(vm, content, check, saved[check.id], access.isUnlocked(check), locale, Modifier.weight(1f))
                         }
+                        if (row.size == 1) Spacer(Modifier.weight(1f))
                     }
-                    if (row.size == 1) Spacer(Modifier.weight(1f))
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun CheckCard(
+    vm: DishaViewModel,
+    content: ContentBundle,
+    check: VaastuCheck,
+    result: com.ikshanasolutions.disha.model.StoredResult?,
+    unlocked: Boolean,
+    locale: AppLocale,
+    modifier: Modifier,
+) {
+    val verdict = if (unlocked && result != null) verdictForHeading(check, result.heading, locale, content.strings) else null
+    Column(
+        modifier
+            .fillMaxHeight()
+            .clip(RoundedCornerShape(16.dp))
+            .border(1.dp, Gold.copy(alpha = 0.28f), RoundedCornerShape(16.dp))
+            .background(CardNavy)
+            .clickable { vm.openCheck(check.id) }
+            .padding(10.dp)
+            .semantics { contentDescription = if (unlocked) "check-${check.id}" else "locked-check" },
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            MiniCompass(Modifier.size(32.dp))
+            Spacer(Modifier.weight(1f))
+            if (!unlocked) {
+                LockMark(Modifier.size(18.dp))
+            } else if (verdict != null) {
+                val (label, color) = when (verdict.rating) {
+                    "auspicious" -> content.t("chipBest", locale) to Good
+                    "neutral" -> content.t("chipNeutral", locale) to Gold
+                    else -> content.t("chipAvoid", locale) to Avoid
+                }
+                Text(
+                    label,
+                    style = bodyStyle(11.sp, color, bold = true),
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .background(color.copy(alpha = 0.18f))
+                        .padding(horizontal = 8.dp, vertical = 2.dp),
+                )
+            }
+        }
+        Text(
+            check.title.text(locale),
+            style = displayStyle(16.sp),
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.padding(top = 6.dp),
+        )
+        Text(
+            check.blurb.text(locale),
+            style = bodyStyle(12.sp, Muted),
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.padding(top = 2.dp),
+        )
+        if (unlocked && verdict == null) {
+            Text(content.t("notChecked", locale), style = bodyStyle(11.sp, Muted), modifier = Modifier.padding(top = 4.dp))
         }
     }
 }
@@ -508,72 +571,89 @@ private fun SummaryScreen(vm: DishaViewModel, content: ContentBundle) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun PaywallScreen(vm: DishaViewModel, content: ContentBundle) {
     val locale by vm.locale.collectAsState()
     val billing by vm.billingUi.collectAsState()
     val context = LocalContext.current
+    var showTerms by remember { mutableStateOf(false) }
     BackHandler { vm.back() }
     ScreenBox("paywall-screen") {
-        Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().verticalScroll(rememberScrollState()).padding(22.dp)) {
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                Wordmark()
-                TextButton(onClick = { vm.back() }) { Text(content.t("cancel", locale), style = bodyStyle(16.sp, Gold)) }
-            }
-            Text(content.t("paywallTitle", locale), style = displayStyle(36.sp))
-            Text(content.t("paywallLine", locale), style = bodyStyle(16.sp, Muted))
-            if (billing.entitlements.premium) {
-                Text(content.t("premiumOn", locale), style = bodyStyle(16.sp, Gold), modifier = Modifier.padding(top = 8.dp))
-            }
-            Spacer(Modifier.height(12.dp))
-            val notice = noticeText(content, billing.notice, locale)
-            if (notice != null) {
-                Text(notice, style = bodyStyle(14.sp, if (billing.notice == BillingNotice.PENDING) Gold else Avoid), modifier = Modifier.padding(bottom = 8.dp))
-            }
-            if (billing.failed && billing.products.isEmpty()) {
-                RoyalCard {
-                    Text(content.t("billingRetry", locale), style = bodyStyle(16.sp))
-                    Spacer(Modifier.height(8.dp))
-                    GoldButton(content.t("retry", locale)) { vm.retryBilling() }
+        BoxWithConstraints(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding()) {
+            val tight = maxHeight < 700.dp
+            val titleSize = if (tight) 26.sp else 30.sp
+            val gap = if (tight) 6.dp else 8.dp
+            Column(Modifier.fillMaxSize().padding(horizontal = 16.dp, vertical = if (tight) 6.dp else 10.dp)) {
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+                    Wordmark()
+                    TextButton(onClick = { vm.back() }) { Text(content.t("cancel", locale), style = bodyStyle(15.sp, Gold)) }
                 }
-            } else {
-                PlanButton(content, locale, billing.products, Products.YEARLY, content.t("yearlyPlan", locale), highlighted = true) { vm.purchase(Products.YEARLY) }
-                Spacer(Modifier.height(8.dp))
-                PlanButton(content, locale, billing.products, Products.MONTHLY, content.t("monthlyPlan", locale), highlighted = false) { vm.purchase(Products.MONTHLY) }
-                Spacer(Modifier.height(8.dp))
-                PlanButton(content, locale, billing.products, Products.LIFETIME, content.t("lifetimePlan", locale), highlighted = false) { vm.purchase(Products.LIFETIME) }
-                Spacer(Modifier.height(14.dp))
-                Text(content.t("homeReportPlan", locale), style = displayStyle(22.sp))
-                Text(content.t("homeReportLine", locale), style = bodyStyle(14.sp, Muted))
-                Spacer(Modifier.height(8.dp))
-                PlanButton(content, locale, billing.products, Products.HOME_REPORT, content.t("homeReportPlan", locale), highlighted = false) { vm.purchase(Products.HOME_REPORT) }
-            }
-            TextButton(onClick = { vm.restorePurchases() }, modifier = Modifier.fillMaxWidth().semantics { contentDescription = "restore-purchases" }) {
-                Text(content.t("restore", locale), style = bodyStyle(16.sp, Gold, bold = true))
-            }
-            Row {
-                TextButton(onClick = { openLink(context, Legal.TERMS) }) { Text(content.t("terms", locale), color = Gold) }
-                TextButton(onClick = { openLink(context, Legal.PRIVACY) }) { Text(content.t("privacy", locale), color = Gold) }
-            }
-            TextButton(onClick = { openSubscriptionManagement(context) }) {
-                Text(content.t("manageSubs", locale), style = bodyStyle(14.sp, Gold))
-            }
-            billing.products.filter { it.id == Products.YEARLY || it.id == Products.MONTHLY }.forEach { product ->
-                val period = periodWord(product.billingPeriod, locale, content.strings)
-                val line = content.fill("perPeriod", locale, mapOf("price" to product.formattedPrice, "period" to period))
-                Text(line, style = bodyStyle(13.sp, Muted))
-                if (product.trialDays != null) {
+                Text(content.t("paywallTitle", locale), style = displayStyle(titleSize), maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Text(content.t("paywallLine", locale), style = bodyStyle(if (tight) 13.sp else 14.sp, Muted), maxLines = 2, overflow = TextOverflow.Ellipsis)
+                if (billing.entitlements.premium) {
+                    Text(content.t("premiumOn", locale), style = bodyStyle(13.sp, Gold), maxLines = 1)
+                }
+                val notice = noticeText(content, billing.notice, locale)
+                if (notice != null) {
                     Text(
-                        content.fill("daysFreeThen", locale, mapOf("days" to product.trialDays.toString(), "price" to product.formattedPrice)),
-                        style = bodyStyle(13.sp, Gold),
+                        notice,
+                        style = bodyStyle(13.sp, if (billing.notice == BillingNotice.PENDING) Gold else Avoid),
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.padding(top = 4.dp),
                     )
                 }
+                Spacer(Modifier.height(gap))
+                if (billing.failed && billing.products.isEmpty()) {
+                    RoyalCard {
+                        Text(content.t("billingRetry", locale), style = bodyStyle(15.sp))
+                        Spacer(Modifier.height(8.dp))
+                        GoldButton(content.t("retry", locale)) { vm.retryBilling() }
+                    }
+                } else {
+                    PlanButton(content, locale, billing.products, Products.YEARLY, content.t("yearlyPlan", locale), highlighted = true, tight = tight) { vm.purchase(Products.YEARLY) }
+                    Spacer(Modifier.height(gap))
+                    PlanButton(content, locale, billing.products, Products.MONTHLY, content.t("monthlyPlan", locale), highlighted = false, tight = tight) { vm.purchase(Products.MONTHLY) }
+                    Spacer(Modifier.height(gap))
+                    PlanButton(content, locale, billing.products, Products.LIFETIME, content.t("lifetimePlan", locale), highlighted = false, tight = tight) { vm.purchase(Products.LIFETIME) }
+                    Spacer(Modifier.height(gap))
+                    PlanButton(content, locale, billing.products, Products.HOME_REPORT, content.t("homeReportPlan", locale), highlighted = false, tight = tight, detail = content.t("homeReportLine", locale)) { vm.purchase(Products.HOME_REPORT) }
+                }
+                Spacer(Modifier.weight(1f))
+                Text(content.t("termsShort", locale), style = bodyStyle(12.sp, Muted), maxLines = 2, overflow = TextOverflow.Ellipsis)
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    TextButton(onClick = { showTerms = true }, modifier = Modifier.semantics { contentDescription = "subscription-terms" }) {
+                        Text(content.t("subscriptionTerms", locale), style = bodyStyle(13.sp, Gold, bold = true))
+                    }
+                    TextButton(onClick = { vm.restorePurchases() }, modifier = Modifier.semantics { contentDescription = "restore-purchases" }) {
+                        Text(content.t("restore", locale), style = bodyStyle(13.sp, Gold, bold = true))
+                    }
+                }
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    TextButton(onClick = { openLink(context, Legal.TERMS) }) { Text(content.t("terms", locale), style = bodyStyle(13.sp, Gold)) }
+                    TextButton(onClick = { openLink(context, Legal.PRIVACY) }) { Text(content.t("privacy", locale), style = bodyStyle(13.sp, Gold)) }
+                    TextButton(onClick = { openSubscriptionManagement(context) }) { Text(content.t("manageSubs", locale), style = bodyStyle(13.sp, Gold)) }
+                }
             }
-            Spacer(Modifier.height(8.dp))
-            Text(content.t("renewDisclosure", locale), style = bodyStyle(12.sp, Muted))
-            Spacer(Modifier.height(6.dp))
-            Text(content.t("reportDisclosure", locale), style = bodyStyle(12.sp, Muted))
-            if (billing.fake) DebugLab(vm, content, locale)
+        }
+        if (showTerms) {
+            ModalBottomSheet(
+                onDismissRequest = { showTerms = false },
+                sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+                containerColor = Navy,
+            ) {
+                Column(Modifier.padding(horizontal = 20.dp).padding(bottom = 28.dp).verticalScroll(rememberScrollState())) {
+                    Text(content.t("subscriptionTerms", locale), style = displayStyle(26.sp))
+                    Spacer(Modifier.height(10.dp))
+                    Text(content.t("renewDisclosure", locale), style = bodyStyle(14.sp, Muted))
+                    Spacer(Modifier.height(10.dp))
+                    Text(content.t("reportDisclosure", locale), style = bodyStyle(14.sp, Muted))
+                    TextButton(onClick = { openSubscriptionManagement(context) }) {
+                        Text(content.t("manageSubs", locale), style = bodyStyle(15.sp, Gold, bold = true))
+                    }
+                }
+            }
         }
     }
 }
@@ -586,36 +666,51 @@ private fun PlanButton(
     id: String,
     fallback: String,
     highlighted: Boolean,
+    tight: Boolean,
+    detail: String? = null,
     onClick: () -> Unit,
 ) {
     val product = products.firstOrNull { it.id == id }
+    val period = product?.let { periodWord(it.billingPeriod, locale, content.strings) }
     val price = when {
-        product != null -> product.formattedPrice
-        products.isEmpty() -> content.t("loadingPrice", locale)
-        else -> content.t("priceUnavailable", locale)
+        product == null && products.isEmpty() -> content.t("loadingPrice", locale)
+        product == null -> content.t("priceUnavailable", locale)
+        else -> priceWithPeriod(product.formattedPrice, period)
+    }
+    val trial = product?.trialDays?.let { days ->
+        content.fill(
+            "daysFreeThen",
+            locale,
+            mapOf("days" to days.toString(), "price" to product.formattedPrice, "period" to (period ?: "")),
+        )
     }
     Column(
         Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(14.dp))
             .background(if (highlighted) Gold else CardNavy)
             .clickable(onClick = onClick)
-            .padding(14.dp)
+            .padding(horizontal = 12.dp, vertical = if (tight) 7.dp else 9.dp)
             .semantics { contentDescription = "plan-$id" },
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(fallback, style = displayStyle(22.sp, if (highlighted) Ink else Cream), modifier = Modifier.weight(1f))
+            Text(fallback, style = displayStyle(if (tight) 18.sp else 20.sp, if (highlighted) Ink else Cream), modifier = Modifier.weight(1f), maxLines = 1)
             if (highlighted) {
-                Text(content.t("bestValue", locale), style = bodyStyle(12.sp, Ink, bold = true), modifier = Modifier.background(GoldBright, CircleShape).padding(horizontal = 8.dp, vertical = 3.dp))
+                Text(
+                    content.t("bestValue", locale),
+                    style = bodyStyle(11.sp, Ink, bold = true),
+                    modifier = Modifier.background(GoldBright, CircleShape).padding(horizontal = 8.dp, vertical = 2.dp),
+                )
             }
         }
-        if (product?.trialDays != null) {
-            Text(
-                content.fill("daysFreeThen", locale, mapOf("days" to product.trialDays.toString(), "price" to product.formattedPrice)),
-                style = bodyStyle(14.sp, if (highlighted) Ink else Gold, bold = true),
-            )
+        if (detail != null) {
+            Text(detail, style = bodyStyle(12.sp, if (highlighted) Ink else Muted), maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
-        Text(price, style = bodyStyle(16.sp, if (highlighted) Ink else Muted))
+        Text(
+            trial ?: price,
+            style = bodyStyle(if (tight) 13.sp else 14.sp, if (highlighted) Ink else if (trial != null) Gold else Muted, bold = trial != null),
+            maxLines = 2,
+        )
     }
 }
 

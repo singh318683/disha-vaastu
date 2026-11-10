@@ -22,7 +22,9 @@ import com.ikshanasolutions.disha.model.decidePurchase
 import com.ikshanasolutions.disha.model.directionFromHeading
 import com.ikshanasolutions.disha.model.headingDegreesFromAzimuthRadians
 import com.ikshanasolutions.disha.model.headingFromDialPoint
+import com.ikshanasolutions.disha.model.homePages
 import com.ikshanasolutions.disha.model.homeScore
+import com.ikshanasolutions.disha.model.priceWithPeriod
 import com.ikshanasolutions.disha.model.isoPeriodDays
 import com.ikshanasolutions.disha.model.magneticToTrue
 import com.ikshanasolutions.disha.model.mergeEntitlements
@@ -241,6 +243,25 @@ class ScoringCatalogTest {
         assertEquals("Based on 1 of 34 checks", strings.fill("basedOn", AppLocale.EN, mapOf("done" to "1", "total" to "34")))
         assertTrue(doorOnly.boosts.any { it.gain > 0 })
         assertTrue(doorOnly.boosts.size <= 3)
+    }
+
+    @Test
+    fun homePagesFitSixChecksAndTheTrialPriceNamesItsPeriod() {
+        val pages = homePages(catalog.checks)
+        assertEquals(2, pages.first { it.id == "Entrance:0" }.checks.size)
+        assertEquals(listOf(6, 1), pages.filter { it.id.startsWith("Work") }.map { it.checks.size })
+        assertTrue(pages.all { it.checks.size <= 6 })
+        assertEquals("₹999/year", priceWithPeriod("₹999", "year"))
+        assertEquals("₹149/month", priceWithPeriod("₹149", "month"))
+        assertEquals("₹2,499", priceWithPeriod("₹2,499", null))
+        assertEquals(
+            "7 days free, then ₹999/year",
+            strings.fill("daysFreeThen", AppLocale.EN, mapOf("days" to "7", "price" to "₹999", "period" to "year")),
+        )
+        assertEquals(
+            "7 दिन मुफ़्त, फिर ₹999/वर्ष",
+            strings.fill("daysFreeThen", AppLocale.HI, mapOf("days" to "7", "price" to "₹999", "period" to "वर्ष")),
+        )
     }
 
     @Test

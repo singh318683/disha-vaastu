@@ -18,10 +18,14 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.nativeCanvas
@@ -105,24 +109,93 @@ fun OutlineButton(text: String, onClick: () -> Unit) {
 
 @Composable
 fun ScoreRing(score: Int?, diameter: Dp) {
-    Box(Modifier.size(diameter), contentAlignment = Alignment.Center) {
+    val number = score?.toString()
+    Box(
+        Modifier
+            .size(diameter)
+            .semantics { contentDescription = number ?: "–" },
+        contentAlignment = Alignment.Center,
+    ) {
         Canvas(Modifier.fillMaxSize()) {
+            val stroke = (size.minDimension * 0.08f).coerceIn(3f, 8f)
             drawArc(
                 color = Gold.copy(alpha = 0.25f),
                 startAngle = 0f,
                 sweepAngle = 360f,
                 useCenter = false,
-                style = Stroke(width = 6f),
+                style = Stroke(width = stroke),
             )
-            drawArc(
-                color = Gold,
-                startAngle = -90f,
-                sweepAngle = ((score ?: 0).coerceIn(0, 100) / 100f) * 360f,
-                useCenter = false,
-                style = Stroke(width = 6f, cap = StrokeCap.Round),
+            if (score != null) {
+                drawArc(
+                    color = Gold,
+                    startAngle = -90f,
+                    sweepAngle = (score.coerceIn(0, 100) / 100f) * 360f,
+                    useCenter = false,
+                    style = Stroke(width = stroke, cap = StrokeCap.Round),
+                )
+            }
+            if (score == null) {
+                val width = size.minDimension * 0.34f
+                val height = (size.minDimension * 0.07f).coerceAtLeast(2.5f)
+                drawRoundRect(
+                    color = Gold,
+                    topLeft = Offset((size.width - width) / 2f, (size.height - height) / 2f),
+                    size = Size(width, height),
+                    cornerRadius = CornerRadius(height / 2f),
+                )
+            }
+        }
+        if (number != null) {
+            val font = diameter.value * 0.32f
+            Text(
+                number,
+                style = displayStyle(font.sp, Gold).copy(
+                    lineHeight = font.sp,
+                    textAlign = TextAlign.Center,
+                    platformStyle = PlatformTextStyle(includeFontPadding = false),
+                ),
             )
         }
-        Text(score?.toString() ?: "–", style = displayStyle((diameter.value * 0.28f).sp, Gold))
+    }
+}
+
+@Composable
+fun MiniCompass(modifier: Modifier = Modifier) {
+    Canvas(modifier) {
+        val radius = size.minDimension / 2f
+        val center = Offset(size.width / 2f, size.height / 2f)
+        drawCircle(Gold.copy(alpha = 0.16f), radius = radius)
+        drawCircle(Gold, radius = radius * 0.92f, center = center, style = Stroke(width = radius * 0.08f))
+        drawLine(
+            Gold,
+            Offset(center.x, center.y - radius * 0.62f),
+            Offset(center.x, center.y + radius * 0.28f),
+            strokeWidth = radius * 0.12f,
+            cap = StrokeCap.Round,
+        )
+        drawCircle(GoldBright, radius = radius * 0.14f, center = center)
+    }
+}
+
+@Composable
+fun LockMark(modifier: Modifier = Modifier) {
+    Canvas(modifier) {
+        val bodyTop = size.height * 0.42f
+        drawRoundRect(
+            color = Gold,
+            topLeft = Offset(size.width * 0.16f, bodyTop),
+            size = Size(size.width * 0.68f, size.height * 0.5f),
+            cornerRadius = CornerRadius(size.minDimension * 0.12f),
+        )
+        drawArc(
+            color = Gold,
+            startAngle = 200f,
+            sweepAngle = 140f,
+            useCenter = false,
+            topLeft = Offset(size.width * 0.26f, size.height * 0.06f),
+            size = Size(size.width * 0.48f, size.height * 0.52f),
+            style = Stroke(width = size.minDimension * 0.1f, cap = StrokeCap.Round),
+        )
     }
 }
 

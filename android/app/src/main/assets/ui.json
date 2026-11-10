@@ -183,6 +183,18 @@
     "en": "Check another",
     "hi": "एक और देखें"
   },
+  "chipAvoid": {
+    "en": "Avoid",
+    "hi": "टालें"
+  },
+  "chipBest": {
+    "en": "Best",
+    "hi": "उत्तम"
+  },
+  "chipNeutral": {
+    "en": "Neutral",
+    "hi": "सामान्य"
+  },
   "chooseImage": {
     "en": "Choose image",
     "hi": "चित्र चुनें"
@@ -256,8 +268,8 @@
     "hi": "अभी"
   },
   "daysFreeThen": {
-    "en": "{days} days free, then {price}",
-    "hi": "{days} दिन मुफ़्त, फिर {price}"
+    "en": "{days} days free, then {price}/{period}",
+    "hi": "{days} दिन मुफ़्त, फिर {price}/{period}"
   },
   "debugBilling": {
     "en": "Billing lab",
@@ -831,6 +843,10 @@
     "en": "North",
     "hi": "उत्तर"
   },
+  "notChecked": {
+    "en": "Not checked",
+    "hi": "अभी नहीं देखा"
+  },
   "notGuarantee": {
     "en": "These notes follow traditional guidelines and are not a guarantee.",
     "hi": "ये नोट पारंपरिक दिशा-निर्देश हैं, गारंटी नहीं।"
@@ -1287,6 +1303,10 @@
     "en": "This device could not store more data. Remove a floor plan or a home and try again.",
     "hi": "इस यंत्र पर और डेटा नहीं समाया। एक नक्शा या घर हटाकर फिर कोशिश करें।"
   },
+  "subscriptionTerms": {
+    "en": "Subscription terms",
+    "hi": "सदस्यता की शर्तें"
+  },
   "tagPointing": {
     "en": "Tag the room you are pointing at",
     "hi": "जिस कमरे की ओर इशारा है, उसे चिह्नित करें"
@@ -1298,6 +1318,10 @@
   "terms": {
     "en": "Terms",
     "hi": "शर्तें"
+  },
+  "termsShort": {
+    "en": "Renews until you cancel. Cancel anytime in the Play Store.",
+    "hi": "रद्द करने तक चलती है। Play Store में कभी भी रद्द करें।"
   },
   "thisDevice": {
     "en": "This device",

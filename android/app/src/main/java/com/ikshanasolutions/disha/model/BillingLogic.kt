@@ -274,13 +274,20 @@ data class StoreProduct(
     val title: String,
 )
 
-fun periodWord(period: String?, locale: AppLocale, strings: StringTable): String {
+/** Year, month, or week from an ISO-8601 billing period. Null for a one-time price. */
+fun periodWord(period: String?, locale: AppLocale, strings: StringTable): String? {
     val key = when {
         period?.contains("Y") == true -> "periodYear"
+        period?.contains("M") == true -> "periodMonth"
         period?.contains("W") == true -> "periodWeek"
-        else -> "periodMonth"
+        else -> return null
     }
     return strings.t(key, locale)
+}
+
+/** `₹999/year` when the offer has a period, otherwise the store price alone. */
+fun priceWithPeriod(formattedPrice: String, periodWord: String?): String {
+    return if (periodWord.isNullOrBlank()) formattedPrice else "$formattedPrice/$periodWord"
 }
 
 fun catalogFailed(responseCode: Int, count: Int): Boolean {
