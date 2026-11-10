@@ -23,10 +23,13 @@ export interface CheckZone {
   remedies: L10n[];
 }
 
+export type CheckTier = "free" | "premium";
+
 export interface VaastuCheck {
   id: string;
   /** 5 is a heavy placement such as the main door. 1 is a minor item. */
   weight: number;
+  tier: CheckTier;
   title: L10n;
   blurb: L10n;
   icon: string;
@@ -104,6 +107,8 @@ function loadCheck(raw: unknown, index: number): VaastuCheck {
   if (typeof weight !== "number" || !Number.isInteger(weight) || weight < 1 || weight > 5) {
     throw new Error(`${id} needs a weight from 1 to 5`);
   }
+  const tier = source.tier;
+  if (tier !== "free" && tier !== "premium") throw new Error(`${id} needs tier free or premium`);
   const icon = requiredString(source, "icon", id);
   if (!isCheckIcon(icon)) throw new Error(`${id} has an unknown icon ${icon}`);
   const zonesRaw = source.zones;
@@ -133,6 +138,7 @@ function loadCheck(raw: unknown, index: number): VaastuCheck {
   return {
     id,
     weight,
+    tier,
     title: loadL10n(source.title, `${id} title`),
     blurb: loadL10n(source.blurb, `${id} blurb`),
     icon,
@@ -165,6 +171,13 @@ function loadCatalog(raw: unknown): CheckCatalog {
 
 export const CHECK_CATALOG = loadCatalog(file);
 export const CHECKS = CHECK_CATALOG.checks;
+
+/** The six placements a free account can lock and read. */
+export const FREE_CHECK_IDS = ["house_facing", "main_door", "kitchen", "master_bedroom", "pooja", "living"] as const;
+
+export function isFreeCheck(id: string): boolean {
+  return CHECKS.some((check) => check.id === id && check.tier === "free");
+}
 
 const CHECK_BY_ID = new Map(CHECKS.map((item) => [item.id, item]));
 

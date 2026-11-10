@@ -1,4 +1,4 @@
-import { ChevronLeft, MapPin } from "lucide-react";
+import { ChevronLeft, Lock, MapPin } from "lucide-react";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { LanguageToggle } from "@/components/LanguageToggle.tsx";
 import { Button } from "@/components/ui/button.tsx";
@@ -10,14 +10,17 @@ import {
   CHECK_CATALOG,
   CHECKS,
   harmonyOf,
+  isFreeCheck,
   requireCheck,
   verdictForHeading,
   type QuizVerdict,
 } from "@/lib/checks.ts";
+import { shownRemedies } from "@/lib/accessRules.ts";
 import { formatDeclination, formatHeading } from "@/lib/format.ts";
 import type { HarmonyCardInput } from "@/lib/harmonyExport.ts";
 import { homeScore, type HomeScore, type ScoreBand } from "@/lib/homeScore.ts";
 import { loadQuizResults, loadRemedyDone, saveQuizResults, saveRemedyDone, upsertResult, type StoredQuizResult } from "@/lib/quizStore.ts";
+import { useAccess } from "@/state/access.tsx";
 import { useSensors } from "@/state/sensors.tsx";
 import { CompassDial } from "./CompassDial.tsx";
 import { HomePager } from "./HomePager.tsx";
@@ -64,12 +67,17 @@ function SteadyPrompt() {
 export function QuizFlow({ onAdvanced }: { onAdvanced: () => void }) {
   const sensors = useSensors();
   const { locale } = useI18n();
+  const { premium, openPaywall } = useAccess();
   const [step, setStep] = useState<Step>({ name: "welcome" });
   const [results, setResults] = useState<StoredQuizResult[]>(() => loadQuizResults());
   const [remedies, setRemedies] = useState<Record<string, number>>(() => loadRemedyDone());
   const [note, setNote] = useState<string | null>(null);
   const [scoreDelta, setScoreDelta] = useState<number | null>(null);
-  const report = useMemo(() => homeScore(results, remedies, locale), [results, remedies, locale]);
+  const scored = useMemo(
+    () => (premium ? results : results.filter((item) => isFreeCheck(item.checkId))),
+    [premium, results],
+  );
+  const report = useMemo(() => homeScore(scored, remedies, locale), [locale, remedies, scored]);
 
   useEffect(() => {
     saveQuizResults(results);
@@ -91,6 +99,10 @@ export function QuizFlow({ onAdvanced }: { onAdvanced: () => void }) {
   }
 
   function openCheck(id: string) {
+    if (requireCheck(id).tier === "premium" && !premium) {
+      openPaywall();
+      return;
+    }
     setNote(null);
     setStep({ name: "lock", id });
   }
@@ -98,14 +110,15 @@ export function QuizFlow({ onAdvanced }: { onAdvanced: () => void }) {
   function lockHeading() {
     if (step.name !== "lock") return;
     const locked = sensors.headingToLock();
-    const before = homeScore(results, remedies, locale).score;
+    const before = homeScore(scored, remedies, locale).score;
     const next = upsertResult(results, {
       checkId: step.id,
       heading: locked.trueHeading,
       trueNorth: locked.trueNorth,
       at: Date.now(),
     });
-    const after = homeScore(next, remedies, locale).score;
+    const nextScored = premium ? next : next.filter((item) => isFreeCheck(item.checkId));
+    const after = homeScore(nextScored, remedies, locale).score;
     setScoreDelta((after ?? 0) - (before ?? 0));
     setResults(next);
     setStep({ name: "verdict", id: step.id });
@@ -132,6 +145,7 @@ export function QuizFlow({ onAdvanced }: { onAdvanced: () => void }) {
           onSummary={() => setStep({ name: "summary" })}
           onAdvanced={onAdvanced}
           report={report}
+          premium={premium}
         />
       )}
       {step.name === "lock" && (
@@ -150,6 +164,8 @@ export function QuizFlow({ onAdvanced }: { onAdvanced: () => void }) {
           onSummary={() => setStep({ name: "summary" })}
           canSummarize={results.length > 0}
           scoreDelta={scoreDelta}
+          premium={premium}
+          onPaywall={openPaywall}
           remedyDone={remedies[step.id] === savedById.get(step.id)?.heading}
           onToggleRemedy={() => {
             const saved = savedById.get(step.id);
@@ -169,6 +185,8 @@ export function QuizFlow({ onAdvanced }: { onAdvanced: () => void }) {
             setNote(null);
           }}
           report={report}
+          premium={premium}
+          onPaywall={openPaywall}
           onToggleRemedy={toggleRemedy}
         />
       )}
@@ -209,6 +227,7 @@ function HomeScreen(props: {
   onSummary: () => void;
   onAdvanced: () => void;
   report: HomeScore;
+  premium: boolean;
 }) {
   return <HomePager {...props} />;
 }
@@ -340,6 +359,8 @@ function VerdictScreen({
   onSummary,
   canSummarize,
   scoreDelta,
+  premium,
+  onPaywall,
   remedyDone,
   onToggleRemedy,
 }: {
@@ -350,6 +371,8 @@ function VerdictScreen({
   onSummary: () => void;
   canSummarize: boolean;
   scoreDelta: number | null;
+  premium: boolean;
+  onPaywall: () => void;
   remedyDone: boolean;
   onToggleRemedy: () => void;
 }) {
@@ -368,6 +391,8 @@ function VerdictScreen({
       <VerdictBody
         verdict={verdict}
         trueNorth={saved?.trueNorth !== false}
+        premium={premium}
+        onPaywall={onPaywall}
         remedyDone={remedyDone}
         onToggleRemedy={verdict.remedies.length > 0 ? onToggleRemedy : undefined}
       />
@@ -391,16 +416,21 @@ function VerdictScreen({
 function VerdictBody({
   verdict,
   trueNorth,
+  premium,
+  onPaywall,
   remedyDone,
   onToggleRemedy,
 }: {
   verdict: QuizVerdict;
   trueNorth: boolean;
+  premium: boolean;
+  onPaywall: () => void;
   remedyDone: boolean;
   onToggleRemedy?: () => void;
 }) {
   const { t, u } = useI18n();
   const ideal = verdict.rating === "auspicious" && verdict.remedies.length === 0;
+  const remedies = shownRemedies(verdict.remedies, premium);
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <div className="mt-2 flex shrink-0 items-center gap-3">
@@ -414,12 +444,17 @@ function VerdictBody({
         <p className="mt-2 line-clamp-2 text-sm leading-snug">{u("nothingToMove")}</p>
       ) : (
         <ul className="mt-2 min-h-0 flex-1 space-y-1.5 overflow-hidden">
-          {verdict.remedies.map((remedy) => (
+          {remedies.map((remedy) => (
             <li key={remedy} className="line-clamp-2 rounded-2xl bg-card px-3 py-2 text-sm leading-snug">
               {remedy}
             </li>
           ))}
         </ul>
+      )}
+      {!premium && verdict.remedies.length > 1 && (
+        <button type="button" className="mt-1 shrink-0 text-center text-xs font-medium text-primary" onClick={onPaywall}>
+          {u("moreRemedies")}
+        </button>
       )}
       {onToggleRemedy && (
         <button type="button" className="mt-1 shrink-0 text-center text-xs font-medium text-primary" onClick={onToggleRemedy}>
@@ -449,6 +484,8 @@ function SummaryScreen({
   onBack,
   onClear,
   report,
+  premium,
+  onPaywall,
   onToggleRemedy,
 }: {
   results: StoredQuizResult[];
@@ -457,6 +494,8 @@ function SummaryScreen({
   onBack: () => void;
   onClear: () => void;
   report: HomeScore;
+  premium: boolean;
+  onPaywall: () => void;
   onToggleRemedy: (checkId: string, heading: number) => void;
 }) {
   const { locale, t, u } = useI18n();
@@ -479,7 +518,7 @@ function SummaryScreen({
       placement: row.verdict.placementLine,
       rating: row.verdict.rating,
     })),
-    scoreLabel: report.score == null ? null : `${report.score} · ${u(bandKey(report.band!))}`,
+    scoreLabel: report.score == null ? null : `${report.score} · ${premium ? "" : `${u("previewScore")} · `}${report.band ? u(bandKey(report.band)) : ""}`,
     coverage: fill(u("basedOn"), { done: report.done, total: report.total }),
   };
   const [busy, setBusy] = useState<"card" | "pdf" | null>(null);
@@ -528,7 +567,7 @@ function SummaryScreen({
         <div className="min-w-0">
           <p className="eyebrow">{u("homeHarmony")}</p>
           <h1 className="truncate font-serif text-[clamp(1.6rem,6vw,2rem)] leading-none">
-            {report.band ? u(bandKey(report.band)) : u("noScoreYet")}
+            {report.band ? `${premium ? "" : `${u("previewScore")} · `}${u(bandKey(report.band))}` : u("noScoreYet")}
           </h1>
           <p className="mt-1 text-xs text-muted-foreground">{fill(u("basedOn"), { done: report.done, total: report.total })}</p>
           <p className="line-clamp-2 text-xs leading-snug text-muted-foreground">{report.score == null ? u("noScoreYet") : hint}</p>
@@ -538,13 +577,20 @@ function SummaryScreen({
         {report.categories.map((category) => (
           <div key={category.group.en} className="rounded-xl bg-card px-1 py-1 text-center">
             <p className="truncate text-[0.62rem] text-muted-foreground">{t(category.group)}</p>
-            <p className="font-serif text-lg leading-none text-primary">{category.score ?? "–"}</p>
+            <p className="font-serif text-lg leading-none text-primary">
+              {premium ? (category.score ?? "–") : <Lock className="mx-auto h-4 w-4" aria-hidden="true" />}
+            </p>
           </div>
         ))}
       </div>
       <div className="mt-2 min-h-0 flex-1">
         <p className="text-xs font-medium tracking-wide text-primary uppercase">{u("biggestBoosts")}</p>
-        {report.boosts.length === 0 ? (
+        {!premium ? (
+          <button type="button" onClick={onPaywall} className="mt-1 flex w-full items-center gap-2 rounded-xl border border-[#e4c36a]/40 bg-card px-3 py-2 text-left text-sm">
+            <Lock className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+            {u("lockedFixes")}
+          </button>
+        ) : report.boosts.length === 0 ? (
           <p className="mt-1 text-xs text-muted-foreground">{u("nothingToLift")}</p>
         ) : (
           <ul className="mt-1 space-y-1">
@@ -573,7 +619,7 @@ function SummaryScreen({
         <Button className="h-11 text-base" disabled={busy !== null || rows.length === 0} onClick={() => void shareCard()}>
           {busy === "card" ? u("makingCard") : u("shareCard")}
         </Button>
-        <Button className="h-10" variant="outline" disabled={busy !== null || rows.length === 0} onClick={() => void savePdf()}>
+        <Button className="h-10" variant="outline" disabled={busy === "pdf"} onClick={() => (premium ? void savePdf() : onPaywall())}>
           {busy === "pdf" ? u("makingPdf") : u("downloadPdf")}
         </Button>
       </div>

@@ -12,6 +12,7 @@
     {
       "id": "main_door",
       "weight": 5,
+      "tier": "free",
       "title": {
         "en": "Main door",
         "hi": "मुख्य द्वार"
@@ -787,6 +788,7 @@
     {
       "id": "house_facing",
       "weight": 5,
+      "tier": "free",
       "title": {
         "en": "House facing",
         "hi": "घर की दिशा"
@@ -977,6 +979,7 @@
     {
       "id": "kitchen",
       "weight": 5,
+      "tier": "free",
       "title": {
         "en": "Kitchen",
         "hi": "रसोई"
@@ -1354,6 +1357,7 @@
     {
       "id": "cooking_facing",
       "weight": 3,
+      "tier": "premium",
       "title": {
         "en": "Cooking direction",
         "hi": "पकाने की दिशा"
@@ -1561,6 +1565,7 @@
     {
       "id": "stove",
       "weight": 3,
+      "tier": "premium",
       "title": {
         "en": "Stove",
         "hi": "चूल्हा"
@@ -1938,6 +1943,7 @@
     {
       "id": "master_bedroom",
       "weight": 5,
+      "tier": "free",
       "title": {
         "en": "Master bedroom",
         "hi": "मुख्य शयनकक्ष"
@@ -2306,6 +2312,7 @@
     {
       "id": "bed_head",
       "weight": 3,
+      "tier": "premium",
       "title": {
         "en": "Bed head",
         "hi": "सिरहाना"
@@ -2653,6 +2660,7 @@
     {
       "id": "children_bedroom",
       "weight": 2,
+      "tier": "premium",
       "title": {
         "en": "Children's room",
         "hi": "बच्चों का कमरा"
@@ -3021,6 +3029,7 @@
     {
       "id": "guest_bedroom",
       "weight": 2,
+      "tier": "premium",
       "title": {
         "en": "Guest room",
         "hi": "मेहमान कमरा"
@@ -3389,6 +3398,7 @@
     {
       "id": "pooja",
       "weight": 5,
+      "tier": "free",
       "title": {
         "en": "Prayer room",
         "hi": "पूजा घर"
@@ -3757,6 +3767,7 @@
     {
       "id": "prayer_facing",
       "weight": 3,
+      "tier": "premium",
       "title": {
         "en": "Prayer direction",
         "hi": "प्रार्थना की दिशा"
@@ -3951,6 +3962,7 @@
     {
       "id": "idol_facing",
       "weight": 2,
+      "tier": "premium",
       "title": {
         "en": "Idol facing",
         "hi": "मूर्ति की दिशा"
@@ -4154,6 +4166,7 @@
     {
       "id": "toilet",
       "weight": 5,
+      "tier": "premium",
       "title": {
         "en": "Toilet and bath",
         "hi": "शौचालय और स्नान"
@@ -4531,6 +4544,7 @@
     {
       "id": "toilet_seat",
       "weight": 3,
+      "tier": "premium",
       "title": {
         "en": "Toilet seat",
         "hi": "शौच की दिशा"
@@ -4726,6 +4740,7 @@
     {
       "id": "underground_water",
       "weight": 2,
+      "tier": "premium",
       "title": {
         "en": "Underground water",
         "hi": "भूमिगत पानी"
@@ -5081,6 +5096,7 @@
     {
       "id": "overhead_tank",
       "weight": 2,
+      "tier": "premium",
       "title": {
         "en": "Overhead tank",
         "hi": "छत की टंकी"
@@ -5436,6 +5452,7 @@
     {
       "id": "septic",
       "weight": 3,
+      "tier": "premium",
       "title": {
         "en": "Septic tank",
         "hi": "सेप्टिक टैंक"
@@ -5804,6 +5821,7 @@
     {
       "id": "study",
       "weight": 2,
+      "tier": "premium",
       "title": {
         "en": "Study",
         "hi": "पढ़ाई का कमरा"
@@ -6155,6 +6173,7 @@
     {
       "id": "study_desk",
       "weight": 1,
+      "tier": "premium",
       "title": {
         "en": "Study desk",
         "hi": "पढ़ाई की मेज़"
@@ -6506,6 +6525,7 @@
     {
       "id": "office_desk",
       "weight": 1,
+      "tier": "premium",
       "title": {
         "en": "Work desk",
         "hi": "काम की कुर्सी"
@@ -6705,6 +6725,7 @@
     {
       "id": "locker",
       "weight": 2,
+      "tier": "premium",
       "title": {
         "en": "Safe and cash",
         "hi": "तिजोरी और नकदी"
@@ -7073,6 +7094,7 @@
     {
       "id": "locker_opening",
       "weight": 1,
+      "tier": "premium",
       "title": {
         "en": "Safe opening",
         "hi": "तिजोरी खोलने की दिशा"
@@ -7289,6 +7311,7 @@
     {
       "id": "shop_entrance",
       "weight": 3,
+      "tier": "premium",
       "title": {
         "en": "Shop entrance",
         "hi": "दुकान का प्रवेश"
@@ -7479,6 +7502,7 @@
     {
       "id": "owner_seat",
       "weight": 2,
+      "tier": "premium",
       "title": {
         "en": "Owner's seat",
         "hi": "मालिक की कुर्सी"
@@ -7678,6 +7702,7 @@
     {
       "id": "living",
       "weight": 3,
+      "tier": "free",
       "title": {
         "en": "Living room",
         "hi": "बैठक"
@@ -8033,6 +8058,7 @@
     {
       "id": "sofa_facing",
       "weight": 2,
+      "tier": "premium",
       "title": {
         "en": "Sofa facing",
         "hi": "सोफ़े की दिशा"
@@ -8236,6 +8262,7 @@
     {
       "id": "dining",
       "weight": 2,
+      "tier": "premium",
       "title": {
         "en": "Dining",
         "hi": "भोजन"
@@ -8575,6 +8602,7 @@
     {
       "id": "dining_facing",
       "weight": 1,
+      "tier": "premium",
       "title": {
         "en": "Dining seats",
         "hi": "भोजन की दिशा"
@@ -8778,6 +8806,7 @@
     {
       "id": "staircase",
       "weight": 3,
+      "tier": "premium",
       "title": {
         "en": "Staircase",
         "hi": "सीढ़ी"
@@ -9146,6 +9175,7 @@
     {
       "id": "mirror",
       "weight": 1,
+      "tier": "premium",
       "title": {
         "en": "Mirror",
         "hi": "दर्पण"
@@ -9349,6 +9379,7 @@
     {
       "id": "tv",
       "weight": 1,
+      "tier": "premium",
       "title": {
         "en": "Television",
         "hi": "टेलीविज़न"
@@ -9548,6 +9579,7 @@
     {
       "id": "balcony",
       "weight": 1,
+      "tier": "premium",
       "title": {
         "en": "Balcony and windows",
         "hi": "बालकनी और खिड़कियाँ"
@@ -9903,6 +9935,7 @@
     {
       "id": "garden",
       "weight": 1,
+      "tier": "premium",
       "title": {
         "en": "Garden and tulsi",
         "hi": "बगीचा और तुलसी"
@@ -10093,6 +10126,7 @@
     {
       "id": "parking",
       "weight": 2,
+      "tier": "premium",
       "title": {
         "en": "Parking",
         "hi": "पार्किंग"
