@@ -215,6 +215,18 @@
     "en": "Close",
     "hi": "बंद करें"
   },
+  "codeHint": {
+    "en": "Code",
+    "hi": "कोड"
+  },
+  "codeLimited": {
+    "en": "Too many tries. Wait a minute.",
+    "hi": "बहुत कोशिशें। एक मिनट रुकें।"
+  },
+  "codeRejected": {
+    "en": "Code not recognised",
+    "hi": "कोड नहीं मिला"
+  },
   "color": {
     "en": "Color",
     "hi": "रंग"
@@ -562,6 +574,10 @@
   "gotIt": {
     "en": "Got it",
     "hi": "समझ गया"
+  },
+  "haveCode": {
+    "en": "Have a code?",
+    "hi": "कोड है?"
   },
   "high": {
     "en": "High",
@@ -999,6 +1015,10 @@
     "en": "Poor",
     "hi": "कमज़ोर"
   },
+  "premiumCode": {
+    "en": "Premium (code)",
+    "hi": "प्रीमियम (कोड)"
+  },
   "premiumLine": {
     "en": "All 34 checks, every remedy, the full score, and the PDF.",
     "hi": "सारी 34 जाँचें, हर उपाय, पूरा अंक, और पीडीएफ़।"
@@ -1010,6 +1030,10 @@
   "premiumTitle": {
     "en": "Disha Premium",
     "hi": "दिशा प्रीमियम"
+  },
+  "premiumUnlocked": {
+    "en": "Premium unlocked",
+    "hi": "प्रीमियम खुल गया"
   },
   "preparing": {
     "en": "Preparing…",
@@ -1090,6 +1114,10 @@
   "remedyDoneShort": {
     "en": "A gentle remedy is in place",
     "hi": "हल्का उपाय कर दिया है"
+  },
+  "removeCode": {
+    "en": "Remove code",
+    "hi": "कोड हटाएँ"
   },
   "renewDisclosure": {
     "en": "Payment is charged to your Google Play account at confirmation. A subscription renews automatically unless you cancel at least 24 hours before the end of the current period. Manage or cancel anytime in the Play Store. If a free trial is offered, it becomes a paid subscription unless you cancel before the trial ends.",

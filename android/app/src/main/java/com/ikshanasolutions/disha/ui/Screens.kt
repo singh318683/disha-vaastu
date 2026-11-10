@@ -718,7 +718,10 @@ private fun PlanButton(
 private fun SettingsScreen(vm: DishaViewModel, content: ContentBundle) {
     val locale by vm.locale.collectAsState()
     val billing by vm.billingUi.collectAsState()
+    val review by vm.reviewUnlocked.collectAsState()
     val context = LocalContext.current
+    var showCode by remember { mutableStateOf(false) }
+    var unlockedNote by remember { mutableStateOf(false) }
     BackHandler { vm.back() }
     ScreenBox("settings-screen") {
         Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().verticalScroll(rememberScrollState()).padding(18.dp)) {
@@ -742,9 +745,101 @@ private fun SettingsScreen(vm: DishaViewModel, content: ContentBundle) {
             if (billing.entitlements.premium) {
                 Text(content.t("premiumOn", locale), style = bodyStyle(14.sp, Gold), modifier = Modifier.padding(top = 12.dp))
             }
+            if (review) {
+                Text(content.t("premiumCode", locale), style = bodyStyle(14.sp, Gold), modifier = Modifier.padding(top = 12.dp).semantics { contentDescription = "premium-code" })
+                if (unlockedNote) {
+                    Text(content.t("premiumUnlocked", locale), style = bodyStyle(13.sp, Cream))
+                }
+                TextButton(onClick = {
+                    vm.clearReviewCode()
+                    unlockedNote = false
+                }) {
+                    Text(content.t("removeCode", locale), style = bodyStyle(13.sp, Muted))
+                }
+            } else {
+                Text(
+                    content.t("haveCode", locale),
+                    style = bodyStyle(13.sp, Muted),
+                    modifier = Modifier
+                        .padding(top = 18.dp)
+                        .clickable { showCode = true }
+                        .semantics { contentDescription = "have-a-code" },
+                )
+            }
             val notice = noticeText(content, billing.notice, locale)
             if (notice != null) Text(notice, style = bodyStyle(14.sp, Gold), modifier = Modifier.padding(top = 8.dp))
             if (billing.fake) DebugLab(vm, content, locale)
+        }
+        if (showCode) {
+            ReviewCodeDialog(
+                content = content,
+                locale = locale,
+                onDismiss = { showCode = false },
+                onSubmit = { raw ->
+                    when (vm.submitReviewCode(raw)) {
+                        com.ikshanasolutions.disha.model.CodeResult.UNLOCKED -> {
+                            unlockedNote = true
+                            showCode = false
+                            null
+                        }
+                        com.ikshanasolutions.disha.model.CodeResult.REJECTED -> content.t("codeRejected", locale)
+                        com.ikshanasolutions.disha.model.CodeResult.LIMITED -> content.t("codeLimited", locale)
+                    }
+                },
+            )
+        }
+    }
+}
+
+@Composable
+private fun ReviewCodeDialog(
+    content: ContentBundle,
+    locale: AppLocale,
+    onDismiss: () -> Unit,
+    onSubmit: (String) -> String?,
+) {
+    var draft by remember { mutableStateOf("") }
+    var error by remember { mutableStateOf<String?>(null) }
+    Box(
+        Modifier
+            .fillMaxSize()
+            .background(Field.copy(alpha = 0.72f))
+            .padding(24.dp)
+            .semantics { contentDescription = "review-code-dialog" },
+        contentAlignment = Alignment.Center,
+    ) {
+        Column(Modifier.background(Navy, RoundedCornerShape(22.dp)).padding(22.dp)) {
+            Text(content.t("haveCode", locale), style = displayStyle(28.sp))
+            Spacer(Modifier.height(12.dp))
+            androidx.compose.material3.OutlinedTextField(
+                value = draft,
+                onValueChange = {
+                    draft = it
+                    error = null
+                },
+                singleLine = true,
+                label = { Text(content.t("codeHint", locale)) },
+                modifier = Modifier.fillMaxWidth().semantics { contentDescription = "review-code-field" },
+                colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = Gold,
+                    unfocusedBorderColor = Gold.copy(alpha = 0.45f),
+                    cursorColor = Gold,
+                    focusedTextColor = Cream,
+                    unfocusedTextColor = Cream,
+                    focusedLabelColor = Gold,
+                    unfocusedLabelColor = Muted,
+                ),
+            )
+            if (error != null) {
+                Text(error ?: "", style = bodyStyle(13.sp, Avoid), modifier = Modifier.padding(top = 8.dp))
+            }
+            Spacer(Modifier.height(14.dp))
+            GoldButton(content.t("unlock", locale)) {
+                error = onSubmit(draft)
+            }
+            TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) {
+                Text(content.t("cancel", locale), style = bodyStyle(15.sp, Gold))
+            }
         }
     }
 }

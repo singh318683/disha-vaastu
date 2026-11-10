@@ -24,7 +24,15 @@ import com.ikshanasolutions.disha.model.headingDegreesFromAzimuthRadians
 import com.ikshanasolutions.disha.model.headingFromDialPoint
 import com.ikshanasolutions.disha.model.homePages
 import com.ikshanasolutions.disha.model.homeScore
+import com.ikshanasolutions.disha.model.AttemptWindow
+import com.ikshanasolutions.disha.model.CodeResult
+import com.ikshanasolutions.disha.model.ReviewCode
+import com.ikshanasolutions.disha.model.evaluateReviewCode
+import com.ikshanasolutions.disha.model.isPremium
+import com.ikshanasolutions.disha.model.normalizeReviewCode
 import com.ikshanasolutions.disha.model.priceWithPeriod
+import com.ikshanasolutions.disha.model.reviewCodeMatches
+import com.ikshanasolutions.disha.model.sha256Hex
 import com.ikshanasolutions.disha.model.isoPeriodDays
 import com.ikshanasolutions.disha.model.magneticToTrue
 import com.ikshanasolutions.disha.model.mergeEntitlements
@@ -478,6 +486,53 @@ class BillingLogicTest {
             signature = signature,
             debugUnsigned = debug,
         )
+    }
+}
+
+class ReviewCodeTest {
+    @Test
+    fun lowercaseAndWhitespaceMatchTheSameDigest() {
+        val digest = sha256Hex(normalizeReviewCode("palace"))
+        assertEquals(digest, sha256Hex("PALACE"))
+        assertTrue(reviewCodeMatches("palace", digest))
+        assertTrue(reviewCodeMatches("  PaLaCe  ", digest))
+        assertTrue(reviewCodeMatches("PALACE", digest))
+        assertFalse(reviewCodeMatches("pal ace", digest))
+        assertFalse(reviewCodeMatches("   ", digest))
+    }
+
+    @Test
+    fun wrongCodeDoesNotMatchTheReviewDigest() {
+        assertFalse(reviewCodeMatches("wrong"))
+        assertFalse(reviewCodeMatches("  wrong  "))
+        assertFalse(reviewCodeMatches(""))
+        assertEquals(64, ReviewCode.DIGEST.length)
+        assertFalse(reviewCodeMatches("not-the-code", ReviewCode.DIGEST))
+    }
+
+    @Test
+    fun fiveTriesThenAPause() {
+        var window = AttemptWindow()
+        val start = 1_000_000L
+        repeat(ReviewCode.MAX_TRIES) { index ->
+            val (result, next) = evaluateReviewCode("nope", window, start + index)
+            assertEquals(CodeResult.REJECTED, result)
+            window = next
+        }
+        val (blocked, held) = evaluateReviewCode("nope", window, start + 10)
+        assertEquals(CodeResult.LIMITED, blocked)
+        assertEquals(window, held)
+        val (again, _) = evaluateReviewCode("nope", window, start + ReviewCode.WINDOW_MS)
+        assertEquals(CodeResult.REJECTED, again)
+    }
+
+    @Test
+    fun reviewGrantIsSeparateFromPlay() {
+        val revoked = reconcileEntitlements(true, com.ikshanasolutions.disha.model.Entitlements(premium = true), emptyList())
+        assertFalse(revoked.premium)
+        assertTrue(isPremium(revoked.premium, reviewCodeUnlocked = true))
+        assertTrue(isPremium(playEntitlement = true, reviewCodeUnlocked = false))
+        assertFalse(isPremium(playEntitlement = false, reviewCodeUnlocked = false))
     }
 }
 

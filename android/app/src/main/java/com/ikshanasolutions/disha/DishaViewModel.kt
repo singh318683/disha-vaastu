@@ -32,7 +32,11 @@ import com.ikshanasolutions.disha.model.AppLocale
 import com.ikshanasolutions.disha.model.ContentBundle
 import com.ikshanasolutions.disha.model.Entitlements
 import com.ikshanasolutions.disha.model.Legal
+import com.ikshanasolutions.disha.model.AttemptWindow
+import com.ikshanasolutions.disha.model.CodeResult
 import com.ikshanasolutions.disha.model.LibraryAccess
+import com.ikshanasolutions.disha.model.isPremium
+import com.ikshanasolutions.disha.model.evaluateReviewCode
 import com.ikshanasolutions.disha.model.PresentedScore
 import com.ikshanasolutions.disha.model.ScoreKind
 import com.ikshanasolutions.disha.model.StoredResult
@@ -89,6 +93,9 @@ class DishaViewModel(app: Application) : AndroidViewModel(app) {
     val toast: StateFlow<Int?> = _toast.asStateFlow()
     private val _billing = MutableStateFlow(BillingUi(entitlements = saved.entitlements, fake = BuildConfig.USE_FAKE_BILLING))
     val billingUi: StateFlow<BillingUi> = _billing.asStateFlow()
+    private val _reviewUnlocked = MutableStateFlow(saved.reviewUnlocked)
+    val reviewUnlocked: StateFlow<Boolean> = _reviewUnlocked.asStateFlow()
+    private var reviewAttempts = AttemptWindow()
 
     private var declination: Double? = saved.declination
     private var askedLocation = saved.askedLocation
@@ -325,13 +332,31 @@ class DishaViewModel(app: Application) : AndroidViewModel(app) {
         _toast.value = null
     }
 
+    fun submitReviewCode(raw: String): CodeResult {
+        val (result, next) = evaluateReviewCode(raw, reviewAttempts, System.currentTimeMillis())
+        reviewAttempts = next
+        if (result == CodeResult.UNLOCKED) {
+            _reviewUnlocked.value = true
+            persist()
+        }
+        return result
+    }
+
+    fun clearReviewCode() {
+        _reviewUnlocked.value = false
+        persist()
+    }
+
     fun currentHome(): SavedHome {
         return _homes.value.firstOrNull { it.id == _homeId.value } ?: _homes.value.first()
     }
 
     fun access(): LibraryAccess {
         val entitlements = _billing.value.entitlements
-        return LibraryAccess(entitlements.premium, entitlements.ownsReport(_homeId.value))
+        return LibraryAccess(
+            isPremium(entitlements.premium, _reviewUnlocked.value),
+            entitlements.ownsReport(_homeId.value),
+        )
     }
 
     fun presented(): PresentedScore? {
@@ -378,6 +403,7 @@ class DishaViewModel(app: Application) : AndroidViewModel(app) {
             homes = _homes.value,
             currentHomeId = _homeId.value,
             entitlements = _billing.value.entitlements,
+            reviewUnlocked = _reviewUnlocked.value,
         )
         store.save(saved)
     }

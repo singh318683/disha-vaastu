@@ -27,6 +27,8 @@ data class SavedState(
     val homes: List<SavedHome>,
     val currentHomeId: String,
     val entitlements: Entitlements,
+    /** Local reviewer unlock. Independent of Play purchases. */
+    val reviewUnlocked: Boolean = false,
 )
 
 class HomeStore(context: Context) {
@@ -100,6 +102,7 @@ class HomeStore(context: Context) {
             .put("premium", state.entitlements.premium)
             .put("reports", JSONArray(state.entitlements.reportHomeIds.toList()))
             .put("pending", JSONArray(state.entitlements.pendingProductIds.toList()))
+            .put("review", state.reviewUnlocked)
     }
 
     private fun decode(json: JSONObject): SavedState {
@@ -153,6 +156,7 @@ class HomeStore(context: Context) {
             homes = safeHomes,
             currentHomeId = currentId,
             entitlements = Entitlements(json.optBoolean("premium"), reports, pending),
+            reviewUnlocked = json.optBoolean("review"),
         )
     }
 

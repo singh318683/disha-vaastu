@@ -196,6 +196,13 @@ const extra = {
   },
   perPeriod: { en: "{price} per {period}", hi: "{price} प्रति {period}" },
   premiumOn: { en: "Premium is on", hi: "प्रीमियम चालू है" },
+  haveCode: { en: "Have a code?", hi: "कोड है?" },
+  codeHint: { en: "Code", hi: "कोड" },
+  premiumUnlocked: { en: "Premium unlocked", hi: "प्रीमियम खुल गया" },
+  premiumCode: { en: "Premium (code)", hi: "प्रीमियम (कोड)" },
+  removeCode: { en: "Remove code", hi: "कोड हटाएँ" },
+  codeRejected: { en: "Code not recognised", hi: "कोड नहीं मिला" },
+  codeLimited: { en: "Too many tries. Wait a minute.", hi: "बहुत कोशिशें। एक मिनट रुकें।" },
   previewScore: { en: "Preview", hi: "झलक" },
   debugBilling: { en: "Billing lab", hi: "बिलिंग प्रयोगशाला" },
   debugNote: {

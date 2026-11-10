@@ -118,6 +118,18 @@ Run these on the internal track with a license tester, and again in the debug Bi
 | Trial | The yearly row shows the free phase length and the paid `formattedPrice` from the offer, then charges only if the trial is not cancelled. |
 | Refund or revocation | After Play stops returning the purchase, the next successful query drops Premium or that home's report. A failed query keeps the last good cache. |
 
+## Reviewer code
+
+Play review has no login. Settings has a quiet **Have a code?** row. A matching code grants Premium on that install: all 34 checks, every remedy, the full score, the PDF, and saved homes. The grant is stored in preferences and is separate from Play Billing (`isPremium` is the Play entitlement or this flag). **Remove code** clears only the local grant.
+
+The repository holds the SHA-256 hex of the code, not the code. It is `ReviewCode.DIGEST` in `android/app/src/main/java/com/ikshanasolutions/disha/model/ReviewCode.kt`. To rotate it, choose a new code, trim it, uppercase it, and replace that constant with the hex digest. Do not commit the code.
+
+```bash
+python3 -c 'import hashlib,sys; text=sys.argv[1].strip().upper(); print(hashlib.sha256(text.encode()).hexdigest())' 'new code'
+```
+
+The field trims and uppercases before hashing, so the digest is of that trimmed uppercase text. Share the new code with the reviewer outside the repo.
+
 ## Fonts
 
 Cormorant Garamond (headings) and Noto Sans Devanagari (Hindi) are under `android/app/src/main/res/font/`. Both are licensed under the SIL Open Font License. The license texts are in `android/third_party/fonts/`.
