@@ -24,7 +24,7 @@ export function CompassDial({
   }
 
   return (
-    <div className="mx-auto w-full max-w-[18rem]">
+    <div className="mx-auto flex w-[min(100%,16rem,40dvh)] flex-col items-center">
       <svg
         ref={ref}
         viewBox="0 0 200 200"
@@ -104,7 +104,7 @@ export function CompassDial({
         <circle cx="100" cy="100" r="7" fill="none" stroke="#e4c36a" strokeWidth="1.4" />
         <circle cx="100" cy="100" r="3" fill="#f6e7b2" />
       </svg>
-      <p className="mt-2 text-center font-serif text-4xl leading-none text-foreground">{label}</p>
+      <p className="mt-1 text-center font-serif text-[clamp(1.6rem,6vw,2.25rem)] leading-none text-foreground">{label}</p>
     </div>
   );
 }

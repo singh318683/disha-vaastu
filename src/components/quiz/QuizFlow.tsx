@@ -1,5 +1,5 @@
 import { ChevronLeft } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { LanguageToggle } from "@/components/LanguageToggle.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { useI18n } from "@/i18n/I18nProvider.tsx";
@@ -9,7 +9,6 @@ import { phoneIsLevel } from "@/lib/heading.ts";
 import {
   CHECK_CATALOG,
   CHECKS,
-  checkGroups,
   harmonyOf,
   requireCheck,
   verdictForHeading,
@@ -20,8 +19,8 @@ import { formatDeclination, formatHeading } from "@/lib/format.ts";
 import type { HarmonyCardInput } from "@/lib/harmonyExport.ts";
 import { loadQuizResults, saveQuizResults, upsertResult, type StoredQuizResult } from "@/lib/quizStore.ts";
 import { useSensors } from "@/state/sensors.tsx";
-import { CheckGlyph } from "./CheckGlyph.tsx";
 import { CompassDial } from "./CompassDial.tsx";
+import { HomePager } from "./HomePager.tsx";
 import { MoodFace } from "./MoodFace.tsx";
 
 type Step =
@@ -97,7 +96,7 @@ export function QuizFlow({ onAdvanced }: { onAdvanced: () => void }) {
   const savedById = useMemo(() => new Map(results.map((item) => [item.checkId, item])), [results]);
 
   return (
-    <div className="mx-auto min-h-dvh max-w-lg">
+    <div className="mx-auto h-dvh max-w-lg overflow-hidden">
       {step.name === "welcome" && <WelcomeScreen onStart={start} />}
       {step.name === "home" && (
         <HomeScreen
@@ -143,14 +142,14 @@ export function QuizFlow({ onAdvanced }: { onAdvanced: () => void }) {
 function WelcomeScreen({ onStart }: { onStart: () => void }) {
   const { t, u } = useI18n();
   return (
-    <section data-screen="welcome" className="relative flex min-h-dvh flex-col justify-between overflow-hidden px-6 py-10">
+    <section data-screen="welcome" className="relative flex h-full flex-col justify-between overflow-hidden px-6 py-8">
       <Mandala className="pointer-events-none absolute -top-24 -right-16 h-72 w-72 opacity-50" />
       <div className="relative flex items-center justify-between">
         <p className="eyebrow">Disha</p>
         <LanguageToggle />
       </div>
       <div className="relative">
-        <h1 className="max-w-[12ch] text-[3.25rem] leading-[1.15]">{u("welcomeTitle")}</h1>
+        <h1 className="max-w-[12ch] text-[clamp(2.35rem,9vw,3.25rem)] leading-[1.15]">{u("welcomeTitle")}</h1>
         <p className="mt-5 max-w-[28ch] text-lg leading-relaxed text-muted-foreground">{u("welcomeLine")}</p>
       </div>
       <div>
@@ -163,80 +162,13 @@ function WelcomeScreen({ onStart }: { onStart: () => void }) {
   );
 }
 
-function HomeScreen({
-  savedById,
-  onOpen,
-  onSummary,
-  onAdvanced,
-}: {
+function HomeScreen(props: {
   savedById: Map<string, StoredQuizResult>;
   onOpen: (id: string) => void;
   onSummary: () => void;
   onAdvanced: () => void;
 }) {
-  const { locale, t, u } = useI18n();
-  const groups = checkGroups();
-  const checked = savedById.size;
-  return (
-    <section data-screen="home" className="px-4 pt-8 pb-12">
-      <div className="flex items-center justify-between">
-        <p className="eyebrow">Disha</p>
-        <LanguageToggle />
-      </div>
-      <h1 className="mt-2 text-4xl leading-[1.15]">{u("whatCheck")}</h1>
-      <p className="mt-3 text-base leading-relaxed text-muted-foreground">{u("standPoint")}</p>
-      {checked > 0 && (
-        <button
-          type="button"
-          onClick={onSummary}
-          className="mt-5 flex w-full items-center justify-between rounded-3xl bg-primary px-5 py-4 text-left text-primary-foreground shadow-[0_16px_32px_-18px_rgba(228,195,106,0.8)]"
-        >
-          <span>
-            <span className="block font-serif text-2xl leading-none">{u("homeHarmony")}</span>
-            <span className="mt-1 block text-sm text-primary-foreground/80">
-              {checked} {checked === 1 ? u("placeChecked") : u("placesChecked")}
-            </span>
-          </span>
-          <span aria-hidden="true" className="text-2xl">
-            →
-          </span>
-        </button>
-      )}
-      {groups.map((group) => (
-        <div key={group.group.en} className="mt-8">
-          <h2 className="text-2xl leading-snug">{t(group.group)}</h2>
-          <div className="mt-3 grid grid-cols-2 gap-3">
-            {group.checks.map((check) => {
-              const saved = savedById.get(check.id);
-              const rating = saved ? verdictForHeading(check, saved.heading, locale).rating : null;
-              return (
-                <button
-                  key={check.id}
-                  type="button"
-                  onClick={() => onOpen(check.id)}
-                  aria-label={`${t(check.title)}. ${t(check.blurb)}.${rating ? ` ${u(rating)}.` : ""}`}
-                  className="flex min-h-36 flex-col items-start rounded-3xl border border-[#e4c36a]/25 bg-card p-4 text-left shadow-[0_18px_36px_-24px_rgba(0,0,0,0.75)] active:scale-[0.99]"
-                >
-                  <span className="flex w-full items-start justify-between">
-                    <span className="grid h-11 w-11 place-items-center rounded-2xl bg-secondary text-primary">
-                      <CheckGlyph name={check.icon} />
-                    </span>
-                    {rating && <MoodFace rating={rating} className="h-8 w-8" />}
-                  </span>
-                  <span className="mt-3 font-serif text-xl leading-snug">{t(check.title)}</span>
-                  <span className="mt-1 text-sm leading-snug text-muted-foreground">{t(check.blurb)}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      ))}
-      <button type="button" onClick={onAdvanced} className="mt-10 w-full rounded-3xl px-4 py-4 text-base text-muted-foreground">
-        {u("advanced")}
-        <span className="mt-1 block text-sm">{u("advancedHint")}</span>
-      </button>
-    </section>
-  );
+  return <HomePager {...props} />;
 }
 
 function LockScreen({ id, onBack, onLock }: { id: string; onBack: () => void; onLock: () => void }) {
@@ -277,16 +209,16 @@ function LockScreen({ id, onBack, onLock }: { id: string; onBack: () => void; on
   ] as const;
 
   return (
-    <section data-screen="lock" data-reference={check.reference} className="flex min-h-dvh flex-col px-5 pt-5 pb-8">
-      <div className="flex items-center gap-2">
-        <button type="button" onClick={onBack} aria-label={u("back")} className="grid h-12 w-12 place-items-center rounded-full bg-card">
-          <ChevronLeft className="h-6 w-6" />
+    <section data-screen="lock" data-reference={check.reference} className="flex h-full flex-col overflow-hidden px-4 pt-[max(0.6rem,env(safe-area-inset-top))] pb-[max(0.45rem,env(safe-area-inset-bottom))]">
+      <div className="flex shrink-0 items-center gap-2">
+        <button type="button" onClick={onBack} aria-label={u("back")} className="grid h-10 w-10 place-items-center rounded-full bg-card">
+          <ChevronLeft className="h-5 w-5" />
         </button>
-        <h1 className="min-w-0 flex-1 text-3xl leading-snug">{t(check.title)}</h1>
+        <h1 className="min-w-0 flex-1 truncate text-2xl leading-none">{t(check.title)}</h1>
         <LanguageToggle />
       </div>
-      <p className="mt-5 text-lg leading-relaxed">{t(check.instructions)}</p>
-      <div className="mt-6">
+      <p className="mt-2 line-clamp-2 shrink-0 text-sm leading-snug text-muted-foreground">{t(check.instructions)}</p>
+      <div className="flex min-h-0 flex-1 items-center justify-center">
         <CompassDial
           heading={heading}
           label={label}
@@ -294,37 +226,36 @@ function LockScreen({ id, onBack, onLock }: { id: string; onBack: () => void; on
           onHeading={live ? undefined : sensors.setHeadingFromUser}
         />
       </div>
-      <div className="mt-4 min-h-12 text-center text-base leading-snug text-muted-foreground" role="status" aria-live="polite">
-        {promptKind === "steady" ? <SteadyPrompt /> : <p>{u(promptKind)}</p>}
-        {sensors.noisy && <p className="mt-1 text-sm">{u("figure8")}</p>}
+      <div className="line-clamp-2 shrink-0 text-center text-sm leading-snug text-muted-foreground" role="status" aria-live="polite">
+        {promptKind === "steady" ? <SteadyPrompt /> : <span>{u(promptKind)}</span>}
+        {sensors.noisy && <span className="mt-0.5 block text-xs">{u("figure8")}</span>}
       </div>
       {sensors.effective.basis === "live-magnetic" && (
-        <button type="button" className="text-center text-sm text-primary" onClick={sensors.requestLocation}>
+        <button type="button" className="mt-1 line-clamp-2 shrink-0 text-center text-xs text-primary" onClick={sensors.requestLocation}>
           {u("magneticHint")}
         </button>
       )}
       {askPermission ? (
-        <Button className="mt-2 h-14 w-full text-lg" disabled={waiting} onClick={enableCompass}>
+        <Button className="mt-2 h-11 w-full shrink-0 text-base" disabled={waiting} onClick={enableCompass}>
           {sensors.permission === "denied" ? u("tryCompass") : u("enableCompass")}
         </Button>
       ) : (
-        <Button className="mt-2 h-14 w-full text-lg" disabled={waiting} onClick={onLock}>
+        <Button className="mt-2 h-11 w-full shrink-0 text-base" disabled={waiting} onClick={onLock}>
           {waiting ? u("waiting") : u("lock")}
         </Button>
       )}
       {askPermission && (
-        <Button className="mt-3 h-12 w-full" variant="secondary" onClick={onLock}>
+        <Button className="mt-1.5 h-10 w-full shrink-0" variant="secondary" onClick={onLock}>
           {u("lockRing")}
         </Button>
       )}
       {!live && sensors.magneticHeading != null && (
-        <button type="button" className="mt-3 text-sm text-primary" onClick={sensors.followLive}>
+        <button type="button" className="mt-1 shrink-0 text-center text-xs text-primary" onClick={sensors.followLive}>
           {u("followLive")}
         </button>
       )}
-      <details className="mt-4 rounded-3xl bg-card px-4 py-3">
-        <summary className="cursor-pointer text-base font-medium">{u("details")}</summary>
-        <div className="mt-3 space-y-2 text-sm leading-relaxed text-muted-foreground">
+      <MoreSheet>
+        <div className="space-y-2 text-sm leading-relaxed text-muted-foreground">
           <p>
             {u("trueHeading")} {formatHeading(heading)} · {u("facingWord")} {label}
           </p>
@@ -341,24 +272,24 @@ function LockScreen({ id, onBack, onLock }: { id: string; onBack: () => void; on
             </Button>
           )}
         </div>
-      </details>
-      {!live && (
-        <details className="mt-3 rounded-3xl bg-card px-4 py-3">
-          <summary className="cursor-pointer text-base font-medium">{u("setDirection")}</summary>
-          <div className="mt-3 grid grid-cols-4 gap-2">
-            {directions.map(([name, degrees]) => (
-              <button
-                key={name}
-                type="button"
-                onClick={() => sensors.setHeadingFromUser(degrees)}
-                className="h-12 rounded-2xl bg-secondary text-base font-medium"
-              >
-                {directionName(name, locale)}
-              </button>
-            ))}
+        {!live && (
+          <div className="mt-4">
+            <p className="text-base font-medium">{u("setDirection")}</p>
+            <div className="mt-2 grid grid-cols-4 gap-2">
+              {directions.map(([name, degrees]) => (
+                <button
+                  key={name}
+                  type="button"
+                  onClick={() => sensors.setHeadingFromUser(degrees)}
+                  className="h-11 rounded-2xl bg-secondary text-sm font-medium"
+                >
+                  {directionName(name, locale)}
+                </button>
+              ))}
+            </div>
           </div>
-        </details>
-      )}
+        )}
+      </MoreSheet>
     </section>
   );
 }
@@ -382,23 +313,23 @@ function VerdictScreen({
   const check = requireCheck(id);
   const verdict = verdictForHeading(check, saved?.heading ?? 0, locale);
   return (
-    <section data-screen="verdict" className="px-5 pt-5 pb-10">
-      <div className="flex items-center justify-between">
-        <button type="button" onClick={onHome} className="grid h-12 w-12 place-items-center rounded-full bg-card" aria-label={u("back")}>
-          <ChevronLeft className="h-6 w-6" />
+    <section data-screen="verdict" className="flex h-full flex-col overflow-hidden px-4 pt-[max(0.6rem,env(safe-area-inset-top))] pb-[max(0.45rem,env(safe-area-inset-bottom))]">
+      <div className="flex shrink-0 items-center justify-between">
+        <button type="button" onClick={onHome} className="grid h-10 w-10 place-items-center rounded-full bg-card" aria-label={u("back")}>
+          <ChevronLeft className="h-5 w-5" />
         </button>
         <LanguageToggle />
       </div>
       <VerdictBody verdict={verdict} trueNorth={saved?.trueNorth !== false} />
-      <div className="mt-6 grid gap-3">
-        <Button className="h-14 text-lg" onClick={onHome}>
+      <div className="mt-2 grid shrink-0 gap-1.5">
+        <Button className="h-11 text-base" onClick={onHome}>
           {u("checkAnother")}
         </Button>
-        <Button className="h-12" variant="secondary" onClick={onRetake}>
+        <Button className="h-10" variant="secondary" onClick={onRetake}>
           {u("retake")}
         </Button>
         {canSummarize && (
-          <button type="button" onClick={onSummary} className="py-2 text-base text-primary">
+          <button type="button" onClick={onSummary} className="py-1 text-sm text-primary">
             {u("seeHarmony")}
           </button>
         )}
@@ -411,40 +342,37 @@ function VerdictBody({ verdict, trueNorth }: { verdict: QuizVerdict; trueNorth: 
   const { t, u } = useI18n();
   const ideal = verdict.rating === "auspicious" && verdict.remedies.length === 0;
   return (
-    <div>
-      <div className="mt-4 flex items-center gap-3">
-        <MoodFace rating={verdict.rating} className="h-16 w-16" />
-        <p className="font-serif text-3xl leading-none">{u(verdict.rating)}</p>
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <div className="mt-2 flex shrink-0 items-center gap-3">
+        <MoodFace rating={verdict.rating} className="h-12 w-12" />
+        <p className="font-serif text-2xl leading-none">{u(verdict.rating)}</p>
       </div>
-      <h1 className="mt-5 text-4xl leading-tight">{verdict.placementLine}</h1>
-      {verdict.check.granularity === 32 && <p className="mt-2 text-lg">{verdict.slotLine}</p>}
-      {verdict.toward && <p className="mt-1 text-base text-muted-foreground">{verdict.toward}</p>}
-      <p className="mt-4 text-lg leading-relaxed">{verdict.meaning}</p>
-      <div className="mt-4 rounded-3xl border border-[#e4c36a]/25 bg-secondary px-4 py-4">
-        <p className="text-base leading-relaxed">{verdict.bestNote}</p>
-      </div>
+      <h1 className="mt-2 line-clamp-2 shrink-0 text-[clamp(1.55rem,6vw,2rem)] leading-tight">{verdict.placementLine}</h1>
+      {verdict.check.granularity === 32 && <p className="mt-1 line-clamp-1 shrink-0 text-sm">{verdict.slotLine}</p>}
+      <p className="mt-2 line-clamp-3 shrink-0 text-sm leading-snug">{verdict.meaning}</p>
       {ideal ? (
-        <p className="mt-4 text-lg leading-relaxed">{u("nothingToMove")}</p>
+        <p className="mt-2 line-clamp-2 text-sm leading-snug">{u("nothingToMove")}</p>
       ) : (
-        <ul className="mt-4 space-y-2">
+        <ul className="mt-2 min-h-0 flex-1 space-y-1.5 overflow-hidden">
           {verdict.remedies.map((remedy) => (
-            <li key={remedy} className="rounded-2xl bg-card px-4 py-3 text-base leading-snug">
+            <li key={remedy} className="line-clamp-2 rounded-2xl bg-card px-3 py-2 text-sm leading-snug">
               {remedy}
             </li>
           ))}
         </ul>
       )}
-      {!trueNorth && (
-        <p className="mt-3 text-sm text-primary">{u("stillMagnetic")}</p>
-      )}
-      <details className="mt-4 text-sm text-muted-foreground">
-        <summary className="cursor-pointer text-base font-medium text-foreground">{u("details")}</summary>
-        <p className="mt-2 leading-relaxed">
-          {formatHeading(verdict.heading)} · {verdict.directionLabel} · {verdict.slotId}
-          {verdict.check.detailNote ? ` · ${t(verdict.check.detailNote)}` : ""}
-        </p>
-      </details>
-      <p className="mt-4 text-sm text-muted-foreground">{t(CHECK_CATALOG.framing)}</p>
+      {!trueNorth && <p className="mt-1 line-clamp-2 shrink-0 text-xs text-primary">{u("stillMagnetic")}</p>}
+      <MoreSheet>
+        <div className="space-y-3 text-sm leading-relaxed">
+          <p>{verdict.bestNote}</p>
+          {verdict.toward && <p className="text-muted-foreground">{verdict.toward}</p>}
+          <p className="text-muted-foreground">
+            {formatHeading(verdict.heading)} · {verdict.directionLabel} · {verdict.slotId}
+            {verdict.check.detailNote ? ` · ${t(verdict.check.detailNote)}` : ""}
+          </p>
+          <p className="text-muted-foreground">{t(CHECK_CATALOG.framing)}</p>
+        </div>
+      </MoreSheet>
     </div>
   );
 }
@@ -516,49 +444,86 @@ function SummaryScreen({
   }
 
   return (
-    <section data-screen="summary" className="px-5 pt-5 pb-12">
-      <div className="flex items-center justify-between">
-        <button type="button" onClick={onBack} aria-label={u("back")} className="grid h-12 w-12 place-items-center rounded-full bg-card">
-          <ChevronLeft className="h-6 w-6" />
+    <section data-screen="summary" className="flex h-full flex-col overflow-hidden px-4 pt-[max(0.6rem,env(safe-area-inset-top))] pb-[max(0.45rem,env(safe-area-inset-bottom))]">
+      <div className="flex shrink-0 items-center justify-between">
+        <button type="button" onClick={onBack} aria-label={u("back")} className="grid h-10 w-10 place-items-center rounded-full bg-card">
+          <ChevronLeft className="h-5 w-5" />
         </button>
         <LanguageToggle />
       </div>
-      <p className="eyebrow mt-4">{u("homeHarmony")}</p>
-      <h1 className="mt-2 text-4xl leading-snug">{harmony.title}</h1>
-      <p className="mt-3 text-lg leading-relaxed text-muted-foreground">{harmony.line}</p>
-      <div className="mt-5 grid grid-cols-3 gap-2">
+      <p className="eyebrow mt-2 shrink-0">{u("homeHarmony")}</p>
+      <h1 className="mt-1 line-clamp-2 shrink-0 text-[clamp(1.6rem,6vw,2rem)] leading-tight">{harmony.title}</h1>
+      <p className="mt-1 line-clamp-2 shrink-0 text-sm leading-snug text-muted-foreground">{harmony.line}</p>
+      <div className="mt-2 grid shrink-0 grid-cols-3 gap-2">
         <Count value={harmony.auspicious} label={u("auspicious")} rating="auspicious" />
         <Count value={harmony.neutral} label={u("neutral")} rating="neutral" />
         <Count value={harmony.inauspicious} label={u("toSoften")} rating="inauspicious" />
       </div>
-      <ul className="mt-6 space-y-2">
-        {rows.length === 0 && <li className="text-base text-muted-foreground">{u("nothingChecked")}</li>}
+      <ul className="mt-2 min-h-0 flex-1 space-y-1.5 overflow-y-auto overscroll-contain">
+        {rows.length === 0 && <li className="text-sm text-muted-foreground">{u("nothingChecked")}</li>}
         {rows.map((row) => (
-          <li key={row.verdict.check.id} className="flex items-center gap-3 rounded-3xl bg-card px-4 py-3">
-            <MoodFace rating={row.verdict.rating} className="h-10 w-10" />
-            <span>
-              <span className="block font-medium">{t(row.verdict.check.title)}</span>
-              <span className="block text-sm text-muted-foreground">{row.verdict.placementLine}</span>
+          <li key={row.verdict.check.id} className="flex items-center gap-3 rounded-2xl bg-card px-3 py-2">
+            <MoodFace rating={row.verdict.rating} className="h-8 w-8" />
+            <span className="min-w-0">
+              <span className="block truncate text-sm font-medium">{t(row.verdict.check.title)}</span>
+              <span className="block truncate text-xs text-muted-foreground">{row.verdict.placementLine}</span>
             </span>
           </li>
         ))}
       </ul>
-      <div className="mt-6 grid gap-3">
-        <Button className="h-14 text-lg" disabled={busy !== null || rows.length === 0} onClick={() => void shareCard()}>
+      <div className="mt-2 grid shrink-0 gap-1.5">
+        <Button className="h-11 text-base" disabled={busy !== null || rows.length === 0} onClick={() => void shareCard()}>
           {busy === "card" ? u("makingCard") : u("shareCard")}
         </Button>
-        <Button className="h-12" variant="outline" disabled={busy !== null || rows.length === 0} onClick={() => void savePdf()}>
+        <Button className="h-10" variant="outline" disabled={busy !== null || rows.length === 0} onClick={() => void savePdf()}>
           {busy === "pdf" ? u("makingPdf") : u("downloadPdf")}
         </Button>
       </div>
-      {note && <p className="mt-3 text-center text-sm text-muted-foreground">{note}</p>}
-      <p className="mt-4 text-sm text-muted-foreground">{t(CHECK_CATALOG.framing)}</p>
-      {rows.length > 0 && (
-        <button type="button" onClick={onClear} className="mt-4 text-sm text-muted-foreground underline">
-          {u("clearChecks")}
-        </button>
-      )}
+      {note && <p className="mt-1 shrink-0 text-center text-xs text-muted-foreground">{note}</p>}
+      <div className="mt-1 flex shrink-0 items-center justify-between gap-3 text-xs text-muted-foreground">
+        <p className="line-clamp-1">{t(CHECK_CATALOG.framing)}</p>
+        {rows.length > 0 && (
+          <button type="button" onClick={onClear} className="shrink-0 underline">
+            {u("clearChecks")}
+          </button>
+        )}
+      </div>
     </section>
+  );
+}
+
+function MoreSheet({ children }: { children: ReactNode }) {
+  const { u } = useI18n();
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <button
+        type="button"
+        className="mt-1.5 h-10 w-full shrink-0 rounded-2xl bg-card text-sm font-medium"
+        aria-expanded={open}
+        onClick={() => setOpen(true)}
+      >
+        {u("more")}
+      </button>
+      {open && (
+        <div className="fixed inset-0 z-50 flex items-end bg-[#050814]/70" onClick={() => setOpen(false)}>
+          <div
+            role="dialog"
+            aria-label={u("more")}
+            className="max-h-[75dvh] w-full overflow-y-auto rounded-t-3xl border border-[#e4c36a]/30 bg-card px-5 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom))]"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <h2 className="font-serif text-2xl">{u("more")}</h2>
+              <button type="button" className="rounded-full px-3 py-1 text-sm text-primary" onClick={() => setOpen(false)}>
+                {u("close")}
+              </button>
+            </div>
+            {children}
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
