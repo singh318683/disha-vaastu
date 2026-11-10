@@ -196,9 +196,9 @@ export function Paywall({
           {u("restorePurchase")}
         </button>
         <span>
-          <a className="underline" href="/terms.html">{u("terms")}</a>
+          <a className="underline" href="https://disha-vaastu.vercel.app/terms">{u("terms")}</a>
           {" · "}
-          <a className="underline" href="/privacy.html">{u("privacy")}</a>
+          <a className="underline" href="https://disha-vaastu.vercel.app/privacy">{u("privacy")}</a>
         </span>
       </div>
     </section>
