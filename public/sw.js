@@ -1,5 +1,5 @@
 // Bump this name on every compass/shell change so activate() drops stale caches.
-const CACHE = "disha-shell-v9";
+const CACHE = "disha-shell-v10";
 const PRECACHE = ["/", "/index.html", "/manifest.webmanifest", "/favicon.svg"];
 
 self.addEventListener("install", (event) => {
@@ -27,7 +27,7 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET") return;
   const url = new URL(request.url);
   // The browser checks sw.js itself. Intercepting it can pin an old worker.
-  if (url.origin !== self.location.origin || url.pathname === "/sw.js") return;
+  if (url.origin !== self.location.origin || url.pathname === "/sw.js" || url.pathname.startsWith("/api/")) return;
 
   event.respondWith(
     (async () => {

@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Lock } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { LanguageToggle } from "@/components/LanguageToggle.tsx";
 import { useI18n } from "@/i18n/I18nProvider.tsx";
@@ -18,12 +18,14 @@ export function HomePager({
   onSummary,
   onAdvanced,
   report,
+  premium,
 }: {
   savedById: Map<string, StoredQuizResult>;
   onOpen: (id: string) => void;
   onSummary: () => void;
   onAdvanced: () => void;
   report: HomeScore;
+  premium: boolean;
 }) {
   const { t, u } = useI18n();
   const pages = useMemo(() => homePages(checkGroups()), []);
@@ -96,7 +98,7 @@ export function HomePager({
         <ScoreRing score={report.score} size={46} caption={report.score == null ? u("noScoreYet") : `${report.score}`} />
         <span className="min-w-0 flex-1">
           <span className="block truncate font-serif text-lg leading-none text-primary">
-            {report.band ? u(bandKey(report.band)) : u("noScoreYet")}
+            {report.band ? `${premium ? "" : `${u("previewScore")} · `}${u(bandKey(report.band))}` : u("noScoreYet")}
           </span>
           <span className="mt-0.5 block truncate text-xs text-muted-foreground">
             {fill(u("basedOn"), { done: report.done, total: report.total })}
@@ -113,7 +115,7 @@ export function HomePager({
         className="mt-1 flex min-h-0 flex-1 snap-x snap-mandatory overflow-x-auto overflow-y-hidden overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {pages.map((page) => (
-          <CategoryPage key={page.id} page={page} savedById={savedById} onOpen={onOpen} />
+          <CategoryPage key={page.id} page={page} savedById={savedById} onOpen={onOpen} premium={premium} />
         ))}
       </div>
       <nav className="shrink-0 px-3 pt-2 pb-[max(0.45rem,env(safe-area-inset-bottom))]" aria-label={u("categories")}>
@@ -181,10 +183,12 @@ function CategoryPage({
   page,
   savedById,
   onOpen,
+  premium,
 }: {
   page: HomePage;
   savedById: Map<string, StoredQuizResult>;
   onOpen: (id: string) => void;
+  premium: boolean;
 }) {
   const { t } = useI18n();
   const rows = Math.ceil(page.checks.length / page.columns);
@@ -201,7 +205,7 @@ function CategoryPage({
         style={{ gridTemplateRows: `repeat(${rows}, auto)` }}
       >
         {page.checks.map((check) => (
-          <CheckTile key={check.id} check={check} saved={savedById.get(check.id)} compact={page.columns === 3} onOpen={onOpen} />
+          <CheckTile key={check.id} check={check} saved={savedById.get(check.id)} compact={page.columns === 3} locked={!premium && check.tier === "premium"} onOpen={onOpen} />
         ))}
       </div>
     </div>
@@ -212,11 +216,13 @@ function CheckTile({
   check,
   saved,
   compact,
+  locked,
   onOpen,
 }: {
   check: VaastuCheck;
   saved: StoredQuizResult | undefined;
   compact: boolean;
+  locked: boolean;
   onOpen: (id: string) => void;
 }) {
   const { locale, t, u } = useI18n();
@@ -225,14 +231,15 @@ function CheckTile({
     <button
       type="button"
       onClick={() => onOpen(check.id)}
-      aria-label={`${t(check.title)}. ${t(check.blurb)}.${rating ? ` ${u(rating)}.` : ""}`}
+      data-locked={locked ? "true" : undefined}
+      aria-label={`${t(check.title)}. ${t(check.blurb)}.${locked ? ` ${u("lockedCheck")}.` : ""}${rating ? ` ${u(rating)}.` : ""}`}
       className="flex min-h-0 flex-col overflow-hidden rounded-2xl border border-[#e4c36a]/25 bg-card p-2.5 text-left active:scale-[0.99]"
     >
       <span className="flex items-start justify-between gap-1">
         <span className={`grid shrink-0 place-items-center rounded-xl bg-secondary text-primary ${compact ? "h-7 w-7" : "h-8 w-8"}`}>
           <CheckGlyph name={check.icon} className={compact ? "h-4 w-4" : "h-5 w-5"} />
         </span>
-        {rating && <MoodFace rating={rating} className={compact ? "h-6 w-6" : "h-7 w-7"} />}
+        {locked ? <Lock className="h-4 w-4 text-primary" aria-hidden="true" /> : rating && <MoodFace rating={rating} className={compact ? "h-6 w-6" : "h-7 w-7"} />}
       </span>
       <span className={`mt-1 line-clamp-2 font-serif leading-snug ${compact ? "text-[0.82rem]" : "text-base"}`}>{t(check.title)}</span>
       <span className={`mt-0.5 text-muted-foreground ${compact ? "line-clamp-2 text-[0.68rem] leading-snug" : "line-clamp-2 text-xs leading-snug"}`}>

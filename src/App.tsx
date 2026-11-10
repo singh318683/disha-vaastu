@@ -4,6 +4,7 @@ import { LanguageToggle } from "@/components/LanguageToggle.tsx";
 import { QuizFlow } from "@/components/quiz/QuizFlow.tsx";
 import { useI18n } from "@/i18n/I18nProvider.tsx";
 import { cn } from "@/lib/utils.ts";
+import { AccessProvider, useAccess } from "@/state/access.tsx";
 import { PropertiesProvider } from "@/state/properties.tsx";
 import { SensorsProvider } from "@/state/sensors.tsx";
 import { CheckView } from "@/views/CheckView.tsx";
@@ -26,7 +27,9 @@ export default function App() {
   return (
     <PropertiesProvider>
       <SensorsProvider>
-        <Shell />
+        <AccessProvider>
+          <Shell />
+        </AccessProvider>
       </SensorsProvider>
     </PropertiesProvider>
   );
@@ -47,6 +50,7 @@ function Shell() {
 function AdvancedShell({ onBack }: { onBack: () => void }) {
   const [view, setView] = useState<ViewId>("compass");
   const { u } = useI18n();
+  const { premium, openPaywall } = useAccess();
   const labels: Record<ViewId, string> = {
     compass: u("north"),
     check: u("check"),
@@ -82,7 +86,13 @@ function AdvancedShell({ onBack }: { onBack: () => void }) {
                 key={item.id}
                 type="button"
                 aria-current={selected ? "page" : undefined}
-                onClick={() => setView(item.id)}
+                onClick={() => {
+                  if ((item.id === "homes" || item.id === "report") && !premium) {
+                    openPaywall();
+                    return;
+                  }
+                  setView(item.id);
+                }}
                 className={cn(
                   "flex min-w-0 flex-1 flex-col items-center gap-0.5 rounded-full px-1 py-1.5 text-[0.65rem] font-medium",
                   selected ? "bg-primary text-primary-foreground" : "text-muted-foreground",
