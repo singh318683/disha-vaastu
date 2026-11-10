@@ -17,16 +17,16 @@ export interface HarmonyCardInput {
   rows: HarmonyCardRow[];
 }
 
-const INK = "#2a2118";
-const CLAY = "#6f5b48";
-const CREAM = "#fffdf8";
-const PAPER = "#f3eadc";
-const SAFFRON = "#c4622d";
+const INK = "#f7f1e4";
+const CLAY = "#c9c2d8";
+const CREAM = "#161d3a";
+const PAPER = "#0b1024";
+const SAFFRON = "#e4c36a";
 
 const RATING_COLOR: Record<Rating, string> = {
-  auspicious: "#3E7A4A",
-  neutral: "#A37B32",
-  inauspicious: "#A15A3A",
+  auspicious: "#9be7c0",
+  neutral: "#f0d78c",
+  inauspicious: "#f3b4a6",
 };
 
 const RATING_WORD: Record<Rating, string> = {
@@ -79,6 +79,9 @@ export function renderHarmonyCanvas(input: HarmonyCardInput): HTMLCanvasElement 
   ctx.fillStyle = CREAM;
   roundRect(ctx, 32, 32, width - 64, canvas.height - 64, 36);
   ctx.fill();
+  ctx.strokeStyle = SAFFRON;
+  ctx.lineWidth = 2;
+  ctx.stroke();
 
   ctx.fillStyle = SAFFRON;
   ctx.font = `600 18px ${face}`;
@@ -246,7 +249,7 @@ function paintPdf(doc: jsPDF, text: string, x: number, y: number) {
   if (!ctx) return;
   ctx.scale(scale, scale);
   ctx.font = font;
-  ctx.fillStyle = "#2a2118";
+  ctx.fillStyle = "#101630";
   ctx.textBaseline = "top";
   lines.forEach((line, index) => ctx.fillText(line, 0, index * size * 1.35));
   doc.addImage(canvas.toDataURL("image/png"), "PNG", x, y - size * 0.8, width, height);
@@ -260,10 +263,15 @@ export async function buildQuizPdf(input: HarmonyCardInput): Promise<Blob> {
   const doc = new jsPDF({ unit: "pt", format: "a4" });
   await embedDevanagari(doc);
   const hindi = /[\u0900-\u097F]/.test(input.title);
-  const ink: [number, number, number] = [42, 33, 24];
-  const clay: [number, number, number] = [111, 91, 72];
+  const ink: [number, number, number] = [16, 22, 48];
+  const clay: [number, number, number] = [92, 88, 118];
   const pageWidth = doc.internal.pageSize.getWidth();
-  let y = 64;
+  doc.setFillColor(16, 22, 48);
+  doc.rect(0, 0, pageWidth, 52, "F");
+  doc.setTextColor(228, 195, 106);
+  doc.setFontSize(13);
+  doc.text("DISHA", 48, 32);
+  let y = 84;
   doc.setTextColor(...ink);
   doc.setFontSize(28);
   paintPdf(doc, input.title, 48, y);

@@ -2,9 +2,9 @@ import type { Rating } from "@/lib/checks.ts";
 import { cn } from "@/lib/utils.ts";
 
 const FILL: Record<Rating, string> = {
-  auspicious: "#3E7A4A",
-  neutral: "#A37B32",
-  inauspicious: "#A15A3A",
+  auspicious: "#1f8f62",
+  neutral: "#c9962e",
+  inauspicious: "#c45c48",
 };
 
 export function MoodFace({ rating, className }: { rating: Rating; className?: string }) {

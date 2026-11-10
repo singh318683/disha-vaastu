@@ -132,7 +132,7 @@ export function CheckView() {
             <VerdictCard item={item} />
           </div>
           {!effective.declinationApplied && (
-            <p className="mt-2 text-xs text-[#8a4e22]">
+            <p className="mt-2 text-xs text-primary">
               Declination is not applied yet, so this zone is magnetic. Set a location on the North tab for true north.
             </p>
           )}

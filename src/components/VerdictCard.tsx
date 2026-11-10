@@ -16,7 +16,7 @@ export function VerdictCard({ item, className }: { item: ScoredItem; className?:
     element: u("element"),
   };
   return (
-    <article className={cn("rounded-3xl border border-border bg-card p-4 shadow-[0_16px_40px_-28px_rgba(80,40,10,0.65)]", className)}>
+    <article className={cn("rounded-3xl border border-[#e4c36a]/25 bg-card p-4 shadow-[0_16px_40px_-28px_rgba(0,0,0,0.7)]", className)}>
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-[0.68rem] font-semibold tracking-[0.14em] uppercase" style={{ color: element.color }}>
@@ -33,14 +33,14 @@ export function VerdictCard({ item, className }: { item: ScoredItem; className?:
       </div>
       <p className="mt-3 text-sm leading-relaxed">{t(item.reasoning)}</p>
       {item.notes.map((note) => (
-        <p key={note.en} className="mt-2 text-sm leading-relaxed text-[#8a4e22]">
+        <p key={note.en} className="mt-2 text-sm leading-relaxed text-primary">
           {t(note)}
         </p>
       ))}
       <ul className="mt-4 space-y-3">
         {item.remedies.map((remedy) => (
           <li key={remedy.id} className="rounded-2xl bg-muted px-3 py-2.5">
-            <p className="text-[0.65rem] font-semibold tracking-[0.14em] text-[#c4622d] uppercase">
+            <p className="text-[0.65rem] font-semibold tracking-[0.14em] text-primary uppercase">
               {remedy.kinds.map((kind) => kindLabel[kind]).join(" · ")}
             </p>
             <p className="mt-0.5 text-sm font-medium">{t(remedy.title)}</p>
@@ -68,7 +68,7 @@ export function TierMark({ tier }: { tier: "free" | "paid" }) {
   }
   return (
     <span
-      className="rounded-full bg-[#f8ecdc] px-2 py-0.5 text-[0.65rem] font-semibold tracking-wide text-[#8a4e22]"
+      className="rounded-full border border-[#e4c36a]/40 bg-[#e4c36a]/15 px-2 py-0.5 text-[0.65rem] font-semibold tracking-wide text-[#f0d78c]"
       title={u("paidHint")}
     >
       {u("paid")}

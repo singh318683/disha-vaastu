@@ -110,7 +110,7 @@ export function HomesView({ onOpen }: { onOpen: (view: "scan" | "report") => voi
           </li>
         ))}
         {ordered.length === 0 && (
-          <li className="rounded-3xl border border-dashed border-[#d7c4ae] px-4 py-8 text-center text-sm text-muted-foreground">
+          <li className="rounded-3xl border border-dashed border-border px-4 py-8 text-center text-sm text-muted-foreground">
             No homes yet. Add one before a viewing, or open the sample to see a finished report.
           </li>
         )}

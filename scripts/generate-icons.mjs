@@ -6,21 +6,10 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..", "public", "icons");
 mkdirSync(root, { recursive: true });
 
-const saffron = [196, 98, 45, 255];
-const cream = [246, 237, 216, 255];
-const water = [46, 111, 138, 255];
-const fire = [196, 84, 44, 255];
-const earth = [138, 98, 57, 255];
-const air = [79, 125, 85, 255];
-
-function zoneColor(deg) {
-  const shifted = (deg + 11.25) % 360;
-  const index = Math.floor(shifted / 22.5) % 16;
-  if (index <= 2 || index === 15) return water;
-  if (index <= 6) return fire;
-  if (index <= 10) return earth;
-  return air;
-}
+const navy = [11, 16, 36, 255];
+const face = [20, 27, 56, 255];
+const gold = [228, 195, 106, 255];
+const ivory = [246, 231, 178, 255];
 
 function png(size) {
   const raw = Buffer.alloc((size * 4 + 1) * size);
@@ -35,12 +24,13 @@ function png(size) {
       const dist = Math.hypot(dx, dy) / size;
       let deg = (Math.atan2(dx, -dy) * 180) / Math.PI;
       if (deg < 0) deg += 360;
-      let color = saffron;
-      if (dist < 0.08) color = saffron;
-      else if (dist < 0.18) color = cream;
-      else if (dist < 0.4) color = zoneColor(deg);
-      else if (dist < 0.44) color = cream;
-      if ((deg < 3 || deg > 357) && dist > 0.4 && dist < 0.48) color = cream;
+      let color = navy;
+      if (dist < 0.05) color = gold;
+      else if (dist < 0.11) color = face;
+      else if (dist < 0.125) color = gold;
+      else if (dist < 0.3) color = face;
+      else if (dist < 0.33) color = gold;
+      if (deg < 8 && dist > 0.12 && dist < 0.3) color = ivory;
       const i = row + 1 + x * 4;
       raw[i] = color[0];
       raw[i + 1] = color[1];

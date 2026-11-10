@@ -7,10 +7,10 @@ import { scoreColor } from "./scoring.ts";
 import type { HomeScore, Property, ScoredItem } from "./types.ts";
 import { ELEMENTS, ZONES } from "./zones.ts";
 
-const INK: [number, number, number] = [42, 33, 24];
-const CLAY: [number, number, number] = [111, 91, 72];
-const CREAM: [number, number, number] = [255, 252, 247];
-const SAFFRON: [number, number, number] = [196, 98, 45];
+const INK: [number, number, number] = [16, 22, 48];
+const CLAY: [number, number, number] = [92, 88, 118];
+const GOLD: [number, number, number] = [228, 195, 106];
+const SAFFRON: [number, number, number] = [138, 106, 40];
 
 function plain(value: string | L10n): string {
   return typeof value === "string" ? value : lt(value, getLocale());
@@ -21,7 +21,7 @@ function say(
   value: string | L10n | Array<string | L10n>,
   x: number,
   y: number,
-  options?: { align?: "left" | "center" | "right" },
+  options?: { align?: "left" | "center" | "right"; color?: string },
 ) {
   const lines = (Array.isArray(value) ? value : [value]).map(plain);
   const text = lines.join("\n");
@@ -47,7 +47,7 @@ function say(
   if (!ctx) return;
   ctx.scale(scale, scale);
   ctx.font = font;
-  ctx.fillStyle = "#2a2118";
+  ctx.fillStyle = options?.color ?? "#101630";
   ctx.textBaseline = "top";
   lines.forEach((line, index) => ctx.fillText(line, 0, index * size * 1.35));
   let drawX = x;
@@ -105,7 +105,7 @@ function drawWheel(ctx: CanvasRenderingContext2D, size: number, rooms: ScoredIte
   ctx.arc(cx, cy, inner - 2, 0, Math.PI * 2);
   ctx.fillStyle = "#f6edd8";
   ctx.fill();
-  ctx.fillStyle = "#8a6239";
+  ctx.fillStyle = "#101630";
   ctx.font = `${size * 0.032}px Georgia, serif`;
   ctx.textAlign = "center";
   ctx.fillText("North", cx, cy - 4);
@@ -236,15 +236,16 @@ export async function buildReportPdf(property: Property, scored: HomeScore): Pro
     if (y + height > pageHeight - 42) newPage();
   };
 
-  doc.setFillColor(...SAFFRON);
+  doc.setFillColor(...INK);
   doc.rect(0, 0, pageWidth, 78, "F");
-  doc.setTextColor(...CREAM);
+  doc.setTextColor(...GOLD);
   doc.setFont("times", "bold");
   doc.setFontSize(26);
-  say(doc, "Disha", margin, 36);
+  say(doc, "Disha", margin, 36, { color: "#e4c36a" });
   doc.setFont("times", "italic");
   doc.setFontSize(12);
-  say(doc, UI.perGuidelines[getLocale()], margin, 56);
+  doc.setTextColor(247, 241, 228);
+  say(doc, UI.perGuidelines[getLocale()], margin, 56, { color: "#f7f1e4" });
   y = 102;
 
   doc.setTextColor(...INK);

@@ -19,7 +19,7 @@ export function CompassAccess() {
 
   if (useManual && magneticHeading != null) {
     return (
-      <div className="mb-4 rounded-3xl border-2 border-primary bg-[#fff8ef] p-4" role="status">
+      <div className="mb-4 rounded-3xl border-2 border-primary bg-card p-4" role="status">
         <p className="font-serif text-xl leading-none">{u("dialHand")}</p>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{u("dialStay")}</p>
         <Button className="mt-3 h-12 w-full text-base" size="lg" onClick={sensors.followLive}>
@@ -56,7 +56,7 @@ export function CompassAccess() {
 
   return (
     <div
-      className="mb-4 rounded-3xl border-2 border-primary bg-[#fff8ef] p-4 shadow-[0_16px_36px_-22px_rgba(196,98,45,0.95)]"
+      className="mb-4 rounded-3xl border-2 border-primary bg-card p-4 shadow-[0_16px_36px_-22px_rgba(228,195,106,0.45)]"
       role="status"
       aria-live="polite"
     >

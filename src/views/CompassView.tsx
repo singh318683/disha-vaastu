@@ -89,7 +89,7 @@ export function CompassView() {
         <Stat label="True" value={formatHeading(effective.trueHeading)} accent />
       </div>
       {effective.basis === "live-magnetic" && (
-        <p className="mt-2 text-xs text-[#8a4e22]">
+        <p className="mt-2 text-xs text-primary">
           This is still magnetic north. Add a location so the World Magnetic Model can correct it.
         </p>
       )}
@@ -128,7 +128,7 @@ export function CompassView() {
         )}
         {sensors.modelError && <p className="mt-2 text-sm text-destructive">{u("declinationFailed")}</p>}
         {sensors.locationError && (
-          <p className="mt-2 text-sm text-[#8a4e22]">
+          <p className="mt-2 text-sm text-primary">
             {sensors.locationError === "no-api" ? u("noLocationApi") : sensors.locationError === "denied" ? u("locationDenied") : u("noFix")}
           </p>
         )}
@@ -227,7 +227,7 @@ export function CompassView() {
             <li>In a steel-frame building, take the heading near a window, then align the floor plan to it.</li>
             <li>Each zone is only 22.5° wide, so the declination — about 12° west in New Jersey — is worth applying.</li>
           </ol>
-          <svg viewBox="0 0 120 48" className="mt-4 h-12 w-full text-[#c4622d]" aria-hidden="true">
+          <svg viewBox="0 0 120 48" className="mt-4 h-12 w-full text-primary" aria-hidden="true">
             <path d="M20 30c0-10 12-10 12 0s12 10 12 0 12-10 12 0 12 10 12 0 12-10 12 0" fill="none" stroke="currentColor" strokeWidth="2" />
           </svg>
         </DialogContent>

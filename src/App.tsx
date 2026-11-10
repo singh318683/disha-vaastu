@@ -59,7 +59,7 @@ function AdvancedShell({ onBack }: { onBack: () => void }) {
       <a href="#content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-full focus:bg-card focus:px-3 focus:py-2">
         {u("skip")}
       </a>
-      <div className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-border bg-[#f7f1e6]/95 px-4 py-3 backdrop-blur">
+      <div className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-border bg-[#0b1024]/90 px-4 py-3 backdrop-blur">
         <button type="button" onClick={onBack} className="text-base font-medium text-primary">
           {u("simpleQuiz")}
         </button>
@@ -73,7 +73,7 @@ function AdvancedShell({ onBack }: { onBack: () => void }) {
         {view === "report" && <ReportView onScan={() => setView("scan")} />}
       </main>
       <nav className="fixed inset-x-0 bottom-0 z-40 flex justify-center px-3 pb-[max(0.55rem,env(safe-area-inset-bottom))]">
-        <div className="flex w-full max-w-lg items-stretch justify-between rounded-full border border-border bg-card/95 px-1 py-1 shadow-[0_12px_40px_-18px_rgba(70,40,10,0.65)] backdrop-blur">
+        <div className="flex w-full max-w-lg items-stretch justify-between rounded-full border border-[#e4c36a]/30 bg-card/95 px-1 py-1 shadow-[0_16px_40px_-18px_rgba(0,0,0,0.7)] backdrop-blur">
           {NAV.map((item) => {
             const Icon = item.icon;
             const selected = view === item.id;

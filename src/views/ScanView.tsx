@@ -183,7 +183,7 @@ export function ScanView() {
                   basisNote={effective.basis === "manual" ? "Manual" : effective.declinationApplied ? "True" : "Magnetic"}
                 />
                 {!effective.declinationApplied && (
-                  <p className="mt-2 text-xs text-[#8a4e22]">
+                  <p className="mt-2 text-xs text-primary">
                     Tagging now stores a magnetic bearing. Set a location on the North tab for true north.
                   </p>
                 )}
@@ -213,8 +213,8 @@ export function ScanView() {
                   }}
                 />
                 {!active.plan ? (
-                  <div className="rounded-3xl border border-dashed border-[#d7c4ae] bg-card/70 px-4 py-10 text-center">
-                    <ImagePlus className="mx-auto h-6 w-6 text-[#c4622d]" />
+                  <div className="rounded-3xl border border-dashed border-border bg-card/70 px-4 py-10 text-center">
+                    <ImagePlus className="mx-auto h-6 w-6 text-primary" />
                     <p className="mt-2 font-serif text-xl">Upload a floor plan</p>
                     <p className="mx-auto mt-1 max-w-sm text-sm text-muted-foreground">
                       A photo or a drawing is enough. You will rotate it until north sits where it does in the building.
@@ -293,7 +293,7 @@ export function ScanView() {
                       </Button>
                     </div>
                     {!effective.declinationApplied && effective.basis !== "manual" && (
-                      <p className="text-xs text-[#8a4e22]">Set a declination before capturing the phone’s heading as the plan’s up direction.</p>
+                      <p className="text-xs text-primary">Set a declination before capturing the phone’s heading as the plan’s up direction.</p>
                     )}
                     {imageError && <p className="text-sm text-destructive">{imageError}</p>}
                   </div>

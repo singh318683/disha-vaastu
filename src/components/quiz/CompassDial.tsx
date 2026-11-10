@@ -31,7 +31,7 @@ export function CompassDial({
         role="img"
         aria-label={interactive ? `Direction dial, currently ${label}. Drag to turn it.` : `Compass showing ${label}.`}
         tabIndex={interactive ? 0 : undefined}
-        className={interactive ? "touch-none cursor-grab outline-none focus-visible:ring-2 focus-visible:ring-ring" : ""}
+        className={`drop-shadow-[0_0_22px_rgba(228,195,106,0.22)] ${interactive ? "touch-none cursor-grab outline-none focus-visible:ring-2 focus-visible:ring-ring" : ""}`}
         onPointerDown={(event) => {
           if (!interactive) return;
           event.currentTarget.setPointerCapture(event.pointerId);
@@ -48,14 +48,31 @@ export function CompassDial({
           onHeading(normalizeDegrees(heading + (event.key === "ArrowRight" ? 11.25 : -11.25)));
         }}
       >
-        <circle cx="100" cy="100" r="90" fill="#fffdf8" stroke="#e4d5c2" strokeWidth="3" />
-        <circle cx="100" cy="100" r="74" fill="none" stroke="#f3e6d4" strokeWidth="10" />
+        <defs>
+          <radialGradient id="royalDial" cx="50%" cy="42%" r="68%">
+            <stop offset="0%" stopColor="#2a3568" />
+            <stop offset="70%" stopColor="#141b3a" />
+            <stop offset="100%" stopColor="#0c1228" />
+          </radialGradient>
+          <linearGradient id="royalGold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#f6e7b2" />
+            <stop offset="48%" stopColor="#e4c36a" />
+            <stop offset="100%" stopColor="#a8843a" />
+          </linearGradient>
+        </defs>
+        <circle cx="100" cy="100" r="96" fill="none" stroke="url(#royalGold)" strokeWidth="1.4" opacity="0.85" />
+        <circle cx="100" cy="100" r="90" fill="url(#royalDial)" stroke="#e4c36a" strokeWidth="1.6" />
         <g transform={`rotate(${-heading} 100 100)`}>
+          <g fill="none" stroke="#e4c36a" strokeWidth="0.7" opacity="0.35">
+            <circle cx="100" cy="100" r="22" />
+            <path d="M100 78 L104 100 L100 122 L96 100 Z" />
+            <path d="M78 100 L100 96 L122 100 L100 104 Z" />
+          </g>
           {Array.from({ length: 32 }, (_, index) => {
             const angle = index * 11.25;
             const major = index % 8 === 0;
             const rad = ((angle - 90) * Math.PI) / 180;
-            const inner = major ? 62 : 68;
+            const inner = major ? 60 : 68;
             const outer = 78;
             return (
               <line
@@ -64,27 +81,28 @@ export function CompassDial({
                 y1={100 + inner * Math.sin(rad)}
                 x2={100 + outer * Math.cos(rad)}
                 y2={100 + outer * Math.sin(rad)}
-                stroke={major ? "#c4622d" : "#e4d5c2"}
-                strokeWidth={major ? 2.4 : 1.4}
+                stroke={major ? "#f0d78c" : "#6d789e"}
+                strokeWidth={major ? 2.2 : 1.2}
                 strokeLinecap="round"
               />
             );
           })}
-          <text x="100" y="54" textAnchor="middle" fill="#c4622d" fontSize="16" fontFamily="Georgia, serif">
+          <text x="100" y="52" textAnchor="middle" fill="#f6e7b2" fontSize="16" fontFamily="Cormorant Garamond, Georgia, serif" fontWeight="600">
             N
           </text>
-          <text x="158" y="105" textAnchor="middle" fill="#6f5b48" fontSize="15" fontFamily="Georgia, sans-serif">
+          <text x="158" y="105" textAnchor="middle" fill="#f7f1e4" fontSize="15" fontFamily="Cormorant Garamond, Georgia, serif">
             E
           </text>
-          <text x="100" y="164" textAnchor="middle" fill="#6f5b48" fontSize="15" fontFamily="Georgia, sans-serif">
+          <text x="100" y="164" textAnchor="middle" fill="#f7f1e4" fontSize="15" fontFamily="Cormorant Garamond, Georgia, serif">
             S
           </text>
-          <text x="42" y="105" textAnchor="middle" fill="#6f5b48" fontSize="15" fontFamily="Georgia, sans-serif">
+          <text x="42" y="105" textAnchor="middle" fill="#f7f1e4" fontSize="15" fontFamily="Cormorant Garamond, Georgia, serif">
             W
           </text>
         </g>
-        <polygon points="100,16 92,34 108,34" fill="#c4622d" />
-        <circle cx="100" cy="100" r="5" fill="#2a2118" />
+        <polygon points="100,8 94,24 100,20 106,24" fill="url(#royalGold)" />
+        <circle cx="100" cy="100" r="7" fill="none" stroke="#e4c36a" strokeWidth="1.4" />
+        <circle cx="100" cy="100" r="3" fill="#f6e7b2" />
       </svg>
       <p className="mt-2 text-center font-serif text-4xl leading-none text-foreground">{label}</p>
     </div>

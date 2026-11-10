@@ -135,9 +135,9 @@ export function ZoneWheel({
           interactive && "cursor-grab active:cursor-grabbing",
         )}
       >
-        <svg viewBox="0 0 360 360" className="h-full w-full drop-shadow-[0_18px_30px_rgba(90,50,20,0.16)]">
-          <circle cx={CX} cy={CY} r="176" fill="#fffaf3" />
-          <circle cx={CX} cy={CY} r="170" fill="none" stroke="#e7d7c3" strokeWidth="8" />
+        <svg viewBox="0 0 360 360" className="h-full w-full drop-shadow-[0_18px_30px_rgba(0,0,0,0.45)]">
+          <circle cx={CX} cy={CY} r="176" fill="#121833" />
+          <circle cx={CX} cy={CY} r="170" fill="none" stroke="#e4c36a" strokeWidth="6" />
           {ZONES.map((slice) => {
             // Screen-space wedges. iOS Safari drops CSS transforms on <g>, so the
             // heading has to be baked into the path instead of a rotate().
@@ -148,7 +148,7 @@ export function ZoneWheel({
                 data-zone={slice.id}
                 d={wedge(78, 158, center - 11.25, center + 11.25)}
                 fill={ELEMENTS[slice.element].color}
-                stroke="#fffaf3"
+                stroke="#121833"
                 strokeWidth="1.4"
               />
             );
@@ -157,7 +157,7 @@ export function ZoneWheel({
             const [x, y] = polar(118, marker.bearing - rotation);
             return (
               <g key={marker.id}>
-                <circle cx={x} cy={y} r="7" fill={marker.color} stroke="#fffaf3" strokeWidth="2" />
+                <circle cx={x} cy={y} r="7" fill={marker.color} stroke="#f7f1e4" strokeWidth="2" />
               </g>
             );
           })}
@@ -181,13 +181,13 @@ export function ZoneWheel({
               </text>
             );
           })}
-          <circle cx={CX} cy={CY} r="70" fill="#f6edd8" stroke="#d7b56a" strokeWidth="2" />
-          <polygon points="180,8 188,22 172,22" fill="#c4622d" />
+          <circle cx={CX} cy={CY} r="70" fill="#0e1430" stroke="#e4c36a" strokeWidth="2" />
+          <polygon points="180,8 188,22 172,22" fill="#e4c36a" />
         </svg>
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
           <div className="text-center">
-            <p className="font-serif text-[clamp(1.6rem,7vw,2.4rem)] leading-none text-[#2a2118]">{title}</p>
-            <p className="mt-1 text-sm font-medium text-[#6f5b48]">{subtitle}</p>
+            <p className="font-serif text-[clamp(1.6rem,7vw,2.4rem)] leading-none text-foreground">{title}</p>
+            <p className="mt-1 text-sm font-medium text-muted-foreground">{subtitle}</p>
             <p className="mt-1 text-[0.68rem] tracking-[0.14em] uppercase" style={{ color: element.color }}>
               {element.label}
               {basisNote ? ` · ${basisNote}` : ""}

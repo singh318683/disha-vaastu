@@ -13,15 +13,15 @@ export function BubbleLevel({ beta, gamma }: { beta: number | null; gamma: numbe
 
   return (
     <div className="flex items-center gap-3 rounded-3xl border border-border bg-card px-3 py-3">
-      <div className="relative h-[4.5rem] w-[4.5rem] shrink-0 rounded-full border border-[#e4d3bc] bg-[#f6efe4]">
-        <span className="absolute top-1/2 left-2 right-2 h-px -translate-y-1/2 bg-[#e4d3bc]" />
-        <span className="absolute top-2 bottom-2 left-1/2 w-px -translate-x-1/2 bg-[#e4d3bc]" />
+      <div className="relative h-[4.5rem] w-[4.5rem] shrink-0 rounded-full border border-[#e4c36a]/40 bg-[#121833]">
+        <span className="absolute top-1/2 left-2 right-2 h-px -translate-y-1/2 bg-[#e4c36a]/35" />
+        <span className="absolute top-2 bottom-2 left-1/2 w-px -translate-x-1/2 bg-[#e4c36a]/35" />
         <span
           className={cn(
             "absolute h-5 w-5 rounded-full shadow-sm",
-            !live && "bg-[#d9cbb8]",
-            live && level && "bg-[#4f7d55]",
-            live && !level && "bg-[#c4622d]",
+            !live && "bg-[#6d789e]",
+            live && level && "bg-[#1f8f62]",
+            live && !level && "bg-[#e4c36a]",
           )}
           style={{
             left: `calc(50% + ${x * 22}px)`,

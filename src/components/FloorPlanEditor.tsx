@@ -60,7 +60,7 @@ export function FloorPlanCanvas({
   return (
     <div
       ref={stageRef}
-      className={cn("relative overflow-hidden rounded-3xl border border-border bg-[#f7f1e6]", className)}
+      className={cn("relative overflow-hidden rounded-3xl border border-border bg-[#121833]", className)}
       onClick={(event) => {
         if (!interactive || !onTap || drag.current?.moved) return;
         if ((event.target as HTMLElement).closest("[data-marker]")) return;
@@ -93,9 +93,9 @@ export function FloorPlanCanvas({
             const y2 = cy + length * Math.sin(rad);
             return (
               <g>
-                <line x1={cx} y1={cy} x2={x2} y2={y2} stroke="#c4622d" strokeWidth="2.5" />
-                <circle cx={x2} cy={y2} r="9" fill="#c4622d" />
-                <text x={x2} y={y2 + 3} textAnchor="middle" fill="#fffaf3" fontSize="10" fontFamily="Outfit, sans-serif">
+                <line x1={cx} y1={cy} x2={x2} y2={y2} stroke="#e4c36a" strokeWidth="2.5" />
+                <circle cx={x2} cy={y2} r="9" fill="#e4c36a" />
+                <text x={x2} y={y2 + 3} textAnchor="middle" fill="#1a1408" fontSize="10" fontFamily="Outfit, sans-serif">
                   N
                 </text>
               </g>
@@ -108,7 +108,7 @@ export function FloorPlanCanvas({
         data-marker
         aria-label="Brahmasthan, the center. Drag to move."
         className={cn(
-          "absolute z-10 h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#b8893d] bg-[#f6edd8] shadow",
+          "absolute z-10 h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#e4c36a] bg-[#1a1408] shadow",
           interactive ? "cursor-grab" : "pointer-events-none",
         )}
         style={{ left: `${plan.center.x * 100}%`, top: `${plan.center.y * 100}%` }}

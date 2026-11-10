@@ -143,13 +143,14 @@ export function QuizFlow({ onAdvanced }: { onAdvanced: () => void }) {
 function WelcomeScreen({ onStart }: { onStart: () => void }) {
   const { t, u } = useI18n();
   return (
-    <section data-screen="welcome" className="flex min-h-dvh flex-col justify-between px-6 py-10">
-      <div className="flex items-center justify-between">
+    <section data-screen="welcome" className="relative flex min-h-dvh flex-col justify-between overflow-hidden px-6 py-10">
+      <Mandala className="pointer-events-none absolute -top-24 -right-16 h-72 w-72 opacity-50" />
+      <div className="relative flex items-center justify-between">
         <p className="eyebrow">Disha</p>
         <LanguageToggle />
       </div>
-      <div>
-        <h1 className="max-w-[14ch] text-5xl leading-[1.15]">{u("welcomeTitle")}</h1>
+      <div className="relative">
+        <h1 className="max-w-[12ch] text-[3.25rem] leading-[1.15]">{u("welcomeTitle")}</h1>
         <p className="mt-5 max-w-[28ch] text-lg leading-relaxed text-muted-foreground">{u("welcomeLine")}</p>
       </div>
       <div>
@@ -188,7 +189,7 @@ function HomeScreen({
         <button
           type="button"
           onClick={onSummary}
-          className="mt-5 flex w-full items-center justify-between rounded-3xl bg-primary px-5 py-4 text-left text-primary-foreground shadow-[0_10px_24px_-16px_rgba(150,60,20,0.9)]"
+          className="mt-5 flex w-full items-center justify-between rounded-3xl bg-primary px-5 py-4 text-left text-primary-foreground shadow-[0_16px_32px_-18px_rgba(228,195,106,0.8)]"
         >
           <span>
             <span className="block font-serif text-2xl leading-none">{u("homeHarmony")}</span>
@@ -214,7 +215,7 @@ function HomeScreen({
                   type="button"
                   onClick={() => onOpen(check.id)}
                   aria-label={`${t(check.title)}. ${t(check.blurb)}.${rating ? ` ${u(rating)}.` : ""}`}
-                  className="flex min-h-36 flex-col items-start rounded-3xl border border-border bg-card p-4 text-left shadow-[0_10px_30px_-24px_rgba(70,40,10,0.8)] active:scale-[0.99]"
+                  className="flex min-h-36 flex-col items-start rounded-3xl border border-[#e4c36a]/25 bg-card p-4 text-left shadow-[0_18px_36px_-24px_rgba(0,0,0,0.75)] active:scale-[0.99]"
                 >
                   <span className="flex w-full items-start justify-between">
                     <span className="grid h-11 w-11 place-items-center rounded-2xl bg-secondary text-primary">
@@ -298,7 +299,7 @@ function LockScreen({ id, onBack, onLock }: { id: string; onBack: () => void; on
         {sensors.noisy && <p className="mt-1 text-sm">{u("figure8")}</p>}
       </div>
       {sensors.effective.basis === "live-magnetic" && (
-        <button type="button" className="text-center text-sm text-[#8a4e22]" onClick={sensors.requestLocation}>
+        <button type="button" className="text-center text-sm text-primary" onClick={sensors.requestLocation}>
           {u("magneticHint")}
         </button>
       )}
@@ -419,7 +420,7 @@ function VerdictBody({ verdict, trueNorth }: { verdict: QuizVerdict; trueNorth: 
       {verdict.check.granularity === 32 && <p className="mt-2 text-lg">{verdict.slotLine}</p>}
       {verdict.toward && <p className="mt-1 text-base text-muted-foreground">{verdict.toward}</p>}
       <p className="mt-4 text-lg leading-relaxed">{verdict.meaning}</p>
-      <div className="mt-4 rounded-3xl bg-[#f8efe2] px-4 py-4">
+      <div className="mt-4 rounded-3xl border border-[#e4c36a]/25 bg-secondary px-4 py-4">
         <p className="text-base leading-relaxed">{verdict.bestNote}</p>
       </div>
       {ideal ? (
@@ -434,7 +435,7 @@ function VerdictBody({ verdict, trueNorth }: { verdict: QuizVerdict; trueNorth: 
         </ul>
       )}
       {!trueNorth && (
-        <p className="mt-3 text-sm text-[#8a4e22]">{u("stillMagnetic")}</p>
+        <p className="mt-3 text-sm text-primary">{u("stillMagnetic")}</p>
       )}
       <details className="mt-4 text-sm text-muted-foreground">
         <summary className="cursor-pointer text-base font-medium text-foreground">{u("details")}</summary>
@@ -561,8 +562,22 @@ function SummaryScreen({
   );
 }
 
+function Mandala({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 200 200" className={className} aria-hidden="true">
+      <g fill="none" stroke="#e4c36a" strokeWidth="0.8">
+        <circle cx="100" cy="100" r="28" />
+        <circle cx="100" cy="100" r="52" />
+        <circle cx="100" cy="100" r="78" />
+        <path d="M100 16 L108 92 L184 100 L108 108 L100 184 L92 108 L16 100 L92 92 Z" />
+        <path d="M100 38 L106 94 L162 100 L106 106 L100 162 L94 106 L38 100 L94 94 Z" />
+      </g>
+    </svg>
+  );
+}
+
 function Count({ value, label, rating }: { value: number; label: string; rating: Rating }) {
-  const color = rating === "auspicious" ? "text-[#3E7A4A]" : rating === "neutral" ? "text-[#A37B32]" : "text-[#A15A3A]";
+  const color = rating === "auspicious" ? "text-[#9be7c0]" : rating === "neutral" ? "text-[#f0d78c]" : "text-[#f3b4a6]";
   return (
     <div className="rounded-3xl bg-card px-3 py-3 text-center">
       <p className={`font-serif text-3xl leading-none ${color}`}>{value}</p>

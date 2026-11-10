@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils.ts";
 export function LanguageToggle({ className }: { className?: string }) {
   const { locale, setLocale, u } = useI18n();
   return (
-    <div role="group" aria-label={u("language")} className={cn("inline-flex rounded-full bg-card p-1", className)}>
+    <div role="group" aria-label={u("language")} className={cn("inline-flex rounded-full bg-card p-1 ring-1 ring-[#e4c36a]/35", className)}>
       {(
         [
           ["en", "English"],
