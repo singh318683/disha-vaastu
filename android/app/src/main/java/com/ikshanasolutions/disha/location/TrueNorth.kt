@@ -41,15 +41,24 @@ class TrueNorthController(
 
     fun fetch() {
         if (!hasCoarsePermission()) return
-        if (playServices()) {
-            fetchFused()
-        } else {
+        try {
+            if (playServices()) {
+                fetchFused()
+            } else {
+                fetchManager()
+            }
+        } catch (_: SecurityException) {
             fetchManager()
+        } catch (_: RuntimeException) {
+            // Play services can throw if the library is present but the device has no GMS.
         }
     }
 
     fun stop() {
-        callback?.let { active -> fused?.removeLocationUpdates(active) }
+        try {
+            callback?.let { active -> fused?.removeLocationUpdates(active) }
+        } catch (_: RuntimeException) {
+        }
         callback = null
         stopManager()
     }
@@ -57,7 +66,7 @@ class TrueNorthController(
     private fun playServices(): Boolean {
         return try {
             GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(appContext) == ConnectionResult.SUCCESS
-        } catch (_: Exception) {
+        } catch (_: Throwable) {
             false
         }
     }
@@ -65,13 +74,24 @@ class TrueNorthController(
     @SuppressLint("MissingPermission")
     private fun fetchFused() {
         if (!hasCoarsePermission()) return
-        val client = LocationServices.getFusedLocationProviderClient(appContext)
+        val client = try {
+            LocationServices.getFusedLocationProviderClient(appContext)
+        } catch (_: Throwable) {
+            fetchManager()
+            return
+        }
         fused = client
-        client.lastLocation
-            .addOnSuccessListener { location ->
-                if (location != null) publish(location) else requestOne(client)
-            }
-            .addOnFailureListener { fetchManager() }
+        try {
+            client.lastLocation
+                .addOnSuccessListener { location ->
+                    if (location != null) publish(location) else requestOne(client)
+                }
+                .addOnFailureListener { fetchManager() }
+        } catch (_: SecurityException) {
+            fetchManager()
+        } catch (_: RuntimeException) {
+            fetchManager()
+        }
     }
 
     @SuppressLint("MissingPermission")
@@ -88,13 +108,19 @@ class TrueNorthController(
             }
         }
         callback = updates
-        client.requestLocationUpdates(request, updates, Looper.getMainLooper())
+        try {
+            client.requestLocationUpdates(request, updates, Looper.getMainLooper())
+        } catch (_: SecurityException) {
+            fetchManager()
+        } catch (_: RuntimeException) {
+            fetchManager()
+        }
     }
 
     @SuppressLint("MissingPermission")
     private fun fetchManager() {
         if (!hasCoarsePermission()) return
-        val locationManager = appContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager = appContext.getSystemService(Context.LOCATION_SERVICE) as? LocationManager ?: return
         manager = locationManager
         val providers = listOf(LocationManager.NETWORK_PROVIDER, LocationManager.GPS_PROVIDER)
         var best: Location? = null
@@ -123,13 +149,21 @@ class TrueNorthController(
     }
 
     private fun publish(location: Location) {
-        val field = GeomagneticField(
-            location.latitude.toFloat(),
-            location.longitude.toFloat(),
-            location.altitude.toFloat(),
-            System.currentTimeMillis(),
-        )
-        onFix(location.latitude, location.longitude, field.declination.toDouble())
+        val latitude = location.latitude
+        val longitude = location.longitude
+        if (!latitude.isFinite() || !longitude.isFinite()) return
+        val declination = try {
+            GeomagneticField(
+                latitude.toFloat(),
+                longitude.toFloat(),
+                location.altitude.toFloat(),
+                System.currentTimeMillis(),
+            ).declination.toDouble()
+        } catch (_: RuntimeException) {
+            return
+        }
+        if (!declination.isFinite()) return
+        onFix(latitude, longitude, declination)
     }
 
     private fun hasCoarsePermission(): Boolean {

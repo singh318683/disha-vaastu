@@ -28,7 +28,7 @@ The debug APK is `android/app/build/outputs/apk/debug/app-debug.apk`.
 - `minSdk` 26, `compileSdk` / `targetSdk` 36
 - Kotlin, Jetpack Compose, Material 3
 - Play Billing Library `billing-ktx` 8.3.0
-- `versionCode` 4, `versionName` 1.0.0
+- `versionCode` 5, `versionName` 1.0.1
 - Play services location, used only when Play services are on the device
 
 ### Install the APK

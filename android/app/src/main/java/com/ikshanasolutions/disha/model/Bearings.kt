@@ -37,7 +37,9 @@ const val PADA_WIDTH = 11.25
 private val PADA_SIDES = listOf("E", "S", "W", "N")
 
 fun padaFromHeading(heading: Double): String {
-    val shifted = normalizeDegrees(heading - 45.0)
+    // Normalize before the offset. A non-finite sample becomes 0° (N5).
+    // NaN minus 45 is still NaN, and normalizing that lands on 0°, which is E1.
+    val shifted = normalizeDegrees(normalizeDegrees(heading) - 45.0)
     val index = floor(shifted / PADA_WIDTH).toInt() % 32
     val side = PADA_SIDES[index / 8]
     val n = (index % 8) + 1

@@ -207,6 +207,7 @@ fun CompassDial(
     modifier: Modifier = Modifier,
 ) {
     val typeface = LocalContext.current.resources.getFont(R.font.cormorant_garamond_semibold)
+    val safeHeading = if (heading.isFinite()) heading else 0.0
     Canvas(
         modifier
             .fillMaxSize()
@@ -231,7 +232,7 @@ fun CompassDial(
         val radius = min(size.width, size.height) / 2f - 6f
         drawCircle(Navy, radius = radius, center = center)
         drawCircle(Gold.copy(alpha = 0.9f), radius = radius, center = center, style = Stroke(3f))
-        rotate(-heading.toFloat(), center) {
+        rotate(-safeHeading.toFloat(), center) {
             for (index in 0 until 32) {
                 val angle = Math.toRadians(index * 11.25 - 90.0)
                 val major = index % 8 == 0

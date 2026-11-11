@@ -65,13 +65,31 @@ class PlayBillingGateway(
     private val _state = MutableStateFlow(BillingUi(entitlements = initial, loading = true, fake = false))
     override val state: StateFlow<BillingUi> = _state.asStateFlow()
 
-    private val client: BillingClient = BillingClient.newBuilder(context.applicationContext)
-        .setListener(this)
-        .enablePendingPurchases(
-            PendingPurchasesParams.newBuilder().enableOneTimeProducts().build(),
-        )
-        .enableAutoServiceReconnection()
-        .build()
+    private val client: BillingClient? = try {
+        BillingClient.newBuilder(context.applicationContext)
+            .setListener(this)
+            .enablePendingPurchases(
+                PendingPurchasesParams.newBuilder().enableOneTimeProducts().build(),
+            )
+            .enableAutoServiceReconnection()
+            .build()
+    } catch (_: Throwable) {
+        // A device with no Play Store can fail while the client class initializes.
+        null
+    }
+
+    private val reconnect = Runnable { connect() }
+    private var connecting = false
+
+    private fun onMain(block: () -> Unit) {
+        if (Looper.myLooper() == Looper.getMainLooper()) block() else handler.post(block)
+    }
+
+    private fun markUnavailable() {
+        _state.update {
+            it.copy(loading = false, failed = it.products.isEmpty(), notice = BillingNotice.UNAVAILABLE, purchasingId = null)
+        }
+    }
 
     private var activityRef = WeakReference<Activity>(null)
     private var detailsById: Map<String, ProductDetails> = emptyMap()
@@ -82,6 +100,10 @@ class PlayBillingGateway(
     private var subsOk = false
     private var inAppOk = false
     private val collected = mutableListOf<Purchase>()
+    private var catalogGeneration = 0
+    private var subsCatalogDone = false
+    private var inAppCatalogDone = false
+    private val catalogBuffer = mutableListOf<ProductDetails>()
     private var activeHomeId = ""
 
     override fun attach(activity: Activity) {
@@ -89,6 +111,10 @@ class PlayBillingGateway(
     }
 
     override fun start() {
+        if (client == null) {
+            markUnavailable()
+            return
+        }
         if (started && client.isReady) {
             queryAll()
             return
@@ -98,17 +124,23 @@ class PlayBillingGateway(
     }
 
     override fun resume() {
-        if (client.isReady) queryAll() else connect()
+        val billing = client ?: return markUnavailable()
+        if (billing.isReady) queryAll() else connect()
     }
 
     override fun retry() {
+        if (client == null) {
+            markUnavailable()
+            return
+        }
         attempt = 0
         _state.update { it.copy(loading = true, failed = false, notice = BillingNotice.NONE) }
         if (client.isReady) queryAll() else connect()
     }
 
     override fun restore() {
-        if (client.isReady) queryAll() else connect()
+        val billing = client ?: return markUnavailable()
+        if (billing.isReady) queryAll() else connect()
     }
 
     override fun purchase(productId: String, homeId: String) {
@@ -128,7 +160,13 @@ class PlayBillingGateway(
             .setObfuscatedProfileId(homeId)
             .build()
         _state.update { it.copy(purchasingId = productId, notice = BillingNotice.NONE) }
-        val result = client.launchBillingFlow(activity, flow)
+        val billing = client ?: return markUnavailable()
+        val result = try {
+            billing.launchBillingFlow(activity, flow)
+        } catch (_: RuntimeException) {
+            markUnavailable()
+            return
+        }
         when (responsePolicy(result.responseCode)) {
             ResponsePolicy.RESTORE -> queryAll()
             ResponsePolicy.RETRY -> scheduleReconnect()
@@ -141,6 +179,10 @@ class PlayBillingGateway(
     }
 
     override fun onPurchasesUpdated(result: BillingResult, purchases: MutableList<Purchase>?) {
+        onMain { handlePurchasesUpdated(result, purchases) }
+    }
+
+    private fun handlePurchasesUpdated(result: BillingResult, purchases: MutableList<Purchase>?) {
         when (responsePolicy(result.responseCode)) {
             ResponsePolicy.SILENT -> _state.update { it.copy(purchasingId = null) }
             ResponsePolicy.RESTORE -> {
@@ -156,33 +198,46 @@ class PlayBillingGateway(
     }
 
     private fun connect() {
-        handler.removeCallbacksAndMessages(null)
-        if (client.isReady) {
-            queryAll()
-            return
-        }
-        client.startConnection(object : BillingClientStateListener {
-            override fun onBillingSetupFinished(result: BillingResult) {
-                if (result.responseCode == BillingCodes.OK) {
-                    attempt = 0
-                    queryAll()
-                } else if (responsePolicy(result.responseCode) == ResponsePolicy.RETRY) {
-                    scheduleReconnect()
-                } else {
-                    _state.update {
-                        it.copy(
-                            loading = false,
-                            failed = it.products.isEmpty(),
-                            notice = BillingNotice.UNAVAILABLE,
-                        )
+        val billing = client ?: return markUnavailable()
+        handler.removeCallbacks(reconnect)
+        try {
+            if (billing.isReady) {
+                connecting = false
+                queryAll()
+                return
+            }
+            // start() and the first onStart both call this. A second
+            // startConnection while the first is in flight is a developer
+            // error and would mark billing unavailable on every cold start.
+            if (connecting) return
+            connecting = true
+            billing.startConnection(object : BillingClientStateListener {
+                override fun onBillingSetupFinished(result: BillingResult) {
+                    onMain {
+                        connecting = false
+                        val code = result.responseCode
+                        if (code == BillingCodes.OK) {
+                            attempt = 0
+                            queryAll()
+                        } else if (responsePolicy(code) == ResponsePolicy.RETRY) {
+                            scheduleReconnect()
+                        } else {
+                            markUnavailable()
+                        }
                     }
                 }
-            }
 
-            override fun onBillingServiceDisconnected() {
-                scheduleReconnect()
-            }
-        })
+                override fun onBillingServiceDisconnected() {
+                    onMain {
+                        connecting = false
+                        scheduleReconnect()
+                    }
+                }
+            })
+        } catch (_: RuntimeException) {
+            connecting = false
+            markUnavailable()
+        }
     }
 
     private fun scheduleReconnect() {
@@ -194,7 +249,7 @@ class PlayBillingGateway(
         }
         val delay = reconnectDelayMs(attempt)
         attempt += 1
-        handler.postDelayed({ connect() }, delay)
+        handler.postDelayed(reconnect, delay)
     }
 
     private fun queryAll() {
@@ -203,37 +258,66 @@ class PlayBillingGateway(
     }
 
     private fun queryCatalog() {
-        val products = Products.subscriptions.map { id ->
+        // Billing Library 8 throws if one query mixes SUBS and INAPP:
+        // "All products should be of the same product type."
+        catalogGeneration += 1
+        val generation = catalogGeneration
+        subsCatalogDone = false
+        inAppCatalogDone = false
+        catalogBuffer.clear()
+        queryProductType(generation, BillingClient.ProductType.SUBS, Products.subscriptions)
+        queryProductType(generation, BillingClient.ProductType.INAPP, listOf(Products.LIFETIME, Products.HOME_REPORT))
+    }
+
+    private fun queryProductType(generation: Int, type: String, ids: List<String>) {
+        val billing = client ?: return markUnavailable()
+        val products = ids.map { id ->
             QueryProductDetailsParams.Product.newBuilder()
                 .setProductId(id)
-                .setProductType(BillingClient.ProductType.SUBS)
-                .build()
-        } + listOf(Products.LIFETIME, Products.HOME_REPORT).map { id ->
-            QueryProductDetailsParams.Product.newBuilder()
-                .setProductId(id)
-                .setProductType(BillingClient.ProductType.INAPP)
+                .setProductType(type)
                 .build()
         }
-        val params = QueryProductDetailsParams.newBuilder().setProductList(products).build()
-        client.queryProductDetailsAsync(params) { result, detailsResult ->
-            val details = detailsResult.productDetailsList.orEmpty()
-            val unfetched = detailsResult.unfetchedProductList.orEmpty()
-            if (catalogFailed(result.responseCode, details.size) || (details.isEmpty() && unfetched.isNotEmpty())) {
-                _state.update { current ->
-                    current.copy(loading = false, failed = current.products.isEmpty(), notice = BillingNotice.RETRY)
+        try {
+            val params = QueryProductDetailsParams.newBuilder().setProductList(products).build()
+            billing.queryProductDetailsAsync(params) { result, detailsResult ->
+                onMain {
+                    if (generation != catalogGeneration) return@onMain
+                    try {
+                        val details = detailsResult?.productDetailsList.orEmpty()
+                        val unfetched = detailsResult?.unfetchedProductList.orEmpty()
+                        val code = result?.responseCode ?: BillingCodes.ERROR
+                        val failed = catalogFailed(code, details.size) || (details.isEmpty() && unfetched.isNotEmpty())
+                        finishCatalogSide(generation, type, if (failed) emptyList() else details)
+                    } catch (_: RuntimeException) {
+                        finishCatalogSide(generation, type, emptyList())
+                    }
                 }
-                return@queryProductDetailsAsync
             }
-            detailsById = details.associateBy { it.productId }
-            val mapped = details.mapNotNull { mapProduct(it) }
-            _state.update {
-                it.copy(
-                    products = mapped,
-                    loading = false,
-                    failed = mapped.isEmpty(),
-                    notice = if (mapped.isEmpty()) BillingNotice.RETRY else BillingNotice.NONE,
-                )
-            }
+        } catch (_: RuntimeException) {
+            onMain { finishCatalogSide(generation, type, emptyList()) }
+        }
+    }
+
+    private fun finishCatalogSide(generation: Int, type: String, details: List<ProductDetails>) {
+        if (generation != catalogGeneration) return
+        if (type == BillingClient.ProductType.SUBS) {
+            if (subsCatalogDone) return
+            subsCatalogDone = true
+        } else {
+            if (inAppCatalogDone) return
+            inAppCatalogDone = true
+        }
+        catalogBuffer += details
+        if (!subsCatalogDone || !inAppCatalogDone) return
+        val mapped = catalogBuffer.mapNotNull { product -> runCatching { mapProduct(product) }.getOrNull() }
+        detailsById = catalogBuffer.associateBy { it.productId }
+        _state.update {
+            it.copy(
+                products = mapped,
+                loading = false,
+                failed = mapped.isEmpty(),
+                notice = if (mapped.isEmpty()) BillingNotice.RETRY else BillingNotice.NONE,
+            )
         }
     }
 
@@ -248,8 +332,18 @@ class PlayBillingGateway(
     }
 
     private fun queryType(type: String) {
+        val billing = client ?: return markUnavailable()
         val params = QueryPurchasesParams.newBuilder().setProductType(type).build()
-        client.queryPurchasesAsync(params) { result, purchases ->
+        try {
+            billing.queryPurchasesAsync(params) { result, purchases ->
+                onMain { handlePurchasesQuery(type, result, purchases) }
+            }
+        } catch (_: RuntimeException) {
+            markUnavailable()
+        }
+    }
+
+    private fun handlePurchasesQuery(type: String, result: BillingResult, purchases: List<Purchase>?) {
             val ok = result.responseCode == BillingCodes.OK
             if (type == BillingClient.ProductType.SUBS) {
                 subsDone = true
@@ -268,7 +362,6 @@ class PlayBillingGateway(
                     _state.update { it.copy(purchasingId = null) }
                 }
             }
-        }
     }
 
     private fun deliver(purchases: List<Purchase>, querySucceeded: Boolean, fromQuery: Boolean) {
@@ -297,8 +390,13 @@ class PlayBillingGateway(
         }
         for (decision in decisions) {
             val token = (decision as? PurchaseDecision.Grant)?.acknowledgeToken ?: continue
+            val billing = client ?: continue
             val params = AcknowledgePurchaseParams.newBuilder().setPurchaseToken(token).build()
-            client.acknowledgePurchase(params) { }
+            try {
+                billing.acknowledgePurchase(params) { }
+            } catch (_: RuntimeException) {
+                // The purchase stays unacknowledged and is retried on the next resume.
+            }
         }
     }
 

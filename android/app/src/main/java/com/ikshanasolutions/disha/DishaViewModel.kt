@@ -367,21 +367,29 @@ class DishaViewModel(app: Application) : AndroidViewModel(app) {
     fun shareCard(context: Context): File? {
         val bundle = content ?: return null
         val presented = presented() ?: return null
-        return writeShareCard(
-            context = context,
-            content = bundle,
-            results = currentHome().results,
-            score = presented.score,
-            locale = _locale.value,
-            preview = presented.kind == ScoreKind.PREVIEW,
-        )
+        return try {
+            writeShareCard(
+                context = context,
+                content = bundle,
+                results = currentHome().results,
+                score = presented.score,
+                locale = _locale.value,
+                preview = presented.kind == ScoreKind.PREVIEW,
+            )
+        } catch (_: Exception) {
+            null
+        }
     }
 
     fun sharePdf(context: Context): File? {
         if (!access().full) return null
         val bundle = content ?: return null
         val presented = presented() ?: return null
-        return writePdf(context, bundle, currentHome().results, presented.score)
+        return try {
+            writePdf(context, bundle, currentHome().results, presented.score)
+        } catch (_: Exception) {
+            null
+        }
     }
 
     private fun replaceResults(results: List<StoredResult>) {
@@ -440,7 +448,7 @@ class DishaViewModel(app: Application) : AndroidViewModel(app) {
                 val catalog = parseCatalog(context.assets.open("checks.json").bufferedReader().use { it.readText() })
                 val strings = parseStringTable(context.assets.open("ui.json").bufferedReader().use { it.readText() })
                 ContentBundle(catalog, strings)
-            } catch (_: Exception) {
+            } catch (_: Throwable) {
                 null
             }
         }
@@ -448,13 +456,17 @@ class DishaViewModel(app: Application) : AndroidViewModel(app) {
 }
 
 fun shareFile(context: Context, file: File, mime: String) {
-    val uri = FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", file)
-    val intent = Intent(Intent.ACTION_SEND).apply {
-        type = mime
-        putExtra(Intent.EXTRA_STREAM, uri)
-        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    try {
+        val uri = FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", file)
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = mime
+            putExtra(Intent.EXTRA_STREAM, uri)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+        context.startActivity(Intent.createChooser(intent, null).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+    } catch (_: Exception) {
+        // No handler for the share sheet, or the file is outside the provider paths.
     }
-    context.startActivity(Intent.createChooser(intent, null).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
 }
 
 fun openLink(context: Context, url: String) {
@@ -467,7 +479,7 @@ fun openAppSettings(context: Context) {
         data = Uri.fromParts("package", context.packageName, null)
         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     }
-    context.startActivity(intent)
+    runCatching { context.startActivity(intent) }
 }
 
 fun openSubscriptionManagement(context: Context) {

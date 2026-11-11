@@ -122,9 +122,10 @@ fun DishaRoot(vm: DishaViewModel) {
                     launcher.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
                 }, onSkip = { vm.skipLocationPrompt() })
             }
-            if (toast != null) {
+            val scoreToast = toast
+            if (scoreToast != null) {
                 Text(
-                    text = if (toast!! > 0) "+$toast" else toast.toString(),
+                    text = if (scoreToast > 0) "+$scoreToast" else scoreToast.toString(),
                     style = displayStyle(28.sp, Gold),
                     modifier = Modifier.align(Alignment.Center).background(Navy, RoundedCornerShape(16.dp)).padding(horizontal = 18.dp, vertical = 8.dp),
                 )
@@ -377,6 +378,9 @@ private fun CompassScreen(vm: DishaViewModel, content: ContentBundle, checkId: S
                         Text(content.t("flat", locale), style = bodyStyle(13.sp, Gold), textAlign = TextAlign.Center)
                     }
                     reading.manual -> {
+                        if (reading.noSensor) {
+                            Text(content.t("noCompassDevice", locale), style = bodyStyle(13.sp, Gold), textAlign = TextAlign.Center)
+                        }
                         Text(content.t("setByHand", locale), style = bodyStyle(13.sp, Muted), textAlign = TextAlign.Center)
                         if (reading.live) {
                             TextButton(onClick = { vm.followLive() }) {

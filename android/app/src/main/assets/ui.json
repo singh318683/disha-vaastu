@@ -807,6 +807,10 @@
     "en": "New Jersey sample",
     "hi": "न्यू जर्सी नमूना"
   },
+  "noCompassDevice": {
+    "en": "The compass is unavailable on this device.",
+    "hi": "इस फ़ोन में कम्पास नहीं है।"
+  },
   "noCompassDrag": {
     "en": "This browser isn’t providing a compass heading. Drag the dial to set one.",
     "hi": "यह ब्राउज़र कम्पास दिशा नहीं दे रहा। डायल घुमाकर दिशा रखें।"

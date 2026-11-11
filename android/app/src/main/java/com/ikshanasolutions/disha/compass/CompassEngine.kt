@@ -22,11 +22,11 @@ class CompassEngine(
     private val onFix: (magneticDegrees: Double, pitch: Double, roll: Double, accuracy: Int) -> Unit,
     private val onMissing: () -> Unit,
 ) : SensorEventListener {
-    private val sensorManager = context.applicationContext.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-    private val rotationVector = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
-    private val geomagnetic = sensorManager.getDefaultSensor(Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR)
-    private val accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-    private val magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
+    private val sensorManager = context.applicationContext.getSystemService(Context.SENSOR_SERVICE) as? SensorManager
+    private val rotationVector = sensor(Sensor.TYPE_ROTATION_VECTOR)
+    private val geomagnetic = sensor(Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR)
+    private val accelerometer = sensor(Sensor.TYPE_ACCELEROMETER)
+    private val magnetometer = sensor(Sensor.TYPE_MAGNETIC_FIELD)
 
     private val rotationMatrix = FloatArray(9)
     private val remapped = FloatArray(9)
@@ -43,19 +43,25 @@ class CompassEngine(
         running = true
         haveGravity = false
         haveMagnetic = false
-        val registered = when {
-            rotationVector != null -> {
-                sensorManager.registerListener(this, rotationVector, SensorManager.SENSOR_DELAY_GAME)
+        val manager = sensorManager
+        val registered = try {
+            when {
+                manager == null -> false
+                rotationVector != null -> {
+                    manager.registerListener(this, rotationVector, SensorManager.SENSOR_DELAY_GAME)
+                }
+                geomagnetic != null -> {
+                    manager.registerListener(this, geomagnetic, SensorManager.SENSOR_DELAY_GAME)
+                }
+                accelerometer != null && magnetometer != null -> {
+                    val accelOk = manager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME)
+                    val magOk = manager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_GAME)
+                    accelOk && magOk
+                }
+                else -> false
             }
-            geomagnetic != null -> {
-                sensorManager.registerListener(this, geomagnetic, SensorManager.SENSOR_DELAY_GAME)
-            }
-            accelerometer != null && magnetometer != null -> {
-                val accelOk = sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME)
-                val magOk = sensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_GAME)
-                accelOk && magOk
-            }
-            else -> false
+        } catch (_: RuntimeException) {
+            false
         }
         if (!registered) {
             running = false
@@ -65,7 +71,7 @@ class CompassEngine(
 
     fun stop() {
         if (!running) return
-        sensorManager.unregisterListener(this)
+        sensorManager?.unregisterListener(this)
         running = false
     }
 
@@ -81,29 +87,42 @@ class CompassEngine(
     }
 
     override fun onSensorChanged(event: SensorEvent) {
-        when (event.sensor.type) {
-            Sensor.TYPE_ROTATION_VECTOR, Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR -> {
-                val values = event.values
-                val vector = if (values.size > 4) values.copyOf(4) else values.copyOf()
-                SensorManager.getRotationMatrixFromVector(rotationMatrix, vector)
+        try {
+            when (event.sensor?.type) {
+                Sensor.TYPE_ROTATION_VECTOR, Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR -> {
+                    val values = event.values ?: return
+                    if (values.size < 3) return
+                    val vector = if (values.size > 4) values.copyOf(4) else values.copyOf()
+                    SensorManager.getRotationMatrixFromVector(rotationMatrix, vector)
+                }
+                Sensor.TYPE_ACCELEROMETER -> {
+                    if (event.values == null || event.values.size < 3) return
+                    System.arraycopy(event.values, 0, gravity, 0, 3)
+                    haveGravity = true
+                    if (!haveMagnetic) return
+                    if (!SensorManager.getRotationMatrix(rotationMatrix, null, gravity, magnetic)) return
+                }
+                Sensor.TYPE_MAGNETIC_FIELD -> {
+                    if (event.values == null || event.values.size < 3) return
+                    System.arraycopy(event.values, 0, magnetic, 0, 3)
+                    haveMagnetic = true
+                    if (!haveGravity) return
+                    if (!SensorManager.getRotationMatrix(rotationMatrix, null, gravity, magnetic)) return
+                }
+                else -> return
             }
-            Sensor.TYPE_ACCELEROMETER -> {
-                if (event.values.size < 3) return
-                System.arraycopy(event.values, 0, gravity, 0, 3)
-                haveGravity = true
-                if (!haveMagnetic) return
-                if (!SensorManager.getRotationMatrix(rotationMatrix, null, gravity, magnetic)) return
-            }
-            Sensor.TYPE_MAGNETIC_FIELD -> {
-                if (event.values.size < 3) return
-                System.arraycopy(event.values, 0, magnetic, 0, 3)
-                haveMagnetic = true
-                if (!haveGravity) return
-                if (!SensorManager.getRotationMatrix(rotationMatrix, null, gravity, magnetic)) return
-            }
-            else -> return
+            publish()
+        } catch (_: RuntimeException) {
+            // A short or non-finite rotation vector throws inside the platform helper.
         }
-        publish()
+    }
+
+    private fun sensor(type: Int): Sensor? {
+        return try {
+            sensorManager?.getDefaultSensor(type)
+        } catch (_: RuntimeException) {
+            null
+        }
     }
 
     private fun publish() {
@@ -112,10 +131,12 @@ class CompassEngine(
         SensorManager.getOrientation(if (ok) remapped else rotationMatrix, orientation)
         val azimuth = orientation[0].toDouble()
         if (!azimuth.isFinite()) return
+        val pitch = orientation[1].toDouble()
+        val roll = orientation[2].toDouble()
         onFix(
             headingDegreesFromAzimuthRadians(azimuth),
-            orientation[1].toDouble(),
-            orientation[2].toDouble(),
+            if (pitch.isFinite()) pitch else 0.0,
+            if (roll.isFinite()) roll else 0.0,
             accuracy,
         )
     }

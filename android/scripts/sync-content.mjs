@@ -111,6 +111,10 @@ const extra = {
   },
   waitingCompass: { en: "Waiting for the compass…", hi: "कम्पास का इंतज़ार…" },
   setByHand: { en: "Set the direction by hand.", hi: "दिशा हाथ से चुनें।" },
+  noCompassDevice: {
+    en: "The compass is unavailable on this device.",
+    hi: "इस फ़ोन में कम्पास नहीं है।",
+  },
   usingMagnetic: { en: "Still magnetic north.", hi: "अभी चुंबकीय उत्तर।" },
   approximateNorth: {
     en: "True north, from the phone's magnetic model.",
