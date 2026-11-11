@@ -1,0 +1,1079 @@
+{
+  "version": 1,
+  "rooms": [
+    {
+      "id": "main_door",
+      "label": {
+        "en": "Main door",
+        "hi": "मुख्य द्वार"
+      },
+      "weight": 1.6,
+      "centerPolicy": "ok",
+      "best": [
+        "N",
+        "NE",
+        "E"
+      ],
+      "favorable": [
+        "NNE",
+        "ENE"
+      ],
+      "neutral": [
+        "NNW",
+        "NW",
+        "ESE",
+        "SE"
+      ],
+      "avoid": [
+        "S",
+        "SSE",
+        "SSW",
+        "SW",
+        "WSW",
+        "W",
+        "WNW"
+      ],
+      "reasoning": {
+        "en": "Classical texts divide each wall into padas and name only some of them as auspicious, which is finer than these 16 zones. At zone level, a north, northeast, or east entrance is the one usually preferred. A south or southwest door is traditionally softened with light and a clear threshold rather than rebuilt.",
+        "hi": "शास्त्र हर दीवार को पदों में बाँटते हैं और उनमें से कुछ को ही शुभ कहते हैं। यह इन 16 क्षेत्रों से बारीक है। क्षेत्र के स्तर पर उत्तर, ईशान या पूर्व का प्रवेश आमतौर पर पसंद किया जाता है। दक्षिण या नैऋत्य के दरवाज़े को फिर से बनाने के बजाय रोशनी और साफ़ चौखट से हल्का किया जाता है।"
+      },
+      "remedies": {
+        "best": [
+          "door-keep"
+        ],
+        "favorable": [
+          "door-keep",
+          "door-clear",
+          "door-light"
+        ],
+        "neutral": [
+          "door-light",
+          "door-clear",
+          "door-color",
+          "door-plant"
+        ],
+        "avoid": [
+          "door-light",
+          "door-clear",
+          "door-color",
+          "door-mirror",
+          "door-plant",
+          "door-threshold"
+        ],
+        "center": [],
+        "nearToilet": []
+      }
+    },
+    {
+      "id": "living",
+      "label": {
+        "en": "Living room",
+        "hi": "बैठक"
+      },
+      "weight": 1,
+      "centerPolicy": "caution",
+      "best": [
+        "N",
+        "E",
+        "NE"
+      ],
+      "favorable": [
+        "NNE",
+        "ENE",
+        "NNW"
+      ],
+      "neutral": [
+        "NW",
+        "W",
+        "ESE"
+      ],
+      "avoid": [
+        "S",
+        "SSE",
+        "SSW",
+        "SW",
+        "WSW",
+        "WNW",
+        "SE"
+      ],
+      "reasoning": {
+        "en": "The living room is traditionally placed toward the north or east, where the home stays lighter and more social. The southwest is kept heavier and quieter for the master bedroom, so a living room there is not the first choice.",
+        "hi": "बैठक पारंपरिक रूप से उत्तर या पूर्व की ओर रखी जाती है, जहाँ घर हल्का और मिलनसार रहता है। नैऋत्य मुख्य शयनकक्ष के लिए भारी और शांत रखा जाता है, इसलिए वहाँ बैठक पहली पसंद नहीं है।"
+      },
+      "remedies": {
+        "best": [
+          "living-keep"
+        ],
+        "favorable": [
+          "living-keep",
+          "living-seat"
+        ],
+        "neutral": [
+          "living-seat",
+          "living-weight",
+          "living-colors",
+          "living-plants"
+        ],
+        "avoid": [
+          "living-seat",
+          "living-weight",
+          "living-colors",
+          "living-mirror",
+          "living-plants"
+        ],
+        "center": [
+          "center-caution"
+        ],
+        "nearToilet": []
+      }
+    },
+    {
+      "id": "kitchen",
+      "label": {
+        "en": "Kitchen",
+        "hi": "रसोई"
+      },
+      "weight": 1.4,
+      "centerPolicy": "severe",
+      "best": [
+        "SE"
+      ],
+      "favorable": [
+        "ESE",
+        "SSE",
+        "NW"
+      ],
+      "neutral": [
+        "E",
+        "W",
+        "WNW",
+        "NNW"
+      ],
+      "avoid": [
+        "N",
+        "NNE",
+        "NE",
+        "ENE",
+        "S",
+        "SSW",
+        "SW",
+        "WSW"
+      ],
+      "reasoning": {
+        "en": "The kitchen belongs to fire. Southeast, the Agni corner, is the traditional first place, and northwest is the usual second choice. The northeast is kept for water and worship, so a kitchen there is avoided, and the southwest is kept heavy and quiet for the master bedroom rather than for a flame.",
+        "hi": "रसोई अग्नि की है। आग्नेय, अग्नि का कोना, पारंपरिक पहला स्थान है, और वायव्य आम दूसरा विकल्प। ईशान जल और पूजा के लिए रखा जाता है, इसलिए वहाँ रसोई टाली जाती है। नैऋत्य आँच के लिए नहीं, मुख्य शयनकक्ष के लिए भारी और शांत रखा जाता है।"
+      },
+      "remedies": {
+        "best": [
+          "kitchen-keep"
+        ],
+        "favorable": [
+          "kitchen-keep",
+          "kitchen-face-east",
+          "kitchen-stove-corner"
+        ],
+        "neutral": [
+          "kitchen-face-east",
+          "kitchen-stove-corner",
+          "kitchen-colors",
+          "kitchen-sink"
+        ],
+        "avoid": [
+          "kitchen-face-east",
+          "kitchen-stove-corner",
+          "kitchen-colors",
+          "kitchen-sink",
+          "kitchen-clutter",
+          "kitchen-mirror"
+        ],
+        "center": [
+          "center-severe",
+          "kitchen-face-east"
+        ],
+        "nearToilet": []
+      }
+    },
+    {
+      "id": "master_bedroom",
+      "label": {
+        "en": "Master bedroom",
+        "hi": "मुख्य शयनकक्ष"
+      },
+      "weight": 1.3,
+      "centerPolicy": "caution",
+      "best": [
+        "SW"
+      ],
+      "favorable": [
+        "S",
+        "SSW",
+        "WSW",
+        "W"
+      ],
+      "neutral": [
+        "WNW",
+        "SSE",
+        "NW"
+      ],
+      "avoid": [
+        "N",
+        "NNE",
+        "NE",
+        "ENE",
+        "E",
+        "ESE",
+        "SE",
+        "NNW"
+      ],
+      "reasoning": {
+        "en": "The master bedroom is traditionally the heaviest, quietest room and so sits in the southwest. Northeast and southeast are avoided for it: one is the worship and water corner, the other the fire corner. Sleep with your head to the south, or to the east if the bed will not fit.",
+        "hi": "मुख्य शयनकक्ष पारंपरिक रूप से सबसे भारी और शांत कमरा है, इसलिए नैऋत्य में बैठता है। ईशान और आग्नेय इससे बचाए जाते हैं: एक पूजा और जल का कोना है, दूसरा अग्नि का। सिर दक्षिण की ओर रखकर सोएँ, या बिस्तर न आए तो पूर्व।"
+      },
+      "remedies": {
+        "best": [
+          "master-keep"
+        ],
+        "favorable": [
+          "master-keep",
+          "master-head-south",
+          "master-furniture"
+        ],
+        "neutral": [
+          "master-head-south",
+          "master-colors",
+          "master-furniture",
+          "master-mirror"
+        ],
+        "avoid": [
+          "master-head-south",
+          "master-colors",
+          "master-furniture",
+          "master-mirror",
+          "master-elements"
+        ],
+        "center": [
+          "center-caution",
+          "master-head-south"
+        ],
+        "nearToilet": []
+      }
+    },
+    {
+      "id": "bedroom",
+      "label": {
+        "en": "Bedroom",
+        "hi": "शयनकक्ष"
+      },
+      "weight": 1,
+      "centerPolicy": "caution",
+      "best": [
+        "S",
+        "W"
+      ],
+      "favorable": [
+        "SW",
+        "SSW",
+        "WSW",
+        "WNW"
+      ],
+      "neutral": [
+        "NW",
+        "SSE",
+        "NNW"
+      ],
+      "avoid": [
+        "N",
+        "NNE",
+        "NE",
+        "ENE",
+        "E",
+        "ESE",
+        "SE"
+      ],
+      "reasoning": {
+        "en": "A secondary bedroom is traditionally comfortable in the south or west. The northeast is left for the pooja and the lighter rooms, and the southeast is left for the kitchen. Head toward the south or the east while sleeping.",
+        "hi": "दूसरा शयनकक्ष पारंपरिक रूप से दक्षिण या पश्चिम में सहज है। ईशान पूजा और हल्के कमरों के लिए छोड़ दिया जाता है, और आग्नेय रसोई के लिए। सोते समय सिर दक्षिण या पूर्व की ओर रखें।"
+      },
+      "remedies": {
+        "best": [
+          "bed-keep"
+        ],
+        "favorable": [
+          "bed-keep",
+          "master-head-south",
+          "master-furniture"
+        ],
+        "neutral": [
+          "bed-shift",
+          "bed-colors",
+          "bed-mirror",
+          "bed-storage"
+        ],
+        "avoid": [
+          "bed-shift",
+          "bed-colors",
+          "bed-mirror",
+          "bed-storage",
+          "master-elements"
+        ],
+        "center": [
+          "center-caution",
+          "bed-shift"
+        ],
+        "nearToilet": []
+      }
+    },
+    {
+      "id": "children_bedroom",
+      "label": {
+        "en": "Children's room",
+        "hi": "बच्चों का कमरा"
+      },
+      "weight": 1,
+      "centerPolicy": "caution",
+      "best": [
+        "NW",
+        "W"
+      ],
+      "favorable": [
+        "WNW",
+        "NNW",
+        "N"
+      ],
+      "neutral": [
+        "NE",
+        "NNE",
+        "WSW"
+      ],
+      "avoid": [
+        "SW",
+        "SSW",
+        "S",
+        "SSE",
+        "SE",
+        "ESE",
+        "E",
+        "ENE"
+      ],
+      "reasoning": {
+        "en": "Children's rooms are traditionally placed in the west or northwest, which are lighter than the southwest. The southwest is kept for the adults of the house. East and southeast are less usual for a child's bed.",
+        "hi": "बच्चों के कमरे पारंपरिक रूप से पश्चिम या वायव्य में रखे जाते हैं, जो नैऋत्य से हल्के हैं। नैऋत्य घर के बड़ों के लिए रखा जाता है। बच्चे के बिस्तर के लिए पूर्व और आग्नेय कम आम हैं।"
+      },
+      "remedies": {
+        "best": [
+          "child-keep"
+        ],
+        "favorable": [
+          "child-keep",
+          "child-head"
+        ],
+        "neutral": [
+          "child-head",
+          "child-colors",
+          "child-furniture"
+        ],
+        "avoid": [
+          "child-head",
+          "child-colors",
+          "child-furniture",
+          "child-mirror"
+        ],
+        "center": [
+          "center-caution"
+        ],
+        "nearToilet": []
+      }
+    },
+    {
+      "id": "guest_bedroom",
+      "label": {
+        "en": "Guest room",
+        "hi": "मेहमान कमरा"
+      },
+      "weight": 0.8,
+      "centerPolicy": "caution",
+      "best": [
+        "NW"
+      ],
+      "favorable": [
+        "W",
+        "WNW",
+        "NNW",
+        "N"
+      ],
+      "neutral": [
+        "NE",
+        "NNE",
+        "WSW"
+      ],
+      "avoid": [
+        "SW",
+        "SSW",
+        "S",
+        "SSE",
+        "SE",
+        "ESE",
+        "E",
+        "ENE"
+      ],
+      "reasoning": {
+        "en": "A guest room is traditionally placed in the northwest, so visitors are comfortable without occupying the southwest, which is reserved for the people who live there.",
+        "hi": "मेहमान कमरा पारंपरिक रूप से वायव्य में रखा जाता है, ताकि मेहमान सहज रहें और नैऋत्य न घेरें। नैऋत्य यहाँ रहने वालों के लिए है।"
+      },
+      "remedies": {
+        "best": [
+          "guest-keep"
+        ],
+        "favorable": [
+          "guest-keep",
+          "child-head",
+          "child-colors"
+        ],
+        "neutral": [
+          "child-head",
+          "child-colors",
+          "child-furniture"
+        ],
+        "avoid": [
+          "child-head",
+          "child-colors",
+          "child-furniture",
+          "child-mirror"
+        ],
+        "center": [
+          "center-caution"
+        ],
+        "nearToilet": []
+      }
+    },
+    {
+      "id": "pooja",
+      "label": {
+        "en": "Pooja room",
+        "hi": "पूजा घर"
+      },
+      "weight": 1.2,
+      "centerPolicy": "caution",
+      "best": [
+        "NE"
+      ],
+      "favorable": [
+        "N",
+        "NNE",
+        "E",
+        "ENE"
+      ],
+      "neutral": [
+        "NNW",
+        "ESE",
+        "NW"
+      ],
+      "avoid": [
+        "S",
+        "SSE",
+        "SSW",
+        "SW",
+        "WSW",
+        "W",
+        "WNW",
+        "SE"
+      ],
+      "reasoning": {
+        "en": "The pooja room is traditionally in the northeast, the quiet water corner. North and east are the next choices. South and southwest are avoided, and so is any shrine that opens toward a toilet or shares its wall.",
+        "hi": "पूजा घर पारंपरिक रूप से ईशान में है, शांत जल-कोना। उत्तर और पूर्व अगले विकल्प हैं। दक्षिण और नैऋत्य टाले जाते हैं, और ऐसा मंदिर भी जो शौचालय की ओर खुले या उसकी दीवार साझा करे।"
+      },
+      "remedies": {
+        "best": [
+          "pooja-keep"
+        ],
+        "favorable": [
+          "pooja-keep",
+          "pooja-face",
+          "pooja-colors"
+        ],
+        "neutral": [
+          "pooja-corner",
+          "pooja-face",
+          "pooja-colors",
+          "pooja-lamp"
+        ],
+        "avoid": [
+          "pooja-corner",
+          "pooja-face",
+          "pooja-colors",
+          "pooja-mirror",
+          "pooja-lamp"
+        ],
+        "center": [
+          "center-caution",
+          "pooja-corner"
+        ],
+        "nearToilet": [
+          "pooja-toilet",
+          "pooja-mirror"
+        ]
+      }
+    },
+    {
+      "id": "study",
+      "label": {
+        "en": "Study",
+        "hi": "पढ़ाई"
+      },
+      "weight": 1,
+      "centerPolicy": "ok",
+      "best": [
+        "NE",
+        "E",
+        "N"
+      ],
+      "favorable": [
+        "NNE",
+        "ENE",
+        "NW"
+      ],
+      "neutral": [
+        "NNW",
+        "W",
+        "ESE",
+        "WNW"
+      ],
+      "avoid": [
+        "SE",
+        "SSE",
+        "S",
+        "SSW",
+        "SW",
+        "WSW"
+      ],
+      "reasoning": {
+        "en": "A study is traditionally placed in the north, northeast, or east, and the person at the desk faces east or north. The southwest is considered too heavy for long hours of reading, and the southeast belongs to the kitchen fire.",
+        "hi": "पढ़ाई का कमरा पारंपरिक रूप से उत्तर, ईशान या पूर्व में रखा जाता है, और मेज़ पर व्यक्ति पूर्व या उत्तर की ओर मुँह करता है। नैऋत्य देर तक पढ़ने के लिए बहुत भारी माना जाता है, और आग्नेय रसोई की आग का है।"
+      },
+      "remedies": {
+        "best": [
+          "study-keep"
+        ],
+        "favorable": [
+          "study-keep",
+          "study-face",
+          "study-seat"
+        ],
+        "neutral": [
+          "study-face",
+          "study-seat",
+          "study-colors",
+          "study-shelf"
+        ],
+        "avoid": [
+          "study-face",
+          "study-seat",
+          "study-colors",
+          "study-mirror",
+          "study-shelf"
+        ],
+        "center": [],
+        "nearToilet": []
+      }
+    },
+    {
+      "id": "dining",
+      "label": {
+        "en": "Dining",
+        "hi": "भोजन"
+      },
+      "weight": 0.8,
+      "centerPolicy": "caution",
+      "best": [
+        "W"
+      ],
+      "favorable": [
+        "N",
+        "E",
+        "ENE",
+        "WNW",
+        "NW"
+      ],
+      "neutral": [
+        "NNE",
+        "NE",
+        "ESE",
+        "SE",
+        "S",
+        "WSW",
+        "NNW"
+      ],
+      "avoid": [
+        "SSE",
+        "SSW",
+        "SW"
+      ],
+      "reasoning": {
+        "en": "Dining is traditionally comfortable in the west, so the people at the table can face east. North and east are also used. The southwest is kept for the master bedroom rather than for the table.",
+        "hi": "भोजन पारंपरिक रूप से पश्चिम में सहज है, ताकि मेज़ पर लोग पूर्व की ओर मुँह कर सकें। उत्तर और पूर्व भी इस्तेमाल होते हैं। नैऋत्य मेज़ के लिए नहीं, मुख्य शयनकक्ष के लिए रखा जाता है।"
+      },
+      "remedies": {
+        "best": [
+          "dining-keep"
+        ],
+        "favorable": [
+          "dining-keep",
+          "dining-face"
+        ],
+        "neutral": [
+          "dining-face",
+          "dining-colors",
+          "dining-sideboard"
+        ],
+        "avoid": [
+          "dining-face",
+          "dining-colors",
+          "dining-mirror",
+          "dining-sideboard"
+        ],
+        "center": [
+          "center-caution"
+        ],
+        "nearToilet": []
+      }
+    },
+    {
+      "id": "toilet",
+      "label": {
+        "en": "Toilet",
+        "hi": "शौचालय"
+      },
+      "weight": 1.3,
+      "centerPolicy": "severe",
+      "best": [
+        "WNW",
+        "SSW"
+      ],
+      "favorable": [
+        "W",
+        "NW"
+      ],
+      "neutral": [
+        "WSW",
+        "S",
+        "NNW",
+        "SSE"
+      ],
+      "avoid": [
+        "N",
+        "NNE",
+        "NE",
+        "ENE",
+        "E",
+        "ESE",
+        "SE",
+        "SW"
+      ],
+      "reasoning": {
+        "en": "West-northwest and south-southwest are the toilet zones most often named. The northeast, the center, and the kitchen's southeast are avoided. Where a toilet cannot move, the traditional response is ventilation, a closed door, and a few small remedies rather than demolition.",
+        "hi": "शौचालय के लिए सबसे ज़्यादा पश्चिम-वायव्य और दक्षिण-नैऋत्य कहे जाते हैं। ईशान, बीच, और रसोई का आग्नेय टाले जाते हैं। जहाँ शौचालय न हिल सके, पारंपरिक जवाब तोड़ना नहीं, हवा, बंद दरवाज़ा, और कुछ छोटे उपाय हैं।"
+      },
+      "remedies": {
+        "best": [
+          "toilet-keep"
+        ],
+        "favorable": [
+          "toilet-keep",
+          "toilet-closed",
+          "toilet-vent"
+        ],
+        "neutral": [
+          "toilet-vent",
+          "toilet-closed",
+          "toilet-colors",
+          "toilet-mirror"
+        ],
+        "avoid": [
+          "toilet-vent",
+          "toilet-closed",
+          "toilet-colors",
+          "toilet-mirror",
+          "toilet-salt"
+        ],
+        "center": [
+          "center-severe",
+          "toilet-closed",
+          "toilet-salt"
+        ],
+        "nearToilet": []
+      }
+    },
+    {
+      "id": "bathroom",
+      "label": {
+        "en": "Bathroom",
+        "hi": "स्नानघर"
+      },
+      "weight": 1.1,
+      "centerPolicy": "severe",
+      "best": [
+        "WNW",
+        "SSW"
+      ],
+      "favorable": [
+        "W",
+        "NW"
+      ],
+      "neutral": [
+        "WSW",
+        "S",
+        "NNW",
+        "SSE"
+      ],
+      "avoid": [
+        "N",
+        "NNE",
+        "NE",
+        "ENE",
+        "E",
+        "ESE",
+        "SE",
+        "SW"
+      ],
+      "reasoning": {
+        "en": "An attached bath follows the same traditional zones as a toilet: west-northwest or south-southwest first, and never the northeast or the center if you can avoid it. Keep it ventilated and the door to the shrine out of its line of sight.",
+        "hi": "संलग्न स्नान शौचालय जैसे ही पारंपरिक क्षेत्र मानता है: पहले पश्चिम-वायव्य या दक्षिण-नैऋत्य, और हो सके तो कभी ईशान या बीच नहीं। इसे हवादार रखें, और पूजा के दरवाज़े को इसकी सीध से बाहर।"
+      },
+      "remedies": {
+        "best": [
+          "toilet-keep"
+        ],
+        "favorable": [
+          "toilet-keep",
+          "toilet-closed",
+          "toilet-vent"
+        ],
+        "neutral": [
+          "toilet-vent",
+          "toilet-closed",
+          "toilet-colors",
+          "toilet-mirror"
+        ],
+        "avoid": [
+          "toilet-vent",
+          "toilet-closed",
+          "toilet-colors",
+          "toilet-mirror",
+          "toilet-salt"
+        ],
+        "center": [
+          "center-severe",
+          "toilet-closed",
+          "toilet-salt"
+        ],
+        "nearToilet": []
+      }
+    },
+    {
+      "id": "staircase",
+      "label": {
+        "en": "Staircase",
+        "hi": "सीढ़ी"
+      },
+      "weight": 0.9,
+      "centerPolicy": "severe",
+      "best": [
+        "S",
+        "SW"
+      ],
+      "favorable": [
+        "W",
+        "SSW",
+        "WSW"
+      ],
+      "neutral": [
+        "SSE",
+        "WNW",
+        "NW"
+      ],
+      "avoid": [
+        "N",
+        "NNE",
+        "NE",
+        "ENE",
+        "E",
+        "ESE",
+        "SE",
+        "NNW"
+      ],
+      "reasoning": {
+        "en": "Stairs are traditionally placed in the south, southwest, or west, climbing toward those heavier sides. A stair in the northeast or in the exact center is avoided. The space under a stair is for storage, not for the shrine.",
+        "hi": "सीढ़ियाँ पारंपरिक रूप से दक्षिण, नैऋत्य या पश्चिम में रखी जाती हैं, उन्हीं भारी तरफ़ चढ़ती हुई। ईशान या ठीक बीच की सीढ़ी टाली जाती है। सीढ़ी के नीचे का स्थान सामान के लिए है, पूजा के लिए नहीं।"
+      },
+      "remedies": {
+        "best": [
+          "stair-keep"
+        ],
+        "favorable": [
+          "stair-keep",
+          "stair-under"
+        ],
+        "neutral": [
+          "stair-turn",
+          "stair-under"
+        ],
+        "avoid": [
+          "stair-turn",
+          "stair-under",
+          "center-caution"
+        ],
+        "center": [
+          "center-severe",
+          "stair-under"
+        ],
+        "nearToilet": []
+      }
+    },
+    {
+      "id": "store",
+      "label": {
+        "en": "Store room",
+        "hi": "स्टोर"
+      },
+      "weight": 0.6,
+      "centerPolicy": "caution",
+      "best": [
+        "SW",
+        "NW"
+      ],
+      "favorable": [
+        "S",
+        "W",
+        "SSW",
+        "WNW"
+      ],
+      "neutral": [
+        "SSE",
+        "WSW",
+        "NNW",
+        "SE"
+      ],
+      "avoid": [
+        "N",
+        "NNE",
+        "NE",
+        "ENE",
+        "E",
+        "ESE"
+      ],
+      "reasoning": {
+        "en": "Heavy storage is traditionally kept in the south, southwest, or northwest. The northeast should stay light, so a junk room there is avoided. Inside the room, the heaviest shelves still belong on the south or west side.",
+        "hi": "भारी सामान पारंपरिक रूप से दक्षिण, नैऋत्य या वायव्य में रखा जाता है। ईशान हल्का रहना चाहिए, इसलिए वहाँ कबाड़ का कमरा टाला जाता है। कमरे के अंदर सबसे भारी अलमारियाँ फिर भी दक्षिण या पश्चिम की तरफ़ होती हैं।"
+      },
+      "remedies": {
+        "best": [
+          "store-keep"
+        ],
+        "favorable": [
+          "store-keep",
+          "store-weight"
+        ],
+        "neutral": [
+          "store-weight",
+          "store-colors"
+        ],
+        "avoid": [
+          "store-weight",
+          "store-colors",
+          "store-clear-ne"
+        ],
+        "center": [
+          "center-caution",
+          "store-weight"
+        ],
+        "nearToilet": []
+      }
+    },
+    {
+      "id": "balcony",
+      "label": {
+        "en": "Balcony",
+        "hi": "बालकनी"
+      },
+      "weight": 0.5,
+      "centerPolicy": "ok",
+      "best": [
+        "N",
+        "E",
+        "NE"
+      ],
+      "favorable": [
+        "NNE",
+        "ENE",
+        "NW"
+      ],
+      "neutral": [
+        "NNW",
+        "W",
+        "ESE"
+      ],
+      "avoid": [
+        "S",
+        "SSE",
+        "SSW",
+        "SW",
+        "WSW",
+        "WNW",
+        "SE"
+      ],
+      "reasoning": {
+        "en": "Open balconies are traditionally welcome in the north, east, and northeast, where the home is meant to stay light. A large open balcony in the southwest is less usual; that corner is kept more enclosed and heavy.",
+        "hi": "खुली बालकनियाँ पारंपरिक रूप से उत्तर, पूर्व और ईशान में अच्छी मानी जाती हैं, जहाँ घर हल्का रहना है। नैऋत्य में बड़ी खुली बालकनी कम आम है; वह कोना ज़्यादा बंद और भारी रखा जाता है।"
+      },
+      "remedies": {
+        "best": [
+          "balcony-keep"
+        ],
+        "favorable": [
+          "balcony-keep",
+          "balcony-plants"
+        ],
+        "neutral": [
+          "balcony-plants",
+          "balcony-color"
+        ],
+        "avoid": [
+          "balcony-screen",
+          "balcony-plants",
+          "balcony-color"
+        ],
+        "center": [],
+        "nearToilet": []
+      }
+    }
+  ],
+  "orientations": [
+    {
+      "id": "desk_facing",
+      "label": {
+        "en": "Desk facing",
+        "hi": "मेज़ की दिशा"
+      },
+      "weight": 1,
+      "centerPolicy": "ok",
+      "prompt": {
+        "en": "Sit as you do at the desk, and point the top of the phone the way you are facing.",
+        "hi": "जैसे मेज़ पर बैठते हैं, वैसे बैठें, और फ़ोन का ऊपरी सिरा उसी तरफ़ करें जिधर आपका मुँह है।"
+      },
+      "best": [
+        "E",
+        "ENE",
+        "ESE"
+      ],
+      "favorable": [
+        "N",
+        "NNE",
+        "NE"
+      ],
+      "neutral": [
+        "NNW",
+        "NW",
+        "W",
+        "WNW"
+      ],
+      "avoid": [
+        "SE",
+        "SSE",
+        "S",
+        "SSW",
+        "SW",
+        "WSW"
+      ],
+      "reasoning": {
+        "en": "Facing east while working is the traditional first choice, and facing north is the usual second. Facing south is the direction most often avoided for a desk. The room can stay; the chair can turn.",
+        "hi": "काम करते समय पूर्व की ओर मुँह पारंपरिक पहली पसंद है, और उत्तर आम दूसरा। दक्षिण मेज़ के लिए सबसे ज़्यादा टाली जाने वाली दिशा है। कमरा रह सकता है; कुर्सी घूम सकती है।"
+      },
+      "remedies": {
+        "best": [
+          "desk-keep"
+        ],
+        "favorable": [
+          "desk-keep",
+          "desk-wall"
+        ],
+        "neutral": [
+          "desk-turn",
+          "desk-wall",
+          "desk-colors"
+        ],
+        "avoid": [
+          "desk-turn",
+          "desk-wall",
+          "desk-colors",
+          "desk-mirror"
+        ],
+        "center": [],
+        "nearToilet": []
+      }
+    },
+    {
+      "id": "bed_head",
+      "label": {
+        "en": "Bed head",
+        "hi": "सिरहाना"
+      },
+      "weight": 1,
+      "centerPolicy": "ok",
+      "prompt": {
+        "en": "Stand at the foot of the bed and point the top of the phone toward the pillows.",
+        "hi": "बिस्तर के पायते पर खड़े हों और फ़ोन का ऊपरी सिरा तकिए की ओर करें।"
+      },
+      "best": [
+        "S",
+        "SSE",
+        "SSW"
+      ],
+      "favorable": [
+        "E",
+        "ENE",
+        "ESE"
+      ],
+      "neutral": [
+        "W",
+        "SW",
+        "SE",
+        "WSW",
+        "WNW"
+      ],
+      "avoid": [
+        "N",
+        "NNE",
+        "NNW",
+        "NE",
+        "NW"
+      ],
+      "reasoning": {
+        "en": "Sleeping with the head to the south is the most cited traditional preference, and east is the usual second choice. Head to the north is avoided. This is a direction for the bed, not a verdict on the whole room.",
+        "hi": "सिर दक्षिण की ओर रखकर सोना सबसे कही गई पारंपरिक पसंद है, और पूर्व आम दूसरा विकल्प। सिर उत्तर की ओर टाला जाता है। यह बिस्तर की दिशा है, पूरे कमरे का फ़ैसला नहीं।"
+      },
+      "remedies": {
+        "best": [
+          "bed-keep"
+        ],
+        "favorable": [
+          "bed-keep",
+          "bed-mirror"
+        ],
+        "neutral": [
+          "bed-shift",
+          "bed-colors",
+          "bed-mirror",
+          "bed-storage"
+        ],
+        "avoid": [
+          "bed-shift",
+          "bed-colors",
+          "bed-mirror",
+          "bed-storage"
+        ],
+        "center": [],
+        "nearToilet": []
+      }
+    }
+  ]
+}
